@@ -22,9 +22,15 @@ namespace football_series_manager.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public static bool IsValid(string value)
+        public bool IsValid(string value)
         {
             return Regex.IsMatch(value, @"^[A-ZÅÄÖ][a-zåäö]{2,20}$");
+        }
+
+        public static bool TryParse(string firstNameValue, string lastNameValue, out Name result)
+        {
+            result = new Name(firstNameValue, lastNameValue);
+            return result != null ? true : false;
         }
     }
 }

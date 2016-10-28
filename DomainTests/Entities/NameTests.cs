@@ -14,14 +14,14 @@ namespace football_series_manager.Domain.Entities.Tests
         [TestMethod]
         public void NameIsEqualToEntry()
         {
-            var name = new Name("Donald", "Trump");
-            Assert.IsTrue(name.FirstName == "Donald" && name.LastName == "Trump");
+            var name = new Name("John", "Doe");
+            Assert.IsTrue(name.FirstName == "John" && name.LastName == "Doe");
         }
 
         [TestMethod()]
         public void NameIsNotNull()
         {
-            var name = new Name("Hillary", "Clinton");
+            var name = new Name("John", "Doe");
             Assert.IsNotNull(name);
         }
 
@@ -36,7 +36,7 @@ namespace football_series_manager.Domain.Entities.Tests
         [ExpectedException(typeof(FormatException))]
         public void NameThatContainsNumbersThrowsFormatException()
         {
-            var name = new Name(".%&#/", ")(##¤%");
+            var name = new Name("Jay554", "Adams443456");
         }
 
         [TestMethod()]
@@ -54,16 +54,18 @@ namespace football_series_manager.Domain.Entities.Tests
         }
 
         [TestMethod()]
-        public void FirstNameIsValid()
+        public void ValidNameTryParseReturnsTrue()
         {
-            Name.IsValid("Donald");
+            Name result;
+            Assert.IsTrue(Name.TryParse("John", "Doe", out result));
         }
 
-        [TestMethod()]
-        public void LastNameIsValid()
+        [TestMethod]
+        public void ValidNameTryParseReturnResult()
         {
-            Name.IsValid("Trump");
+            Name result;
+            Name.TryParse("John", "Doe", out result);
+            Assert.IsTrue(result.FirstName == "John" && result.LastName == "Doe");
         }
-
     }
 }

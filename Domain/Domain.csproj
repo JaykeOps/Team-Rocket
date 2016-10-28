@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Name.cs" />
+    <Compile Include="Value Objects\Name.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,7 +49,6 @@
     <Folder Include="Helper Classes\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
-    <Folder Include="Value Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
