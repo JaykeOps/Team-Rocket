@@ -10,7 +10,7 @@ namespace Domain.Value_Objects.Tests
         {
             var phone = new PhoneNumber("0734-668899");
             var email = new EmailAddress("johnDoe@outlook.com");
-            var contactInformation = new PersonContactInformation(phone, email);
+            var contactInformation = new ContactInformation(phone, email);
 
             Assert.IsTrue(contactInformation.Phone.Value == "0734-668899"
                 && contactInformation.Email.Value == "johnDoe@outlook.com");

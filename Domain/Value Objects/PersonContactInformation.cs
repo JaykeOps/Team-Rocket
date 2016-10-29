@@ -1,8 +1,8 @@
 ﻿namespace Domain.Value_Objects
 {
-    public class PersonContactInformation
+    public class ContactInformation
     {
-        public PersonContactInformation(PhoneNumber phone, EmailAddress email)
+        public ContactInformation(PhoneNumber phone, EmailAddress email)
         {
             this.Phone = phone;
             this.Email = email;
