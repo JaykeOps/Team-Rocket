@@ -52,5 +52,9 @@ namespace Domain.Value_Objects
 
         }
 
+        public override string ToString()
+        {
+            return this.Value.TotalMinutes.ToString();
+        }
     }
 }

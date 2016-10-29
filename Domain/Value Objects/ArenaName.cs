@@ -45,5 +45,7 @@ namespace Domain.Value_Objects
         {
             return Regex.IsMatch(arenaName, "^[a-zA-Z0-9åäöÅÄÖ]+$", RegexOptions.IgnoreCase) && arenaName.Length < 40;
         }
+
+        
     }
 }
