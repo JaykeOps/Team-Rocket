@@ -7,7 +7,7 @@ using Domain.Value_Objects;
 
 namespace Domain.Interfaces
 {
-    interface IGameDuration
+    public interface IGameDuration
     {
         MatchDuration MatchDuration { get; set; }
     }

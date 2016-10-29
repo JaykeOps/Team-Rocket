@@ -15,7 +15,7 @@ namespace Domain.Value_Objects
 
         public ArenaName(string arenaName)
         {
-            if (IsArenaName(arenaName))
+            if (IsValidArenaName(arenaName))
             {
                 this.Value = arenaName;
             }
@@ -41,9 +41,9 @@ namespace Domain.Value_Objects
             }
         }
 
-        private static bool IsArenaName(string arenaName)
+        private static bool IsValidArenaName(string arenaName)
         {
-            return Regex.IsMatch(arenaName, "^[a-zA-Z0-9åäöÅÄÖ]+$", RegexOptions.IgnoreCase) && arenaName.Length < 40;
+            return Regex.IsMatch(arenaName, "^[a-zA-Z0-9åäöÅÄÖ]+{2-40}$", RegexOptions.IgnoreCase);
         }
 
         
