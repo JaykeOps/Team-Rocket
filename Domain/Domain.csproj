@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Value Objects\ShirtNumber.cs" />
+    <Compile Include="Enums\PlayerPosition.cs" />
+    <Compile Include="Enums\PlayerStatus.cs" />
     <Compile Include="Helper Classes\ValidationFormat.cs" />
     <Compile Include="Value Objects\PersonContactInformation.cs" />
     <Compile Include="Value Objects\DateOfBirth.cs" />
@@ -49,6 +53,7 @@
     <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Value Objects\PhoneNumber.cs" />
+    <Compile Include="CustomExceptions\ShirtNumberAlreadyInUseException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />

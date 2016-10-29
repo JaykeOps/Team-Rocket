@@ -57,6 +57,7 @@
     <Compile Include="Value Objects\DateOfBirthTests.cs" />
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
+    <Compile Include="Value Objects\ShirtNumberTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

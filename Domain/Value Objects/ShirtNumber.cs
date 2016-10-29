@@ -15,7 +15,7 @@ namespace DomainTests.Entities
                 }
                 else
                 {
-                    throw new Exception("The number you entered could not be assigned. " +
+                    throw new ShirtNumberAlreadyInUseException("The number you entered could not be assigned. " +
                         $"The team has already assigned '{number}' to a player.");
                 }
             }
@@ -30,7 +30,7 @@ namespace DomainTests.Entities
         public int Value { get; }
         private bool IsAvailable(int number)
         {
-            return this.TeamShirtNumbersTempSimulation(number);
+            return !this.TeamShirtNumbersTempSimulation(number);
         }
 
         public bool TeamShirtNumbersTempSimulation(int number)
@@ -42,6 +42,8 @@ namespace DomainTests.Entities
 
             return teamShirtNumbersSimulaton.Contains(number);
         }
+
+        //TODO: tryParse()
         
     }
 }
