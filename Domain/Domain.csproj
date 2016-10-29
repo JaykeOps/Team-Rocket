@@ -41,14 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Match.cs" />
+    <Compile Include="Interfaces\IGameDuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Value Objects\ArenaName.cs" />
+    <Compile Include="Value Objects\MatchDuration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper Classes\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
-    <Folder Include="Value Objects\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Nothing.txt" />
