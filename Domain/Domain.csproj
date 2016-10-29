@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Value Objects\DateOfBirth.cs" />
     <Compile Include="Value Objects\Name.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Interfaces\IValidation.cs" />

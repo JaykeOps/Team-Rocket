@@ -11,6 +11,11 @@ namespace Domain.Value_Objects
             {
                 this.Value = Convert.ToDateTime(dateOfbirth);
             }
+            else
+            {
+                throw new FormatException($"Date of birth declaration '{dateOfbirth}'" +
+                    "failed to follow format restriciton 'yyyy-MM-dd'!");
+            }
         }
 
         public DateTime Value { get; }
@@ -32,17 +37,17 @@ namespace Domain.Value_Objects
 
         private bool IsFuture(DateTime dateTime)
         {
-            return dateTime > DateTime.Now ? true : false;
+            return dateTime.Year > DateTime.Now.Year - 3 ? true : false;
         }
 
         private bool IsMoreThanAHundredYearsOld(DateTime dateTime)
         {
-            return dateTime.Year < DateTime.Now.Year - 100 ? true : false;
+            return dateTime.Year < 1936 ? true : false;
         }
 
         public override string ToString()
         {
-            return $"{this.Value: yyyy-MM-dd}";
+            return $"{this.Value:yyyy-MM-dd}";
         }
     }
 }
