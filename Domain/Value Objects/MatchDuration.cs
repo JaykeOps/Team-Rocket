@@ -26,7 +26,7 @@ namespace Domain.Value_Objects
            
         public static bool IsMatchDuration(TimeSpan matchDuration)
         {
-            return matchDuration.Minutes >= 90 && matchDuration.Minutes <= 10;
+            return matchDuration.TotalMinutes <= 90 && matchDuration.TotalMinutes >= 10;
         }
 
         public static bool TryParse(string value, out MatchDuration result)
