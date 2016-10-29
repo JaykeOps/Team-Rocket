@@ -11,9 +11,9 @@ namespace Domain.Value_Objects
     public class MatchDateAndTime
     {
         public DateTime Value { get; set; }
-        public const string Format = "yyyy - MM - dd - hh : mm";
+        public const string Format = "yyyy-MM-dd-HH:mm";
 
-        private MatchDateAndTime(DateTime dateTime)
+        public MatchDateAndTime(DateTime dateTime)
         {
             if (IsValidMatchDateAndTime(dateTime))
             {
