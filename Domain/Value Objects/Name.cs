@@ -1,6 +1,5 @@
 ﻿using Domain.Helper_Classes;
 using System;
-using System.Text.RegularExpressions;
 
 namespace football_series_manager.Domain.Entities
 {

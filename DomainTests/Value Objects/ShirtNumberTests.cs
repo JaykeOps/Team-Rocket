@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DomainTests.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DomainTests.Entities.Tests
 {
@@ -31,6 +26,7 @@ namespace DomainTests.Entities.Tests
         {
             var shirtNumber = new ShirtNumber(100);
         }
+
         [TestMethod()]
         [ExpectedException(typeof(ShirtNumberAlreadyInUseException))]
         public void ShirtNumberUnAvailibeUseThrowsShirtNumberAlreadyInUseException()
@@ -38,5 +34,34 @@ namespace DomainTests.Entities.Tests
             var shirtNumber = new ShirtNumber(8);
         }
 
+        [TestMethod()]
+        public void ShirtNumberTryParseCanOutValidResult()
+        {
+            ShirtNumber result;
+            ShirtNumber.TryParse(17, out result);
+            Assert.IsTrue(result.Value == 17);
+        }
+
+        [TestMethod()]
+        public void ShirtNumberTryParseCanOutNullResult()
+        {
+            ShirtNumber result;
+            ShirtNumber.TryParse(9, out result);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void ShirtNumberTryParseCanReturnTrue()
+        {
+            ShirtNumber result;
+            Assert.IsTrue(ShirtNumber.TryParse(17, out result));
+        }
+
+        [TestMethod()]
+        public void ShirtNumberTryParseCanReturnFalse()
+        {
+            ShirtNumber result;
+            Assert.IsFalse(ShirtNumber.TryParse(2, out result));
+        }
     }
 }

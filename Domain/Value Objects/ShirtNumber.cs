@@ -24,10 +24,10 @@ namespace DomainTests.Entities
                 throw new IndexOutOfRangeException($"Your entry '{number}' is not a valid football shirt number. " +
                     "A football shirt number can't be less than 0 or greater than 100.");
             }
-
         }
 
         public int Value { get; }
+
         private bool IsAvailable(int number)
         {
             return !this.TeamShirtNumbersTempSimulation(number);
@@ -43,7 +43,18 @@ namespace DomainTests.Entities
             return teamShirtNumbersSimulaton.Contains(number);
         }
 
-        //TODO: tryParse()
-        
+        public static bool TryParse(int value, out ShirtNumber result)
+        {
+            try
+            {
+                result = new ShirtNumber(value);
+                return true;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
     }
 }
