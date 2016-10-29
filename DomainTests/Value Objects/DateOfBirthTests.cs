@@ -7,7 +7,7 @@ namespace Domain.Value_Objects.Tests
     public class DateOfBirthTests
     {
         [TestMethod()]
-        public void DateOfBirthInRangeIsEqualToInput()
+        public void DateOfBirthInRangeIsEqualToEntry()
         {
             var dateOfBirth = new DateOfBirth("1989-12-14");
             Assert.IsTrue($"{dateOfBirth.Value:yyyy-MM-dd}" == "1989-12-14");

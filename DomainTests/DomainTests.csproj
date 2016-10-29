@@ -50,9 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Entities\NameTests.cs" />
+    <Compile Include="Value Objects\NameTests.cs" />
+    <Compile Include="Entities\PersonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Value Objects\DateOfBirthTests.cs" />
+    <Compile Include="Value Objects\PhoneNumberTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

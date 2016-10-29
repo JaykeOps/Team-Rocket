@@ -10,8 +10,8 @@ namespace football_series_manager.Domain.Entities
             this.Name = name;
         }
 
-        public Guid Id { get; }
-        public Name Name { get; }
+        protected Guid Id { get; }
+        protected Name Name { get; }
 
         public override string ToString()
         {

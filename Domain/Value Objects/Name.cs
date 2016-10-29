@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Helper_Classes;
+using System;
 using System.Text.RegularExpressions;
 
 namespace football_series_manager.Domain.Entities
@@ -7,7 +8,7 @@ namespace football_series_manager.Domain.Entities
     {
         public Name(string firstName, string lastName)
         {
-            if (IsValid(firstName) && IsValid(lastName))
+            if (firstName.IsValidName(true) && lastName.IsValidName(true))
             {
                 this.FirstName = firstName;
                 this.LastName = lastName;
@@ -21,11 +22,6 @@ namespace football_series_manager.Domain.Entities
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        public bool IsValid(string value)
-        {
-            return Regex.IsMatch(value, @"^[A-ZÅÄÖ][a-zåäö]{2,20}$");
-        }
 
         public static bool TryParse(string firstNameValue, string lastNameValue, out Name result)
         {
