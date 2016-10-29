@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Domain.Helper_Classes
 {
@@ -23,7 +18,6 @@ namespace Domain.Helper_Classes
             {
                 return Regex.IsMatch(value, NAME_REGEX);
             }
-            
         }
 
         public static bool IsValidCellPhoneNumber(this string value, bool ignoreCase)
@@ -50,8 +44,5 @@ namespace Domain.Helper_Classes
                 return Regex.IsMatch(value, EMAIL_REGEX);
             }
         }
-
-
     }
 }
-
