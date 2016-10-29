@@ -20,8 +20,8 @@ namespace football_series_manager.Domain.Entities
             }
         }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; }
+        public string LastName { get; }
 
         public static bool TryParse(string firstNameValue, string lastNameValue, out Name result)
         {
@@ -35,6 +35,11 @@ namespace football_series_manager.Domain.Entities
                 result = null;
                 return false;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
         }
     }
 }

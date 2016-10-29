@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper Classes\ValidationFormat.cs" />
-    <Compile Include="Value Objects\Contact.cs" />
+    <Compile Include="Value Objects\PersonContactInformation.cs" />
     <Compile Include="Value Objects\DateOfBirth.cs" />
     <Compile Include="Value Objects\EmailAddress.cs" />
     <Compile Include="Value Objects\Name.cs" />

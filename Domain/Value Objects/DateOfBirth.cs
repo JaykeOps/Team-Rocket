@@ -13,6 +13,7 @@ namespace Domain.Value_Objects
             }
             else
             {
+                this.Value = DateTime.MinValue;
                 throw new FormatException($"Date of birth declaration '{dateOfbirth}'" +
                     "failed to follow format restriciton 'yyyy-MM-dd'!");
             }
