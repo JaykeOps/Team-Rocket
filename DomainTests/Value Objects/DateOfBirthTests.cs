@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Value_Objects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -32,6 +27,34 @@ namespace Domain.Value_Objects.Tests
             var dateOfBirth = new DateOfBirth("1933-06-25");
         }
 
-        
+        [TestMethod()]
+        public void TryParseCanOutValidResult()
+        {
+            DateOfBirth result;
+            DateOfBirth.TryParse("2012-03-29", out result);
+            Assert.IsTrue($"{result:yyyy-MM-dd}" == "2012-03-29");
+        }
+
+        [TestMethod()]
+        public void TryParseCanOutNullValue()
+        {
+            DateOfBirth result;
+            DateOfBirth.TryParse("1920-02-09", out result);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void TryParseCanReturnTrue()
+        {
+            DateOfBirth result;
+            Assert.IsTrue(DateOfBirth.TryParse("1995-05-01", out result));
+        }
+
+        [TestMethod()]
+        public void TryParseCanReturnFalse()
+        {
+            DateOfBirth result;
+            Assert.IsFalse(DateOfBirth.TryParse("1776-07-04", out result));
+        }
     }
 }

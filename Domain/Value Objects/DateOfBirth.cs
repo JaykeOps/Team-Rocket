@@ -35,6 +35,20 @@ namespace Domain.Value_Objects
             }
         }
 
+        public static bool TryParse(string value, out DateOfBirth result)
+        {
+            try
+            {
+                result = new DateOfBirth(value);
+                return true;
+            }
+            catch (FormatException)
+            {
+                result = null;
+                return false;
+            }
+        }
+
         private bool IsFuture(DateTime dateTime)
         {
             return dateTime.Year > DateTime.Now.Year - 3 ? true : false;

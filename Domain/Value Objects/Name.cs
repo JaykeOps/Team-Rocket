@@ -29,8 +29,16 @@ namespace football_series_manager.Domain.Entities
 
         public static bool TryParse(string firstNameValue, string lastNameValue, out Name result)
         {
-            result = new Name(firstNameValue, lastNameValue);
-            return result != null ? true : false;
+            try
+            {
+                result = new Name(firstNameValue, lastNameValue);
+                return true;
+            }
+            catch (FormatException)
+            {
+                result = null;
+                return false;
+            }
         }
     }
 }

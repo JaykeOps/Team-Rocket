@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using football_series_manager.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace football_series_manager.Domain.Entities.Tests
 {
@@ -53,19 +48,34 @@ namespace football_series_manager.Domain.Entities.Tests
             var name = new Name("Helloeveryoneletsseeifthisispassed", "Wonderifthistestwillbepassedornot");
         }
 
+        [TestMethod]
+        public void TryParseCanOutValidResult()
+        {
+            Name result;
+            Name.TryParse("John", "Doe", out result);
+            Assert.IsTrue(result.FirstName == "John" && result.LastName == "Doe");
+        }
+
         [TestMethod()]
-        public void ValidNameTryParseReturnsTrue()
+        public void TryParseCanOutNullValue()
+        {
+            Name result;
+            Name.TryParse("J%hn", "D03", out result);
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void TryParseCanReturnTrue()
         {
             Name result;
             Assert.IsTrue(Name.TryParse("John", "Doe", out result));
         }
 
-        [TestMethod]
-        public void ValidNameTryParseReturnResult()
+        [TestMethod()]
+        public void TryParseCanReturnFalse()
         {
             Name result;
-            Name.TryParse("John", "Doe", out result);
-            Assert.IsTrue(result.FirstName == "John" && result.LastName == "Doe");
+            Assert.IsFalse(Name.TryParse("J0hn", "#oe", out result));
         }
     }
 }
