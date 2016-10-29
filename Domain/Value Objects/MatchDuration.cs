@@ -11,23 +11,46 @@ namespace Domain.Value_Objects
     {
         public TimeSpan Value { get; set; }
 
+
         public MatchDuration(TimeSpan matchDuration)
         {
-            this.Value = matchDuration;  
+            if (IsMatchDuration(matchDuration))
+            {
+                this.Value = matchDuration;
+            }
+            else
+            {
+                throw new FormatException("Invalid match duration format. Value must be 10-90 min");
+            }
         }
-
-        public MatchDuration(string matchDuration)
-        {
-            
-        }
-
+           
         public static bool IsMatchDuration(TimeSpan matchDuration)
         {
-            if (matchDuration.Minutes>90&&matchDuration.Minutes<15)
+            return matchDuration.Minutes >= 90 && matchDuration.Minutes <= 10;
+        }
+
+        public static bool TryParse(string value, out MatchDuration result)
+        {
+            try
             {
+                result = new MatchDuration(StringMinutesToTimeSpanConverter(value));
                 return true;
             }
-            return false;
+            catch (FormatException)
+            {
+                result = null;
+                return false;
+            }
+
         }
+
+        private static TimeSpan StringMinutesToTimeSpanConverter(string minutes)
+        {
+            var timespan = int.Parse(minutes);
+            var matchDuration = new TimeSpan(timespan * 6000000000 / 10);
+            return matchDuration;
+
+        }
+
     }
 }

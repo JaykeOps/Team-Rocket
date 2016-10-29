@@ -21,7 +21,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Not a valid Arenaname");
+                throw new ArgumentException("Not a valid Arena name");
             }
 
         }

@@ -13,5 +13,7 @@ namespace Domain.Entities
         public Guid Id { get; set; }
         public ArenaName Location { get; set; }
         public MatchDuration MatchDuration { get; set; }
+
+
     }
 }
