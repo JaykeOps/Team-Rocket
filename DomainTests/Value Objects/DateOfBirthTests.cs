@@ -28,7 +28,7 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod()]
-        public void TryParseCanOutValidResult()
+        public void DateOfBirthTryParseCanOutValidResult()
         {
             DateOfBirth result;
             DateOfBirth.TryParse("2012-03-29", out result);
@@ -36,7 +36,7 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod()]
-        public void TryParseCanOutNullValue()
+        public void DateOfBirthTryParseCanOutNullValue()
         {
             DateOfBirth result;
             DateOfBirth.TryParse("1920-02-09", out result);
@@ -44,14 +44,14 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod()]
-        public void TryParseCanReturnTrue()
+        public void DateOfBirthTryParseCanReturnTrue()
         {
             DateOfBirth result;
             Assert.IsTrue(DateOfBirth.TryParse("1995-05-01", out result));
         }
 
         [TestMethod()]
-        public void TryParseCanReturnFalse()
+        public void DateOfBirthTryParseCanReturnFalse()
         {
             DateOfBirth result;
             Assert.IsFalse(DateOfBirth.TryParse("1776-07-04", out result));

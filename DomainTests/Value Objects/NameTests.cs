@@ -49,7 +49,7 @@ namespace football_series_manager.Domain.Entities.Tests
         }
 
         [TestMethod]
-        public void TryParseCanOutValidResult()
+        public void NameTryParseCanOutValidResult()
         {
             Name result;
             Name.TryParse("John", "Doe", out result);
@@ -57,7 +57,7 @@ namespace football_series_manager.Domain.Entities.Tests
         }
 
         [TestMethod()]
-        public void TryParseCanOutNullValue()
+        public void NameTryParseCanOutNullValue()
         {
             Name result;
             Name.TryParse("J%hn", "D03", out result);
@@ -65,14 +65,14 @@ namespace football_series_manager.Domain.Entities.Tests
         }
 
         [TestMethod()]
-        public void TryParseCanReturnTrue()
+        public void NameTryParseCanReturnTrue()
         {
             Name result;
             Assert.IsTrue(Name.TryParse("John", "Doe", out result));
         }
 
         [TestMethod()]
-        public void TryParseCanReturnFalse()
+        public void NameTryParseCanReturnFalse()
         {
             Name result;
             Assert.IsFalse(Name.TryParse("J0hn", "#oe", out result));

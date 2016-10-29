@@ -42,7 +42,8 @@ namespace Domain.Helper_Classes
         {
             if (ignoreCase)
             {
-                return Regex.IsMatch(value, EMAIL_REGEX, RegexOptions.IgnoreCase);
+                return Regex.IsMatch(value, EMAIL_REGEX, RegexOptions.IgnoreCase)
+                    && value.Length < 30;
             }
             else
             {
