@@ -21,7 +21,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                 throw new ArgumentException("Not a valid Arenaname");
+                throw new ArgumentException("Not a valid Arenaname");
             }
 
         }
@@ -43,7 +43,7 @@ namespace Domain.Value_Objects
 
         private static bool IsArenaName(string arenaName)
         {
-            return Regex.IsMatch(arenaName, "[a-zA-ZåäöÅÄÖ0-9]",RegexOptions.IgnoreCase);
+            return Regex.IsMatch(arenaName, "^[a-zA-Z0-9åäöÅÄÖ]+$", RegexOptions.IgnoreCase) && arenaName.Length < 40;
         }
     }
 }
