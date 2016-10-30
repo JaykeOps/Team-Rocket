@@ -35,7 +35,7 @@ namespace Domain.Value_Objects
 
         private static bool IsValidArenaName(string arenaName)
         {
-            return Regex.IsMatch(arenaName, "^[a-zA-Z0-9åäöÅÄÖ]+{2-40}$", RegexOptions.IgnoreCase);
+            return Regex.IsMatch(arenaName, "^[a-z A-Z0-9åäöÅÄÖ]{1,40}$", RegexOptions.IgnoreCase);
         }
 
         public override string ToString()
