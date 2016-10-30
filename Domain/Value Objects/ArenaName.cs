@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
     public class ArenaName
     {
-        public string Value { get; set; }
+        public string Value { get; }
 
         public ArenaName(string arenaName)
         {
@@ -21,9 +15,8 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Not a valid Arena name");
+                throw new ArgumentException("Not a valid arenaname");
             }
-
         }
 
         public static bool TryParse(string arenaName, out ArenaName result)
@@ -37,7 +30,6 @@ namespace Domain.Value_Objects
             {
                 result = null;
                 return false;
-
             }
         }
 
@@ -46,6 +38,9 @@ namespace Domain.Value_Objects
             return Regex.IsMatch(arenaName, "^[a-zA-Z0-9åäöÅÄÖ]+{2-40}$", RegexOptions.IgnoreCase);
         }
 
-        
+        public override string ToString()
+        {
+            return $"{this.Value}";
+        }
     }
 }

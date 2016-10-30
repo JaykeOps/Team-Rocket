@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
 {
     public class MatchDuration
     {
-        public TimeSpan Value { get; set; }
+        public TimeSpan Value { get;}
 
 
         public MatchDuration(TimeSpan matchDuration)
@@ -54,7 +54,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return this.Value.TotalMinutes.ToString();
+            return $"{this.Value.TotalMinutes}";
         }
     }
 }
