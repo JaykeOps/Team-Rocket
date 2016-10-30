@@ -23,7 +23,7 @@ namespace Domain.Entities
 
         public override string ToString()
         {
-            return $"{this.Name.Value}"; ;
+            return $"{this.Name.Value}";
         }
     }
 }

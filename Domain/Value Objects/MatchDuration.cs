@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
 {
     public class MatchDuration
     {
-        public TimeSpan Value { get;}
+        public TimeSpan Value { get; }
 
 
         public MatchDuration(TimeSpan matchDuration)
@@ -20,10 +20,10 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new FormatException("Invalid match duration format. Value must be 10-90 min");
+                throw new ArgumentException("Invalid match duration format. Value must be 10-90 min");
             }
         }
-           
+
         public static bool IsMatchDuration(TimeSpan matchDuration)
         {
             return matchDuration.TotalMinutes <= 90 && matchDuration.TotalMinutes >= 10;
@@ -36,7 +36,7 @@ namespace Domain.Value_Objects
                 result = new MatchDuration(StringMinutesToTimeSpanConverter(value));
                 return true;
             }
-            catch (FormatException)
+            catch (ArgumentException)
             {
                 result = null;
                 return false;
@@ -47,9 +47,7 @@ namespace Domain.Value_Objects
         private static TimeSpan StringMinutesToTimeSpanConverter(string minutes)
         {
             var timespan = int.Parse(minutes);
-            var matchDuration = new TimeSpan(timespan * 6000000000 / 10);
-            return matchDuration;
-
+            return new TimeSpan(timespan * 6000000000 / 10);
         }
 
         public override string ToString()
