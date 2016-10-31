@@ -5,8 +5,9 @@ namespace Domain.Value_Objects
 {
     public class MatchDateAndTime
     {
+        public const string format = "yyyy-MM-dd HH:mm";
         public DateTime Value { get; }
-        public const string Format = "yyyy-MM-dd HH:mm";
+        
 
         public MatchDateAndTime(DateTime dateTime)
         {
@@ -24,7 +25,7 @@ namespace Domain.Value_Objects
         {
             result = null;
             DateTime dateTime;
-            if (DateTime.TryParseExact(inputDateTime, Format, CultureInfo.InvariantCulture,
+            if (DateTime.TryParseExact(inputDateTime, format, CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
                 out dateTime))
             {
