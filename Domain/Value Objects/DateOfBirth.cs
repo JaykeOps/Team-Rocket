@@ -27,8 +27,7 @@ namespace Domain.Value_Objects
             if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out result))
             {
-                return !this.IsFuture(result) && !this.IsMoreThanAHundredYearsOld(result) ?
-                    true : false;
+                return !this.IsFuture(result) && !this.IsMoreThanAHundredYearsOld(result);
             }
             else
             {
