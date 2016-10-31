@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class TeamName
+    public class TeamName : ValueObject
     {
         public string Value { get; }
 
@@ -32,10 +32,23 @@ namespace Domain.Value_Objects
                 return false;
             }
         }
+        public override bool Equals(object obj)
+        {
+            var item = obj as TeamName;
+            return item.Value == this.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.Value).GetHashCode();
+        }
+       
 
         public override string ToString()
         {
             return $"{this.Value}";
         }
+
+
     }
 }
