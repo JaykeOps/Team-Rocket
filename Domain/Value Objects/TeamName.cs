@@ -1,5 +1,5 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
 
         public TeamName(string teamName)
         {
-            if (IsValidTeamName(teamName))
+            if (teamName.IsValidTeamName(true))
             {
                 this.Value = teamName;
             }
@@ -33,14 +33,9 @@ namespace Domain.Value_Objects
             }
         }
 
-        private static bool IsValidTeamName(string teamName)
-        {
-            return Regex.IsMatch(teamName, "^[a-z A-Z0-9åäöÅÄÖ]{1,40}$", RegexOptions.IgnoreCase);
-        }
-
         public override string ToString()
         {
-            return $"{this.Value}"; 
+            return $"{this.Value}";
         }
     }
 }

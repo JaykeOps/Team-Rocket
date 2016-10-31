@@ -6,10 +6,10 @@ namespace Domain.Entities
 {
     public class Team
     {
-        public Guid Id { get;}
-        public TeamName Name { get;}
-        public HashSet<Guid> PlayerIds { get;}
-        public ArenaName Arena { get;}
+        public Guid Id { get; }
+        public TeamName Name { get; }
+        public HashSet<Guid> PlayerIds { get; }
+        public ArenaName Arena { get; }
 
         public Team(TeamName name, ArenaName arenaName)
         {
@@ -17,8 +17,6 @@ namespace Domain.Entities
             this.Name = name;
             this.PlayerIds = new HashSet<Guid>();
             this.Arena = arenaName;
-
-
         }
 
         public override string ToString()

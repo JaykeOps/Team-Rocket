@@ -6,7 +6,9 @@ namespace Domain.Helper_Classes
     {
         public const string NAME_REGEX = @"^[A-ZÅÄÖ][a-zåäö]{2,20}$";
         public const string EMAIL_REGEX = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-        public const string Cell_Phone_Number = @"\b\d{3,6}-\b\d{6,9}$";
+        public const string CELL_PHONE_NUMBER = @"\b\d{3,6}-\b\d{6,9}$";
+        public const string TEAMNAME_REGEX = "^[a-z A-Z0-9åäöÅÄÖ]{1,40}$";
+        public const string ARENANAME_REGEX = "^[a-z A-Z0-9åäöÅÄÖ]{1,40}$";
 
         public static bool IsValidName(this string value, bool ignoreCase)
         {
@@ -24,11 +26,11 @@ namespace Domain.Helper_Classes
         {
             if (ignoreCase)
             {
-                return Regex.IsMatch(value, Cell_Phone_Number, RegexOptions.IgnoreCase);
+                return Regex.IsMatch(value, CELL_PHONE_NUMBER, RegexOptions.IgnoreCase);
             }
             else
             {
-                return Regex.IsMatch(value, Cell_Phone_Number);
+                return Regex.IsMatch(value, CELL_PHONE_NUMBER);
             }
         }
 
@@ -42,6 +44,30 @@ namespace Domain.Helper_Classes
             else
             {
                 return Regex.IsMatch(value, EMAIL_REGEX);
+            }
+        }
+
+        public static bool IsValidTeamName(this string value, bool ignoreCase)
+        {
+            if (ignoreCase)
+            {
+                return Regex.IsMatch(value, TEAMNAME_REGEX, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                return Regex.IsMatch(value, TEAMNAME_REGEX);
+            }
+        }
+
+        public static bool IsValidArenaName(this string value, bool ignoreCase)
+        {
+            if (ignoreCase)
+            {
+                return Regex.IsMatch(value, ARENANAME_REGEX, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                return Regex.IsMatch(value, ARENANAME_REGEX);
             }
         }
     }

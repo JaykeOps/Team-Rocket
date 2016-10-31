@@ -4,6 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IGameDuration
     {
-        MatchDuration MatchDuration { get;}
+        MatchDuration MatchDuration { get; }
     }
 }

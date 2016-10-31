@@ -19,7 +19,6 @@ namespace Domain.Entities
             //this.MatchDuration=series.getMatchduration;
             this.HomeTeam = homeTeam;
             this.AwayTeam = awayTeam;
-
         }
 
         public override string ToString()

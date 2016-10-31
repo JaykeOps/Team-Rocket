@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
     public class MatchDuration
     {
         public TimeSpan Value { get; }
-
 
         public MatchDuration(TimeSpan matchDuration)
         {
@@ -41,7 +35,6 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
-
         }
 
         private static TimeSpan StringMinutesToTimeSpanConverter(string minutes)
