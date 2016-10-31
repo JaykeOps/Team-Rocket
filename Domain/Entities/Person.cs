@@ -5,6 +5,10 @@ namespace football_series_manager.Domain.Entities
 {
     public abstract class Person
     {
+        public Guid Id { get; }
+        public Name Name { get; }
+        public DateOfBirth DateOfBirth { get; }
+        public ContactInformation ContactInformation { get; }
         public Person(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation)
         {
             this.Id = Guid.NewGuid();
@@ -12,11 +16,6 @@ namespace football_series_manager.Domain.Entities
             this.DateOfBirth = dateOfBirth;
             this.ContactInformation = contactInformation;
         }
-
-        public Guid Id { get; }
-        public Name Name { get; }
-        public DateOfBirth DateOfBirth { get; }
-        public ContactInformation ContactInformation { get; }
 
         public override string ToString()
         {

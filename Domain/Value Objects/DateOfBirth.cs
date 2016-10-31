@@ -5,6 +5,8 @@ namespace Domain.Value_Objects
 {
     public class DateOfBirth
     {
+        public DateTime Value { get; }
+
         public DateOfBirth(string dateOfbirth)
         {
             if (this.IsValid(dateOfbirth))
@@ -18,8 +20,6 @@ namespace Domain.Value_Objects
                     "failed to follow format restriciton 'yyyy-MM-dd'!");
             }
         }
-
-        public DateTime Value { get; }
 
         public bool IsValid(string value)
         {

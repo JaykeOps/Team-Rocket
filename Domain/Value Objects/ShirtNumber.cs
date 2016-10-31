@@ -5,6 +5,8 @@ namespace DomainTests.Entities
 {
     public class ShirtNumber
     {
+        public int Value { get; }
+
         public ShirtNumber(int number)
         {
             if (number >= 0 && number < 100)
@@ -25,8 +27,6 @@ namespace DomainTests.Entities
                     "A football shirt number can't be less than 0 or greater than 100.");
             }
         }
-
-        public int Value { get; }
 
         private bool IsAvailable(int number)
         {

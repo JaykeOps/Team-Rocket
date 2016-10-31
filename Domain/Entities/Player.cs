@@ -5,6 +5,11 @@ namespace DomainTests.Entities
 {
     public class Player : Person
     {
+        public PlayerPosition Position { get; }
+        public PlayerStatus Status { get; }
+        public ShirtNumber ShirtNumber { get; }
+        //TODO: PlayerStats
+
         public Player(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation,
             PlayerPosition position, PlayerStatus status, ShirtNumber shirtNumber)
             : base(name, dateOfBirth, contactInformation)
@@ -13,11 +18,5 @@ namespace DomainTests.Entities
             this.Status = status;
             this.ShirtNumber = shirtNumber;
         }
-
-        public PlayerPosition Position { get; }
-        public PlayerStatus Status { get; }
-        public ShirtNumber ShirtNumber { get; }
-
-        //TODO: PlayerStats
     }
 }

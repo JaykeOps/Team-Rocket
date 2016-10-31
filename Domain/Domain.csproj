@@ -60,6 +60,7 @@
     <Compile Include="Value Objects\TeamName.cs" />
     <Compile Include="Value Objects\PhoneNumber.cs" />
     <Compile Include="CustomExceptions\ShirtNumberAlreadyInUseException.cs" />
+    <Compile Include="Value Objects\ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />

@@ -5,6 +5,7 @@ namespace Domain.Value_Objects
 {
     public class EmailAddress
     {
+        public string Value { get; }
         public EmailAddress(string emailAddress)
         {
             if (emailAddress.IsValidEmailAddress(true))
@@ -18,8 +19,6 @@ namespace Domain.Value_Objects
                     "Make sure your entry does not exceed 30 characters, a domain address and an '@'.");
             }
         }
-
-        public string Value { get; }
 
         public static bool TryParse(string value, out EmailAddress result)
         {

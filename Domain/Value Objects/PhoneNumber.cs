@@ -5,6 +5,7 @@ namespace Domain.Value_Objects
 {
     public class PhoneNumber
     {
+        public string Value { get; }
         public PhoneNumber(string phoneNumber)
         {
             if (phoneNumber.IsValidCellPhoneNumber(false))
@@ -19,8 +20,6 @@ namespace Domain.Value_Objects
                     "followed by 6-9 numbers.");
             }
         }
-
-        public string Value { get; }
 
         public static bool TryParse(string value, out PhoneNumber result)
         {

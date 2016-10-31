@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using football_series_manager.Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace football_series_manager.Domain.Entities.Tests
@@ -76,6 +77,14 @@ namespace football_series_manager.Domain.Entities.Tests
         {
             Name result;
             Assert.IsFalse(Name.TryParse("J0hn", "#oe", out result));
+        }
+
+        [TestMethod()]
+        public void NameIsComparedByValue()
+        {
+            var nameOne = new Name("Marco", "Polo");
+            var nameTwo = new Name("Marco", "Polo");
+            Assert.AreEqual(nameOne, nameTwo);
         }
     }
 }
