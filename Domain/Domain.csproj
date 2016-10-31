@@ -40,22 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Match.cs" />
-    <Compile Include="Entities\Team.cs" />
-    <Compile Include="Interfaces\IGameDuration.cs" />
+    <Compile Include="Match.cs" />
+    <Compile Include="Team.cs" />
+    <Compile Include="IGameDuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Value Objects\ArenaName.cs" />
-    <Compile Include="Value Objects\MatchDateAndTime.cs" />
-    <Compile Include="Value Objects\MatchDuration.cs" />
-    <Compile Include="Value Objects\TeamName.cs" />
+    <Compile Include="ArenaName.cs" />
+    <Compile Include="MatchDateAndTime.cs" />
+    <Compile Include="MatchDuration.cs" />
+    <Compile Include="TeamName.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper Classes\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Nothing.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
