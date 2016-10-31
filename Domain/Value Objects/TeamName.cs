@@ -1,5 +1,6 @@
 ﻿using Domain.Helper_Classes;
 using System;
+using football_series_manager.Domain.Entities;
 
 namespace Domain.Value_Objects
 {
@@ -42,7 +43,16 @@ namespace Domain.Value_Objects
         {
             return (this.Value).GetHashCode();
         }
-       
+        public static bool operator !=(TeamName TeamNameOne, TeamName TeamNameTwo)
+        {
+            return TeamNameOne.Value != TeamNameTwo.Value;
+        }
+
+        public static bool operator ==(TeamName TeamNameOne, TeamName TeamNameTwo)
+        {
+            return TeamNameOne.Value == TeamNameTwo.Value;
+
+        }
 
         public override string ToString()
         {
