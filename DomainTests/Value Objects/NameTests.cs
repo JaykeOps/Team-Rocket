@@ -1,5 +1,4 @@
-﻿using football_series_manager.Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
@@ -98,7 +97,6 @@ namespace football_series_manager.Domain.Entities.Tests
             nameHashSet.Add(nameOne);
             nameHashSet.Add(nameTwo);
             Assert.IsTrue(nameHashSet.Count == 1);
-
         }
     }
 }
