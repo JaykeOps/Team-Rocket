@@ -7,9 +7,9 @@ namespace Domain.Entities
     public class Team
     {
         public Guid Id { get; }
-        public TeamName Name { get; }
-        public HashSet<Guid> PlayerIds { get; }
-        public ArenaName Arena { get; }
+        public TeamName Name { get; set; }
+        public HashSet<Guid> PlayerIds { get; set; }
+        public ArenaName Arena { get; set; }
 
         public Team(TeamName name, ArenaName arenaName)
         {
