@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
-    class OverTime
+    public class OverTime
     {
         public int Value { get; }
 

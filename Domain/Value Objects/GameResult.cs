@@ -57,16 +57,11 @@ namespace Domain.Value_Objects
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() != typeof(GameResult))
-            {
-                return false;
-            }
-            else
-            {
-                GameResult gameResultObject = (GameResult)obj;
-                return (this.HomeTeam_Name.Equals(gameResultObject.HomeTeam_Name) && this.AwayTeam_Name.Equals(gameResultObject.AwayTeam_Name) 
-                     && this.HomeTeam_Score == gameResultObject.HomeTeam_Score && this.AwayTeam_Score == gameResultObject.AwayTeam_Score) ? true : false; // Necessary to override TeamName.Equals()!
-            }
+            var gameResult = obj as GameResult;
+            return gameResult.HomeTeam_Name.Value == this.HomeTeam_Name.Value
+                && gameResult.AwayTeam_Name.Value == this.AwayTeam_Name.Value
+                && gameResult.HomeTeam_Score == this.HomeTeam_Score
+                && gameResult.AwayTeam_Score == this.AwayTeam_Score;
         }
 
         public override int GetHashCode()
@@ -74,14 +69,6 @@ namespace Domain.Value_Objects
             throw new NotImplementedException();
         }
 
-        public static bool operator !=(GameResult gameResultOne, GameResult gameResultTwo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(GameResult gameResultOne, GameResult gameResultTwo)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -51,10 +51,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\PlayerTests.cs" />
+    <Compile Include="Value Objects\AssistTests.cs" />
     <Compile Include="Value Objects\EmailAddressTests.cs" />
+    <Compile Include="Value Objects\GameResultTests.cs" />
     <Compile Include="Value Objects\NameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Value Objects\DateOfBirthTests.cs" />
+    <Compile Include="Value Objects\OverTimeTests.cs" />
+    <Compile Include="Value Objects\PenaltyTests.cs" />
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
     <Compile Include="Value Objects\ShirtNumberTests.cs" />
