@@ -1,9 +1,10 @@
-﻿using Domain.Interfaces;
+﻿using System;
+using Domain.Interfaces;
 using DomainTests.Entities;
 
 namespace Domain.Value_Objects
 {
-    class Penalty : IGameEvent
+    class Penalty : ValueObject, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who shot the penalty.
@@ -12,6 +13,33 @@ namespace Domain.Value_Objects
         { 
             this.MatchMinute = matchMinute;
             this.Player = player;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(Penalty)) {
+                return false;
+            }
+            else
+            {
+                Penalty penaltyObject = (Penalty)obj;
+                return (this.MatchMinute.Equals(penaltyObject.MatchMinute) && this.Player.Id == penaltyObject.Player.Id) ? true : false; // Necessary to override MatchMinute.Equals()!
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool operator !=(Penalty penaltyOne, Penalty penaltyTwo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool operator ==(Penalty penaltyOne, Penalty penaltyTwo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

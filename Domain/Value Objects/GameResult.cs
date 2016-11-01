@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
-    class GameResult
+    class GameResult : ValueObject
     {
         public TeamName HomeTeam_Name { get; } // Maybe a field instead?
         public TeamName AwayTeam_Name { get; } // Maybe a field instead?
@@ -25,5 +25,34 @@ namespace Domain.Value_Objects
         {
             return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"  
         }                                                                                                          // Format style can be discussed...
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(GameResult))
+            {
+                return false;
+            }
+            else
+            {
+                GameResult gameResultObject = (GameResult)obj;
+                return (this.HomeTeam_Name.Equals(gameResultObject.HomeTeam_Name) && this.AwayTeam_Name.Equals(gameResultObject.AwayTeam_Name) 
+                     && this.HomeTeam_Score == gameResultObject.HomeTeam_Score && this.AwayTeam_Score == gameResultObject.AwayTeam_Score) ? true : false; // Necessary to override TeamName.Equals()!
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool operator !=(GameResult gameResultOne, GameResult gameResultTwo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool operator ==(GameResult gameResultOne, GameResult gameResultTwo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
