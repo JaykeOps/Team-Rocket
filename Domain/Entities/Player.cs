@@ -6,7 +6,6 @@ namespace DomainTests.Entities
 {
     public class Player : Person
     {
-        Guid teamId;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
         public ShirtNumber ShirtNumber { get; set; }
@@ -20,7 +19,7 @@ namespace DomainTests.Entities
             this.Position = position;
             this.Status = status;
             this.ShirtNumber = shirtNumber;
-            this.teamId = Guid.Empty;
+            this.TeamId = Guid.Empty;
         }
     }
 }

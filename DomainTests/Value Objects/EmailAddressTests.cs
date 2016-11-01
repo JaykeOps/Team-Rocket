@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -69,6 +70,27 @@ namespace Domain.Value_Objects.Tests
         {
             EmailAddress result;
             Assert.IsFalse(EmailAddress.TryParse("johnDoe_84@outlookcom", out result));
+        }
+
+        [TestMethod()]
+        public void EmailIsComparableByValue()
+        {
+            var emailOne = new EmailAddress("donaldTrump@hillary.com");
+            var emailTwo = new EmailAddress("donaldTrump@hillary.com");
+            Assert.AreEqual(emailOne, emailTwo);
+            Assert.IsTrue(emailOne == emailTwo);
+        }
+
+        [TestMethod()]
+        public void EmailWorksWithHashSet()
+        {
+            var emailOne = new EmailAddress("donaldTrump@hillary.com");
+            var emailTwo = new EmailAddress("donaldTrump@hillary.com");
+            var emailHashTable = new HashSet<EmailAddress>();
+            emailHashTable.Add(emailOne);
+            emailHashTable.Add(emailTwo);
+            Assert.IsTrue(emailHashTable.Count == 1);
+
         }
     }
 }

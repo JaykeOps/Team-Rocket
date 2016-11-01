@@ -56,5 +56,12 @@ namespace DomainTests.Entities
                 return false;
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            var shirtNumber = obj as ShirtNumber;
+            return shirtNumber.Value == this.Value;
+        }
+
     }
 }

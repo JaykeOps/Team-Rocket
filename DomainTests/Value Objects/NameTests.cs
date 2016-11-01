@@ -1,6 +1,7 @@
 ﻿using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace football_series_manager.Domain.Entities.Tests
 {
@@ -80,11 +81,24 @@ namespace football_series_manager.Domain.Entities.Tests
         }
 
         [TestMethod()]
-        public void NameIsComparedByValue()
+        public void NameIsComparableByValue()
         {
             var nameOne = new Name("Marco", "Polo");
             var nameTwo = new Name("Marco", "Polo");
             Assert.AreEqual(nameOne, nameTwo);
+            Assert.IsTrue(nameOne == nameTwo);
+        }
+
+        [TestMethod]
+        public void NameWorksWithHashTable()
+        {
+            var nameOne = new Name("Marco", "Polo");
+            var nameTwo = new Name("Marco", "Polo");
+            var nameHashSet = new HashSet<Name>();
+            nameHashSet.Add(nameOne);
+            nameHashSet.Add(nameTwo);
+            Assert.IsTrue(nameHashSet.Count == 1);
+
         }
     }
 }

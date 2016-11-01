@@ -3,9 +3,10 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class PhoneNumber
+    public class PhoneNumber : ValueObject
     {
         public string Value { get; }
+
         public PhoneNumber(string phoneNumber)
         {
             if (phoneNumber.IsValidCellPhoneNumber(false))
@@ -33,6 +34,27 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            var phone = obj as PhoneNumber;
+            return phone.Value == this.Value;
+        }
+
+        public static bool operator !=(PhoneNumber phoneOne, PhoneNumber phoneTwo)
+        {
+            return phoneOne.Value != phoneTwo.Value;
+        }
+
+        public static bool operator ==(PhoneNumber phoneOne, PhoneNumber phoneTwo)
+        {
+            return phoneOne.Value == phoneTwo.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
         }
 
         public override string ToString()

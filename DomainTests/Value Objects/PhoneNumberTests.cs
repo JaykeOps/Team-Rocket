@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -90,6 +91,26 @@ namespace Domain.Value_Objects.Tests
             PhoneNumber result;
             PhoneNumber.TryParse("O739-E26412", out result);
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void PhoneNumberIsComparableByValue()
+        {
+            var phoneOne = new PhoneNumber("0734-556677");
+            var phoneTwo = new PhoneNumber("0734-556677");
+            Assert.AreEqual(phoneOne, phoneTwo);
+            Assert.IsTrue(phoneOne == phoneTwo);
+        }
+
+        [TestMethod]
+        public void PhoneNumberWorksWithHashSet()
+        {
+            var phoneOne = new PhoneNumber("0734-556677");
+            var phoneTwo = new PhoneNumber("0734-556677");
+            var phoneHashSet = new HashSet<PhoneNumber>();
+            phoneHashSet.Add(phoneOne);
+            phoneHashSet.Add(phoneTwo);
+            Assert.IsTrue(phoneHashSet.Count == 1);
         }
     }
 }
