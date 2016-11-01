@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace DomainTests.Entities.Tests
 {
@@ -62,6 +63,26 @@ namespace DomainTests.Entities.Tests
         {
             ShirtNumber result;
             Assert.IsFalse(ShirtNumber.TryParse(2, out result));
+        }
+
+        [TestMethod()]
+        public void ShirtNumberIsComparableByValue()
+        {
+            var shirtNumberOne = new ShirtNumber(25);
+            var shirtNumberTwo = new ShirtNumber(25);
+            Assert.AreEqual(shirtNumberOne, shirtNumberTwo);
+            Assert.IsTrue(shirtNumberOne == shirtNumberTwo);
+        }
+
+        [TestMethod]
+        public void ShirtNumberWorksWithHashSet()
+        {
+            var shirtNumberOne = new ShirtNumber(25);
+            var shirtNumberTwo = new ShirtNumber(25);
+            var shirtNumberHashSet = new HashSet<ShirtNumber>();
+            shirtNumberHashSet.Add(shirtNumberOne);
+            shirtNumberHashSet.Add(shirtNumberTwo);
+            Assert.IsTrue(shirtNumberHashSet.Count == 1);
         }
     }
 }

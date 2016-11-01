@@ -39,8 +39,8 @@ namespace football_series_manager.Domain.Entities
 
         public override bool Equals(object obj)
         {
-            var item = obj as Name;
-            return item.FirstName == this.FirstName && item.LastName == this.LastName;
+            var name = obj as Name;
+            return name.FirstName == this.FirstName && name.LastName == this.LastName;
         }
 
         public static bool operator !=(Name nameOne, Name nameTwo)

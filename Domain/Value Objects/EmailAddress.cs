@@ -34,6 +34,27 @@ namespace Domain.Value_Objects
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            var email = obj as EmailAddress;
+            return email.Value == this.Value;
+        }
+
+        public static bool operator !=(EmailAddress emailOne, EmailAddress emailTwo)
+        {
+            return emailOne.Value != emailTwo.Value;
+        }
+
+        public static bool operator ==(EmailAddress emailOne, EmailAddress emailTwo)
+        {
+            return emailOne.Value == emailTwo.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
+        }
+
         public override string ToString()
         {
             return $"{this.Value}";
