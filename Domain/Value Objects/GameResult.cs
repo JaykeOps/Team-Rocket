@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Value_Objects
+﻿namespace Domain.Value_Objects
 {
-    class GameResult
+    internal class GameResult
     {
         public TeamName HomeTeam_Name { get; } // Maybe a field instead?
         public TeamName AwayTeam_Name { get; } // Maybe a field instead?
@@ -23,7 +17,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"  
+            return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"
         }                                                                                                          // Format style can be discussed...
     }
 }

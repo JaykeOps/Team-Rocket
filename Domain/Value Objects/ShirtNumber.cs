@@ -77,6 +77,5 @@ namespace DomainTests.Entities
         {
             return this.Value.GetHashCode();
         }
-
     }
 }

@@ -83,7 +83,6 @@ namespace DomainTests.Entities.Tests
             Assert.IsFalse(this.testPlayer.Status == PlayerStatus.Injured);
             this.testPlayer.Status = PlayerStatus.Injured;
             Assert.IsTrue(this.testPlayer.Status == PlayerStatus.Injured);
-            
         }
 
         [TestMethod()]
@@ -109,6 +108,5 @@ namespace DomainTests.Entities.Tests
             this.testPlayer.TeamId = newTeamId;
             Assert.IsTrue(this.testPlayer.TeamId == newTeamId);
         }
-
     }
 }

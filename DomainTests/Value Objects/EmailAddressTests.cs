@@ -90,7 +90,6 @@ namespace Domain.Value_Objects.Tests
             emailHashTable.Add(emailOne);
             emailHashTable.Add(emailTwo);
             Assert.IsTrue(emailHashTable.Count == 1);
-
         }
     }
 }

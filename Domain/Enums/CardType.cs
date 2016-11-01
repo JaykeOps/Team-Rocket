@@ -1,4 +1,5 @@
-﻿public enum CardType {
-    Yellow, 
+﻿public enum CardType
+{
+    Yellow,
     Red
 }

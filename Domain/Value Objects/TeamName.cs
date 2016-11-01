@@ -1,6 +1,5 @@
 ﻿using Domain.Helper_Classes;
 using System;
-using football_series_manager.Domain.Entities;
 
 namespace Domain.Value_Objects
 {
@@ -33,6 +32,7 @@ namespace Domain.Value_Objects
                 return false;
             }
         }
+
         public override bool Equals(object obj)
         {
             var item = obj as TeamName;
@@ -43,6 +43,7 @@ namespace Domain.Value_Objects
         {
             return (this.Value).GetHashCode();
         }
+
         public static bool operator !=(TeamName TeamNameOne, TeamName TeamNameTwo)
         {
             return TeamNameOne.Value != TeamNameTwo.Value;
@@ -51,14 +52,11 @@ namespace Domain.Value_Objects
         public static bool operator ==(TeamName TeamNameOne, TeamName TeamNameTwo)
         {
             return TeamNameOne.Value == TeamNameTwo.Value;
-
         }
 
         public override string ToString()
         {
             return $"{this.Value}";
         }
-
-
     }
 }

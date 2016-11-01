@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 
 namespace Domain.Value_Objects
 {
-    
     public class LeagueTableStats
     {
         public Team Team { get; }
@@ -19,12 +13,9 @@ namespace Domain.Value_Objects
         public int GoalsFor { get; }
         public int GoalsAgainst { get; }
         public int GoalDifference { get; }
-        
 
-        
         public LeagueTableStats()
         {
-            
         }
 
         public override string ToString()

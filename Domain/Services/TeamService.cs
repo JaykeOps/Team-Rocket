@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repositories;
+using System.Collections.Generic;
 
 namespace Domain.Services
 {
@@ -14,8 +10,12 @@ namespace Domain.Services
 
         public void AddTeam(Team team)
         {
-           this.repository.Add(team);
+            this.repository.Add(team);
         }
 
+        public IEnumerable<Team> GetAll()
+        {
+            return this.repository.GetAll();
+        }
     }
 }

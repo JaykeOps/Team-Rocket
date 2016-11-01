@@ -8,7 +8,7 @@ namespace Domain.Entities
     {
         public Guid Id { get; }
         public TeamName Name { get; set; }
-        public HashSet<Guid> PlayerIds { get;}
+        public HashSet<Guid> PlayerIds { get; }
         public ArenaName Arena { get; set; }
 
         public Team(TeamName name, ArenaName arenaName)
