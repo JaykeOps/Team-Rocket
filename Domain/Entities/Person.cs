@@ -6,8 +6,8 @@ namespace football_series_manager.Domain.Entities
     public abstract class Person
     {
         public Guid Id { get; }
-        public Name Name { get; }
-        public DateOfBirth DateOfBirth { get; }
+        public Name Name { get; set; }
+        public DateOfBirth DateOfBirth { get; set; }
         public ContactInformation ContactInformation { get; }
         public Person(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation)
         {
