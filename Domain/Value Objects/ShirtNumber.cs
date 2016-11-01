@@ -63,5 +63,20 @@ namespace DomainTests.Entities
             return shirtNumber.Value == this.Value;
         }
 
+        public static bool operator !=(ShirtNumber shirtNumberOne, ShirtNumber shirtNumberTwo)
+        {
+            return shirtNumberOne.Value != shirtNumberTwo.Value;
+        }
+
+        public static bool operator ==(ShirtNumber shirtNumberOne, ShirtNumber shirtNumberTwo)
+        {
+            return shirtNumberOne.Value == shirtNumberTwo.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
+        }
+
     }
 }

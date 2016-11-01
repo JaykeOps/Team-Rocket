@@ -66,7 +66,7 @@ namespace DomainTests.Entities.Tests
         }
 
         [TestMethod()]
-        public void ShirtNumberIsComparableByValued()
+        public void ShirtNumberIsComparableByValue()
         {
             var shirtNumberOne = new ShirtNumber(25);
             var shirtNumberTwo = new ShirtNumber(25);
