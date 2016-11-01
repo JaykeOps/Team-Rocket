@@ -56,5 +56,14 @@ namespace Domain.Value_Objects.Tests
             DateOfBirth result;
             Assert.IsFalse(DateOfBirth.TryParse("1776-07-04", out result));
         }
+
+        [TestMethod()]
+        public void DateOfBirthIsComparableByValue()
+        {
+            var dateOfBirthOne = new DateOfBirth("1998-11-01");
+            var dateOfBirthTwo = new DateOfBirth("1998-11-01");
+            Assert.AreEqual(dateOfBirthOne, dateOfBirthTwo);
+            Assert.IsTrue(dateOfBirthOne.Value == dateOfBirthTwo.Value);
+        }
     }
 }

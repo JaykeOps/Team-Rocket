@@ -59,6 +59,26 @@ namespace Domain.Value_Objects
             return dateTime.Year < 1936 ? true : false;
         }
 
+        public override bool Equals(object obj)
+        {
+            var dateOfBirth = obj as DateOfBirth;
+            return dateOfBirth.Value == this.Value;
+        }
+
+        public static bool operator !=(DateOfBirth dateOfBirthOne, DateOfBirth dateOfBirthTwo)
+        {
+            return dateOfBirthOne != dateOfBirthTwo;
+        }
+
+        public static bool operator ==(DateOfBirth dateOfBirthOne, DateOfBirth dateOfBirthTwo)
+        {
+            return dateOfBirthOne == dateOfBirthTwo;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
+        }
         public override string ToString()
         {
             return $"{this.Value:yyyy-MM-dd}";
