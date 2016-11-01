@@ -3,7 +3,7 @@ using DomainTests.Entities;
 
 namespace Domain.Value_Objects
 {
-    class Penalty : IGameEvent
+    public class Penalty : IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who shot the penalty.

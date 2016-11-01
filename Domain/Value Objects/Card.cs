@@ -3,7 +3,7 @@ using DomainTests.Entities;
 
 namespace Domain.Value_Objects
 {
-    class Card : IGameEvent
+    public class Card : IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who got the card.

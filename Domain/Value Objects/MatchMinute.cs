@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    class MatchMinute
+    public class MatchMinute
     {
         public int Value { get; }
 
