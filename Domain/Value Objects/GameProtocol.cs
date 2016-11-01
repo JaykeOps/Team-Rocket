@@ -29,7 +29,7 @@ namespace Domain.Value_Objects
 
         public override bool Equals(object obj)
         {
-            throw new 
+            throw new NotImplementedException();
             //if (obj.GetType() != typeof(GameProtocol))
             //{
             //    return false;
