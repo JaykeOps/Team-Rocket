@@ -4,7 +4,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    class Card : ValueObject, IGameEvent
+    public class Card : ValueObject, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who got the card.

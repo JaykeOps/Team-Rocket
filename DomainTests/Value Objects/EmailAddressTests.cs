@@ -3,45 +3,45 @@ using System;
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class EmailAddressTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void EmailIsEqualToValidEntry()
         {
             var email = new EmailAddress("johnDoe84@outlook.com");
             Assert.IsTrue(email.Value == "johnDoe84@outlook.com");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void EmailMissingCommercialAtThrowsFormatException()
         {
             var email = new EmailAddress("johnDoe84outlook.com");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void EmailMissingDomainAddressThrowsFormatException()
         {
             var email = new EmailAddress("johnDoe_84@outlook.");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void EmailExceedsThirtyCharactersThrowsFormatException()
         {
             var email = new EmailAddress("johnDoe_84He@hahahahahahahaha.com");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void EmailContainingLessThanFiveCharactersThrowsFormatException()
         {
             var email = new EmailAddress("g@o.");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void EmailTryParseCanOutValidEmailAddress()
         {
             EmailAddress result;
@@ -49,7 +49,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(result.Value == "johnDoe_84@outlook.com");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void EmailTryParseCanOutNull()
         {
             EmailAddress result;
@@ -57,14 +57,14 @@ namespace Domain.Value_Objects.Tests
             Assert.IsNull(result);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void EmailTryParseCanReturnTrue()
         {
             EmailAddress result;
             Assert.IsTrue(EmailAddress.TryParse("johnDoe_84@outlook.com", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void EmailTryParseCanReturnFalse()
         {
             EmailAddress result;
