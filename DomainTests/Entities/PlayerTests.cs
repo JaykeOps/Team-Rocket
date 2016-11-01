@@ -101,7 +101,7 @@ namespace DomainTests.Entities.Tests
             this.testPlayer.ShirtNumber = new ShirtNumber(0);
         }
 
-        [TestMethod]
+        [TestMethod()]
         public void PlayerTeamIdCanChange()
         {
             var newTeamId = Guid.NewGuid();

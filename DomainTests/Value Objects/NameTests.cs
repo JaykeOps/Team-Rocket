@@ -8,7 +8,7 @@ namespace football_series_manager.Domain.Entities.Tests
     [TestClass()]
     public class NameTests
     {
-        [TestMethod]
+        [TestMethod()]
         public void NameIsEqualToEntry()
         {
             var name = new Name("John", "Doe");
