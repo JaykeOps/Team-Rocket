@@ -51,7 +51,5 @@ namespace Domain.Value_Objects.Tests
             hashSet.Add(this.penaltyTwo);
             Assert.IsTrue(hashSet.Count == 1);
         }
-
-        //TODO: Test override bool and GetHashCode
     }
 }
