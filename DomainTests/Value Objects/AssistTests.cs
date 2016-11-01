@@ -11,6 +11,6 @@ namespace Domain.Value_Objects.Tests
     [TestClass()]
     public class AssistTests
     {
-        
+
     }
 }

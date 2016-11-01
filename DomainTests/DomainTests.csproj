@@ -54,6 +54,8 @@
     <Compile Include="Value Objects\AssistTests.cs" />
     <Compile Include="Value Objects\EmailAddressTests.cs" />
     <Compile Include="Value Objects\GameResultTests.cs" />
+    <Compile Include="Value Objects\GoalTests.cs" />
+    <Compile Include="Value Objects\MatchMinuteTests.cs" />
     <Compile Include="Value Objects\NameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Value Objects\DateOfBirthTests.cs" />
