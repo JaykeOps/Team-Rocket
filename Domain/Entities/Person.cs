@@ -9,6 +9,7 @@ namespace football_series_manager.Domain.Entities
         public Name Name { get; set; }
         public DateOfBirth DateOfBirth { get; set; }
         public ContactInformation ContactInformation { get; }
+
         public Person(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation)
         {
             this.Id = Guid.NewGuid();
