@@ -4,15 +4,22 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    class Goal : ValueObject, IGameEvent
+    public class Goal : ValueObject, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who made the goal.
 
         public Goal(MatchMinute matchMinute, Player player)
         {
-            this.MatchMinute = matchMinute;
-            this.Player = player;
+            if (matchMinute == null || player == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                this.MatchMinute = matchMinute;
+                this.Player = player;
+            }
         }
 
         public override bool Equals(object obj)
