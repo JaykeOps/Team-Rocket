@@ -40,7 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Enums\CardType.cs" />
+    <Compile Include="Interfaces\IGameEvent.cs" />
+    <Compile Include="Value Objects\Assist.cs" />
+    <Compile Include="Value Objects\Card.cs" />
+    <Compile Include="Value Objects\GameProtocol.cs" />
+    <Compile Include="Value Objects\GameResult.cs" />
+    <Compile Include="Value Objects\Goal.cs" />
+    <Compile Include="Value Objects\MatchMinute.cs" />
+    <Compile Include="Value Objects\OverTime.cs" />
+    <Compile Include="Value Objects\Penalty.cs" />
     <Compile Include="Value Objects\ShirtNumber.cs" />
     <Compile Include="Enums\PlayerPosition.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
