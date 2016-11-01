@@ -11,7 +11,7 @@ namespace DomainTests.Entities
         public PlayerStatus Status { get; set; }
         public ShirtNumber ShirtNumber { get; set; }
         public Guid TeamId { get; set; } = Guid.Empty;
-        //TODO: PlayerStats
+        public PlayerStats Stats { get; set; }
 
         public Player(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation,
             PlayerPosition position, PlayerStatus status, ShirtNumber shirtNumber)
