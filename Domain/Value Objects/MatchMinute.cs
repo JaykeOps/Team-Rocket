@@ -20,7 +20,7 @@ namespace Domain.Value_Objects
 
         private bool IsMatchMinute(int value)
         {
-            if (value >= 1 && value <= 90 + 30) // Standard game time is 90 minutes (or whatever the series defines it as) and maximum overtime is 30 minutes. 
+            if (value >= 1 && value <= 90 + 30) // Standard game time is 90 minutes (or whatever the series defines it as) and maximum overtime is 30 minutes.
             {
                 return true;
             }
@@ -39,7 +39,7 @@ namespace Domain.Value_Objects
             else
             {
                 MatchMinute matchMinuteObject = (MatchMinute)obj;
-                return (this.Value == matchMinuteObject.Value) ? true : false; 
+                return (this.Value == matchMinuteObject.Value) ? true : false;
             }
         }
 

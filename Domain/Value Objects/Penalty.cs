@@ -1,6 +1,6 @@
-﻿using System;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using DomainTests.Entities;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -10,14 +10,15 @@ namespace Domain.Value_Objects
         public Player Player { get; } // The player who shot the penalty.
 
         public Penalty(MatchMinute matchMinute, Player player)
-        { 
+        {
             this.MatchMinute = matchMinute;
             this.Player = player;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() != typeof(Penalty)) {
+            if (obj.GetType() != typeof(Penalty))
+            {
                 return false;
             }
             else

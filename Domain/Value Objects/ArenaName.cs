@@ -15,7 +15,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Not a valid arenaname");
+                throw new FormatException("Not a valid arenaname");
             }
         }
 
@@ -26,7 +26,7 @@ namespace Domain.Value_Objects
                 result = new ArenaName(arenaName);
                 return true;
             }
-            catch (ArgumentException)
+            catch (FormatException)
             {
                 result = null;
                 return false;

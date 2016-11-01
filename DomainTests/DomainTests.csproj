@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\PlayerTests.cs" />
+    <Compile Include="Value Objects\ArenaNameTest.cs" />
     <Compile Include="Value Objects\AssistTests.cs" />
     <Compile Include="Value Objects\EmailAddressTests.cs" />
     <Compile Include="Value Objects\GameResultTests.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
     <Compile Include="Value Objects\ShirtNumberTests.cs" />
+    <Compile Include="Value Objects\TeamNameTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

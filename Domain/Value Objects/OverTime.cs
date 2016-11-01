@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
@@ -43,7 +39,7 @@ namespace Domain.Value_Objects
             else
             {
                 OverTime overTimeObject = (OverTime)obj;
-                return (this.Value == overTimeObject.Value) ? true : false; 
+                return (this.Value == overTimeObject.Value) ? true : false;
             }
         }
 
