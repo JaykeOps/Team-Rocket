@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
-    class GameResult : ValueObject
+    public class GameResult : ValueObject
     {
         public TeamName HomeTeam_Name { get; } // Maybe a field instead?
         public TeamName AwayTeam_Name { get; } // Maybe a field instead?
@@ -17,8 +17,37 @@ namespace Domain.Value_Objects
         {
             this.HomeTeam_Name = homeTeam_Name;
             this.AwayTeam_Name = awayTeam_Name;
-            this.HomeTeam_Score = homeTeam_Score;
-            this.AwayTeam_Score = awayTeam_Score;
+
+            if (IsScoreValid(homeTeam_Score))
+            {
+                this.HomeTeam_Score = homeTeam_Score;
+            }
+            else
+            {
+                throw new ArgumentException("Score can only be between 0-50.");
+            }
+
+            if (IsScoreValid(awayTeam_Score))
+            {
+                this.AwayTeam_Score = awayTeam_Score;
+            }
+            else
+            {
+                throw new ArgumentException("Score can only be between 0-50.");
+            }
+        }
+
+        private bool IsScoreValid(int score)
+        {
+            if (score >= 0 && score <= 50)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public override string ToString()
