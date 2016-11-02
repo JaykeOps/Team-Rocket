@@ -53,6 +53,7 @@
     <Compile Include="Entities\PlayerTests.cs" />
     <Compile Include="Value Objects\ArenaNameTest.cs" />
     <Compile Include="Value Objects\AssistTests.cs" />
+    <Compile Include="Value Objects\CardTests.cs" />
     <Compile Include="Value Objects\EmailAddressTests.cs" />
     <Compile Include="Value Objects\GameResultTests.cs" />
     <Compile Include="Value Objects\GoalTests.cs" />
