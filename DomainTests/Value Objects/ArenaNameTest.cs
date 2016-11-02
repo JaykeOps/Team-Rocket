@@ -15,21 +15,21 @@ namespace DomainTests.Value_Objects
             Assert.IsTrue(arenaName.Value == "Ullevi");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ArenaNameIsNotNull()
         {
             var arenaName = new ArenaName("Ullevi");
             Assert.IsNotNull(arenaName);
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void AreanNameThatContainsNoneNumeralInvalidCharactersThrowsFormatException()
         {
             var name = new ArenaName(".%&#/");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void ArenaNameThatContainsLessThanTwoCharactersThrowsFormatException()
         {

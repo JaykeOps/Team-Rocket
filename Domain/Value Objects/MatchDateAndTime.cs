@@ -16,7 +16,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Invalid date. Date cannot be in the past and cannot be more than 2 years from today");
+                throw new FormatException("Invalid date. Date cannot be in the past and cannot be more than 2 years from today");
             }
         }
 
