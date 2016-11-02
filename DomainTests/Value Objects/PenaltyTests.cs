@@ -27,12 +27,12 @@ namespace Domain.Value_Objects.Tests
         public void PenaltyIsEqualToValidEntry()
         {
             Assert.IsTrue(this.penaltyOne.Player.Name == new Name("John", "Doe"));
-            Assert.IsTrue(this.penaltyOne.Player.DateOfBirth == new DateOfBirth("1988-05-22"));
-            Assert.IsTrue(this.penaltyOne.Player.ContactInformation.Phone == new PhoneNumber("0739-246788"));
-            Assert.IsTrue(this.penaltyOne.Player.ContactInformation.Email == new EmailAddress("johnDoe_48@hotmail.com"));
+            Assert.IsTrue(this.penaltyOne.Player.DateOfBirth.Value == new DateOfBirth("1988-05-22").Value);
+            Assert.IsTrue(this.penaltyOne.Player.ContactInformation.Phone.Value == new PhoneNumber("0739-246788").Value);
+            Assert.IsTrue(this.penaltyOne.Player.ContactInformation.Email.Value == new EmailAddress("johnDoe_48@hotmail.com").Value);
             Assert.IsTrue(this.penaltyOne.Player.Position == PlayerPosition.GoalKeeper);
             Assert.IsTrue(this.penaltyOne.Player.Status == PlayerStatus.Available);
-            Assert.IsTrue(this.penaltyOne.Player.ShirtNumber == new ShirtNumber(25));
+            Assert.IsTrue(this.penaltyOne.Player.ShirtNumber.Value == new ShirtNumber(25).Value);
             Assert.IsTrue(this.penaltyOne.MatchMinute.Value == 36);
         }
 
