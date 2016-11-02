@@ -32,8 +32,8 @@ namespace DomainTests.Value_Objects
         public void MatchDurationInputBelowMinimumValueThrowsArgumentExeption()
         {
             var duration = new TimeSpan(5 * 6000000000 / 10);
-            var matchDuartion=new MatchDuration(duration);
-            
+            var matchDuartion = new MatchDuration(duration);
+
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -68,7 +68,7 @@ namespace DomainTests.Value_Objects
         {
             MatchDuration result;
             MatchDuration.TryParse("60", out result);
-            Assert.IsTrue(result.Value.TotalMinutes==60.0);
+            Assert.IsTrue(result.Value.TotalMinutes == 60.0);
         }
     }
 }
