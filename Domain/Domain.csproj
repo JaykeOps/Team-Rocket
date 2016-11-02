@@ -43,6 +43,7 @@
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Value Objects\PlayerStats.cs" />
+    <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />
     <Compile Include="Interfaces\IGameEvent.cs" />
     <Compile Include="Value Objects\Assist.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Value Objects\GameProtocol.cs" />
     <Compile Include="Value Objects\GameResult.cs" />
     <Compile Include="Value Objects\Goal.cs" />
+    <Compile Include="Value Objects\LeagueTableStats.cs" />
     <Compile Include="Value Objects\MatchMinute.cs" />
     <Compile Include="Value Objects\OverTime.cs" />
     <Compile Include="Value Objects\Penalty.cs" />
