@@ -7,14 +7,16 @@ namespace DomainTests.Entities
     {
         public List<Goal> Goals { get; }
         public List<Assist> Assists { get; }
-        public List<Card> Cards { get; }
+        public List<Card> YellowCards { get; } //Valedring?
+        public List<Card> RedCards { get; } //Validering?
         public List<Penalty> Penalties { get; }
 
         public PlayerStats()
         {
             this.Goals = new List<Goal>();
             this.Assists = new List<Assist>();
-            this.Cards = new List<Card>();
+            this.YellowCards = new List<Card>();
+            this.RedCards = new List<Card>();
             this.Penalties = new List<Penalty>();
         }
     }
