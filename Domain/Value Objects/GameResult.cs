@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    public class GameResult : ValueObject
+    public class GameResult : ValueObject<GameResult>
     {
         public TeamName HomeTeam_Name { get; } // Maybe a field instead?
         public TeamName AwayTeam_Name { get; } // Maybe a field instead?
@@ -50,14 +50,7 @@ namespace Domain.Value_Objects
             return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"
         }                                                                                                          // Format style can be discussed...
 
-        public override bool Equals(object obj)
-        {
-            var gameResult = obj as GameResult;
-            return gameResult.HomeTeam_Name.Value == this.HomeTeam_Name.Value
-                && gameResult.AwayTeam_Name.Value == this.AwayTeam_Name.Value
-                && gameResult.HomeTeam_Score == this.HomeTeam_Score
-                && gameResult.AwayTeam_Score == this.AwayTeam_Score;
-        }
+       
 
         public override int GetHashCode()
         {

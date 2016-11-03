@@ -4,7 +4,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class Goal : ValueObject, IGameEvent
+    public class Goal : ValueObject<Goal>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who made the goal.
@@ -40,14 +40,6 @@ namespace Domain.Value_Objects
             throw new NotImplementedException();
         }
 
-        public static bool operator !=(Goal goalOne, Goal goalTwo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(Goal goalOne, Goal goalTwo)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

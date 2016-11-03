@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class PhoneNumber : ValueObject
+    public class PhoneNumber : ValueObject<PhoneNumber>
     {
         public string Value { get; }
 
@@ -34,22 +34,6 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            var phone = obj as PhoneNumber;
-            return phone.Value == this.Value;
-        }
-
-        public static bool operator !=(PhoneNumber phoneOne, PhoneNumber phoneTwo)
-        {
-            return phoneOne.Value != phoneTwo.Value;
-        }
-
-        public static bool operator ==(PhoneNumber phoneOne, PhoneNumber phoneTwo)
-        {
-            return phoneOne.Value == phoneTwo.Value;
         }
 
         public override int GetHashCode()

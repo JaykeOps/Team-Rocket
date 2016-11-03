@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    public class MatchDuration
+    public class MatchDuration:ValueObject<MatchDuration>
     {
         public TimeSpan Value { get; }
 
@@ -46,6 +46,11 @@ namespace Domain.Value_Objects
         public override string ToString()
         {
             return $"{this.Value.TotalMinutes}";
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

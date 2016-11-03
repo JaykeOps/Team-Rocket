@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    internal class GameProtocol : ValueObject
+    internal class GameProtocol : ValueObject<GameProtocol>
     {
         private Team homeTeam; // Or should it be a property?
         private Team awayTeam; // Or should it be a property?
@@ -26,33 +26,12 @@ namespace Domain.Value_Objects
             this.Cards = new List<Card>();
         }
 
-        public override bool Equals(object obj)
-        {
-            throw new NotImplementedException();
-            //if (obj.GetType() != typeof(GameProtocol))
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    GameProtocol gameProtocolObject = (GameProtocol)obj;
-            //    return (...) ? true : false;   // This is a tough one...
-            //}
-        }
 
         public override int GetHashCode()
         {
             throw new NotImplementedException();
         }
 
-        public static bool operator !=(GameProtocol gameProtocolOne, GameProtocol gameProtocolTwo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(GameProtocol gameProtocolOne, GameProtocol gameProtocolTwo)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

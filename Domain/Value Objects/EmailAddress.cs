@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class EmailAddress
+    public class EmailAddress:ValueObject<EmailAddress>
     {
         public string Value { get; }
 
@@ -33,22 +33,6 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            var email = obj as EmailAddress;
-            return email.Value == this.Value;
-        }
-
-        public static bool operator !=(EmailAddress emailOne, EmailAddress emailTwo)
-        {
-            return emailOne.Value != emailTwo.Value;
-        }
-
-        public static bool operator ==(EmailAddress emailOne, EmailAddress emailTwo)
-        {
-            return emailOne.Value == emailTwo.Value;
         }
 
         public override int GetHashCode()

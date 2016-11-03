@@ -21,23 +21,28 @@ namespace DomainTests.Value_Objects
             var teamName = new TeamName("Ifk Göteborg");
             Assert.IsNotNull(teamName);
         }
-
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void TeamNameThatContainsNoneNumeralInvalidCharactersThrowsFormatException()
+        {
+            var name = new TeamName(".%&#/");
+        }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
-        public void NameThatContainsLessThanTwoCharactersThrowsFormatException()
+        public void TeamNameThatContainsLessThanTwoCharactersThrowsFormatException()
         {
             var teamName = new TeamName("h");
         }
 
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
-        public void NameThatContainsMoreThanFourtyCharactersThrowsFormatException()
+        public void TeamNameThatContainsMoreThanFourtyCharactersThrowsFormatException()
         {
-            var teamName = new ArenaName("HelloeveryoneletsseeifthisispassedWonderifthistestwillbepassedornot");
+            var teamName = new TeamName("HelloeveryoneletsseeifthisispassedWonderifthistestwillbepassedornot");
         }
 
         [TestMethod]
-        public void NameTryParseCanOutValidResult()
+        public void TeamNameTryParseCanOutValidResult()
         {
             TeamName result;
             TeamName.TryParse("Ifk Göteborg", out result);
@@ -45,25 +50,25 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod()]
-        public void NameTryParseCanOutNullValue()
+        public void TeamNameTryParseCanOutNullValue()
         {
             TeamName result;
-            TeamName.TryParse("Ullev/", out result);
+            TeamName.TryParse("Ifk Götebor/", out result);
             Assert.IsNull(result);
         }
 
         [TestMethod()]
-        public void NameTryParseCanReturnTrue()
+        public void TeamNameTryParseCanReturnTrue()
         {
             TeamName result;
             Assert.IsTrue(TeamName.TryParse("Ifk Göteborg", out result));
         }
 
         [TestMethod()]
-        public void NameTryParseCanReturnFalse()
+        public void TeamNameTryParseCanReturnFalse()
         {
             TeamName result;
-            Assert.IsFalse(TeamName.TryParse("Ulle?i", out result));
+            Assert.IsFalse(TeamName.TryParse("Ifk G?teborg", out result));
         }
 
         [TestMethod()]

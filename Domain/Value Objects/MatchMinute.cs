@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    public class MatchMinute : ValueObject
+    public class MatchMinute : ValueObject<MatchMinute>
     {
         public int Value { get; }
 
@@ -30,33 +30,6 @@ namespace Domain.Value_Objects
             }
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != typeof(MatchMinute))
-            {
-                return false;
-            }
-            else
-            {
-                MatchMinute matchMinuteObject = (MatchMinute)obj;
-                return (this.Value == matchMinuteObject.Value) ? true : false;
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator !=(MatchMinute matchMinuteOne, MatchMinute matchMinuteTwo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(MatchMinute matchMinuteOne, MatchMinute matchMinuteTwo)
-        {
-            throw new NotImplementedException();
-        }
 
         public override string ToString()
         {
@@ -68,6 +41,11 @@ namespace Domain.Value_Objects
             {
                 return $"90+{this.Value - 90}";
             }
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

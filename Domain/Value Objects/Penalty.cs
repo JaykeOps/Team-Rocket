@@ -4,7 +4,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class Penalty : ValueObject, IGameEvent
+    public class Penalty : ValueObject<Penalty>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who shot the penalty.
@@ -33,14 +33,5 @@ namespace Domain.Value_Objects
             throw new NotImplementedException();
         }
 
-        public static bool operator !=(Penalty penaltyOne, Penalty penaltyTwo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(Penalty penaltyOne, Penalty penaltyTwo)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

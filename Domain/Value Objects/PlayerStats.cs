@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DomainTests.Entities
 {
-    public class PlayerStats
+    public class PlayerStats:ValueObject<PlayerStats>
     {
         public List<Goal> Goals { get; }
         public List<Assist> Assists { get; }
@@ -16,6 +16,11 @@ namespace DomainTests.Entities
             this.Assists = new List<Assist>();
             this.Cards = new List<Card>();
             this.Penalties = new List<Penalty>();
+        }
+
+        public override int GetHashCode()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
