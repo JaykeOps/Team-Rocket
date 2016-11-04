@@ -15,7 +15,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Not a valid teamname");
+                throw new FormatException("Not a valid teamname");
             }
         }
 
@@ -26,12 +26,19 @@ namespace Domain.Value_Objects
                 result = new TeamName(teamName);
                 return true;
             }
-            catch (ArgumentException)
+            catch (FormatException)
             {
                 result = null;
                 return false;
             }
         }
+
+
+        public override int GetHashCode()
+        {
+            return (this.Value).GetHashCode();
+        }
+
 
         public override string ToString()
         {

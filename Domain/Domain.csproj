@@ -55,6 +55,8 @@
     <Compile Include="Value Objects\MatchMinute.cs" />
     <Compile Include="Value Objects\OverTime.cs" />
     <Compile Include="Value Objects\Penalty.cs" />
+    <Compile Include="Repositories\TeamRepository.cs" />
+    <Compile Include="Services\TeamService.cs" />
     <Compile Include="Value Objects\ShirtNumber.cs" />
     <Compile Include="Enums\PlayerPosition.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
@@ -76,10 +78,7 @@
     <Compile Include="CustomExceptions\ShirtNumberAlreadyInUseException.cs" />
     <Compile Include="Value Objects\ValueObject.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

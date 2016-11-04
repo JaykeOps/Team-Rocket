@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -51,7 +47,7 @@ namespace Domain.Value_Objects.Tests
 
         [TestMethod]
         public void GameResultIsComparableByValue()
-        { 
+        {
             var gameResultOne = new GameResult(new TeamName("IFK Göteborg"), new TeamName("AIK"), 3, 0);
             var gameResultTwo = new GameResult(new TeamName("IFK Göteborg"), new TeamName("AIK"), 3, 0);
             Assert.AreEqual(gameResultOne, gameResultTwo);

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
@@ -47,17 +43,18 @@ namespace Domain.Value_Objects
             {
                 return false;
             }
-
         }
 
         public override string ToString()
         {
-            return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"  
+            return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"
         }                                                                                                          // Format style can be discussed...
+
+       
 
         public override int GetHashCode()
         {
             throw new NotImplementedException();
-        }        
+        }
     }
 }

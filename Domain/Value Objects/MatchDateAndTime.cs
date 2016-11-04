@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Domain.Value_Objects
 {
-    public class MatchDateAndTime : ValueObject<MatchDateAndTime>
+    public class MatchDateAndTime:ValueObject<MatchDateAndTime>
     {
         public const string FORMAT = "yyyy-MM-dd HH:mm";
         public DateTime Value { get; }
@@ -16,7 +16,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Invalid date. Date cannot be in the past and cannot be more than 2 years from today");
+                throw new FormatException("Invalid date. Date cannot be in the past and cannot be more than 2 years from today");
             }
         }
 

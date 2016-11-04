@@ -74,7 +74,7 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue(shirtNumberOne == shirtNumberTwo);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberWorksWithHashSet()
         {
             var shirtNumberOne = new ShirtNumber(25);

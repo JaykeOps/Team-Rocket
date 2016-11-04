@@ -51,11 +51,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\PlayerTests.cs" />
+    <Compile Include="Value Objects\ArenaNameTest.cs" />
     <Compile Include="Value Objects\AssistTests.cs" />
     <Compile Include="Value Objects\CardTests.cs" />
     <Compile Include="Value Objects\EmailAddressTests.cs" />
     <Compile Include="Value Objects\GameResultTests.cs" />
     <Compile Include="Value Objects\GoalTests.cs" />
+    <Compile Include="Value Objects\MatchDateAndTimeTest.cs" />
+    <Compile Include="Value Objects\MatchDurationTest.cs" />
     <Compile Include="Value Objects\MatchMinuteTests.cs" />
     <Compile Include="Value Objects\NameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
     <Compile Include="Value Objects\ShirtNumberTests.cs" />
+    <Compile Include="Value Objects\TeamNameTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

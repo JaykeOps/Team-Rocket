@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
-    public class OverTime : ValueObject<OverTime>
+    public class OverTime:ValueObject<OverTime>
     {
         public int Value { get; }
 
@@ -34,9 +30,12 @@ namespace Domain.Value_Objects
             }
         }
 
+        
         public override int GetHashCode()
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

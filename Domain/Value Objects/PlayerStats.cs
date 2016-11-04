@@ -3,21 +3,24 @@ using System.Collections.Generic;
 
 namespace DomainTests.Entities
 {
-    public class PlayerStats
+    public class PlayerStats:ValueObject<PlayerStats>
     {
         public List<Goal> Goals { get; }
         public List<Assist> Assists { get; }
-        public List<Card> YellowCards { get; } //Valedring?
-        public List<Card> RedCards { get; } //Validering?
+        public List<Card> Cards { get; }
         public List<Penalty> Penalties { get; }
 
         public PlayerStats()
         {
             this.Goals = new List<Goal>();
             this.Assists = new List<Assist>();
-            this.YellowCards = new List<Card>();
-            this.RedCards = new List<Card>();
+            this.Cards = new List<Card>();
             this.Penalties = new List<Penalty>();
+        }
+
+        public override int GetHashCode()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

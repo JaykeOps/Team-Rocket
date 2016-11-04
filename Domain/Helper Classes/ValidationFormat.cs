@@ -7,8 +7,8 @@ namespace Domain.Helper_Classes
         public const string NAME_REGEX = @"^[A-ZÅÄÖ][a-zåäö]{2,20}$";
         public const string EMAIL_REGEX = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
         public const string CELL_PHONE_NUMBER = @"\b\d{3,6}-\b\d{6,9}$";
-        public const string TEAMNAME_REGEX = "^[a-z A-Z0-9åäöÅÄÖ]{1,40}$";
-        public const string ARENANAME_REGEX = "^[a-z A-Z0-9åäöÅÄÖ]{1,40}$";
+        public const string TEAMNAME_REGEX = "^[a-z A-Z0-9åäöÅÄÖ]{2,40}$";
+        public const string ARENANAME_REGEX = "^[a-z A-Z0-9åäöÅÄÖ]{2,40}$";
 
         public static bool IsValidName(this string value, bool ignoreCase)
         {

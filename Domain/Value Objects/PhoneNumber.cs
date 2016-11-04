@@ -6,6 +6,7 @@ namespace Domain.Value_Objects
     public class PhoneNumber : ValueObject<PhoneNumber>
     {
         public string Value { get; }
+
         public PhoneNumber(string phoneNumber)
         {
             if (phoneNumber.IsValidCellPhoneNumber(false))
@@ -33,6 +34,11 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value.GetHashCode();
         }
 
         public override string ToString()

@@ -1,18 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
 namespace Domain.Value_Objects
 {
-    public abstract class ValueObject<T>
+    public abstract class ValueObject<T> : IEquatable<T>
         where T : ValueObject<T>
     {
-        //public abstract override bool Equals(object obj);
-
         public abstract override int GetHashCode();
 
         public override bool Equals(object obj)
+
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            var other = obj as T;
+            return Equals(other);
+        }
+
+        public virtual bool Equals(T obj)
         {
             var bools = new List<bool>();
-            //var valueObject = obj as T;
-            if (ReferenceEquals(obj, null))
+
+            if (ReferenceEquals(obj, null) || obj.GetType() != typeof(T))
             {
                 return false;
             }
@@ -21,22 +33,14 @@ namespace Domain.Value_Objects
                 var props = obj.GetType().GetProperties();
                 foreach (var prop in props)
                 {
-                    var value1 = prop.GetValue(obj,null);
-                    var value2 = this.GetType().GetProperty(prop.Name).GetValue(this,null);
-                    if (value1 == value2) // Here's the problem!!
-                    {
-                        bools.Add(true);
-                    }
-                    else
-                    {
-                            bools.Add(false);
-                    }
+                    var value1 = prop.GetValue(obj, null);
+                    var value2 = this.GetType().GetProperty(prop.Name).GetValue(this, null);
+
+                    bools.Add(value1.Equals(value2));
                 }
             }
             return !bools.Contains(false);
         }
-
-       
 
         public static bool operator ==(ValueObject<T> objOne, ValueObject<T> objTwo)
         {
@@ -47,16 +51,14 @@ namespace Domain.Value_Objects
             else if (ReferenceEquals(objOne, null) || ReferenceEquals(objTwo, null))
             {
                 return false;
-                
             }
             else
             {
                 return objOne.Equals(objTwo);
             }
-
-            
         }
-        public static bool operator !=(ValueObject<T>objOne, ValueObject<T> objTwo)
+
+        public static bool operator !=(ValueObject<T> objOne, ValueObject<T> objTwo)
         {
             return !(objOne == objTwo);
         }

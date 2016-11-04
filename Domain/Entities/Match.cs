@@ -7,16 +7,16 @@ namespace Domain.Entities
     public class Match : IGameDuration
     {
         public Guid Id { get; }
-        public ArenaName Location { get; }
-        public MatchDuration MatchDuration { get; }
-        public Team HomeTeam { get; }
-        public Team AwayTeam { get; }
+        public ArenaName Location { get; set; }
+        public MatchDuration MatchDuration { get; set; }
+        public Team HomeTeam { get; set; }
+        public Team AwayTeam { get; set; }
 
-        public Match(ArenaName location, Team homeTeam, Team awayTeam)
+        public Match(ArenaName location, Team homeTeam, Team awayTeam, Series series)
         {
             this.Id = new Guid();
             this.Location = location;
-            //this.MatchDuration=series.getMatchduration;
+            this.MatchDuration = series.MatchDuration;
             this.HomeTeam = homeTeam;
             this.AwayTeam = awayTeam;
         }

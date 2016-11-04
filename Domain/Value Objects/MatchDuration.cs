@@ -2,15 +2,15 @@
 
 namespace Domain.Value_Objects
 {
-    public class MatchDuration : ValueObject<MatchDuration>
+    public class MatchDuration:ValueObject<MatchDuration>
     {
         public TimeSpan Value { get; }
 
-        public MatchDuration(TimeSpan matchDuration)
+        public MatchDuration(TimeSpan duration)
         {
-            if (IsMatchDuration(matchDuration))
+            if (IsMatchDuration(duration))
             {
-                this.Value = matchDuration;
+                this.Value = duration;
             }
             else
             {
@@ -18,9 +18,9 @@ namespace Domain.Value_Objects
             }
         }
 
-        public static bool IsMatchDuration(TimeSpan matchDuration)
+        public static bool IsMatchDuration(TimeSpan duration)
         {
-            return matchDuration.TotalMinutes <= 90 && matchDuration.TotalMinutes >= 10;
+            return duration.TotalMinutes <= 90 && duration.TotalMinutes >= 10;
         }
 
         public static bool TryParse(string value, out MatchDuration result)
