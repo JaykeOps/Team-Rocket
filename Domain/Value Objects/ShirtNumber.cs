@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.Value_Objects;
+using System;
 using System.Collections.Generic;
 
 namespace DomainTests.Entities
 {
-    public class ShirtNumber
+    public class ShirtNumber : ValueObject<ShirtNumber>
     {
         public int Value { get; }
 
@@ -55,6 +56,11 @@ namespace DomainTests.Entities
                 result = null;
                 return false;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

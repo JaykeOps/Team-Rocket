@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class PhoneNumber
+    public class PhoneNumber : ValueObject<PhoneNumber>
     {
         public string Value { get; }
         public PhoneNumber(string phoneNumber)
@@ -38,6 +38,11 @@ namespace Domain.Value_Objects
         public override string ToString()
         {
             return $"{this.Value}";
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

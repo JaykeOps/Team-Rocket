@@ -4,7 +4,7 @@ using System;
 
 namespace football_series_manager.Domain.Entities
 {
-    public class Name : ValueObject
+    public class Name : ValueObject<Name>
     {
         public string FirstName { get; }
         public string LastName { get; }
@@ -35,22 +35,6 @@ namespace football_series_manager.Domain.Entities
                 result = null;
                 return false;
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            var item = obj as Name;
-            return item.FirstName == this.FirstName && item.LastName == this.LastName;
-        }
-
-        public static bool operator !=(Name nameOne, Name nameTwo)
-        {
-            return nameOne.FirstName != nameTwo.FirstName && nameOne.LastName != nameTwo.LastName;
-        }
-
-        public static bool operator ==(Name nameOne, Name nameTwo)
-        {
-            return nameOne.FirstName == nameTwo.FirstName && nameOne.LastName == nameTwo.LastName;
         }
 
         public override int GetHashCode()

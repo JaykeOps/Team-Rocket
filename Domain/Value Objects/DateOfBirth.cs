@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Domain.Value_Objects
 {
-    public class DateOfBirth
+    public class DateOfBirth : ValueObject<DateOfBirth>
     {
         public DateTime Value { get; }
 
@@ -62,6 +62,11 @@ namespace Domain.Value_Objects
         public override string ToString()
         {
             return $"{this.Value:yyyy-MM-dd}";
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class TeamName
+    public class TeamName : ValueObject<TeamName>
     {
         public string Value { get; }
 
@@ -36,6 +36,11 @@ namespace Domain.Value_Objects
         public override string ToString()
         {
             return $"{this.Value}";
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

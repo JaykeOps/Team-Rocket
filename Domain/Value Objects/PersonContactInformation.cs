@@ -1,6 +1,8 @@
-﻿namespace Domain.Value_Objects
+﻿using System;
+
+namespace Domain.Value_Objects
 {
-    public class ContactInformation
+    public class ContactInformation : ValueObject<ContactInformation>
     {
         public PhoneNumber Phone { get; set; }
         public EmailAddress Email { get; set; }
@@ -8,6 +10,11 @@
         {
             this.Phone = phone;
             this.Email = email;
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }
