@@ -50,9 +50,6 @@ namespace Domain.Value_Objects
             return $"{this.Value}";
         }
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
