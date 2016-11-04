@@ -1,9 +1,10 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
+using System;
 
 namespace Domain.Value_Objects
 {
-    class GameProtocol
+    class GameProtocol : ValueObject<GameProtocol>
     {
         Team homeTeam; // Or should it be a property?
         Team awayTeam; // Or should it be a property?
@@ -24,6 +25,11 @@ namespace Domain.Value_Objects
             this.Assists = new List<Assist>();
             this.Penalties = new List<Penalty>();
             this.Cards = new List<Card>();
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

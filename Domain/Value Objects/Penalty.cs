@@ -1,9 +1,10 @@
-﻿using Domain.Interfaces;
+﻿using System;
+using Domain.Interfaces;
 using DomainTests.Entities;
 
 namespace Domain.Value_Objects
 {
-    public class Penalty : IGameEvent
+    public class Penalty : ValueObject<Penalty>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who shot the penalty.
@@ -12,6 +13,11 @@ namespace Domain.Value_Objects
         { 
             this.MatchMinute = matchMinute;
             this.Player = player;
+        }
+        
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

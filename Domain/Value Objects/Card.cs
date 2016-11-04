@@ -1,9 +1,10 @@
 ﻿using Domain.Interfaces;
 using DomainTests.Entities;
+using System;
 
 namespace Domain.Value_Objects
 {
-    public class Card : IGameEvent
+    public class Card : ValueObject<Card>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
         public Player Player { get; } // The player who got the card.
@@ -14,6 +15,11 @@ namespace Domain.Value_Objects
             this.MatchMinute = matchMinute;
             this.Player = player;
             this.CardType = cardType;
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }
