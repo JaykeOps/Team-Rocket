@@ -22,18 +22,6 @@ namespace Domain.Value_Objects
             }
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != typeof(Goal))
-            {
-                return false;
-            }
-            else
-            {
-                Goal goalObject = (Goal)obj;
-                return (this.MatchMinute.Equals(goalObject.MatchMinute) && this.Player.Id == goalObject.Player.Id) ? true : false; // Necessary to override MatchMinute.Equals()!
-            }
-        }
 
         public override int GetHashCode()
         {

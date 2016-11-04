@@ -15,18 +15,7 @@ namespace Domain.Value_Objects
             this.Player = player;
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != typeof(Assist))
-            {
-                return false;
-            }
-            else
-            {
-                Assist assistObject = (Assist)obj;
-                return (this.MatchMinute.Equals(assistObject.MatchMinute) && this.Player.Id == assistObject.Player.Id) ? true : false; // Necessary to override MatchMinute.Equals()!
-            }
-        }
+       
 
         public override int GetHashCode()
         {

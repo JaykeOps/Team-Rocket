@@ -33,6 +33,7 @@ namespace Domain.Value_Objects.Tests
         {
             var overTimeOne = new OverTime(3);
             var overtimeTwo = new OverTime(3);
+            
             Assert.AreEqual(overTimeOne, overtimeTwo);
             Assert.IsTrue(overTimeOne == overtimeTwo);
         }
