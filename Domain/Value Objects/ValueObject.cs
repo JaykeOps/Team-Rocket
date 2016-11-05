@@ -38,8 +38,16 @@ namespace Domain.Value_Objects
                         .GetValue(this, null);
                     if (property.PropertyType.Namespace == "System.Collections.Generic")
                     {
-                        booleans.Add(this.CollectionsAreEqual(propertyValueOfInputObject,
+                        if (property.PropertyType.Namespace == "System.Collections.Generic.Dictionary")
+                        {
+                            booleans.Add(this.DictionariesValueAreEqual(propertyValueOfInputObject,
+                                propertyValueOfThisObject));
+                        }
+                        else
+                        {
+                            booleans.Add(this.ListsValuesAreEqual(propertyValueOfInputObject,
                             propertyValueOfThisObject));
+                        }
                     }
                     else
                     {
@@ -50,21 +58,43 @@ namespace Domain.Value_Objects
             return !booleans.Contains(false);
         }
 
-        private bool CollectionsAreEqual(object propertyValueOfInputObject,
+        private bool DictionariesValueAreEqual(object propertyValueOfInputObject,
             object propertyValueOfThisObject)
         {
             var booleans = new List<bool?>();
-            var inputCollectionObject = (IList)propertyValueOfInputObject;
-            var thisCollectionObject = (IList)propertyValueOfThisObject;
-            if (inputCollectionObject.Count != thisCollectionObject.Count)
+            var inputDictionaryObject = (IDictionary)propertyValueOfInputObject;
+            var thisDictionaryObject = (IDictionary)propertyValueOfThisObject;
+            if (inputDictionaryObject.Count != thisDictionaryObject.Count)
             {
                 return false;
             }
             else
             {
-                for (int i = 0; i < inputCollectionObject.Count; i++)
+                foreach (var key in inputDictionaryObject.Keys)
                 {
-                    booleans.Add(inputCollectionObject?[i].Equals(thisCollectionObject?[i]));
+                    var inputValue = inputDictionaryObject?[key];
+                    var thisValue = thisDictionaryObject?[key];
+                    booleans.Add(inputValue.Equals(thisValue));
+                }
+                return !booleans.Contains(false) && !booleans.Contains(null);
+            }
+        }
+
+        private bool ListsValuesAreEqual(object propertyValueOfInputObject,
+            object propertyValueOfThisObject)
+        {
+            var booleans = new List<bool?>();
+            var inputListObject = (IList)propertyValueOfInputObject;
+            var thisListObject = (IList)propertyValueOfThisObject;
+            if (inputListObject.Count != thisListObject.Count)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < inputListObject.Count; i++)
+                {
+                    booleans.Add(inputListObject?[i].Equals(thisListObject?[i]));
                 }
                 return !booleans.Contains(false) && !booleans.Contains(null);
             }
