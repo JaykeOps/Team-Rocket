@@ -53,7 +53,7 @@ namespace Domain.Value_Objects
         private bool CollectionsAreEqual(object propertyValueOfInputObject,
             object propertyValueOfThisObject)
         {
-            var booleans = new List<bool>();
+            var booleans = new List<bool?>();
             var inputCollectionObject = (IList)propertyValueOfInputObject;
             var thisCollectionObject = (IList)propertyValueOfThisObject;
             if (inputCollectionObject.Count != thisCollectionObject.Count)
@@ -64,9 +64,9 @@ namespace Domain.Value_Objects
             {
                 for (int i = 0; i < inputCollectionObject.Count; i++)
                 {
-                    booleans.Add(inputCollectionObject == thisCollectionObject?[i]);
+                    booleans.Add(inputCollectionObject?[i].Equals(thisCollectionObject?[i]));
                 }
-                return !booleans.Contains(false);
+                return !booleans.Contains(false) && !booleans.Contains(null);
             }
         }
 
