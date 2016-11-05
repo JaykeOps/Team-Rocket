@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects
@@ -22,24 +23,51 @@ namespace Domain.Value_Objects
 
         public virtual bool Equals(T obj)
         {
-            var bools = new List<bool>();
-
+            var booleans = new List<bool>();
             if (ReferenceEquals(obj, null) || obj.GetType() != typeof(T))
             {
                 return false;
             }
             else
             {
-                var props = obj.GetType().GetProperties();
-                foreach (var prop in props)
+                var properties = obj.GetType().GetProperties();
+                foreach (var property in properties)
                 {
-                    var value1 = prop.GetValue(obj, null);
-                    var value2 = this.GetType().GetProperty(prop.Name).GetValue(this, null);
-
-                    bools.Add(value1.Equals(value2));
+                    var propertyValueOfInputObject = property.GetValue(obj, null);
+                    var propertyValueOfThisObject = this.GetType().GetProperty(property.Name)
+                        .GetValue(this, null);
+                    if (property.PropertyType.Namespace == "System.Collections.Generic")
+                    {
+                        booleans.Add(this.CollectionsAreEqual(propertyValueOfInputObject,
+                            propertyValueOfThisObject));
+                    }
+                    else
+                    {
+                        booleans.Add(propertyValueOfInputObject.Equals(propertyValueOfThisObject));
+                    }
                 }
             }
-            return !bools.Contains(false);
+            return !booleans.Contains(false);
+        }
+
+        private bool CollectionsAreEqual(object propertyValueOfInputObject,
+            object propertyValueOfThisObject)
+        {
+            var booleans = new List<bool>();
+            var inputCollectionObject = (IList)propertyValueOfInputObject;
+            var thisCollectionObject = (IList)propertyValueOfThisObject;
+            if (inputCollectionObject.Count != thisCollectionObject.Count)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < inputCollectionObject.Count; i++)
+                {
+                    booleans.Add(inputCollectionObject == thisCollectionObject?[i]);
+                }
+                return !booleans.Contains(false);
+            }
         }
 
         public static bool operator ==(ValueObject<T> objOne, ValueObject<T> objTwo)
