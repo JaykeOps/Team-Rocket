@@ -39,6 +39,17 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod]
+        public void ValueObjectWithStringListIsComparableByValueUsingOperators()
+        {
+            var testObjectOne = new TestObjectWithStringList();
+            var testObjectTwo = new TestObjectWithStringList();
+            Assert.IsTrue(testObjectOne == testObjectTwo);
+            testObjectTwo.TestListOfStrings.Add("Hello World!");
+            Assert.IsTrue(testObjectOne != testObjectTwo);
+
+        }
+
+        [TestMethod]
         public void ValueObjectWithIntegerListIsComparableByValueUsingTheEqualsMethod()
         {
             var testObjectOne = new TestObjectWithIntegerList();
@@ -48,6 +59,14 @@ namespace Domain.Value_Objects.Tests
             Assert.AreNotEqual(testObjectOne, testObjectTwo);
         }
 
-    
+        [TestMethod]
+        public void ValueObjectWithIntegerListIsComparableByValueUsingOperators()
+        {
+            var testObjectOne = new TestObjectWithIntegerList();
+            var testObjectTwo = new TestObjectWithIntegerList();
+            Assert.IsTrue(testObjectOne == testObjectTwo);
+            testObjectTwo.TestListOfIntegers.Add(55);
+            Assert.IsTrue(testObjectOne != testObjectTwo);
+        }
     }
 }
