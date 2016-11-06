@@ -49,12 +49,5 @@ namespace Domain.Value_Objects
         {
             return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"
         }                                                                                                          // Format style can be discussed...
-
-       
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

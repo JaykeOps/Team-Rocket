@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    public class OverTime:ValueObject<OverTime>
+    public class OverTime : ValueObject<OverTime>
     {
         public int Value { get; }
 
@@ -29,13 +29,5 @@ namespace Domain.Value_Objects
                 return false;
             }
         }
-
-        
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

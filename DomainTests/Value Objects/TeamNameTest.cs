@@ -81,7 +81,7 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
-        public void TeamNameWorksWithHashTable()
+        public void TeamNameWorksWithHashSet()
         {
             var nameOne = new TeamName("Ifk Göteborg");
             var nameTwo = new TeamName("Ifk Göteborg");

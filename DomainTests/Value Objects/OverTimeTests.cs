@@ -46,7 +46,7 @@ namespace Domain.Value_Objects.Tests
             var overTimeHashSet = new HashSet<OverTime>();
             overTimeHashSet.Add(overTimeOne);
             overTimeHashSet.Add(overtimeTwo);
-            Assert.IsTrue(overTimeHashSet.Count == 3);
+            Assert.IsTrue(overTimeHashSet.Count == 1);
         }
     }
 }
