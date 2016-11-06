@@ -69,7 +69,7 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod]
-        public void ValueObjectWorksWithHashTable()
+        public void ValueObjectWorksWithHashSet()
         {
             var hashSet = new HashSet<TestObject>();
             var testObjectOne = new TestObject();
@@ -80,7 +80,7 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod]
-        public void ValueObjectWithStringListWorksWithHashTable()
+        public void ValueObjectWithStringListPropertyWorksWithHashSet()
         {
             var hashSet = new HashSet<TestObjectWithStringList>();
             var testObjectOne = new TestObjectWithStringList();
@@ -88,6 +88,31 @@ namespace Domain.Value_Objects.Tests
             hashSet.Add(testObjectOne);
             hashSet.Add(testObjectTwo);
             Assert.IsTrue(hashSet.Count == 1);
+        }
+
+        [TestMethod]
+        public void ValueObjectWithIntegerListPropertyWorksWithHashSet()
+        {
+            var hashSet = new HashSet<TestObjectWithIntegerList>();
+            var testObjectOne = new TestObjectWithIntegerList();
+            var testObjectTwo = new TestObjectWithIntegerList();
+            hashSet.Add(testObjectOne);
+            hashSet.Add(testObjectTwo);
+            Assert.IsTrue(hashSet.Count == 1);
+        }
+
+        [TestMethod]
+        public void ValueObjectWithDictionaryPropertyWorksWithHashSet()
+        {
+            var hashSet = new HashSet<TestObjectWithDictionary>();
+            var testObjectOne = new TestObjectWithDictionary();
+            var testObjectTwo = new TestObjectWithDictionary();
+            hashSet.Add(testObjectOne);
+            hashSet.Add(testObjectTwo);
+            Assert.IsTrue(hashSet.Count == 1);
+            testObjectTwo.TestDictionary.Add("Opss!", 333);
+            hashSet.Add(testObjectTwo);
+            Assert.IsTrue(hashSet.Count == 2);
         }
     }
 }

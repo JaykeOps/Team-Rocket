@@ -83,7 +83,7 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
-        public void ArenaNameWorksWithHashTable()
+        public void ArenaNameWorksWithHashSet()
         {
             var nameOne = new ArenaName("Ullevi");
             var arenaNameTwo = new ArenaName("Ullevi");

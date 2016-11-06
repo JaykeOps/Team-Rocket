@@ -1,6 +1,5 @@
 ﻿using Domain.Interfaces;
 using DomainTests.Entities;
-using System;
 
 namespace Domain.Value_Objects
 {
@@ -14,13 +13,5 @@ namespace Domain.Value_Objects
             this.MatchMinute = matchMinute;
             this.Player = player;
         }
-
-       
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

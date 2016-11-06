@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
-    public class EmailAddress:ValueObject<EmailAddress>
+    public class EmailAddress : ValueObject<EmailAddress>
     {
         public string Value { get; }
 
@@ -33,11 +33,6 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Value.GetHashCode();
         }
 
         public override string ToString()

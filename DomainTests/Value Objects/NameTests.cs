@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using Domain.Value_Objects;
 
 namespace football_series_manager.Domain.Entities.Tests
 {
@@ -15,35 +14,35 @@ namespace football_series_manager.Domain.Entities.Tests
             Assert.IsTrue(name.FirstName == "John" && name.LastName == "Doe");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void NameIsNotNull()
         {
             var name = new Name("John", "Doe");
             Assert.IsNotNull(name);
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void NameThatContainsNoneNumeralInvalidCharactersThrowsFormatException()
         {
             var name = new Name(".%&#/", ")(##¤%");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void NameThatContainsNumbersThrowsFormatException()
         {
             var name = new Name("Jay554", "Adams443456");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void NameThatContainsLessThanFourCharactersThrowsFormatException()
         {
             var name = new Name("h", "p");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void NameThatContainsMoreThanFourtyCharactersThrowsFormatException()
         {
@@ -58,7 +57,7 @@ namespace football_series_manager.Domain.Entities.Tests
             Assert.IsTrue(result.FirstName == "John" && result.LastName == "Doe");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void NameTryParseCanOutNullValue()
         {
             Name result;
@@ -66,33 +65,33 @@ namespace football_series_manager.Domain.Entities.Tests
             Assert.IsNull(result);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void NameTryParseCanReturnTrue()
         {
             Name result;
             Assert.IsTrue(Name.TryParse("John", "Doe", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void NameTryParseCanReturnFalse()
         {
             Name result;
             Assert.IsFalse(Name.TryParse("J0hn", "#oe", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void NameIsComparableByValue()
         {
             Name nameOne = null;// new Name("Marco", "Polo");
             Name nameTwo = null;// Name("Marco", "Poo");
-            //nameOne.Equals(nameTwo);
-           var test= nameOne != null;
+                                //nameOne.Equals(nameTwo);
+            var test = nameOne != null;
             Assert.AreEqual(nameOne, nameTwo);
             Assert.IsTrue(nameOne == nameTwo);
         }
 
         [TestMethod]
-        public void NameWorksWithHashTable()
+        public void NameWorksWithHashSet()
         {
             var nameOne = new Name("Marco", "Polo");
             var nameTwo = new Name("Marco", "Polo");
@@ -100,6 +99,9 @@ namespace football_series_manager.Domain.Entities.Tests
             nameHashSet.Add(nameOne);
             nameHashSet.Add(nameTwo);
             Assert.IsTrue(nameHashSet.Count == 1);
+            nameTwo = new Name("Carl", "Gustaf");
+            nameHashSet.Add(nameTwo);
+            Assert.IsTrue(nameHashSet.Count == 2);
         }
     }
 }

@@ -141,10 +141,6 @@ namespace Domain.Value_Objects
                 {
                     hashCode += property.GetValue(this, null).GetHashCode();
                 }
-                else if (this.IsImplementingIDictionary(property.GetValue(this, null)))
-                {
-
-                }
                 else
                 {
                     hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
