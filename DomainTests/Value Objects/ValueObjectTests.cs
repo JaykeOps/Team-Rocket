@@ -1,5 +1,6 @@
 ﻿using DomainTests.Value_Objects.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -65,6 +66,28 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(testObjectOne == testObjectTwo);
             testObjectTwo.TestDictionary.Add("Okay", 555);
             Assert.IsTrue(testObjectOne != testObjectTwo);
+        }
+
+        [TestMethod]
+        public void ValueObjectWorksWithHashTable()
+        {
+            var hashSet = new HashSet<TestObject>();
+            var testObjectOne = new TestObject();
+            var testObjectTwo = new TestObject();
+            hashSet.Add(testObjectOne);
+            hashSet.Add(testObjectTwo);
+            Assert.IsTrue(hashSet.Count == 1);
+        }
+
+        [TestMethod]
+        public void ValueObjectWithStringListWorksWithHashTable()
+        {
+            var hashSet = new HashSet<TestObjectWithStringList>();
+            var testObjectOne = new TestObjectWithStringList();
+            var testObjectTwo = new TestObjectWithStringList();
+            hashSet.Add(testObjectOne);
+            hashSet.Add(testObjectTwo);
+            Assert.IsTrue(hashSet.Count == 1);
         }
     }
 }

@@ -7,8 +7,6 @@ namespace Domain.Value_Objects
     public abstract class ValueObject<T> : IEquatable<T>
         where T : ValueObject<T>
     {
-        public abstract override int GetHashCode();
-
         public override bool Equals(object obj)
 
         {
@@ -58,9 +56,9 @@ namespace Domain.Value_Objects
             }
         }
 
-        private bool IsImplementingIDictionary(object propertyValueOfInputObject)
+        private bool IsImplementingIDictionary(object propertyValue)
         {
-            return typeof(IDictionary).IsAssignableFrom(propertyValueOfInputObject.GetType());
+            return typeof(IDictionary).IsAssignableFrom(propertyValue.GetType());
         }
 
         private bool DictionariesValueAreEqual(object propertyValueOfInputObject,
@@ -131,6 +129,39 @@ namespace Domain.Value_Objects
         public static bool operator !=(ValueObject<T> objOne, ValueObject<T> objTwo)
         {
             return !(objOne == objTwo);
+        }
+
+        public override int GetHashCode()
+        {
+            var properties = this.GetType().GetProperties();
+            int hashCode = 0;
+            foreach (var property in properties)
+            {
+                if (property.PropertyType.Namespace != "System.Collections.Generic")
+                {
+                    hashCode += property.GetValue(this, null).GetHashCode();
+                }
+                else if (this.IsImplementingIDictionary(property.GetValue(this, null)))
+                {
+
+                }
+                else
+                {
+                    hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
+                }
+                
+            }
+            return hashCode;
+        }
+
+        private int GetHashCodeFromAllListItems(ICollection collectionProperty)
+        {
+            int hashCode = 0;
+            foreach (var item in collectionProperty)
+            {
+                hashCode += item.GetHashCode();
+            }
+            return hashCode;
         }
     }
 }
