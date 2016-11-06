@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Domain.Value_Objects
 {
@@ -38,7 +39,8 @@ namespace Domain.Value_Objects
                         .GetValue(this, null);
                     if (property.PropertyType.Namespace == "System.Collections.Generic")
                     {
-                        if (property.PropertyType.Namespace == "System.Collections.Generic.Dictionary")
+                        
+                        if (this.IsImplementingIDictionary(propertyValueOfInputObject))
                         {
                             booleans.Add(this.DictionariesValueAreEqual(propertyValueOfInputObject,
                                 propertyValueOfThisObject));
@@ -56,6 +58,11 @@ namespace Domain.Value_Objects
                 }
             }
             return !booleans.Contains(false);
+        }
+
+        private bool IsImplementingIDictionary(object propertyValueOfInputObject)
+        {
+            return typeof(IDictionary).IsAssignableFrom(propertyValueOfInputObject.GetType());
         }
 
         private bool DictionariesValueAreEqual(object propertyValueOfInputObject,
