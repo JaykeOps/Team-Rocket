@@ -58,7 +58,7 @@ namespace Domain.Value_Objects
 
         private bool IsImplementingIDictionary(object propertyValue)
         {
-            return typeof(IDictionary).IsAssignableFrom(propertyValue.GetType());
+            return propertyValue is IDictionary;
         }
 
         private bool DictionariesValueAreEqual(object propertyValueOfInputObject,
