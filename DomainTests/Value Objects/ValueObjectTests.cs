@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using static DomainTests.Value_Objects.Tests.ValueObjectTests;
+﻿using DomainTests.Value_Objects.Tests;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -49,11 +48,23 @@ namespace Domain.Value_Objects.Tests
         }
 
         [TestMethod]
-        public void ValueObjectWithDictionaryIsComparableByValueUsingOperators()
+        public void ValueObjectWithDictionaryIsComparableByValueUsingTheEqualsMethod()
         {
             var testObjectOne = new TestObjectWithDictionary();
             var testObjectTwo = new TestObjectWithDictionary();
             Assert.AreEqual(testObjectOne, testObjectTwo);
+            testObjectTwo.TestDictionary.Add("Okay", 555);
+            Assert.AreNotEqual(testObjectOne, testObjectTwo);
+        }
+
+        [TestMethod]
+        public void ValueObjectWithDictionaryIsComparableByValueUsingOperators()
+        {
+            var testObjectOne = new TestObjectWithDictionary();
+            var testObjectTwo = new TestObjectWithDictionary();
+            Assert.IsTrue(testObjectOne == testObjectTwo);
+            testObjectTwo.TestDictionary.Add("Okay", 555);
+            Assert.IsTrue(testObjectOne != testObjectTwo);
         }
     }
 }

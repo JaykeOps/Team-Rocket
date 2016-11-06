@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Domain.Value_Objects
 {
@@ -39,7 +38,6 @@ namespace Domain.Value_Objects
                         .GetValue(this, null);
                     if (property.PropertyType.Namespace == "System.Collections.Generic")
                     {
-                        
                         if (this.IsImplementingIDictionary(propertyValueOfInputObject))
                         {
                             booleans.Add(this.DictionariesValueAreEqual(propertyValueOfInputObject,
@@ -56,8 +54,8 @@ namespace Domain.Value_Objects
                         booleans.Add(propertyValueOfInputObject.Equals(propertyValueOfThisObject));
                     }
                 }
+                return !booleans.Contains(false);
             }
-            return !booleans.Contains(false);
         }
 
         private bool IsImplementingIDictionary(object propertyValueOfInputObject)
@@ -77,13 +75,20 @@ namespace Domain.Value_Objects
             }
             else
             {
-                foreach (var key in inputDictionaryObject.Keys)
+                if (inputDictionaryObject.Count != thisDictionaryObject.Count)
                 {
-                    var inputValue = inputDictionaryObject?[key];
-                    var thisValue = thisDictionaryObject?[key];
-                    booleans.Add(inputValue.Equals(thisValue));
+                    return false;
                 }
-                return !booleans.Contains(false) && !booleans.Contains(null);
+                else
+                {
+                    foreach (var key in inputDictionaryObject.Keys)
+                    {
+                        var inputValue = inputDictionaryObject?[key];
+                        var thisValue = thisDictionaryObject?[key];
+                        booleans.Add(inputValue.Equals(thisValue));
+                    }
+                    return !booleans.Contains(false) && !booleans.Contains(null);
+                }
             }
         }
 
