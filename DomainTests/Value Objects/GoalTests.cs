@@ -10,8 +10,8 @@ namespace Domain.Value_Objects.Tests
         private MatchMinute matchMinute = new MatchMinute(11);
 
         private Player player = new Player(new Name("John", "Doe"), new DateOfBirth("1975-04-18"),
-            new ContactInformation(new PhoneNumber("0734215687"), new EmailAddress("qwerty@gmail.se")),
-            PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(8));
+            new ContactInformation(new PhoneNumber("0734-215687"), new EmailAddress("qwerty@gmail.se")),
+            PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(88));
 
         [TestMethod]
         //[ExpectedException(typeof(NullReferenceException))]
