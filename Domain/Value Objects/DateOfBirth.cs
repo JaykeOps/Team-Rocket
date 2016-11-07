@@ -64,9 +64,5 @@ namespace Domain.Value_Objects
             return $"{this.Value:yyyy-MM-dd}";
         }
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

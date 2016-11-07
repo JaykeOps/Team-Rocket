@@ -20,14 +20,7 @@ namespace Domain.Value_Objects
 
         private bool IsOverTime(int value)
         {
-            if (value >= 0 && value <= 30) // Maximum overtime is set as 30 minutes.
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return value >= 0 && value <= 30;
         }
     }
 }

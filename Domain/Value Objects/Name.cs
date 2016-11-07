@@ -37,11 +37,6 @@ namespace football_series_manager.Domain.Entities
             }
         }
 
-        //public override int GetHashCode()
-        //{
-        //    return (this.FirstName + this.LastName).GetHashCode();
-        //}
-
         public override string ToString()
         {
             return $"{FirstName} {LastName}";

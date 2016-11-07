@@ -18,9 +18,6 @@ namespace DomainTests.Entities
             this.Penalties = new List<Penalty>();
         }
 
-        public override int GetHashCode()
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }
