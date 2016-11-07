@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DomainTests.Value_Objects
 {
-    [TestClass()]
+    [TestClass]
     public class MatchDurationTest
     {
         [TestMethod]

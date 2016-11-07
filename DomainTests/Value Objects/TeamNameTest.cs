@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DomainTests.Value_Objects
 {
-    [TestClass()]
+    [TestClass]
     public class TeamNameTests
     {
         [TestMethod]
@@ -15,7 +15,7 @@ namespace DomainTests.Value_Objects
             Assert.IsTrue(teamName.Value == "Ifk Göteborg");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void TeamNameIsNotNull()
         {
             var teamName = new TeamName("Ifk Göteborg");
@@ -27,14 +27,14 @@ namespace DomainTests.Value_Objects
         {
             var name = new TeamName(".%&#/");
         }
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void TeamNameThatContainsLessThanTwoCharactersThrowsFormatException()
         {
             var teamName = new TeamName("h");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void TeamNameThatContainsMoreThanFourtyCharactersThrowsFormatException()
         {
@@ -49,7 +49,7 @@ namespace DomainTests.Value_Objects
             Assert.IsTrue(result.Value == "Ifk Göteborg");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void TeamNameTryParseCanOutNullValue()
         {
             TeamName result;
@@ -57,21 +57,21 @@ namespace DomainTests.Value_Objects
             Assert.IsNull(result);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void TeamNameTryParseCanReturnTrue()
         {
             TeamName result;
             Assert.IsTrue(TeamName.TryParse("Ifk Göteborg", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void TeamNameTryParseCanReturnFalse()
         {
             TeamName result;
             Assert.IsFalse(TeamName.TryParse("Ifk G?teborg", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void TeamNameIsComparableByValue()
         {
             var nameOne = new TeamName("Ifk Göteborg");

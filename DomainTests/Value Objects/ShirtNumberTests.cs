@@ -4,38 +4,38 @@ using System.Collections.Generic;
 
 namespace DomainTests.Entities.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class ShirtNumberTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberIsEqualToValidEntry()
         {
             var shirtNumber = new ShirtNumber(1);
             Assert.IsTrue(shirtNumber.Value == 1);
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void ShirtNumberLessThanZeroThrowsIndexOutOfRangeException()
         {
             var shirtNumber = new ShirtNumber(-1);
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void ShirtNumberGreaterThanNinteyNineThrowsIndexOutOfRangeException()
         {
             var shirtNumber = new ShirtNumber(100);
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(ShirtNumberAlreadyInUseException))]
         public void ShirtNumberUnAvailibeUseThrowsShirtNumberAlreadyInUseException()
         {
             var shirtNumber = new ShirtNumber(8);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberTryParseCanOutValidResult()
         {
             ShirtNumber result;
@@ -43,7 +43,7 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue(result.Value == 17);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberTryParseCanOutNullResult()
         {
             ShirtNumber result;
@@ -51,21 +51,21 @@ namespace DomainTests.Entities.Tests
             Assert.IsNull(result);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberTryParseCanReturnTrue()
         {
             ShirtNumber result;
             Assert.IsTrue(ShirtNumber.TryParse(17, out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberTryParseCanReturnFalse()
         {
             ShirtNumber result;
             Assert.IsFalse(ShirtNumber.TryParse(2, out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ShirtNumberIsComparableByValue()
         {
             var shirtNumberOne = new ShirtNumber(25);
