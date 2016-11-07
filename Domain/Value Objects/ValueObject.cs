@@ -16,7 +16,7 @@ namespace Domain.Value_Objects
             }
 
             var other = obj as T;
-            return Equals(other);
+            return this.Equals(other);
         }
 
         public virtual bool Equals(T obj)
