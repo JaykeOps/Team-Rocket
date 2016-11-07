@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Repositories
 {
-    public sealed class TeamRepository
+    internal sealed class TeamRepository
     {
         private List<Team> teams;
         public static readonly TeamRepository Instance = new TeamRepository();

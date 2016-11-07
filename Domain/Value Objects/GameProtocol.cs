@@ -27,10 +27,7 @@ namespace Domain.Value_Objects
         }
 
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
+       
 
         
     }

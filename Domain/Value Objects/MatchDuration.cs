@@ -48,9 +48,6 @@ namespace Domain.Value_Objects
             return $"{this.Value.TotalMinutes}";
         }
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

@@ -57,11 +57,6 @@ namespace DomainTests.Entities
                 return false;
             }
         }
-
         
-        public override int GetHashCode()
-        {
-            return this.Value.GetHashCode();
-        }
     }
 }
