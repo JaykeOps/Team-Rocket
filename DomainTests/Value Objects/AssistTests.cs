@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class AssistTests
     {
     }

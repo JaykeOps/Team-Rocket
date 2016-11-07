@@ -1,12 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class DateOfBirthTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthInRangeIsEqualToEntry()
         {
             var dateOfBirth = new DateOfBirth("1989-12-14");
@@ -14,20 +15,20 @@ namespace Domain.Value_Objects.Tests
         }
 
         [ExpectedException(typeof(FormatException))]
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthUnderTheAgeOfThreeThrowsFormatException()
         {
             var dateOfBirth = new DateOfBirth("2015-10-30");
         }
 
         [ExpectedException(typeof(FormatException))]
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthOverTheAgeOfEightyThrowsNewFormatException()
         {
             var dateOfBirth = new DateOfBirth("1933-06-25");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthTryParseCanOutValidResult()
         {
             DateOfBirth result;
@@ -35,7 +36,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue($"{result:yyyy-MM-dd}" == "2012-03-29");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthTryParseCanOutNullValue()
         {
             DateOfBirth result;
@@ -43,27 +44,35 @@ namespace Domain.Value_Objects.Tests
             Assert.IsNull(result);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthTryParseCanReturnTrue()
         {
             DateOfBirth result;
             Assert.IsTrue(DateOfBirth.TryParse("1995-05-01", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthTryParseCanReturnFalse()
         {
             DateOfBirth result;
             Assert.IsFalse(DateOfBirth.TryParse("1776-07-04", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void DateOfBirthIsComparableByValue()
         {
             var dateOfBirthOne = new DateOfBirth("1998-11-01");
             var dateOfBirthTwo = new DateOfBirth("1998-11-01");
             Assert.AreEqual(dateOfBirthOne, dateOfBirthTwo);
             Assert.IsTrue(dateOfBirthOne.Value == dateOfBirthTwo.Value);
+        }
+        [TestMethod]
+        public void DateOfBirthWorksWithHashSet()
+        {
+            var dateOfBirthOne = new DateOfBirth("1998-11-01");
+            var dateOfBirthTwo = new DateOfBirth("1998-11-01");
+            var daetOfBirthHashSet = new HashSet<DateOfBirth> { dateOfBirthOne, dateOfBirthTwo };
+            Assert.IsTrue(daetOfBirthHashSet.Count == 1);
         }
     }
 }
