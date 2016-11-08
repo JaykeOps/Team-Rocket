@@ -22,15 +22,11 @@ namespace Domain.Value_Objects.Tests
         {
             this.playerOne = new Player(new Name("John", "Doe"),
                 new DateOfBirth("1993-02-04"),
-                new ContactInformation(new PhoneNumber("0739-892247"),
-                new EmailAddress("johnnyboy_93@hotmail.com")),
                 PlayerPosition.Forward, PlayerStatus.Absent,
                 new ShirtNumber(25));
 
             this.playerTwo = new Player(new Name("John", "Doe"),
                 new DateOfBirth("1993-02-04"),
-                new ContactInformation(new PhoneNumber("0739-892247"),
-                new EmailAddress("johnnyboy_93@hotmail.com")),
                 PlayerPosition.Forward, PlayerStatus.Absent,
                 new ShirtNumber(25));
 

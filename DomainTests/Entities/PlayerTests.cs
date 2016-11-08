@@ -16,7 +16,7 @@ namespace DomainTests.Entities.Tests
             var dateOfBirth = new DateOfBirth("1974-08-24");
             var contactInformation = new ContactInformation(new PhoneNumber("0735-688231"),
                 new EmailAddress("johnDoe_84@hotmail.com"));
-            this.testPlayer = new Player(name, dateOfBirth, contactInformation, PlayerPosition.Forward,
+            this.testPlayer = new Player(name, dateOfBirth, PlayerPosition.Forward,
                 PlayerStatus.Available, new ShirtNumber(25));
         }
 
@@ -27,8 +27,6 @@ namespace DomainTests.Entities.Tests
                && this.testPlayer.Name.FirstName == "John"
                && this.testPlayer.Name.LastName == "Doe"
                && $"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1974-08-24"
-               && this.testPlayer.ContactInformation.Phone.Value == "0735-688231"
-               && this.testPlayer.ContactInformation.Email.Value == "johnDoe_84@hotmail.com"
                && this.testPlayer.Position == PlayerPosition.Forward
                && this.testPlayer.Status == PlayerStatus.Available
                && this.testPlayer.ShirtNumber.Value == 25
@@ -51,22 +49,6 @@ namespace DomainTests.Entities.Tests
             Assert.IsFalse($"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1994-07-24");
             this.testPlayer.DateOfBirth = new DateOfBirth("1994-07-24");
             Assert.IsTrue($"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1994-07-24");
-        }
-
-        [TestMethod()]
-        public void PlayerContactInformationPhoneNumberCanChange()
-        {
-            Assert.IsFalse(this.testPlayer.ContactInformation.Phone.Value == "0739-886677");
-            this.testPlayer.ContactInformation.Phone = new PhoneNumber("0739-886677");
-            Assert.IsTrue(this.testPlayer.ContactInformation.Phone.Value == "0739-886677");
-        }
-
-        [TestMethod()]
-        public void PlayerContactInformationEmailAddressCanChange()
-        {
-            Assert.IsFalse(this.testPlayer.ContactInformation.Email.Value == "ibn_battuta@explorer.com");
-            this.testPlayer.ContactInformation.Email = new EmailAddress("ibn_battuta@explorer.com");
-            Assert.IsTrue(this.testPlayer.ContactInformation.Email.Value == "ibn_battuta@explorer.com");
         }
 
         [TestMethod()]

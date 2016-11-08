@@ -16,7 +16,7 @@ namespace Domain.Value_Objects.Tests
             var contactInformation = new ContactInformation(new PhoneNumber("0739-246788"),
                 new EmailAddress("johnDoe_48@hotmail.com"));
             var player = new Player(new Name("John", "Doe"), new DateOfBirth("1988-05-22"),
-                contactInformation, PlayerPosition.GoalKeeper, PlayerStatus.Available,
+                PlayerPosition.GoalKeeper, PlayerStatus.Available,
                 new ShirtNumber(25));
 
             this.penaltyOne = new Penalty(new MatchMinute(36), player);
@@ -28,8 +28,6 @@ namespace Domain.Value_Objects.Tests
         {
             Assert.IsTrue(this.penaltyOne.Player.Name == new Name("John", "Doe"));
             Assert.IsTrue(this.penaltyOne.Player.DateOfBirth.Value == new DateOfBirth("1988-05-22").Value);
-            Assert.IsTrue(this.penaltyOne.Player.ContactInformation.Phone.Value == new PhoneNumber("0739-246788").Value);
-            Assert.IsTrue(this.penaltyOne.Player.ContactInformation.Email.Value == new EmailAddress("johnDoe_48@hotmail.com").Value);
             Assert.IsTrue(this.penaltyOne.Player.Position == PlayerPosition.GoalKeeper);
             Assert.IsTrue(this.penaltyOne.Player.Status == PlayerStatus.Available);
             Assert.IsTrue(this.penaltyOne.Player.ShirtNumber.Value == new ShirtNumber(25).Value);
