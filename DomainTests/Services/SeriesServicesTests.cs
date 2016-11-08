@@ -13,7 +13,7 @@ namespace DomainTests.Services
     [TestClass()]
     public class SeriesServicesTests
     {
-        private SeriesService seriesService;
+      /*  private SeriesService seriesService;
         private Series testSerieOne;
 
         public SeriesServicesTests()
@@ -41,6 +41,6 @@ namespace DomainTests.Services
         {
             seriesService.AddSeries(testSerieOne);
             var result = seriesService.FindSeriesById(testSerieOne.Id);
-        }
+        }*/
     }
 }

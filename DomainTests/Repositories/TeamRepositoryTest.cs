@@ -16,13 +16,29 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void RepoStateIsTheSame()
         {
-            var team = new Team(new TeamName("ifk göteborg"),new ArenaName("ullevi"),new EmailAddress("ifkgoteborg@gmail.com")  );
+            
             var instance = TeamRepository.instance;
             var instance2 = TeamRepository.instance;
-            instance.Add(team);
-            var teams = instance.GetAll();
-            var teams2 = instance2.GetAll();
-            Assert.IsTrue(teams.Count()==teams2.Count());
+            
+            Assert.AreEqual(instance,instance2);
         }
+
+        [TestMethod]
+        public void RepoGetAllReturnsIEnumerable()
+        {
+            Assert.IsInstanceOfType(TeamRepository.instance.GetAll(),typeof(IEnumerable<Team>));
+        }
+
+        [TestMethod]
+        public void RepoAddIsWorking()
+        {
+            var team = new Team(new TeamName("ifk göteborg"), new ArenaName("ullevi"), new EmailAddress("ifkgoteborg@gmail.com"));
+            var team2 = new Team(new TeamName("GAIS"), new ArenaName("ullevi"), new EmailAddress("GAIS@gmail.com"));
+            TeamRepository.instance.Add(team);
+            var teams = TeamRepository.instance.GetAll();
+            Assert.IsTrue(teams.Contains(team));
+            Assert.IsFalse(teams.Contains(team2));
+        }
+       
     }
 }
