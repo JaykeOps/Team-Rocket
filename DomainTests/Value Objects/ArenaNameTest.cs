@@ -36,7 +36,7 @@ namespace DomainTests.Value_Objects
             var name = new ArenaName("h");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void ArenaNameThatContainsMoreThanFourtyCharactersThrowsFormatException()
         {

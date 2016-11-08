@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -64,6 +65,14 @@ namespace Domain.Value_Objects.Tests
             var dateOfBirthTwo = new DateOfBirth("1998-11-01");
             Assert.AreEqual(dateOfBirthOne, dateOfBirthTwo);
             Assert.IsTrue(dateOfBirthOne.Value == dateOfBirthTwo.Value);
+        }
+        [TestMethod]
+        public void DateOfBirthWorksWithHashSet()
+        {
+            var dateOfBirthOne = new DateOfBirth("1998-11-01");
+            var dateOfBirthTwo = new DateOfBirth("1998-11-01");
+            var daetOfBirthHashSet = new HashSet<DateOfBirth> { dateOfBirthOne, dateOfBirthTwo };
+            Assert.IsTrue(daetOfBirthHashSet.Count == 1);
         }
     }
 }
