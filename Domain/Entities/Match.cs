@@ -9,21 +9,21 @@ namespace Domain.Entities
         public Guid Id { get; }
         public ArenaName Location { get; set; }
         public MatchDuration MatchDuration { get; set; }
-        public Team HomeTeam { get; set; }
-        public Team AwayTeam { get; set; }
+        public Guid HomeTeamId { get; }
+        public Guid AwayTeamId { get; }
 
-        public Match(ArenaName location, Team homeTeam, Team awayTeam, Series series)
+        public Match(ArenaName location, Guid homeTeamId, Guid awayTeamId, Series series)
         {
             this.Id = new Guid();
             this.Location = location;
             this.MatchDuration = series.MatchDuration;
-            this.HomeTeam = homeTeam;
-            this.AwayTeam = awayTeam;
+            this.HomeTeamId = homeTeamId;
+            this.AwayTeamId = awayTeamId;
         }
 
-        public override string ToString()
-        {
-            return $"Location: {this.Location} Hometeam: {this.HomeTeam} Awayteam: {this.AwayTeam}";
-        }
+        //public override string ToString() // This function can't be written until we can get access to teams with a function like 'FindTeamById(Guid teamId)'.
+        //{
+        //    return $"Location: {this.Location} Hometeam: {this.HomeTeam} Awayteam: {this.AwayTeam}";
+        //}
     }
 }
