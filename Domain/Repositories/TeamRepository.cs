@@ -16,7 +16,7 @@ namespace Domain.Repositories
                 new Team(new TeamName("Ifk Göteborg"),new ArenaName("Ullevi"),new EmailAddress("ifkgoteborg@gmail.com")),
                 new Team(new TeamName("Bk Häcken"),new ArenaName("BravidaArena"),new EmailAddress("hacken@gmail.com")),
                 new Team(new TeamName("Ifk Norrköping"),new ArenaName("Östgötaporten"),new EmailAddress("ifknorrkoping@gmail.com")),
-                new Team(new TeamName("Kalmar FF"),new ArenaName("GuldfågelnArena"),new EmailAddress("kff@gmail.com")),
+                
                 
             };
         }
