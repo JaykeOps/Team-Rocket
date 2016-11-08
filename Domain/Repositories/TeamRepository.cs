@@ -11,8 +11,19 @@ namespace Domain.Repositories
 
         private TeamRepository()
         {
+<<<<<<< HEAD
             this.teams = new List<Team>();
             LoadData();
+=======
+            this.teams = new List<Team>
+            {
+                new Team(new TeamName("Ifk Göteborg"),new ArenaName("Ullevi"),new EmailAddress("ifkgoteborg@gmail.com")),
+                new Team(new TeamName("Bk Häcken"),new ArenaName("BravidaArena"),new EmailAddress("hacken@gmail.com")),
+                new Team(new TeamName("Ifk Norrköping"),new ArenaName("Östgötaporten"),new EmailAddress("ifknorrkoping@gmail.com")),
+                
+                
+            };
+>>>>>>> refs/remotes/origin/master
         }
 
         public void Add(Team team)
