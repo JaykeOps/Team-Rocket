@@ -17,9 +17,9 @@ namespace Domain.Repositories
             LoadData();
         }
 
-        public void Add(Player team)
+        public void Add(Player player)
         {
-            this.players.Add(team);
+            this.players.Add(player);
         }
 
         public IEnumerable<Player> GetAll()
