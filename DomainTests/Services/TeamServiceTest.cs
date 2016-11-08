@@ -23,6 +23,11 @@ namespace DomainTests.Services
         {
             Assert.IsInstanceOfType(service.GetAll(), typeof(IEnumerable<Team>));
         }
+        [TestMethod]
+        public void GetAllTeamsNotReturningNull()
+        {
+            Assert.IsNotNull(service.GetAll());
+        }
 
         [TestMethod]
         public void AddTeamIsWorking()

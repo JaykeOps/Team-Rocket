@@ -39,6 +39,12 @@ namespace DomainTests.Repositories
             Assert.IsTrue(teams.Contains(team));
             Assert.IsFalse(teams.Contains(team2));
         }
+
+        [TestMethod]
+        public void GetAllNotReturningNull()
+        {
+            Assert.IsNotNull(TeamRepository.instance.GetAll());
+        }
        
     }
 }
