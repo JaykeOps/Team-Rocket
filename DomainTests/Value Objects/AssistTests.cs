@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Domain.Value_Objects;
 using DomainTests.Entities;
 using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Domain.Value_Objects.Tests
+namespace DomainTests.Value_Objects
 {
     [TestClass]
     public class AssistTests
@@ -40,15 +41,15 @@ namespace Domain.Value_Objects.Tests
         public void AssistIsComparableByValue()
         {
             Assert.IsTrue(this.assistOne == this.assistTwo);
-            Assert.IsTrue(this.assistOne!=assistThree);
+            Assert.IsTrue(this.assistOne != assistThree);
             Assert.AreEqual(this.assistOne, this.assistTwo);
-            Assert.AreNotEqual(this.assistTwo,assistThree);
+            Assert.AreNotEqual(this.assistTwo, assistThree);
 
         }
         [TestMethod]
         public void PenaltyWorksWithHashSet()
         {
-            var hashSet = new HashSet<Assist> {this.assistOne, this.assistTwo};
+            var hashSet = new HashSet<Assist> { this.assistOne, this.assistTwo };
             Assert.IsTrue(hashSet.Count == 1);
         }
     }
