@@ -3,6 +3,7 @@ using DomainTests.Entities;
 using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Value_Objects
 {
@@ -150,6 +151,22 @@ namespace DomainTests.Value_Objects
             Assert.AreEqual(playerStatsOne.AssistCount, playerStatsOne.AssistStats.Count);
             Assert.IsTrue(playerStatsOne.AssistCount == playerStatsOne.AssistStats.Count
                 && playerStatsOne.AssistCount == 3);
+        }
+
+        [TestMethod]
+        public void PlayerStatsYellowCardCountIsEqualToYellowCardsInCardStats()
+        {
+            var yellowCardCount = playerStatsOne.CardStats.
+                FindAll(x => x.CardType.Equals(CardType.Yellow)).Count;
+            Assert.AreEqual(playerStatsOne.YellowCardCount, yellowCardCount);
+        }
+
+        [TestMethod]
+        public void PlayerStatsRedCardCountIsEqualToRedCardsInCardStats()
+        {
+            var redCardCount = playerStatsOne.CardStats.
+                FindAll(x => x.CardType.Equals(CardType.Red)).Count;
+            Assert.AreEqual(playerStatsOne.RedCardCount, redCardCount);
         }
 
         [TestMethod]
