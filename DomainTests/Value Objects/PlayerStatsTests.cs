@@ -63,11 +63,4 @@ namespace DomainTests.Value_Objects
             });
         }
     }
-
-    [TestMethod]
-    public void PlayerStatsTest()
-    {
-        Assert.Fail();
-    }
-}
 }
