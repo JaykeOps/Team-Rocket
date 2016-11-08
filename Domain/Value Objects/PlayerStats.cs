@@ -13,7 +13,7 @@ namespace DomainTests.Entities
         public List<Goal> GoalStats { get { return goalStats; } }
         public List<Assist> AssistStats { get { return assistStats; } }
         public List<Card> CardStats { get { return cardStats; } }
-        public List<Penalty> Penalties { get { return penaltyStats; } }
+        public List<Penalty> PenaltyStats { get { return penaltyStats; } }
         public int? GoalCount { get { return goalStats?.Count ?? 0; } }
         public int? AssistCount { get { return assistStats?.Count ?? 0; } }
         public int? CardCount { get { return cardStats?.Count ?? 0; } }

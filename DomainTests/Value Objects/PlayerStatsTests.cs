@@ -9,6 +9,8 @@ namespace DomainTests.Value_Objects
     [TestClass]
     public class PlayerStatsTests
     {
+        internal Player playerOne;
+        internal Player playerTwo;
         internal PlayerStats playerStatsOne;
         internal PlayerStats playerStatsOneDuplicate;
         internal PlayerStats playerStatsTwo;
@@ -25,9 +27,9 @@ namespace DomainTests.Value_Objects
             var playerStatusTwo = PlayerStatus.Injured;
             var shirtNumberOne = new ShirtNumber(25);
             var shirtNumberTwo = new ShirtNumber(28);
-            var playerOne = new Player(nameOne, dateOfBirthOne, playerPositionOne, playerStatusOne,
+            playerOne = new Player(nameOne, dateOfBirthOne, playerPositionOne, playerStatusOne,
                 shirtNumberOne);
-            var playerTwo = new Player(nameTwo, dateOfBirthTwo, playerPositionTwo, playerStatusTwo,
+            playerTwo = new Player(nameTwo, dateOfBirthTwo, playerPositionTwo, playerStatusTwo,
                 shirtNumberTwo);
 
             playerStatsOne = new PlayerStats();
@@ -98,6 +100,49 @@ namespace DomainTests.Value_Objects
                 new Card(new MatchMinute(90), playerTwo, CardType.Yellow),
                 new Card(new MatchMinute(27), playerTwo, CardType.Red)
             });
+
+            playerStatsOne.PenaltyStats.AddRange(new List<Penalty>
+            {
+                new Penalty(new MatchMinute(12), playerOne),
+                new Penalty(new MatchMinute(22), playerOne)
+            });
+
+            playerStatsOneDuplicate.PenaltyStats.AddRange(new List<Penalty>
+            {
+                new Penalty(new MatchMinute(12), playerOne),
+                new Penalty(new MatchMinute(22), playerOne)
+            });
+
+            playerStatsTwo.PenaltyStats.AddRange(new List<Penalty>
+            {
+                new Penalty(new MatchMinute(3), playerTwo)
+            });
+        }
+
+        [TestMethod]
+        public void PlayerGoalCountIsEqualToGoalStatsCount()
+        {
+            Assert.AreEqual(playerStatsOne.GoalCount, playerStatsOne.GoalStats.Count);
+            Assert.IsTrue(playerStatsOne.GoalCount == playerStatsOne.GoalStats.Count
+                && playerStatsOne.GoalCount == 3);
+            playerStatsOne.GoalStats.Add(new Goal(new MatchMinute(3), playerOne));
+            Assert.AreEqual(playerStatsOne.GoalCount, playerStatsOne.GoalStats.Count);
+            Assert.IsTrue(playerStatsOne.GoalCount == playerStatsOne.GoalStats.Count
+                && playerStatsOne.GoalCount == 4);
+
+        }
+
+        [TestMethod]
+        public void PlayerAssistCountIsEqualToAssistStatsCount()
+        {
+            Assert.AreEqual(playerStatsOne.AssistCount, playerStatsOne.AssistStats.Count);
+            Assert.IsTrue(playerStatsOne.AssistCount == playerStatsOne.AssistStats.Count
+                && playerStatsOne.AssistCount == 2);
+            playerStatsOne.AssistStats.Add(new Assist(new MatchMinute(55), playerOne));
+            Assert.AreEqual(playerStatsOne.AssistCount, playerStatsOne.AssistStats.Count);
+            Assert.IsTrue(playerStatsOne.AssistCount == playerStatsOne.AssistStats.Count
+                && playerStatsOne.AssistCount == 3);
+
         }
     }
 }
