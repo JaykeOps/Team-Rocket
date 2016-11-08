@@ -28,8 +28,7 @@ namespace Domain.Services
             var players = this.repository.GetAll();
 
             var result = players.Where(x =>
-                x.Name.FirstName.Contains(searchText, ignoreCase) ||
-                x.Name.LastName.Contains(searchText, ignoreCase) ||
+                x.Name.ToString().Contains(searchText, ignoreCase) ||
                 x.DateOfBirth.Value.ToString().Contains(searchText, ignoreCase));
 
             return result;

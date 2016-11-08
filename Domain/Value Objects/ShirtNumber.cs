@@ -31,18 +31,18 @@ namespace Domain.Entities
 
         private bool IsAvailable(int number)
         {
-            return !this.TeamShirtNumbersTempSimulation(number);
+            return true; //!this.TeamShirtNumbersTempSimulation(number);
         }
 
-        public bool TeamShirtNumbersTempSimulation(int number)
-        {
-            var teamShirtNumbersSimulaton = new HashSet<int>()
-            {
-                0, 3, 6, 7, 8, 9, 14, 12, 2, 19, 27, 32, 99, 14, 18, 19, 20, 32, 55
-            };
+        //public bool TeamShirtNumbersTempSimulation(int number)
+        //{
+        //    var teamShirtNumbersSimulaton = new HashSet<int>()
+        //    {
+        //        0, 3, 6, 7, 8, 9, 14, 12, 2, 19, 27, 32, 99, 14, 18, 19, 20, 32, 55
+        //    };
 
-            return teamShirtNumbersSimulaton.Contains(number);
-        }
+        //    return teamShirtNumbersSimulaton.Contains(number);
+        //}
 
         public static bool TryParse(int value, out ShirtNumber result)
         {
