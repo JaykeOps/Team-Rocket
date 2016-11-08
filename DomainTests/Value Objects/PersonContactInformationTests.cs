@@ -54,7 +54,7 @@ namespace Domain.Value_Objects.Tests
             hashSet.Add(contactTwo);
             Assert.IsTrue(hashSet.Count == 1);
             contactTwo = new ContactInformation(phoneOne,
-                new EmailAddress("carlton@freshprince@hoolywood.com"));
+                new EmailAddress("carltonfrrince@hoolywood.com"));
             hashSet.Add(contactTwo);
             Assert.IsTrue(hashSet.Count == 2);
             

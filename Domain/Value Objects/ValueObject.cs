@@ -36,7 +36,7 @@ namespace Domain.Value_Objects
                         .GetValue(this, null);
                     if (property.PropertyType.Namespace == "System.Collections.Generic")
                     {
-                        if (this.IsImplementingIDictionary(propertyValueOfInputObject))
+                        if (propertyValueOfInputObject is IDictionary)
                         {
                             booleans.Add(this.DictionariesValueAreEqual(propertyValueOfInputObject,
                                 propertyValueOfThisObject));
@@ -58,7 +58,7 @@ namespace Domain.Value_Objects
 
         private bool IsImplementingIDictionary(object propertyValue)
         {
-            return typeof(IDictionary).IsAssignableFrom(propertyValue.GetType());
+            return propertyValue is IDictionary;
         }
 
         private bool DictionariesValueAreEqual(object propertyValueOfInputObject,
