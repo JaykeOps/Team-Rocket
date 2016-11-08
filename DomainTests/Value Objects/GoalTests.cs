@@ -1,5 +1,4 @@
-﻿using DomainTests.Entities;
-using football_series_manager.Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Domain.Value_Objects.Tests
