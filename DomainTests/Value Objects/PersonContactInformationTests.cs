@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class PersonContactInformationTests
     {
         private string phoneString;
@@ -19,21 +19,21 @@ namespace Domain.Value_Objects.Tests
             this.contactInformation = new ContactInformation(phone, email);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PersonContactInformationCanBeInitiatedWithValidArguments()
         {
             Assert.IsTrue(contactInformation.Phone.Value == "0734-668899"
                 && contactInformation.Email.Value == "johnDoe@outlook.com");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PersonContactInformationPhoneNumberCanChange()
         {
             this.contactInformation.Phone = new PhoneNumber("0739-884477");
             Assert.IsTrue(this.contactInformation.Phone.Value == "0739-884477");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PersonContactInformationEmailAddressCanChange()
         {
             this.contactInformation.Email = new EmailAddress("marco_polo@gm.com");
@@ -54,7 +54,7 @@ namespace Domain.Value_Objects.Tests
             hashSet.Add(contactTwo);
             Assert.IsTrue(hashSet.Count == 1);
             contactTwo = new ContactInformation(phoneOne,
-                new EmailAddress("carltonfrrince@hoolywood.com"));
+                new EmailAddress("carlton@hoolywood.com"));
             hashSet.Add(contactTwo);
             Assert.IsTrue(hashSet.Count == 2);
             

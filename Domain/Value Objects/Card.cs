@@ -17,12 +17,7 @@ namespace Domain.Value_Objects
             this.CardType = cardType;
         }
 
-        
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

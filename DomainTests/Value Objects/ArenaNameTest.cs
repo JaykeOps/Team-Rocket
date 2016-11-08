@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DomainTests.Value_Objects
 {
-    [TestClass()]
+    [TestClass]
     public class ArenaNameTests
     {
         [TestMethod]
@@ -51,7 +51,7 @@ namespace DomainTests.Value_Objects
             Assert.IsTrue(result.Value == "Ullevi");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ArenaNameTryParseCanOutNullValue()
         {
             ArenaName result;
@@ -59,21 +59,21 @@ namespace DomainTests.Value_Objects
             Assert.IsNull(result);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ArenaNameTryParseCanReturnTrue()
         {
             ArenaName result;
             Assert.IsTrue(ArenaName.TryParse("Ullevi", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ArenaNameTryParseCanReturnFalse()
         {
             ArenaName result;
             Assert.IsFalse(ArenaName.TryParse("Ulle)i", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ArenaNameIsComparableByValue()
         {
             var arenaNameOne = new ArenaName("Ullevi");

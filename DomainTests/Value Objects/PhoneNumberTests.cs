@@ -4,80 +4,80 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class PhoneNumberTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void PhoneNumberIsEqualToValidEntry()
         {
             var phone = new PhoneNumber("0734-556688");
             Assert.IsTrue(phone.Value == "0734-556688");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneNumberContaningInvalidCharactersThrowsFormatException()
         {
             var phone = new PhoneNumber("%¤#&-556^88");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneFirstSequenceExceedingSixCharactersThrowsFormatException()
         {
             var phone = new PhoneNumber("0734562-894455");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneLastSequenceExceedingNineCharactersThrowsFormatException()
         {
             var phone = new PhoneNumber("0734-5566778800");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneFirstSequenceLessThanThreeCharactersThrowsFormatException()
         {
             var phone = new PhoneNumber("07-44556677");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneLastSequenceLessThanSixCharactersThrowsFormatException()
         {
             var phone = new PhoneNumber("0734-55660");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneNumberWithoutHyphenThrowsFormatException()
         {
             var phone = new PhoneNumber("0734556688");
         }
 
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void PhoneNumberContainingLettersThrowsFormatException()
         {
             var phone = new PhoneNumber("O73E-55O8O9");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PhoneNumberTryParseCanReturnTrue()
         {
             PhoneNumber result;
             Assert.IsTrue(PhoneNumber.TryParse("0736-296438", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PhoneNumberTryParseCanReturnFalse()
         {
             PhoneNumber result;
             Assert.IsFalse(PhoneNumber.TryParse("073%-558833", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PhoneNumberTryParseCanOutValidResult()
         {
             PhoneNumber result;
@@ -85,7 +85,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(result.Value == "0739-326412");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PhoneNumberTryParseCanOutNullResult()
         {
             PhoneNumber result;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace football_series_manager.Domain.Entities.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class NameTests
     {
         [TestMethod]

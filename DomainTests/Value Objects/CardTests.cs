@@ -10,7 +10,7 @@ using football_series_manager.Domain.Entities;
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class CardTests
     {
         Card cardOne;

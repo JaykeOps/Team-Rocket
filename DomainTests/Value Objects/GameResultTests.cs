@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class GameResultTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void GameResultIsEqualToValidEntries()
         {
             var gameResult = new GameResult(new TeamName("IFK Göteborg"), new TeamName("AIK"), 3, 0);

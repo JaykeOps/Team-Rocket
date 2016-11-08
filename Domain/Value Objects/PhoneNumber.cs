@@ -36,11 +36,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public override int GetHashCode()
-        {
-            return this.Value.GetHashCode();
-        }
-
+        
         public override string ToString()
         {
             return $"{this.Value}";

@@ -72,7 +72,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsFalse(EmailAddress.TryParse("johnDoe_84@outlookcom", out result));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void EmailIsComparableByValue()
         {
             var emailOne = new EmailAddress("donaldTrump@hillary.com");
@@ -81,7 +81,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(emailOne == emailTwo);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void EmailWorksWithHashSet()
         {
             var emailOne = new EmailAddress("donaldTrump@hillary.com");

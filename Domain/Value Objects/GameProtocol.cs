@@ -26,6 +26,9 @@ namespace Domain.Value_Objects
             this.Cards = new List<Card>();
         }
 
+
+       
+
         
     }
 }

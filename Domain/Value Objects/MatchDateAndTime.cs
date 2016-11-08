@@ -33,15 +33,9 @@ namespace Domain.Value_Objects
                     result = new MatchDateAndTime(dateTime);
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
                 return false;
             }
+            return false;
         }
 
         private static bool IsValidMatchDateAndTime(DateTime date)
@@ -54,9 +48,6 @@ namespace Domain.Value_Objects
             return $"{this.Value:yyyy-MM-dd HH:mm tt}";
         }
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
