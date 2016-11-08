@@ -42,8 +42,9 @@
   <ItemGroup>
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
-    <Compile Include="Repositories\SeriesRepository.cs" />
-    <Compile Include="Services\SeriesService.cs" />
+    <Compile Include="Helper Classes\StringUtils.cs" />
+    <Compile Include="Repositories\PlayerRepository.cs" />
+    <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Value Objects\PlayerStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />
