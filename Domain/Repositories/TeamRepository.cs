@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Domain.Repositories
 {
-    internal sealed class TeamRepository
+    public sealed class TeamRepository
     {
         private List<Team> teams;
         public static readonly TeamRepository instance = new TeamRepository();
