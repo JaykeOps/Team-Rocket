@@ -5,6 +5,7 @@ namespace DomainTests.Entities
 {
     public class PlayerStats:ValueObject<PlayerStats>
     {
+        private List<Goal> goals;
         public List<Goal> Goals { get; }
         public List<Assist> Assists { get; }
         public List<Card> Cards { get; }
