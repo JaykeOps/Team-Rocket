@@ -1,4 +1,5 @@
-﻿using DomainTests.Entities;
+﻿using Domain.Entities;
+using DomainTests.Entities;
 using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
