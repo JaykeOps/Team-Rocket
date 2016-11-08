@@ -120,7 +120,16 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
-        public void PlayerGoalCountIsEqualToGoalStatsCount()
+        public void PlayerStatsIsComparedByValue()
+        {
+            Assert.AreEqual(playerStatsOne, playerStatsOneDuplicate);
+            Assert.IsTrue(playerStatsOne == playerStatsOneDuplicate);
+            Assert.AreNotEqual(playerStatsOne, playerStatsTwo);
+            Assert.IsFalse(playerStatsOne == playerStatsTwo);
+        }
+
+        [TestMethod]
+        public void PlayerStatsGoalCountIsEqualToGoalStats()
         {
             Assert.AreEqual(playerStatsOne.GoalCount, playerStatsOne.GoalStats.Count);
             Assert.IsTrue(playerStatsOne.GoalCount == playerStatsOne.GoalStats.Count
@@ -129,11 +138,10 @@ namespace DomainTests.Value_Objects
             Assert.AreEqual(playerStatsOne.GoalCount, playerStatsOne.GoalStats.Count);
             Assert.IsTrue(playerStatsOne.GoalCount == playerStatsOne.GoalStats.Count
                 && playerStatsOne.GoalCount == 4);
-
         }
 
         [TestMethod]
-        public void PlayerAssistCountIsEqualToAssistStatsCount()
+        public void PlayerStatsAssistCountIsEqualToAssistStats()
         {
             Assert.AreEqual(playerStatsOne.AssistCount, playerStatsOne.AssistStats.Count);
             Assert.IsTrue(playerStatsOne.AssistCount == playerStatsOne.AssistStats.Count
@@ -142,7 +150,18 @@ namespace DomainTests.Value_Objects
             Assert.AreEqual(playerStatsOne.AssistCount, playerStatsOne.AssistStats.Count);
             Assert.IsTrue(playerStatsOne.AssistCount == playerStatsOne.AssistStats.Count
                 && playerStatsOne.AssistCount == 3);
+        }
 
+        [TestMethod]
+        public void PlayerStatsPenaltyCountIsEqualToPenaltyStats()
+        {
+            Assert.AreEqual(playerStatsOne.PenaltyCount, playerStatsOne.PenaltyStats.Count);
+            Assert.IsTrue(playerStatsOne.PenaltyCount == playerStatsOne.PenaltyStats.Count
+                && playerStatsOne.PenaltyCount == 2);
+            playerStatsOne.PenaltyStats.Add(new Penalty(new MatchMinute(62), playerOne));
+            Assert.AreEqual(playerStatsOne.PenaltyCount, playerStatsOne.PenaltyStats.Count);
+            Assert.IsTrue(playerStatsOne.PenaltyCount == playerStatsOne.PenaltyStats.Count
+                && playerStatsOne.PenaltyCount == 3);
         }
     }
 }
