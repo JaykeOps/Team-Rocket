@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,18 @@ namespace Domain.Services
         public IEnumerable<Player> GetAll()
         {
             return this.repository.GetAll();
+        }
+
+        public IEnumerable<Player> FindPlayer(string searchText, bool ignoreCase)
+        {
+            var players = this.repository.GetAll();
+
+            var result = players.Where(x =>
+                x.Name.FirstName.Contains(searchText, ignoreCase) ||
+                x.Name.LastName.Contains(searchText, ignoreCase) ||
+                x.DateOfBirth.Value.ToString().Contains(searchText, ignoreCase));
+
+            return result;
         }
     }
 }
