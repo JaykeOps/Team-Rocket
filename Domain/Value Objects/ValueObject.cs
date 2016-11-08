@@ -16,7 +16,7 @@ namespace Domain.Value_Objects
             }
 
             var other = obj as T;
-            return this.Equals(other);
+            return Equals(other);
         }
 
         public virtual bool Equals(T obj)
@@ -26,31 +26,34 @@ namespace Domain.Value_Objects
             {
                 return false;
             }
-            var properties = obj.GetType().GetProperties();
-            foreach (var property in properties)
+            else
             {
-                var propertyValueOfInputObject = property.GetValue(obj, null);
-                var propertyValueOfThisObject = this.GetType().GetProperty(property.Name)
-                    .GetValue(this, null);
-                if (property.PropertyType.Namespace == "System.Collections.Generic")
+                var properties = obj.GetType().GetProperties();
+                foreach (var property in properties)
                 {
-                    if (propertyValueOfInputObject is IDictionary)
+                    var propertyValueOfInputObject = property.GetValue(obj, null);
+                    var propertyValueOfThisObject = this.GetType().GetProperty(property.Name)
+                        .GetValue(this, null);
+                    if (property.PropertyType.Namespace == "System.Collections.Generic")
                     {
-                        booleans.Add(this.DictionariesValueAreEqual(propertyValueOfInputObject,
+                        if (propertyValueOfInputObject is IDictionary)
+                        {
+                            booleans.Add(this.DictionariesValueAreEqual(propertyValueOfInputObject,
+                                propertyValueOfThisObject));
+                        }
+                        else
+                        {
+                            booleans.Add(this.ListsValuesAreEqual(propertyValueOfInputObject,
                             propertyValueOfThisObject));
+                        }
                     }
                     else
                     {
-                        booleans.Add(this.ListsValuesAreEqual(propertyValueOfInputObject,
-                            propertyValueOfThisObject));
+                        booleans.Add(propertyValueOfInputObject.Equals(propertyValueOfThisObject));
                     }
                 }
-                else
-                {
-                    booleans.Add(propertyValueOfInputObject.Equals(propertyValueOfThisObject));
-                }
+                return !booleans.Contains(false);
             }
-            return !booleans.Contains(false);
         }
 
 
@@ -64,17 +67,23 @@ namespace Domain.Value_Objects
             {
                 return false;
             }
-            if (inputDictionaryObject.Count != thisDictionaryObject.Count)
+            else
             {
-                return false;
+                if (inputDictionaryObject.Count != thisDictionaryObject.Count)
+                {
+                    return false;
+                }
+                else
+                {
+                    foreach (var key in inputDictionaryObject.Keys)
+                    {
+                        var inputValue = inputDictionaryObject?[key];
+                        var thisValue = thisDictionaryObject?[key];
+                        booleans.Add(inputValue.Equals(thisValue));
+                    }
+                    return !booleans.Contains(false) && !booleans.Contains(null);
+                }
             }
-            foreach (var key in inputDictionaryObject.Keys)
-            {
-                var inputValue = inputDictionaryObject?[key];
-                var thisValue = thisDictionaryObject?[key];
-                booleans.Add(inputValue.Equals(thisValue));
-            }
-            return !booleans.Contains(false) && !booleans.Contains(null);
         }
 
         private bool ListsValuesAreEqual(object propertyValueOfInputObject,
@@ -87,11 +96,14 @@ namespace Domain.Value_Objects
             {
                 return false;
             }
-            for (int i = 0; i < inputListObject.Count; i++)
+            else
             {
-                booleans.Add(inputListObject?[i].Equals(thisListObject?[i]));
+                for (int i = 0; i < inputListObject.Count; i++)
+                {
+                    booleans.Add(inputListObject?[i].Equals(thisListObject?[i]));
+                }
+                return !booleans.Contains(false) && !booleans.Contains(null);
             }
-            return !booleans.Contains(false) && !booleans.Contains(null);
         }
 
         public static bool operator ==(ValueObject<T> objOne, ValueObject<T> objTwo)
@@ -100,11 +112,14 @@ namespace Domain.Value_Objects
             {
                 return true;
             }
-            if (ReferenceEquals(objOne, null) || ReferenceEquals(objTwo, null))
+            else if (ReferenceEquals(objOne, null) || ReferenceEquals(objTwo, null))
             {
                 return false;
             }
-            return objOne.Equals(objTwo);
+            else
+            {
+                return objOne.Equals(objTwo);
+            }
         }
 
         public static bool operator !=(ValueObject<T> objOne, ValueObject<T> objTwo)
@@ -126,7 +141,7 @@ namespace Domain.Value_Objects
                 {
                     hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
                 }
-                
+
             }
             return hashCode;
         }
