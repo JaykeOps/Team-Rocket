@@ -9,7 +9,7 @@ namespace Domain.Repositories
     {
         private List<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();
-        
+
 
         private PlayerRepository()
         {
@@ -28,7 +28,7 @@ namespace Domain.Repositories
         }
 
         public void LoadData()
-        {            
+        {
             var player1 = new Player(new Name("Zlatan", "Ibrahimovic"), new DateOfBirth("1981-10-03"), PlayerPosition.Forward, PlayerStatus.Available, new ShirtNumber(1));
             var player2 = new Player(new Name("Cristiano", "Ronaldo"), new DateOfBirth("1981-10-03"), PlayerPosition.Forward, PlayerStatus.Injured, new ShirtNumber(2));
             var player3 = new Player(new Name("Lionel", "Messi"), new DateOfBirth("1987-06-24"), PlayerPosition.Forward, PlayerStatus.Available, new ShirtNumber(3));
