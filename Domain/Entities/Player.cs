@@ -1,8 +1,8 @@
 ﻿using Domain.Value_Objects;
-using football_series_manager.Domain.Entities;
 using System;
+using Domain.Entities;
 
-namespace DomainTests.Entities
+namespace Domain.Entities
 {
     public class Player : Person
     {

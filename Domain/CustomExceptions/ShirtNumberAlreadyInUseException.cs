@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DomainTests.Entities
+namespace Domain.Entities
 {
     [Serializable]
     public class ShirtNumberAlreadyInUseException : Exception

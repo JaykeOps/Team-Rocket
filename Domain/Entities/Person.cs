@@ -1,7 +1,7 @@
 ﻿using Domain.Value_Objects;
 using System;
 
-namespace football_series_manager.Domain.Entities
+namespace Domain.Entities
 {
     public abstract class Person
     {

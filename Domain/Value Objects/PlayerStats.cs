@@ -1,7 +1,7 @@
 ﻿using Domain.Value_Objects;
 using System.Collections.Generic;
 
-namespace DomainTests.Entities
+namespace Domain.Entities
 {
     public class PlayerStats:ValueObject<PlayerStats>
     {
@@ -16,8 +16,6 @@ namespace DomainTests.Entities
             this.Assists = new List<Assist>();
             this.Cards = new List<Card>();
             this.Penalties = new List<Penalty>();
-        }
-
-        
+        }        
     }
 }

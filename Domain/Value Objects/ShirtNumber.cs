@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Domain.Value_Objects;
 
-namespace DomainTests.Entities
+namespace Domain.Entities
 {
     public class ShirtNumber:ValueObject<ShirtNumber>
     {

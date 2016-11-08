@@ -1,5 +1,5 @@
-﻿using Domain.Value_Objects;
-using DomainTests.Entities;
+﻿using Domain.Entities;
+using Domain.Value_Objects;
 
 namespace Domain.Interfaces
 {
