@@ -26,12 +26,6 @@ namespace Domain.Value_Objects
             this.Cards = new List<Card>();
         }
 
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
         
     }
 }
