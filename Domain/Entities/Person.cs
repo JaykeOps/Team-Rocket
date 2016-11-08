@@ -8,7 +8,7 @@ namespace football_series_manager.Domain.Entities
         public Guid Id { get; }
         public Name Name { get; set; }
         public DateOfBirth DateOfBirth { get; set; }
-        public ContactInformation ContactInformation { get; }
+        public ContactInformation ContactInformation { get; set; }
 
         public Person(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation)
         {
@@ -16,6 +16,13 @@ namespace football_series_manager.Domain.Entities
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
             this.ContactInformation = contactInformation;
+        }
+
+        public Person(Name name, DateOfBirth dateOfBirth)
+        {
+            this.Id = Guid.NewGuid();
+            this.Name = name;
+            this.DateOfBirth = dateOfBirth;
         }
 
         public override string ToString()

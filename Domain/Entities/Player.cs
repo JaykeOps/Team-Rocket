@@ -12,9 +12,9 @@ namespace DomainTests.Entities
         public Guid TeamId { get; set; } = Guid.Empty;
         public PlayerStats Stats { get; set; }
 
-        public Player(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation,
-            PlayerPosition position, PlayerStatus status, ShirtNumber shirtNumber)
-            : base(name, dateOfBirth, contactInformation)
+        public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
+            PlayerStatus status, ShirtNumber shirtNumber)
+            : base(name, dateOfBirth)
         {
             this.Position = position;
             this.Status = status;

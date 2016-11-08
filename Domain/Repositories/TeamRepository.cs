@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
+using Domain.Value_Objects;
 
 namespace Domain.Repositories
 {
@@ -10,7 +11,14 @@ namespace Domain.Repositories
 
         private TeamRepository()
         {
-            this.teams = new List<Team>();
+            this.teams = new List<Team>
+            {
+                new Team(new TeamName("Ifk Göteborg"),new ArenaName("Ullevi"),new EmailAddress("ifkgoteborg@gmail.com")),
+                new Team(new TeamName("Bk Häcken"),new ArenaName("BravidaArena"),new EmailAddress("hacken@gmail.com")),
+                new Team(new TeamName("Ifk Norrköping"),new ArenaName("Östgötaporten"),new EmailAddress("ifknorrkoping@gmail.com")),
+                
+                
+            };
         }
 
         public void Add(Team team)

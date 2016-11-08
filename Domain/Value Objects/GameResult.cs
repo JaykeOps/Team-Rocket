@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Entities;
 
 namespace Domain.Value_Objects
 {
@@ -9,10 +10,10 @@ namespace Domain.Value_Objects
         public int HomeTeam_Score { get; }     // Maybe a field instead?
         public int AwayTeam_Score { get; }     // Maybe a field instead?
 
-        public GameResult(TeamName homeTeam_Name, TeamName awayTeam_Name, int homeTeam_Score, int awayTeam_Score)
+        public GameResult(Team homeTeam_Name, Team awayTeam_Name, int homeTeam_Score, int awayTeam_Score)
         {
-            this.HomeTeam_Name = homeTeam_Name;
-            this.AwayTeam_Name = awayTeam_Name;
+            this.HomeTeam_Name = homeTeam_Name.Name;
+            this.AwayTeam_Name = awayTeam_Name.Name;
 
             if (IsScoreValid(homeTeam_Score))
             {
