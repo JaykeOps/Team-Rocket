@@ -56,10 +56,47 @@ namespace DomainTests.Value_Objects
                 new Goal(new MatchMinute(34), playerTwo)
             });
 
-            playerStatsTwo.AssistStats.AddRange(new List<Assist>
+            playerStatsOne.AssistStats.AddRange(new List<Assist>
             {
                 new Assist(new MatchMinute(33), playerOne),
                 new Assist(new MatchMinute(82), playerOne)
+            });
+
+            playerStatsOneDuplicate.AssistStats.AddRange(new List<Assist>
+            {
+                new Assist(new MatchMinute(33), playerOne),
+                new Assist(new MatchMinute(82), playerOne)
+            });
+
+            playerStatsTwo.AssistStats.AddRange(new List<Assist>
+            {
+                new Assist(new MatchMinute(5), playerTwo),
+                new Assist(new MatchMinute(9), playerTwo),
+                new Assist(new MatchMinute(67), playerTwo),
+                new Assist(new MatchMinute(55), playerTwo),
+                new Assist(new MatchMinute(45), playerTwo)
+            });
+
+            playerStatsOne.CardStats.AddRange(new List<Card>
+            {
+                new Card(new MatchMinute(85), playerOne, CardType.Yellow),
+                new Card(new MatchMinute(33), playerOne, CardType.Red),
+                new Card(new MatchMinute(67), playerOne, CardType.Yellow),
+                new Card(new MatchMinute(23), playerOne, CardType.Yellow)
+            });
+
+            playerStatsOneDuplicate.CardStats.AddRange(new List<Card>
+            {
+                new Card(new MatchMinute(85), playerOne, CardType.Yellow),
+                new Card(new MatchMinute(33), playerOne, CardType.Red),
+                new Card(new MatchMinute(67), playerOne, CardType.Yellow),
+                new Card(new MatchMinute(23), playerOne, CardType.Yellow)
+            });
+
+            playerStatsTwo.CardStats.AddRange(new List<Card>
+            {
+                new Card(new MatchMinute(90), playerTwo, CardType.Yellow),
+                new Card(new MatchMinute(27), playerTwo, CardType.Red)
             });
         }
     }
