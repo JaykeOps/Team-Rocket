@@ -3,22 +3,28 @@ using System.Collections.Generic;
 
 namespace DomainTests.Entities
 {
-    public class PlayerStats:ValueObject<PlayerStats>
+    public class PlayerStats : ValueObject<PlayerStats>
     {
-        private List<Goal> goals;
-        public List<Goal> Goals { get; }
-        public List<Assist> Assists { get; }
-        public List<Card> Cards { get; }
-        public List<Penalty> Penalties { get; }
+        private List<Goal> goalStats;
+        private List<Assist> assistStats;
+        private List<Card> cardStats;
+        private List<Penalty> penaltyStats;
+
+        public List<Goal> GoalStats { get { return goalStats; } }
+        public List<Assist> AssistStats { get { return assistStats; } }
+        public List<Card> CardStats { get { return cardStats; } }
+        public List<Penalty> Penalties { get { return penaltyStats; } }
+        public int GoalCount { get { return goalStats.Count; } }
+        public int AssistCount { get { return assistStats.Count; } }
+        public int CardCount { get { return cardStats.Count; } }
+        public int PenaltyCount { get { return penaltyStats.Count; } }
 
         public PlayerStats()
         {
-            this.Goals = new List<Goal>();
-            this.Assists = new List<Assist>();
-            this.Cards = new List<Card>();
-            this.Penalties = new List<Penalty>();
+            this.goalStats = new List<Goal>();
+            this.assistStats = new List<Assist>();
+            this.cardStats = new List<Card>();
+            this.penaltyStats = new List<Penalty>();
         }
-
-        
     }
 }
