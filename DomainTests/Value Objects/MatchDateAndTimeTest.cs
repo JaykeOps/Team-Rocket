@@ -73,22 +73,22 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void MatchDateAndTimeIsComparableByValue()
         {
-            Assert.AreEqual(dateOne, dateTwo);
-            Assert.AreNotEqual(dateOne, dateThree);
+            Assert.AreEqual(this.dateOne, this.dateTwo);
+            Assert.AreNotEqual(this.dateOne, this.dateThree);
         }
 
         [TestMethod]
         public void MatchDateAndTimeOperatorComparisonByValueTest()
         {
-            Assert.IsTrue(dateOne == dateTwo);
-            Assert.IsTrue(dateOne != dateThree);
+            Assert.IsTrue(this.dateOne == this.dateTwo);
+            Assert.IsTrue(this.dateOne != this.dateThree);
         }
 
         [TestMethod]
         public void MatchDateAndTimeWorksWithHashSet()
         {
-            var matchHashSet = new HashSet<MatchDateAndTime> { dateOne, dateTwo };
-            Assert.IsTrue(matchHashSet.Count==1);
+            var matchDatehHashSet = new HashSet<MatchDateAndTime> {this.dateOne, this.dateTwo };
+            Assert.IsTrue(matchDatehHashSet.Count==1);
         }
 
 
