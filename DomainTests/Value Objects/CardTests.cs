@@ -17,23 +17,22 @@ namespace Domain.Value_Objects.Tests
         private Card cardTwo;
         private Card cardThree;
 
-        private Player playerOne;
-        private Player playerTwo;
-        
+
+
 
         public CardTests()
         {
-            this.playerOne = new Player(new Name("John", "Doe"),
+            var playerOne = new Player(new Name("John", "Doe"),
                 new DateOfBirth("1993-02-04"),
                 PlayerPosition.Forward, PlayerStatus.Absent,
                 new ShirtNumber(25));
 
-            this.playerTwo = new Player(new Name("John", "Doe"),
+            var playerTwo = new Player(new Name("John", "Doe"),
                 new DateOfBirth("1993-02-04"),
                 PlayerPosition.Forward, PlayerStatus.Absent,
                 new ShirtNumber(25));
 
-            
+
 
             this.cardOne = new Card(new MatchMinute(15), playerOne, CardType.Yellow);
             this.cardTwo = new Card(new MatchMinute(15), playerOne, CardType.Yellow);
@@ -56,9 +55,9 @@ namespace Domain.Value_Objects.Tests
         public void AssistIsComparableByValue()
         {
             Assert.IsTrue(this.cardOne == this.cardTwo);
-            Assert.IsTrue(this.cardOne != cardThree);
+            Assert.IsTrue(this.cardOne != this.cardThree);
             Assert.AreEqual(this.cardOne, this.cardTwo);
-            Assert.AreNotEqual(this.cardOne, cardThree);
+            Assert.AreNotEqual(this.cardOne, this.cardThree);
 
         }
         [TestMethod]
