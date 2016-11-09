@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -98,6 +99,15 @@ namespace Domain.Value_Objects.Tests
         {
             var matchMinute = new MatchMinute(91);
             Assert.AreEqual(matchMinute.ToString(), "90+1");
+        }
+
+        [TestMethod]
+        public void MatchMinuteWorksWithHashSet()
+        {
+            var matchMinuteOne = new MatchMinute(58);
+            var matchMinuteTwo = new MatchMinute(58);
+            var hashSet = new HashSet<MatchMinute> { matchMinuteOne, matchMinuteTwo };
+            Assert.IsTrue(hashSet.Count == 1);
         }
     }
 }

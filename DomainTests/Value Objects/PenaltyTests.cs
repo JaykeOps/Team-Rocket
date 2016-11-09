@@ -31,7 +31,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(this.penaltyOne.Player.DateOfBirth.Value == new DateOfBirth("1988-05-22").Value);
             Assert.IsTrue(this.penaltyOne.Player.Position == PlayerPosition.GoalKeeper);
             Assert.IsTrue(this.penaltyOne.Player.Status == PlayerStatus.Available);
-            Assert.IsTrue(this.penaltyOne.Player.ShirtNumber.Value == new ShirtNumber(25).Value);
+            Assert.IsTrue(this.penaltyOne.Player.ShirtNumber == new ShirtNumber(25));
             Assert.IsTrue(this.penaltyOne.MatchMinute.Value == 36);
         }
 
