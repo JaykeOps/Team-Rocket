@@ -51,7 +51,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\PlayerTests.cs" />
+    <Compile Include="Repositories\SeriesRepositoryTests.cs" />
     <Compile Include="Services\PlayerServiceTests.cs" />
+    <Compile Include="Services\SeriesServicesTests.cs" />
     <Compile Include="Value Objects\ArenaNameTest.cs" />
     <Compile Include="Value Objects\AssistTests.cs" />
     <Compile Include="Value Objects\CardTests.cs" />
