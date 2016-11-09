@@ -1,9 +1,7 @@
-﻿using Domain.Value_Objects;
-using DomainTests.Entities;
-using football_series_manager.Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DomainTests.Value_Objects
 {
