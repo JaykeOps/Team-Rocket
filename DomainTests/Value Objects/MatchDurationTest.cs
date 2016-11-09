@@ -11,6 +11,10 @@ namespace DomainTests.Value_Objects
     [TestClass]
     public class MatchDurationTest
     {
+        private MatchDuration matchDurationOne = new MatchDuration(new TimeSpan(60 * 6000000000 / 10));
+        private MatchDuration matchDurationTwo = new MatchDuration(new TimeSpan(60 * 6000000000 / 10));
+        private MatchDuration matchDurationThree = new MatchDuration(new TimeSpan(90 * 6000000000 / 10));
+
         [TestMethod]
         public void MatchDurationIsEqualToEntry()
         {
@@ -69,6 +73,26 @@ namespace DomainTests.Value_Objects
             MatchDuration result;
             MatchDuration.TryParse("60", out result);
             Assert.IsTrue(result.Value.TotalMinutes == 60.0);
+        }
+        [TestMethod]
+        public void MatchDurationIsComparableByValue()
+        {
+            Assert.AreEqual(this.matchDurationOne,this.matchDurationTwo);
+            Assert.AreNotEqual(this.matchDurationOne, this.matchDurationThree);
+        }
+
+        [TestMethod]
+        public void MatchDurationOperatorComparisonByValueTest()
+        {
+            Assert.IsTrue(this.matchDurationOne == this.matchDurationTwo);
+            Assert.IsTrue(this.matchDurationOne != this.matchDurationThree);
+        }
+
+        [TestMethod]
+        public void MatchDurationWorksWithHashSet()
+        {
+            var matchHashSet = new HashSet<MatchDuration> { this.matchDurationOne,this.matchDurationTwo };
+            Assert.IsTrue(matchHashSet.Count == 1);
         }
     }
 }
