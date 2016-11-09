@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DomainTests.Entities;
 using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,14 +24,10 @@ namespace Domain.Value_Objects.Tests
             this.goalOne = new Goal(new MatchMinute(25), playerOne);
             this.goalTwo = new Goal(new MatchMinute(25), playerOne);
             this.goalThree = new Goal(new MatchMinute(25), playerTwo);
-
-
         }
 
-
-
         [TestMethod]
-        public void CardIsEqualToEntry()
+        public void GoalIsEqualToEntry()
         {
             Assert.IsTrue(goalOne.MatchMinute.Value.Equals(25));
             Assert.IsTrue(goalOne.Player.Name == new Name("John", "Doe"));
@@ -41,7 +38,7 @@ namespace Domain.Value_Objects.Tests
 
         }
         [TestMethod]
-        public void AssistIsComparableByValue()
+        public void GoalIsComparableByValue()
         {
             Assert.IsTrue(this.goalOne == this.goalTwo);
             Assert.IsTrue(this.goalOne != goalThree);
@@ -50,10 +47,25 @@ namespace Domain.Value_Objects.Tests
 
         }
         [TestMethod]
-        public void PenaltyWorksWithHashSet()
+        public void GoalWorksWithHashSet()
         {
             var hashSet = new HashSet<Goal> { this.goalOne, this.goalTwo };
             Assert.IsTrue(hashSet.Count == 1);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void GoalThrowsNullExeption()
+        {
+            Player player = null;
+            MatchMinute minute = null;
+
+            new Goal(new MatchMinute(25), player);
+            new Goal(minute, new Player(new Name("John", "Doe"), new DateOfBirth("1975-04-18"),
+                PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(88)));
+            new Goal(minute,player);
+
+        }
+
     }
 }

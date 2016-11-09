@@ -5,7 +5,7 @@ using System;
 
 namespace DomainTests.Entities.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class PlayerTests
     {
         private Player testPlayer;
@@ -20,7 +20,7 @@ namespace DomainTests.Entities.Tests
                 PlayerStatus.Available, new ShirtNumber(25));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PlayerCanHoldValidEntries()
         {
             Assert.IsTrue(this.testPlayer.Id != Guid.Empty
@@ -43,7 +43,7 @@ namespace DomainTests.Entities.Tests
                 && testPlayer.Name.LastName == "Polo");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PlayerDateOfBirthCanChange()
         {
             Assert.IsFalse($"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1994-07-24");
@@ -51,7 +51,7 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue($"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1994-07-24");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PlayerPositionCanChange()
         {
             Assert.IsFalse(testPlayer.Position == PlayerPosition.MidFielder);
@@ -59,7 +59,7 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue(this.testPlayer.Position == PlayerPosition.MidFielder);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PlayerStatusCanChange()
         {
             Assert.IsFalse(this.testPlayer.Status == PlayerStatus.Injured);
@@ -67,7 +67,7 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue(this.testPlayer.Status == PlayerStatus.Injured);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PlayerShirtNumberCanChange()
         {
             Assert.IsFalse(this.testPlayer.ShirtNumber.Value == 10);

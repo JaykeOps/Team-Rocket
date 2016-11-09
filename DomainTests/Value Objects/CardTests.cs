@@ -52,7 +52,7 @@ namespace Domain.Value_Objects.Tests
 
         }
         [TestMethod]
-        public void AssistIsComparableByValue()
+        public void CardIsComparableByValue()
         {
             Assert.IsTrue(this.cardOne == this.cardTwo);
             Assert.IsTrue(this.cardOne != this.cardThree);
@@ -61,7 +61,7 @@ namespace Domain.Value_Objects.Tests
 
         }
         [TestMethod]
-        public void PenaltyWorksWithHashSet()
+        public void CardtWorksWithHashSet()
         {
             var hashSet = new HashSet<Card> { this.cardOne, this.cardTwo };
             Assert.IsTrue(hashSet.Count == 1);
