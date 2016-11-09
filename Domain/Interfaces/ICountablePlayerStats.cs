@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface ICountablePlayerStat
+    public interface ICountablePlayerStats
     {
         int GoalCount { get; }
         int AssistCount { get; }
         int YellowCardCount { get; }
         int RedCardCount { get; }
         int PenaltyCount { get; }
+        int GamesPlayedCount { get; }
     }
 }

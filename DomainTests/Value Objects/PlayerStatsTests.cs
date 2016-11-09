@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace DomainTests.Value_Objects
@@ -116,6 +117,15 @@ namespace DomainTests.Value_Objects
             {
                 new Penalty(new MatchMinute(3), playerTwo)
             });
+
+            for (int i = 0; i < 10; i++)
+            {
+                var idOne = Guid.NewGuid();
+                var idTwo = Guid.NewGuid();
+                playerStatsOne.GamesPlayedIds.Add(idOne);
+                playerStatsOneDuplicate.GamesPlayedIds.Add(idOne);
+                playerStatsTwo.GamesPlayedIds.Add(idTwo);
+            }
         }
 
         [TestMethod]
@@ -177,6 +187,18 @@ namespace DomainTests.Value_Objects
             Assert.AreEqual(playerStatsOne.PenaltyCount, playerStatsOne.PenaltyStats.Count);
             Assert.IsTrue(playerStatsOne.PenaltyCount == playerStatsOne.PenaltyStats.Count
                 && playerStatsOne.PenaltyCount == 3);
+        }
+
+        [TestMethod]
+        public void PlayerStatsGamesPlayedCountIsEqualToGamesPlayedIdsCount()
+        {
+            Assert.AreEqual(playerStatsOne.GamesPlayedCount, playerStatsOne.GamesPlayedIds.Count);
+            Assert.IsTrue(playerStatsOne.GamesPlayedCount == playerStatsOne.GamesPlayedIds.Count &&
+                playerStatsOne.GamesPlayedCount == 10);
+            playerStatsOne.GamesPlayedIds.Add(Guid.NewGuid());
+            Assert.AreEqual(playerStatsOne.GamesPlayedCount, playerStatsOne.GamesPlayedIds.Count);
+            Assert.IsTrue(playerStatsOne.GamesPlayedCount == playerStatsOne.GamesPlayedIds.Count &&
+                playerStatsOne.GamesPlayedCount == 11);
         }
     }
 }
