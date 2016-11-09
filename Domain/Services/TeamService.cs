@@ -6,7 +6,12 @@ namespace Domain.Services
 {
     public class TeamService
     {
-        private readonly TeamRepository repository = TeamRepository.instance;
+        private readonly TeamRepository repository;
+
+        public TeamService()
+        {
+            this.repository = TeamRepository.instance;
+        }
 
         public void AddTeam(Team team)
         {

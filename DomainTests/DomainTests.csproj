@@ -52,7 +52,8 @@
   <ItemGroup>
     <Compile Include="Entities\PlayerTests.cs" />
     <Compile Include="Repositories\SeriesRepositoryTests.cs" />
-    <Compile Include="Services\PlayerServiceTests.cs" />
+    <Compile Include="Repositories\TeamRepositoryTest.cs" />
+    <Compile Include="Services\TeamServiceTest.cs" />
     <Compile Include="Services\SeriesServicesTests.cs" />
     <Compile Include="Value Objects\ArenaNameTest.cs" />
     <Compile Include="Value Objects\AssistTests.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Value Objects\PenaltyTests.cs" />
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
-    <Compile Include="Value Objects\PlayerStatsTests.cs" />
     <Compile Include="Value Objects\ShirtNumberTests.cs" />
     <Compile Include="Value Objects\TeamNameTest.cs" />
     <Compile Include="Value Objects\ValueObjectDummyClasses.cs" />
