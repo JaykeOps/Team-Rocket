@@ -1,21 +1,38 @@
-﻿using Domain.Value_Objects;
+﻿using Domain.Interfaces;
+using Domain.Value_Objects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Entities
 {
-    public class PlayerStats:ValueObject<PlayerStats>
+    public class PlayerStats : ValueObject<PlayerStats>, ICountablePlayerStat
     {
-        public List<Goal> Goals { get; }
-        public List<Assist> Assists { get; }
-        public List<Card> Cards { get; }
-        public List<Penalty> Penalties { get; }
+        private List<Goal> goalStats;
+        private List<Assist> assistStats;
+        private List<Card> cardStats;
+        private List<Penalty> penaltyStats;
+        public List<Goal> GoalStats { get { return goalStats; } }
+        public List<Assist> AssistStats { get { return assistStats; } }
+        public List<Card> CardStats { get { return cardStats; } }
+        public List<Penalty> PenaltyStats { get { return penaltyStats; } }
+        public int GoalCount { get { return goalStats.Count; } }
+        public int AssistCount { get { return assistStats.Count; } }
+        public int YellowCardCount
+        {
+            get { return cardStats.FindAll(x => x.CardType.Equals(CardType.Yellow)).Count; }
+        }
+        public int RedCardCount
+        {
+            get { return cardStats.FindAll(x => x.CardType.Equals(CardType.Red)).Count; }
+        }
+        public int PenaltyCount { get { return penaltyStats.Count; } }
 
         public PlayerStats()
         {
-            this.Goals = new List<Goal>();
-            this.Assists = new List<Assist>();
-            this.Cards = new List<Card>();
-            this.Penalties = new List<Penalty>();
-        }        
+            this.goalStats = new List<Goal>();
+            this.assistStats = new List<Assist>();
+            this.cardStats = new List<Card>();
+            this.penaltyStats = new List<Penalty>();
+        }
     }
 }
