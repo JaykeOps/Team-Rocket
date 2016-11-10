@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
-using Domain.Entities;
-using DomainTests.Entities;
-using football_series_manager.Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -13,31 +10,26 @@ namespace Domain.Value_Objects.Tests
         private Goal goalOne;
         private Goal goalTwo;
         private Goal goalThree;
+        private Guid playerIdOne;
+        private Guid playerIdTwo;
 
         public GoalTests()
         {
-
-            var playerOne = new Player(new Name("John", "Doe"), new DateOfBirth("1975-04-18"),
-                PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(88));
-            var playerTwo = new Player(new Name("John", "Doe"), new DateOfBirth("1975-04-18"),
-                PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(88));
-
-            this.goalOne = new Goal(new MatchMinute(25), playerOne);
-            this.goalTwo = new Goal(new MatchMinute(25), playerOne);
-            this.goalThree = new Goal(new MatchMinute(25), playerTwo);
+            this.playerIdOne = Guid.NewGuid();
+            this.playerIdTwo = Guid.NewGuid();
+            this.goalOne = new Goal(new MatchMinute(25), this.playerIdOne);
+            this.goalTwo = new Goal(new MatchMinute(25), this.playerIdOne);
+            this.goalThree = new Goal(new MatchMinute(25), this.playerIdTwo);
         }
 
         [TestMethod]
         public void GoalIsEqualToEntry()
         {
             Assert.IsTrue(goalOne.MatchMinute.Value.Equals(25));
-            Assert.IsTrue(goalOne.Player.Name == new Name("John", "Doe"));
-            Assert.IsTrue(goalOne.Player.DateOfBirth == new DateOfBirth("1975-04-18"));
-            Assert.IsTrue(goalOne.Player.Position == PlayerPosition.Defender);
-            Assert.IsTrue(goalOne.Player.Status == PlayerStatus.Available);
-            Assert.IsTrue(goalOne.Player.ShirtNumber == new ShirtNumber(88));
-
+            Assert.IsTrue(goalOne.PlayerId == playerIdOne);
+            Assert.AreEqual(playerIdOne, Guid.Empty);
         }
+
         [TestMethod]
         public void GoalIsComparableByValue()
         {
@@ -45,8 +37,8 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(this.goalOne != goalThree);
             Assert.AreEqual(this.goalOne, this.goalTwo);
             Assert.AreNotEqual(this.goalOne, goalThree);
-
         }
+
         [TestMethod]
         public void GoalWorksWithHashSet()
         {
@@ -58,15 +50,9 @@ namespace Domain.Value_Objects.Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void GoalThrowsNullExeption()
         {
-            Player player = null;
             MatchMinute minute = null;
-
-            new Goal(new MatchMinute(25), player);
-            new Goal(minute, new Player(new Name("John", "Doe"), new DateOfBirth("1975-04-18"),
-                PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(88)));
-            new Goal(minute,player);
-
+            Guid? playerId = null;
+            new Goal(minute, (Guid)playerId);
         }
-
     }
 }
