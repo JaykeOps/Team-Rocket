@@ -14,10 +14,10 @@ namespace Domain.Repositories
             this.teams = new List<Team>();
             LoadData();
         }
-
+        
         public void Add(Team team)
         {
-            this.teams.Add(team);
+            this.teams.Add(team); 
         }
 
         public IEnumerable<Team> GetAll()

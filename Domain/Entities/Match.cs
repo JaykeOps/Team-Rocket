@@ -14,7 +14,7 @@ namespace Domain.Entities
 
         public Match(ArenaName location, Guid homeTeamId, Guid awayTeamId, Series series)
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.Location = location;
             this.MatchDuration = series.MatchDuration;
             this.HomeTeamId = homeTeamId;

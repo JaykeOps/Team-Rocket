@@ -14,7 +14,7 @@ namespace Domain.Entities
 
         public Team(TeamName name, ArenaName arenaName,EmailAddress email)
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.Name = name;
             this.PlayerIds = new HashSet<Guid>();
             this.Arena = arenaName;

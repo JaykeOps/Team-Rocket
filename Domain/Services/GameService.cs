@@ -6,8 +6,13 @@ namespace Domain.Services
 {
     public class GameService
     {
-        private readonly GameRepository repository = GameRepository.instance;
+        private readonly GameRepository repository; 
         
+        public GameService()
+        {
+            repository = GameRepository.instance;
+        }
+
         public void Add(Game game)
         {
             this.repository.Add(game);

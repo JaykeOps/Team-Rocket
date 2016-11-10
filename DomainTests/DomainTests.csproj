@@ -50,9 +50,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\GameTests.cs" />
     <Compile Include="Entities\PlayerTests.cs" />
+    <Compile Include="Repositories\GameRepositoryTests.cs" />
     <Compile Include="Repositories\SeriesRepositoryTests.cs" />
     <Compile Include="Repositories\TeamRepositoryTest.cs" />
+    <Compile Include="Services\GameServiceTests.cs" />
     <Compile Include="Services\PlayerServiceTests.cs" />
     <Compile Include="Services\TeamServiceTest.cs" />
     <Compile Include="Services\SeriesServicesTests.cs" />
