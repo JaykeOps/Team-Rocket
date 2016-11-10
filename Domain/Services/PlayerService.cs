@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Helper_Classes;
 using Domain.Repositories;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,6 @@ namespace Domain.Services
             var result = allPlayers.Where(x =>
                 x.Name.ToString().Contains(searchText, ignoreCase) ||
                 x.DateOfBirth.Value.ToString().Contains(searchText, ignoreCase));
-
             return result;
         }
         public string GetPlayerName(Guid playerId)
@@ -48,10 +48,10 @@ namespace Domain.Services
             return result;
         }
 
-        public IEnumerable<List<Guid>> GetPlayerGamesPlayedIds(Guid playerId)
+        public IEnumerable<Guid> GetPlayerGamesPlayedIds(Guid playerId)
         {
             var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.GamesPlayedIds);
+            var result = playerStats.SelectMany(x => x.GamesPlayedIds);
             return result;
         }
 
@@ -76,6 +76,13 @@ namespace Domain.Services
         }
 
         public int GetPlayerTotalAssists(Guid playerId)
+        {
+            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+            var result = playerStats.Select(x => x.AssistCount).First();
+            return result;
+        }
+
+        public int GetPlayerTotalPenalties(Guid playerId)
         {
             var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
             var result = playerStats.Select(x => x.AssistCount).First();

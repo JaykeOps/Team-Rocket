@@ -20,6 +20,7 @@ namespace Domain.Entities
             this.Status = status;
             this.ShirtNumber = shirtNumber;
             this.TeamId = Guid.Empty;
+            this.Stats = new PlayerStats();
         }
     }
 }

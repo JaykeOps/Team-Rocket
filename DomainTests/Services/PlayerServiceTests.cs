@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Value_Objects;
 
 namespace Domain.Services.Tests
 {
@@ -14,14 +15,16 @@ namespace Domain.Services.Tests
     {
         private PlayerService playerService;
         private IEnumerable<Player> allPlayers;
-        private Guid playerId;
+        private Guid zlatanPlayerId;
+        private Guid cristianoPlayerId;
 
         [TestInitialize]
         public void Init()
         {
             playerService = new PlayerService();
             allPlayers = playerService.GetAll();
-            playerId = allPlayers.ElementAt(0).Id;
+            zlatanPlayerId = allPlayers.ElementAt(0).Id;
+            cristianoPlayerId = allPlayers.ElementAt(1).Id;
         }
 
         [TestMethod]
@@ -32,6 +35,7 @@ namespace Domain.Services.Tests
             Assert.IsNotNull(getAllPlayers);
         }
 
+        #region PlayerService, FindPlayer method
         [TestMethod]
         public void FindPlayerFullName()
         {
@@ -83,7 +87,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerNameNotNull()
         {
-            var expectedPlayerName = playerService.GetPlayerName(playerId);
+            var expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
 
             Assert.IsNotNull(expectedPlayerName);
         }
@@ -91,7 +95,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerNameNotEmpty()
         {
-            var expectedPlayerName = playerService.GetPlayerName(playerId);
+            var expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
 
             Assert.AreNotEqual("", expectedPlayerName);
         }
@@ -99,9 +103,60 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerTeamIdNotNull()
         {
-            var expectedTeamId = playerService.GetPlayerTeamId(playerId);
+            var expectedTeamId = playerService.GetPlayerTeamId(zlatanPlayerId);
 
             Assert.IsNotNull(expectedTeamId);
         }
-    }        
+        #endregion
+
+        #region PlayerService, Different Stats on Player 
+        [TestMethod]
+        public void GamesPlayedIdsNotNull()
+        {
+            var expectedGamesPlayedIds = playerService.GetPlayerGamesPlayedIds(zlatanPlayerId);
+
+            Assert.IsNotNull(expectedGamesPlayedIds);
+        }
+
+        [TestMethod]
+        public void TotalYellowCardsNotNull()
+        {
+            var expectedTotalYellowCards = playerService.GetPlayerTotalYellowCards(zlatanPlayerId);
+
+            Assert.IsNotNull(expectedTotalYellowCards);
+        }
+
+        [TestMethod]
+        public void TotalRedCardsNotNull()
+        {
+            var expectedTotalRedCards = playerService.GetPlayerTotalRedCards(zlatanPlayerId);
+
+            Assert.IsNotNull(expectedTotalRedCards);
+        }
+
+        [TestMethod]
+        public void TotalGoalsNotNull()
+        {
+            var expectedTotalGoals = playerService.GetPlayerTotalGoals(zlatanPlayerId);
+
+            Assert.IsNotNull(expectedTotalGoals);
+        }
+
+        [TestMethod]
+        public void TotalAssistsNotNull()
+        {
+            var expectedTotalAssists = playerService.GetPlayerTotalAssists(zlatanPlayerId);
+
+            Assert.IsNotNull(expectedTotalAssists);
+        }
+
+        [TestMethod]
+        public void TotalPenaltiesNotNull()
+        {
+            var expectedTotalPenalties = playerService.GetPlayerTotalPenalties(zlatanPlayerId);
+
+            Assert.IsNotNull(expectedTotalPenalties);
+        }
+        #endregion
+    }
 }
