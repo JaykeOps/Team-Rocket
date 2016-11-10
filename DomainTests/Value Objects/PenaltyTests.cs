@@ -28,7 +28,7 @@ namespace Domain.Value_Objects.Tests
         public void PenaltyIsEqualToValidEntry()
         {
             Assert.IsTrue(this.penaltyOne.MatchMinute.Value == 36
-                && this.penaltyOne.PlayerId == Guid.Empty);
+                && this.penaltyOne.PlayerId != Guid.Empty);
         }
 
         [TestMethod]

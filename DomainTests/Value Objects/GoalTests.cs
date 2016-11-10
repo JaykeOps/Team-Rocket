@@ -27,7 +27,7 @@ namespace Domain.Value_Objects.Tests
         {
             Assert.IsTrue(goalOne.MatchMinute.Value.Equals(25));
             Assert.IsTrue(goalOne.PlayerId == playerIdOne);
-            Assert.AreEqual(playerIdOne, Guid.Empty);
+            Assert.AreNotEqual(playerIdOne, Guid.Empty);
         }
 
         [TestMethod]
@@ -51,8 +51,8 @@ namespace Domain.Value_Objects.Tests
         public void GoalThrowsNullExeption()
         {
             MatchMinute minute = null;
-            Guid? playerId = null;
-            new Goal(minute, (Guid)playerId);
+            var playerId = Guid.NewGuid();
+            new Goal(minute, playerId);
         }
     }
 }
