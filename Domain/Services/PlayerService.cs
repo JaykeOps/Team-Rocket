@@ -87,5 +87,12 @@ namespace Domain.Services
             var result = playerStats.Select(x => x.AssistCount).First();
             return result;
         }
+
+        public int GetPlayerTotalPenalties(Guid playerId)
+        {
+            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+            var result = playerStats.Select(x => x.AssistCount).First();
+            return result;
+        }
     }
 }
