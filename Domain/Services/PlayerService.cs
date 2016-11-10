@@ -27,11 +27,11 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Player> FindPlayer(string searchText, bool ignoreCase)
+        public IEnumerable<Player> FindPlayer(string searchText, StringComparison comp)
         {
             var result = allPlayers.Where(x =>
-                x.Name.ToString().Contains(searchText, StringComparison.InvariantCultureIgnoreCase) ||
-                x.DateOfBirth.Value.ToString().Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
+                x.Name.ToString().Contains(searchText,comp ) ||
+                x.DateOfBirth.Value.ToString().Contains(searchText, comp));
 
             return result;
         }
