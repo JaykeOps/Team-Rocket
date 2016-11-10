@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Domain.Value_Objects;
 using System;
+using System.Net.Sockets;
 
 namespace Domain.Entities
 {
@@ -8,22 +9,24 @@ namespace Domain.Entities
     {
         public Guid Id { get; }
         public ArenaName Location { get; set; }
-        public MatchDuration MatchDuration { get; set; }
-        public Team HomeTeam { get; set; }
-        public Team AwayTeam { get; set; }
+        public MatchDuration MatchDuration { get;}
+        public MatchDateAndTime MatchDate { get; set; }
+        public Guid HomeTeamId { get; set; }
+        public Guid AwayTeamId { get; set; }
 
-        public Match(ArenaName location, Team homeTeam, Team awayTeam, Series series)
+        public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series, MatchDateAndTime date)
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.Location = location;
             this.MatchDuration = series.MatchDuration;
-            this.HomeTeam = homeTeam;
-            this.AwayTeam = awayTeam;
+            this.MatchDate = date;
+            this.HomeTeamId = homeTeam;
+            this.AwayTeamId = awayTeam;
         }
 
         public override string ToString()
         {
-            return $"Location: {this.Location} Hometeam: {this.HomeTeam} Awayteam: {this.AwayTeam}";
+            return $"Location: {this.Location} Time:{this.MatchDate} Hometeam: {this.HomeTeamId} Awayteam: {this.AwayTeamId}";
         }
     }
 }
