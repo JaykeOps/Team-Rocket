@@ -7,32 +7,46 @@ namespace Domain.Entities
 {
     public class ShirtNumber : ValueObject<ShirtNumber>
     {
-        private int? value;
+        private int value;
         public Guid PlayerTeamId { get; }
-        public int? Value
+
+        public int Value
         {
-            get
-            {
-                if (value.Equals(null))
-                {
-                    throw new ShirtNumberMissingTeamIdException("The player can't have a Shirt number value, " +
-                        "since the player has no team assigned.");
-                }
-                else
-                {
-                    return this.value;
-                }
-            }
+            get { return value; }
         }
+
+        //public int Value
+        //{
+        //    get
+        //    {
+        //        if (!this.PlayerTeamId.Equals(Guid.Empty))
+        //        {
+        //            return (int)this.value;
+        //        }
+        //        else
+        //        {
+        //            this.value = null;
+        //            throw new ShirtNumberMissingTeamIdException("The player can't have a Shirt number value, " +
+        //                "since the player has no team assigned.");
+        //        }
+        //    }
+        //}
 
         public ShirtNumber()
         {
             this.PlayerTeamId = Guid.Empty;
-            this.value = null;
+            this.value = -1;
         }
-        public ShirtNumber(Guid playerTeamId, int number)
+
+        public ShirtNumber(Guid playerTeamId, int number, bool isTeamShirtInitialization = false)
         {
-            if (number >= 0 && number < 100)
+            this.PlayerTeamId = playerTeamId;
+            if (isTeamShirtInitialization)
+            {
+                this.PlayerTeamId = playerTeamId;
+                this.value = number;
+            }
+            else if (number >= 0 && number < 100)
             {
                 if (this.IsAvailable(number))
                 {
@@ -51,6 +65,11 @@ namespace Domain.Entities
             }
         }
 
+        private bool IsExistingTeamId(Guid teamId)
+        {
+            throw new NotImplementedException();
+        }
+
         private bool IsAvailable(int number)
         {
             var teamService = new TeamService();
@@ -63,6 +82,8 @@ namespace Domain.Entities
             }
             else
             {
+                this.value = number;
+                team.UnUsedShirtNumbers.Remove(this);
                 return !team.UnUsedShirtNumbers.Select(x => x.Value).Contains(number);
             }
             //TODO: Test this algorithm

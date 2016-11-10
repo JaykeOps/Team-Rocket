@@ -1,18 +1,41 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Entities.Tests
 {
     [TestClass]
     public class ShirtNumberTests
     {
+        private PlayerService playerService;
+        private TeamService teamService;
+        private IEnumerable<Player> players;
+        private IEnumerable<Team> teams;
+        [TestInitialize]
+        public void Init()
+        {
+            this.playerService = new PlayerService();
+            this.teamService = new TeamService();
+            this.players = this.playerService.GetAll();
+            this.teams = this.teamService.GetAll();
+        }
+         
         [TestMethod]
         public void ShirtNumberIsEqualToValidEntry()
         {
-            //var shirtNumber = new ShirtNumber(1);
-            //Assert.IsTrue(shirtNumber.Value == 1);
+            var playerOne = this.players.FirstOrDefault();
+            var playerTwo = this.players.ElementAt(1);
+            var teamOne = this.teams.FirstOrDefault();
+            playerOne.TeamId = teamOne.Id;
+            playerTwo.TeamId = teamOne.Id;
+            
+            playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 9);
+            playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 20);
+            Assert.IsTrue(playerOne.ShirtNumber.Value == 9);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 20);
         }
 
         [TestMethod]

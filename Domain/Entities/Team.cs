@@ -7,27 +7,25 @@ namespace Domain.Entities
 {
     public class Team
     {
-        private List<ShirtNumber> usedShirtNumbers;
-        private List<ShirtNumber> unUsedShirtNumbers;
+        private HashSet<ShirtNumber> unUsedShirtNumbers;
         public Guid Id { get; }
         public TeamName Name { get; set; }
         public HashSet<Guid> PlayerIds { get; }
         public ArenaName Arena { get; set; }
         public EmailAddress Email { get; set; }
-        public IEnumerable<ShirtNumber> UnUsedShirtNumbers
+        public HashSet<ShirtNumber> UnUsedShirtNumbers
         {
             get { return this.unUsedShirtNumbers; }
         }
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.Name = name;
             this.PlayerIds = new HashSet<Guid>();
             this.Arena = arenaName;
             this.Email = email;
-            this.usedShirtNumbers = new List<ShirtNumber>();
-            this.unUsedShirtNumbers = new List<ShirtNumber>();
+            this.unUsedShirtNumbers = new HashSet<ShirtNumber>();
             this.SetUnUsedShirtNumbersToDefaultValue();
         }
 
@@ -35,7 +33,7 @@ namespace Domain.Entities
         {
             for (int i = 0; i < 99; i++)
             {
-                this.unUsedShirtNumbers.Add(new ShirtNumber(this.Id, i));
+                this.unUsedShirtNumbers.Add(new ShirtNumber(this.Id, i, true));
             }
         }
 

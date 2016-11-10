@@ -7,7 +7,7 @@ namespace Domain.Repositories
     public sealed class TeamRepository
     {
         private List<Team> teams;
-        public static readonly TeamRepository instance = new TeamRepository();
+        public static readonly TeamRepository Instance = new TeamRepository();
 
         private TeamRepository()
         {

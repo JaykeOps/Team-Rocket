@@ -17,8 +17,8 @@ namespace DomainTests.Repositories
         public void RepoStateIsTheSame()
         {
             
-            var instance = TeamRepository.instance;
-            var instance2 = TeamRepository.instance;
+            var instance = TeamRepository.Instance;
+            var instance2 = TeamRepository.Instance;
             
             Assert.AreEqual(instance,instance2);
         }
@@ -26,7 +26,7 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void RepoGetAllReturnsIEnumerable()
         {
-            Assert.IsInstanceOfType(TeamRepository.instance.GetAll(),typeof(IEnumerable<Team>));
+            Assert.IsInstanceOfType(TeamRepository.Instance.GetAll(),typeof(IEnumerable<Team>));
         }
 
         [TestMethod]
@@ -34,8 +34,8 @@ namespace DomainTests.Repositories
         {
             var team = new Team(new TeamName("ifk göteborg"), new ArenaName("ullevi"), new EmailAddress("ifkgoteborg@gmail.com"));
             var team2 = new Team(new TeamName("GAIS"), new ArenaName("ullevi"), new EmailAddress("GAIS@gmail.com"));
-            TeamRepository.instance.Add(team);
-            var teams = TeamRepository.instance.GetAll();
+            TeamRepository.Instance.Add(team);
+            var teams = TeamRepository.Instance.GetAll();
             Assert.IsTrue(teams.Contains(team));
             Assert.IsFalse(teams.Contains(team2));
         }
@@ -43,7 +43,7 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void GetAllNotReturningNull()
         {
-            Assert.IsNotNull(TeamRepository.instance.GetAll());
+            Assert.IsNotNull(TeamRepository.Instance.GetAll());
         }
        
     }
