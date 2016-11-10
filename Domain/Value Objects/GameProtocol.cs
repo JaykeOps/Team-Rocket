@@ -9,12 +9,12 @@ namespace Domain.Value_Objects
         public Guid AwayTeamId { get; } 
         private OverTime OverTime { get; set; }
         private GameResult GameResult { get; set; }
-        private List<Goal> Goals { get; }
-        private List<Assist> Assists { get; }
-        private List<Penalty> Penalties { get; }
-        private List<Card> Cards { get; }
+        public List<Goal> Goals { get; }
+        public List<Assist> Assists { get; }
+        public List<Penalty> Penalties { get; }
+        public List<Card> Cards { get; }
 
-        public GameProtocol(Guid homeTeamId, Guid awayTeamId) // More arguments may be needed.
+        public GameProtocol(Guid homeTeamId, Guid awayTeamId)
         {
             this.HomeTeamId = homeTeamId;
             this.AwayTeamId = awayTeamId;
