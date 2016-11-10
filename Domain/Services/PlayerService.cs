@@ -30,8 +30,8 @@ namespace Domain.Services
         public IEnumerable<Player> FindPlayer(string searchText, bool ignoreCase)
         {
             var result = allPlayers.Where(x =>
-                x.Name.ToString().Contains(searchText, ignoreCase) ||
-                x.DateOfBirth.Value.ToString().Contains(searchText, ignoreCase));
+                x.Name.ToString().Contains(searchText, StringComparison.InvariantCultureIgnoreCase) ||
+                x.DateOfBirth.Value.ToString().Contains(searchText, StringComparison.CurrentCultureIgnoreCase));
 
             return result;
         }
