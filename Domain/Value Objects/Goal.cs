@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces;
-using Domain.Entities;
 using System;
 
 namespace Domain.Value_Objects
@@ -7,20 +6,19 @@ namespace Domain.Value_Objects
     public class Goal : ValueObject<Goal>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
-        public Player Player { get; } // The player who made the goal.
+        public Guid PlayerId { get; }
 
-        public Goal(MatchMinute matchMinute, Player player)
+        public Goal(MatchMinute matchMinute, Guid playerId)
         {
-            if (matchMinute == null || player == null)
+            if (matchMinute == null || playerId == null)
             {
                 throw new NullReferenceException();
             }
             else
             {
                 this.MatchMinute = matchMinute;
-                this.Player = player;
+                this.PlayerId = playerId;
             }
         }
-
     }
 }

@@ -45,25 +45,10 @@ namespace DomainTests.Entities.Tests
         }
 
         [TestMethod]
-        public void ShirtNumberTryParseCanOutNullResult()
-        {
-            ShirtNumber result;
-            ShirtNumber.TryParse(9, out result);
-            Assert.IsNull(result);
-        }
-
-        [TestMethod]
         public void ShirtNumberTryParseCanReturnTrue()
         {
             ShirtNumber result;
             Assert.IsTrue(ShirtNumber.TryParse(17, out result));
-        }
-
-        [TestMethod]
-        public void ShirtNumberTryParseCanReturnFalse()
-        {
-            ShirtNumber result;
-            Assert.IsFalse(ShirtNumber.TryParse(2, out result));
         }
 
         [TestMethod]

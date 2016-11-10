@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
-using DomainTests.Entities;
-using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
@@ -19,20 +18,15 @@ namespace Domain.Value_Objects.Tests
             var player = new Player(new Name("John", "Doe"), new DateOfBirth("1988-05-22"),
                 PlayerPosition.GoalKeeper, PlayerStatus.Available,
                 new ShirtNumber(25));
-
-            this.penaltyOne = new Penalty(new MatchMinute(36), player);
-            this.penaltyTwo = new Penalty(new MatchMinute(36), player);
+            this.penaltyOne = new Penalty(new MatchMinute(36), player.Id);
+            this.penaltyTwo = new Penalty(new MatchMinute(36), player.Id);
         }
 
         [TestMethod]
         public void PenaltyIsEqualToValidEntry()
         {
-            Assert.IsTrue(this.penaltyOne.Player.Name == new Name("John", "Doe"));
-            Assert.IsTrue(this.penaltyOne.Player.DateOfBirth.Value == new DateOfBirth("1988-05-22").Value);
-            Assert.IsTrue(this.penaltyOne.Player.Position == PlayerPosition.GoalKeeper);
-            Assert.IsTrue(this.penaltyOne.Player.Status == PlayerStatus.Available);
-            Assert.IsTrue(this.penaltyOne.Player.ShirtNumber == new ShirtNumber(25));
-            Assert.IsTrue(this.penaltyOne.MatchMinute.Value == 36);
+            Assert.IsTrue(this.penaltyOne.MatchMinute.Value == 36
+                && this.penaltyOne.PlayerId != Guid.Empty);
         }
 
         [TestMethod]

@@ -56,7 +56,6 @@ namespace Domain.Value_Objects
             }
         }
 
-
         private bool DictionariesValueAreEqual(object propertyValueOfInputObject,
             object propertyValueOfThisObject)
         {
@@ -141,7 +140,6 @@ namespace Domain.Value_Objects
                 {
                     hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
                 }
-
             }
             return hashCode;
         }

@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Domain.Entities;
+using Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Repositories;
-using Domain.Entities;
+
 namespace Domain.Services
 {
     public class SeriesService
     {
         private readonly SeriesRepository repository = SeriesRepository.instance;
-
 
         public void AddSeries(Series series)
         {
@@ -22,10 +20,12 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Series> FindSeriesById(Guid id)
+        public Series FindById(Guid seriesId)
         {
             var allSeries = GetAll();
-            return allSeries.Where(x => x.Id == id);
+            return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
+
+        
     }
 }

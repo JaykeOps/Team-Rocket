@@ -1,8 +1,7 @@
-﻿using DomainTests.Value_Objects.Tests;
+﻿using Domain.Entities;
+using DomainTests.Value_Objects.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using football_series_manager.Domain.Entities;
-using Domain.Entities;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -27,7 +26,6 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(testObjectOne == testObjectTwo);
             testObjectTwo.TestListOfStrings.Add("Hello World!");
             Assert.IsTrue(testObjectOne != testObjectTwo);
-
         }
 
         [TestMethod]

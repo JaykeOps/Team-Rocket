@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Value_Objects;
+﻿using Domain.Value_Objects;
+using System;
 
 namespace Domain.Entities
 {
-    public class ShirtNumber:ValueObject<ShirtNumber>
+    public class ShirtNumber : ValueObject<ShirtNumber>
     {
         public int Value { get; }
 
@@ -57,6 +56,5 @@ namespace Domain.Entities
                 return false;
             }
         }
-        
     }
 }

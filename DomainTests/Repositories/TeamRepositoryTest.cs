@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repositories;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Repositories
 {
@@ -16,17 +13,16 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void RepoStateIsTheSame()
         {
-            
             var instance = TeamRepository.instance;
             var instance2 = TeamRepository.instance;
-            
-            Assert.AreEqual(instance,instance2);
+
+            Assert.AreEqual(instance, instance2);
         }
 
         [TestMethod]
         public void RepoGetAllReturnsIEnumerable()
         {
-            Assert.IsInstanceOfType(TeamRepository.instance.GetAll(),typeof(IEnumerable<Team>));
+            Assert.IsInstanceOfType(TeamRepository.instance.GetAll(), typeof(IEnumerable<Team>));
         }
 
         [TestMethod]
@@ -45,6 +41,5 @@ namespace DomainTests.Repositories
         {
             Assert.IsNotNull(TeamRepository.instance.GetAll());
         }
-       
     }
 }

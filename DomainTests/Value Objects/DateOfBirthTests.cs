@@ -66,6 +66,7 @@ namespace Domain.Value_Objects.Tests
             Assert.AreEqual(dateOfBirthOne, dateOfBirthTwo);
             Assert.IsTrue(dateOfBirthOne.Value == dateOfBirthTwo.Value);
         }
+
         [TestMethod]
         public void DateOfBirthWorksWithHashSet()
         {

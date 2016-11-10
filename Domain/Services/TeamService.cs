@@ -1,6 +1,8 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Repositories;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Services
 {
@@ -22,5 +24,11 @@ namespace Domain.Services
         {
             return this.repository.GetAll();
         }
+
+        public Team FindById(Guid teamId)
+        {
+            return GetAll().ToList().Find(t => t.Id.Equals(teamId));
+        }
+
     }
 }

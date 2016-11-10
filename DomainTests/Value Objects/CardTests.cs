@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -10,27 +10,16 @@ namespace Domain.Value_Objects.Tests
         private Card cardOne;
         private Card cardTwo;
         private Card cardThree;
-
-
-
+        private Guid playerIdOne;
+        private Guid playerIdTwo;
 
         public CardTests()
         {
-            var playerOne = new Player(new Name("John", "Doe"),
-                new DateOfBirth("1993-02-04"),
-                PlayerPosition.Forward, PlayerStatus.Absent,
-                new ShirtNumber(25));
-
-            var playerTwo = new Player(new Name("John", "Doe"),
-                new DateOfBirth("1993-02-04"),
-                PlayerPosition.Forward, PlayerStatus.Absent,
-                new ShirtNumber(25));
-
-
-
-            this.cardOne = new Card(new MatchMinute(15), playerOne, CardType.Yellow);
-            this.cardTwo = new Card(new MatchMinute(15), playerOne, CardType.Yellow);
-            this.cardThree = new Card(new MatchMinute(15), playerTwo, CardType.Red);
+            this.playerIdOne = Guid.NewGuid();
+            this.playerIdTwo = Guid.NewGuid();
+            this.cardOne = new Card(new MatchMinute(15), playerIdOne, CardType.Yellow);
+            this.cardTwo = new Card(new MatchMinute(15), playerIdOne, CardType.Yellow);
+            this.cardThree = new Card(new MatchMinute(15), playerIdTwo, CardType.Red);
         }
 
         [TestMethod]
@@ -38,13 +27,9 @@ namespace Domain.Value_Objects.Tests
         {
             Assert.IsTrue(cardOne.CardType.Equals(CardType.Yellow));
             Assert.IsTrue(cardOne.MatchMinute.Value.Equals(15));
-            Assert.IsTrue(cardOne.Player.Name == new Name("John", "Doe"));
-            Assert.IsTrue(cardOne.Player.DateOfBirth == new DateOfBirth("1993-02-04"));
-            Assert.IsTrue(cardOne.Player.Position == PlayerPosition.Forward);
-            Assert.IsTrue(cardOne.Player.Status == PlayerStatus.Absent);
-            Assert.IsTrue(cardOne.Player.ShirtNumber == new ShirtNumber(25));
-
+            Assert.IsTrue(cardOne.PlayerId == this.playerIdOne);
         }
+
         [TestMethod]
         public void CardIsComparableByValue()
         {
@@ -52,16 +37,13 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(this.cardOne != this.cardThree);
             Assert.AreEqual(this.cardOne, this.cardTwo);
             Assert.AreNotEqual(this.cardOne, this.cardThree);
-
         }
+
         [TestMethod]
         public void CardtWorksWithHashSet()
         {
             var hashSet = new HashSet<Card> { this.cardOne, this.cardTwo };
             Assert.IsTrue(hashSet.Count == 1);
         }
-
-
-
     }
 }

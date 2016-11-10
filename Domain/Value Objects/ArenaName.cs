@@ -1,5 +1,4 @@
 ﻿using Domain.Helper_Classes;
-using Domain.Value_Objects;
 using System;
 
 namespace Domain.Value_Objects
@@ -34,12 +33,9 @@ namespace Domain.Value_Objects
             }
         }
 
-
         public override string ToString()
         {
             return $"{this.Value}";
         }
-
-       
     }
 }

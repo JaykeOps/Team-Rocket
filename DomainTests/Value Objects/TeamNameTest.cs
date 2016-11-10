@@ -21,12 +21,14 @@ namespace DomainTests.Value_Objects
             var teamName = new TeamName("Ifk Göteborg");
             Assert.IsNotNull(teamName);
         }
+
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void TeamNameThatContainsNoneNumeralInvalidCharactersThrowsFormatException()
         {
             var name = new TeamName(".%&#/");
         }
+
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
         public void TeamNameThatContainsLessThanTwoCharactersThrowsFormatException()

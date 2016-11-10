@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces;
-using Domain.Entities;
 using System;
 
 namespace Domain.Value_Objects
@@ -7,12 +6,12 @@ namespace Domain.Value_Objects
     public class Assist : ValueObject<Assist>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
-        public Player Player { get; } // The player who made the goal-giving pass.
+        public Guid PlayerId { get; }
 
-        public Assist(MatchMinute matchMinute, Player player)
+        public Assist(MatchMinute matchMinute, Guid playerId)
         {
             this.MatchMinute = matchMinute;
-            this.Player = player;
+            this.PlayerId = playerId;
         }
     }
 }

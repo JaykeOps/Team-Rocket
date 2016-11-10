@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
-
-namespace Domain.Value_Objects
+﻿namespace Domain.Value_Objects
 {
-    
     public class TeamStats
     {
         private int goalDiff;
@@ -37,12 +29,9 @@ namespace Domain.Value_Objects
                 goalDiff = this.GoalsFor - this.GoalsAgainst;
             }
         }
-        
 
-        
         public TeamStats()
         {
-            
         }
 
         public override string ToString()

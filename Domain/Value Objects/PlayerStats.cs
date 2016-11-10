@@ -2,7 +2,6 @@
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Domain.Entities
 {
@@ -21,14 +20,17 @@ namespace Domain.Entities
 
         public int GoalCount { get { return this.goalStats.Count; } }
         public int AssistCount { get { return this.assistStats.Count; } }
+
         public int YellowCardCount
         {
             get { return this.cardStats.FindAll(x => x.CardType.Equals(CardType.Yellow)).Count; }
         }
+
         public int RedCardCount
         {
             get { return this.cardStats.FindAll(x => x.CardType.Equals(CardType.Red)).Count; }
         }
+
         public int PenaltyCount { get { return this.penaltyStats.Count; } }
         public int GamesPlayedCount { get { return this.gamesPlayedIds.Count; } }
 
@@ -40,5 +42,6 @@ namespace Domain.Entities
             this.penaltyStats = new List<Penalty>();
             this.gamesPlayedIds = new List<Guid>();
         }
+
     }
 }
