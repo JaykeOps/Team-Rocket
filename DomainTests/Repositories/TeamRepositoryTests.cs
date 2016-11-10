@@ -8,7 +8,7 @@ using System.Linq;
 namespace DomainTests.Repositories
 {
     [TestClass]
-    public class TeamRepositoryTest
+    public class TeamRepositoryTests
     {
         [TestMethod]
         public void RepoStateIsTheSame()

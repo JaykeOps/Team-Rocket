@@ -8,7 +8,7 @@ using System.Linq;
 namespace DomainTests.Services
 {
     [TestClass]
-    public class TeamServiceTest
+    public class TeamServiceTests
     {
         private TeamService service = new TeamService();
         private Team team = new Team(new TeamName("ifk göteborg"), new ArenaName("ullevi"), new EmailAddress("ifkgoteborg@gmail.com"));
