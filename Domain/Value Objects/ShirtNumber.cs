@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Services;
 using Domain.Value_Objects;
+using System;
+using System.Linq;
 
 namespace Domain.Entities
 {
-    public class ShirtNumber:ValueObject<ShirtNumber>
+    public class ShirtNumber : ValueObject<ShirtNumber>
     {
+        public Guid PlayerTeamId { get; set; }
         public int Value { get; }
 
-        public ShirtNumber(int number)
+        public ShirtNumber(Guid playerTeamId, int number)
         {
             if (number >= 0 && number < 100)
             {
@@ -31,18 +33,12 @@ namespace Domain.Entities
 
         private bool IsAvailable(int number)
         {
-            return true; //!this.TeamShirtNumbersTempSimulation(number);
+            var teamService = new TeamService();
+            var teams = teamService.GetAll();
+            var team = teams.Where(x => x.Id.Equals(this.PlayerTeamId)).FirstOrDefault();
+            return !team.UnUsedShirtNumbers.Select(x => x.Value).Contains(number);
+            //TODO: Test this algorithm
         }
-
-        //public bool TeamShirtNumbersTempSimulation(int number)
-        //{
-        //    var teamShirtNumbersSimulaton = new HashSet<int>()
-        //    {
-        //        0, 3, 6, 7, 8, 9, 14, 12, 2, 19, 27, 32, 99, 14, 18, 19, 20, 32, 55
-        //    };
-
-        //    return teamShirtNumbersSimulaton.Contains(number);
-        //}
 
         public static bool TryParse(int value, out ShirtNumber result)
         {
@@ -57,6 +53,5 @@ namespace Domain.Entities
                 return false;
             }
         }
-        
     }
 }
