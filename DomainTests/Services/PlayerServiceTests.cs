@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Services;
+﻿using Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
 
 namespace Domain.Services.Tests
 {
@@ -103,5 +100,5 @@ namespace Domain.Services.Tests
 
             Assert.IsNotNull(expectedTeamId);
         }
-    }        
+    }
 }

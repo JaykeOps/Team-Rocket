@@ -57,7 +57,6 @@ namespace Domain.Value_Objects.Tests
                 new EmailAddress("carlton@hoolywood.com"));
             hashSet.Add(contactTwo);
             Assert.IsTrue(hashSet.Count == 2);
-            
         }
     }
 }

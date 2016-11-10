@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Domain.Entities;
+using Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Repositories;
-using Domain.Entities;
+
 namespace Domain.Services
 {
     public class SeriesService
     {
         private readonly SeriesRepository repository = SeriesRepository.instance;
-
 
         public void AddSeries(Series series)
         {

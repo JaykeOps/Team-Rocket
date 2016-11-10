@@ -1,12 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Domain.Entities;
 using Domain.Services;
-using Domain.Entities;
 using Domain.Value_Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DomainTests.Services
 {
@@ -21,22 +17,21 @@ namespace DomainTests.Services
             this.seriesService = new SeriesService();
 
             this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), 16);
-
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void AddSeries()
         {
             seriesService.AddSeries(new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), 16));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetAllSerieses()
         {
             var seriesList = seriesService.GetAll();
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FindSerieById()
         {
             seriesService.AddSeries(testSerieOne);

@@ -8,6 +8,7 @@ namespace DomainTests.Value_Objects.Tests
         public string TestStr { get; set; } = "This is a test!";
         public int TestInt { get; set; } = 1337;
     }
+
     public class TestObjectWithStringList : ValueObject<TestObjectWithStringList>
     {
         public List<string> TestListOfStrings { get; set; } = new List<string> { "Test", "Test...", "Test......" };

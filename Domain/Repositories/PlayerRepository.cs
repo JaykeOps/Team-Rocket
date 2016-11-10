@@ -1,7 +1,6 @@
-﻿using Domain.Value_Objects;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Value_Objects;
 using System.Collections.Generic;
-using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -9,7 +8,6 @@ namespace Domain.Repositories
     {
         private List<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();
-
 
         private PlayerRepository()
         {

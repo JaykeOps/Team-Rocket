@@ -1,7 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Value_Objects;
 using System;
-using System.Net.Sockets;
 
 namespace Domain.Entities
 {
@@ -9,7 +8,7 @@ namespace Domain.Entities
     {
         public Guid Id { get; }
         public ArenaName Location { get; set; }
-        public MatchDuration MatchDuration { get;}
+        public MatchDuration MatchDuration { get; }
         public MatchDateAndTime MatchDate { get; set; }
         public Guid HomeTeamId { get; set; }
         public Guid AwayTeamId { get; set; }

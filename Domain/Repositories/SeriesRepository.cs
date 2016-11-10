@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
+using System;
+using System.Collections.Generic;
 
 namespace Domain.Repositories
 {
@@ -13,7 +10,6 @@ namespace Domain.Repositories
         private List<Series> series;
 
         public static readonly SeriesRepository instance = new SeriesRepository();
-
 
         private SeriesRepository()
         {

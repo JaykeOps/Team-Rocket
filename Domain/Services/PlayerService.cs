@@ -4,8 +4,6 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services
 {
@@ -37,11 +35,13 @@ namespace Domain.Services
 
             return result;
         }
+
         public string GetPlayerName(Guid playerId)
         {
             var result = allPlayers.Where(x => x.Id == playerId).Select(x => x.Name.ToString()).First();
             return result;
         }
+
         public Guid GetPlayerTeamId(Guid playerId)
         {
             var result = allPlayers.Where(x => x.Id == playerId).Select(x => x.TeamId).First();
@@ -68,6 +68,7 @@ namespace Domain.Services
             var result = playerStats.Select(x => x.RedCardCount).First();
             return result;
         }
+
         public int GetPlayerTotalGoals(Guid playerId)
         {
             var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);

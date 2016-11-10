@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
-using Domain.Entities;
+using System.Collections.Generic;
 
 namespace Domain.Repositories
 {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace DomainTests.Entities
 {
@@ -15,6 +11,7 @@ namespace DomainTests.Entities
         private Match match;
         private Guid awayTeamId;
         private Guid homeTeamId;
+
         public MatchTests()
         {
             var arena = new ArenaName("Ullevi");
@@ -23,7 +20,6 @@ namespace DomainTests.Entities
             this.awayTeamId = Guid.NewGuid();
             this.homeTeamId = Guid.NewGuid();
             this.match = new Match(arena, homeTeamId, awayTeamId, series, date);
-
         }
 
         [TestMethod]
@@ -41,34 +37,30 @@ namespace DomainTests.Entities
         public void HomeAndAwayTeamIdsCanChange()
         {
             var id = new Guid();
-            Assert.IsFalse(this.match.HomeTeamId==id);
-            Assert.IsFalse(this.match.AwayTeamId==id);
+            Assert.IsFalse(this.match.HomeTeamId == id);
+            Assert.IsFalse(this.match.AwayTeamId == id);
             this.match.AwayTeamId = id;
             this.match.HomeTeamId = id;
-            Assert.IsTrue(this.match.HomeTeamId==id);
-            Assert.IsTrue(this.match.HomeTeamId==id);
+            Assert.IsTrue(this.match.HomeTeamId == id);
+            Assert.IsTrue(this.match.HomeTeamId == id);
         }
 
         [TestMethod]
         public void MatchLocationCanChange()
         {
-            var loaction= new ArenaName("Bravida");
-            Assert.IsFalse(this.match.Location==loaction);
+            var loaction = new ArenaName("Bravida");
+            Assert.IsFalse(this.match.Location == loaction);
             this.match.Location = loaction;
-            Assert.IsTrue(this.match.Location==loaction);
+            Assert.IsTrue(this.match.Location == loaction);
         }
 
         [TestMethod]
         public void MatchDateCanChange()
         {
-            var matchDate= new MatchDateAndTime(new DateTime(2016, 12, 24, 19, 00, 00));
-            Assert.IsFalse(this.match.MatchDate==matchDate);
+            var matchDate = new MatchDateAndTime(new DateTime(2016, 12, 24, 19, 00, 00));
+            Assert.IsFalse(this.match.MatchDate == matchDate);
             this.match.MatchDate = matchDate;
-            Assert.IsTrue(this.match.MatchDate==matchDate);
+            Assert.IsTrue(this.match.MatchDate == matchDate);
         }
-        
-
-
-
     }
 }

@@ -10,9 +10,9 @@ namespace Domain.Entities
         public TeamName Name { get; set; }
         public HashSet<Guid> PlayerIds { get; }
         public ArenaName Arena { get; set; }
-        public EmailAddress Email { get ; set; }
+        public EmailAddress Email { get; set; }
 
-        public Team(TeamName name, ArenaName arenaName,EmailAddress email)
+        public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
             this.Id = Guid.NewGuid();
             this.Name = name;

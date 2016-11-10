@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces;
-using Domain.Entities;
 using System;
 
 namespace Domain.Value_Objects
@@ -16,8 +15,5 @@ namespace Domain.Value_Objects
             this.PlayerId = playerId;
             this.CardType = cardType;
         }
-
-
-
     }
 }

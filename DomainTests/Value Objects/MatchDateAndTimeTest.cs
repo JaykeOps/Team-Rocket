@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Value_Objects;
+﻿using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace DomainTests.Value_Objects
 {
@@ -18,7 +15,6 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void MatchDurationIsEqualToEntry()
         {
-
             var matchDateAndTime = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
             var matchDatetimeTwo = DateTime.Now + TimeSpan.FromDays(1);
             Assert.IsTrue($"{matchDateAndTime.Value:yyyy-MM-dd HH: mm}" == $"{matchDatetimeTwo:yyyy-MM-dd HH: mm}");
@@ -91,12 +87,8 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void MatchDateAndTimeWorksWithHashSet()
         {
-            var matchDatehHashSet = new HashSet<MatchDateAndTime> {this.dateOne, this.dateTwo };
-            Assert.IsTrue(matchDatehHashSet.Count==1);
+            var matchDatehHashSet = new HashSet<MatchDateAndTime> { this.dateOne, this.dateTwo };
+            Assert.IsTrue(matchDatehHashSet.Count == 1);
         }
-
-
-
-
     }
 }
