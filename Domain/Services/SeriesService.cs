@@ -25,5 +25,7 @@ namespace Domain.Services
             var allSeries = GetAll();
             return allSeries.Where(x => x.Id == id);
         }
+
+        
     }
 }

@@ -32,7 +32,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerFullName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Sergio Ramos", true).Select(x => x.Id).First();
+            var expectedPlayerId = playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
             var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
@@ -42,7 +42,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerCaseSensitive()
         {
-            var expectedPlayerId = playerService.FindPlayer("SeRGio RaMos", true).Select(x => x.Id).First();
+            var expectedPlayerId = playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
             var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
@@ -52,7 +52,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerPartOfFirstName()
         {
-            var expectedPlayerId = playerService.FindPlayer("ZLat", true).Select(x => x.Id).First();
+            var expectedPlayerId = playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
             var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
 
@@ -62,7 +62,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerPartOfLastName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Ibra", true).Select(x => x.Id).First();
+            var expectedPlayerId = playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
             var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
 
@@ -72,7 +72,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerSpecialCharactersNotAllowed()
         {
-            var expectedPlayerObj = playerService.FindPlayer("Ibra@%", true).FirstOrDefault();
+            var expectedPlayerObj = playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
         }

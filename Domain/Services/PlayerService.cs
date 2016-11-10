@@ -27,6 +27,11 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
+        public Player FindById(Guid playerId)
+        {
+            return allPlayers.ToList().Find(p => p.Id.Equals(playerId));
+        }
+
         public IEnumerable<Player> FindPlayer(string searchText, StringComparison comp)
         {
             var result = allPlayers.Where(x =>

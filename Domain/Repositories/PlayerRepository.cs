@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Value_Objects;
 using System.Collections.Generic;
 
@@ -24,6 +25,7 @@ namespace Domain.Repositories
         {
             return this.players;
         }
+
 
         public void LoadData()
         {
