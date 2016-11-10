@@ -35,7 +35,7 @@ namespace Domain.Entities
         {
             for (int i = 0; i < 99; i++)
             {
-                this.unUsedShirtNumbers.Add(new ShirtNumber(i));
+                this.unUsedShirtNumbers.Add(new ShirtNumber(this.Id, i));
             }
         }
 

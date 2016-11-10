@@ -29,16 +29,16 @@ namespace Domain.Repositories
 
         public void LoadData()
         {
-            var player1 = new Player(new Name("Zlatan", "Ibrahimovic"), new DateOfBirth("1981-10-03"), PlayerPosition.Forward, PlayerStatus.Available, new ShirtNumber(1));
-            var player2 = new Player(new Name("Cristiano", "Ronaldo"), new DateOfBirth("1981-10-03"), PlayerPosition.Forward, PlayerStatus.Injured, new ShirtNumber(2));
-            var player3 = new Player(new Name("Lionel", "Messi"), new DateOfBirth("1987-06-24"), PlayerPosition.Forward, PlayerStatus.Available, new ShirtNumber(3));
-            var player4 = new Player(new Name("Sergio", "Ramos"), new DateOfBirth("1986-03-30"), PlayerPosition.Defender, PlayerStatus.Absent, new ShirtNumber(4));
-            var player5 = new Player(new Name("Mesut", "Özil"), new DateOfBirth("1988-10-15"), PlayerPosition.MidFielder, PlayerStatus.Available, new ShirtNumber(5));
-            var player6 = new Player(new Name("Eden", "Hazard"), new DateOfBirth("1991-01-07"), PlayerPosition.MidFielder, PlayerStatus.Suspended, new ShirtNumber(6));
-            var player7 = new Player(new Name("Robert", "Lewandowski"), new DateOfBirth("1988-08-21"), PlayerPosition.Forward, PlayerStatus.Available, new ShirtNumber(7));
-            var player8 = new Player(new Name("Paul", "Pogba"), new DateOfBirth("1993-03-15"), PlayerPosition.MidFielder, PlayerStatus.Available, new ShirtNumber(8));
-            var player9 = new Player(new Name("Claudio", "Bravo"), new DateOfBirth("1983-04-13"), PlayerPosition.GoalKeeper, PlayerStatus.Available, new ShirtNumber(9));
-            var player10 = new Player(new Name("John", "Stones"), new DateOfBirth("1994-07-28"), PlayerPosition.Defender, PlayerStatus.Available, new ShirtNumber(10));
+            var player1 = new Player(new Name("Zlatan", "Ibrahimovic"), new DateOfBirth("1981-10-03"), PlayerPosition.Forward, PlayerStatus.Available);
+            var player2 = new Player(new Name("Cristiano", "Ronaldo"), new DateOfBirth("1981-10-03"), PlayerPosition.Forward, PlayerStatus.Injured);
+            var player3 = new Player(new Name("Lionel", "Messi"), new DateOfBirth("1987-06-24"), PlayerPosition.Forward, PlayerStatus.Available);
+            var player4 = new Player(new Name("Sergio", "Ramos"), new DateOfBirth("1986-03-30"), PlayerPosition.Defender, PlayerStatus.Absent);
+            var player5 = new Player(new Name("Mesut", "Özil"), new DateOfBirth("1988-10-15"), PlayerPosition.MidFielder, PlayerStatus.Available);
+            var player6 = new Player(new Name("Eden", "Hazard"), new DateOfBirth("1991-01-07"), PlayerPosition.MidFielder, PlayerStatus.Suspended);
+            var player7 = new Player(new Name("Robert", "Lewandowski"), new DateOfBirth("1988-08-21"), PlayerPosition.Forward, PlayerStatus.Available);
+            var player8 = new Player(new Name("Paul", "Pogba"), new DateOfBirth("1993-03-15"), PlayerPosition.MidFielder, PlayerStatus.Available);
+            var player9 = new Player(new Name("Claudio", "Bravo"), new DateOfBirth("1983-04-13"), PlayerPosition.GoalKeeper, PlayerStatus.Available);
+            var player10 = new Player(new Name("John", "Stones"), new DateOfBirth("1994-07-28"), PlayerPosition.Defender, PlayerStatus.Available);
 
             players.Add(player1);
             players.Add(player2);

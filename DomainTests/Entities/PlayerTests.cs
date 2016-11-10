@@ -18,7 +18,7 @@ namespace DomainTests.Entities.Tests
             var contactInformation = new ContactInformation(new PhoneNumber("0735-688231"),
                 new EmailAddress("johnDoe_84@hotmail.com"));
             this.testPlayer = new Player(name, dateOfBirth, PlayerPosition.Forward,
-                PlayerStatus.Available, new ShirtNumber(25));
+                PlayerStatus.Available);
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace DomainTests.Entities.Tests
         public void PlayerShirtNumberCanChange()
         {
             Assert.IsFalse(this.testPlayer.ShirtNumber.Value == 10);
-            this.testPlayer.ShirtNumber = new ShirtNumber(10);
+            //this.testPlayer.ShirtNumber = new ShirtNumber(10);
             Assert.IsTrue(this.testPlayer.ShirtNumber.Value == 10);
         }
 
@@ -80,7 +80,7 @@ namespace DomainTests.Entities.Tests
         [ExpectedException(typeof(ShirtNumberAlreadyInUseException))]
         public void PlayerShirtNumberCanThrowExceptionIfShirtNumberAlreadyInUse()
         {
-            this.testPlayer.ShirtNumber = new ShirtNumber(0);
+            //this.testPlayer.ShirtNumber = new ShirtNumber(0);
         }
 
         [TestMethod()]

@@ -18,8 +18,7 @@ namespace Domain.Value_Objects.Tests
             var contactInformation = new ContactInformation(new PhoneNumber("0739-246788"),
                 new EmailAddress("johnDoe_48@hotmail.com"));
             var player = new Player(new Name("John", "Doe"), new DateOfBirth("1988-05-22"),
-                PlayerPosition.GoalKeeper, PlayerStatus.Available,
-                new ShirtNumber(25));
+                PlayerPosition.GoalKeeper, PlayerStatus.Available);
             this.penaltyOne = new Penalty(new MatchMinute(36), player.Id);
             this.penaltyTwo = new Penalty(new MatchMinute(36), player.Id);
         }

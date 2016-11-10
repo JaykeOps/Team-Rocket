@@ -1,6 +1,5 @@
 ﻿using Domain.Value_Objects;
 using System;
-using Domain.Entities;
 
 namespace Domain.Entities
 {
@@ -13,13 +12,19 @@ namespace Domain.Entities
         public PlayerStats Stats { get; set; }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
-            PlayerStatus status, ShirtNumber shirtNumber)
-            : base(name, dateOfBirth)
+            PlayerStatus status) : base(name, dateOfBirth)
         {
             this.Position = position;
             this.Status = status;
-            this.ShirtNumber = shirtNumber;
             this.TeamId = Guid.Empty;
+            this.ShirtNumber = new ShirtNumber();
+        }
+
+        public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
+            PlayerStatus status, ShirtNumber shirtNumber) : this(name, dateOfBirth,
+                position, status)
+        {
+            this.ShirtNumber = shirtNumber;
         }
     }
 }
