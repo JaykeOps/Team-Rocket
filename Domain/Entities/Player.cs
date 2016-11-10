@@ -1,6 +1,5 @@
 ﻿using Domain.Value_Objects;
 using System;
-using Domain.Entities;
 
 namespace Domain.Entities
 {

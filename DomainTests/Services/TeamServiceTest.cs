@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Repositories;
+﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Services
 {
@@ -23,6 +19,7 @@ namespace DomainTests.Services
         {
             Assert.IsInstanceOfType(service.GetAll(), typeof(IEnumerable<Team>));
         }
+
         [TestMethod]
         public void GetAllTeamsNotReturningNull()
         {
@@ -37,6 +34,7 @@ namespace DomainTests.Services
             Assert.IsTrue(teams.Contains(team));
             Assert.IsFalse(teams.Contains(team2));
         }
+
         [TestMethod]
         public void ServiceRepoInstanceIsTheSame()
         {
@@ -45,7 +43,14 @@ namespace DomainTests.Services
             service1.AddTeam(team);
             var teams = service2.GetAll();
             Assert.IsTrue(teams.Contains(team));
-            
+        }
+
+        [TestMethod]
+        public void FindTeamByIdIsWorking()
+        {
+            Assert.IsFalse(service.FindById(team.Id) == team);
+            service.AddTeam(team);
+            Assert.IsTrue(service.FindById(team.Id) == team);
         }
     }
 }

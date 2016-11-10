@@ -5,8 +5,8 @@ namespace Domain.Value_Objects
 {
     public class GameProtocol : ValueObject<GameProtocol>
     {
-        public Guid HomeTeamId { get; } 
-        public Guid AwayTeamId { get; } 
+        public Guid HomeTeamId { get; }
+        public Guid AwayTeamId { get; }
         private OverTime OverTime { get; set; }
         private GameResult GameResult { get; set; }
         public List<Goal> Goals { get; }
@@ -23,10 +23,5 @@ namespace Domain.Value_Objects
             this.Penalties = new List<Penalty>();
             this.Cards = new List<Card>();
         }
-
-
-       
-
-        
     }
 }

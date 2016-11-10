@@ -1,12 +1,9 @@
 ﻿using Domain.Entities;
 using Domain.Helper_Classes;
 using Domain.Repositories;
-using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Services
 {
@@ -30,28 +27,36 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Player> FindPlayer(string searchText, bool ignoreCase)
+        public Player FindById(Guid playerId)
+        {
+            return allPlayers.ToList().Find(p => p.Id.Equals(playerId));
+        }
+
+        public IEnumerable<Player> FindPlayer(string searchText, StringComparison comp)
         {
             var result = allPlayers.Where(x =>
-                x.Name.ToString().Contains(searchText, ignoreCase) ||
-                x.DateOfBirth.Value.ToString().Contains(searchText, ignoreCase));
+                x.Name.ToString().Contains(searchText,comp ) ||
+                x.DateOfBirth.Value.ToString().Contains(searchText, comp));
+
             return result;
         }
+
         public string GetPlayerName(Guid playerId)
         {
             var result = allPlayers.Where(x => x.Id == playerId).Select(x => x.Name.ToString()).First();
             return result;
         }
+
         public Guid GetPlayerTeamId(Guid playerId)
         {
             var result = allPlayers.Where(x => x.Id == playerId).Select(x => x.TeamId).First();
             return result;
         }
 
-        public IEnumerable<Guid> GetPlayerGamesPlayedIds(Guid playerId)
+        public IEnumerable<List<Guid>> GetPlayerGamesPlayedIds(Guid playerId)
         {
             var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.SelectMany(x => x.GamesPlayedIds);
+            var result = playerStats.Select(x => x.GamesPlayedIds);
             return result;
         }
 
@@ -68,6 +73,7 @@ namespace Domain.Services
             var result = playerStats.Select(x => x.RedCardCount).First();
             return result;
         }
+
         public int GetPlayerTotalGoals(Guid playerId)
         {
             var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
@@ -76,13 +82,6 @@ namespace Domain.Services
         }
 
         public int GetPlayerTotalAssists(Guid playerId)
-        {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.AssistCount).First();
-            return result;
-        }
-
-        public int GetPlayerTotalPenalties(Guid playerId)
         {
             var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
             var result = playerStats.Select(x => x.AssistCount).First();

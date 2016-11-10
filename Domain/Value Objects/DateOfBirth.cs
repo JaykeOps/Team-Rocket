@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Domain.Value_Objects
 {
-    public class DateOfBirth:ValueObject<DateOfBirth>
+    public class DateOfBirth : ValueObject<DateOfBirth>
     {
         public DateTime Value { get; }
 
@@ -63,6 +63,5 @@ namespace Domain.Value_Objects
         {
             return $"{this.Value:yyyy-MM-dd}";
         }
-
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    public class MatchDuration:ValueObject<MatchDuration>
+    public class MatchDuration : ValueObject<MatchDuration>
     {
         public TimeSpan Value { get; }
 
@@ -47,7 +47,5 @@ namespace Domain.Value_Objects
         {
             return $"{this.Value.TotalMinutes}";
         }
-
-       
     }
 }

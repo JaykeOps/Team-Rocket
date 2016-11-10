@@ -30,7 +30,6 @@ namespace Domain.Value_Objects
             }
         }
 
-
         public override string ToString()
         {
             if (this.Value <= 90)
@@ -42,7 +41,5 @@ namespace Domain.Value_Objects
                 return $"90+{this.Value - 90}";
             }
         }
-
-        
     }
 }
