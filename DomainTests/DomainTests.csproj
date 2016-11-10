@@ -53,6 +53,7 @@
     <Compile Include="Entities\MatchTests.cs" />
     <Compile Include="Entities\PlayerTests.cs" />
     <Compile Include="Entities\SeriesTest.cs" />
+    <Compile Include="Entities\TeamTest.cs" />
     <Compile Include="Repositories\SeriesRepositoryTests.cs" />
     <Compile Include="Repositories\TeamRepositoryTest.cs" />
     <Compile Include="Services\PlayerServiceTests.cs" />
