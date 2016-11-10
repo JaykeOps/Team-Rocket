@@ -31,11 +31,14 @@ namespace DomainTests.Services
             var seriesList = seriesService.GetAll();
         }
 
+
         [TestMethod]
-        public void FindSerieById()
+        public void FindSeriesByIdIsWorking()
         {
+
+            Assert.IsFalse(seriesService.FindById(testSerieOne.Id) == testSerieOne);
             seriesService.AddSeries(testSerieOne);
-            var result = seriesService.FindSeriesById(testSerieOne.Id);
+            Assert.IsTrue(seriesService.FindById(testSerieOne.Id) == testSerieOne);
         }
     }
 }

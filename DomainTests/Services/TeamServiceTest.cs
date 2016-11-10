@@ -44,5 +44,13 @@ namespace DomainTests.Services
             var teams = service2.GetAll();
             Assert.IsTrue(teams.Contains(team));
         }
+
+        [TestMethod]
+        public void FindTeamByIdIsWorking()
+        {
+            Assert.IsFalse(service.FindById(team.Id) == team);
+            service.AddTeam(team);
+            Assert.IsTrue(service.FindById(team.Id) == team);
+        }
     }
 }

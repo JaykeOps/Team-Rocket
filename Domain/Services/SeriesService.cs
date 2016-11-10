@@ -20,10 +20,10 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Series> FindSeriesById(Guid id)
+        public Series FindById(Guid seriesId)
         {
             var allSeries = GetAll();
-            return allSeries.Where(x => x.Id == id);
+            return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
 
         

@@ -25,7 +25,7 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public Team FindTeamById(Guid teamId)
+        public Team FindById(Guid teamId)
         {
             return GetAll().ToList().Find(t => t.Id.Equals(teamId));
         }

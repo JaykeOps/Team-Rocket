@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Value_Objects;
 
 namespace Domain.Services.Tests
 {
@@ -27,6 +28,15 @@ namespace Domain.Services.Tests
             var getAllPlayers = playerService.GetAll();
 
             Assert.IsNotNull(getAllPlayers);
+        }
+
+        [TestMethod]
+        public void FindPlayerByIdIsWorking()
+        {
+            var player = new Player(new Name("John","Doe"),new DateOfBirth("1985-05-20"),PlayerPosition.Forward,PlayerStatus.Absent,new ShirtNumber(88));
+            Assert.IsFalse(playerService.FindById(player.Id)==player);
+            playerService.Add(player);
+            Assert.IsTrue(playerService.FindById(player.Id)==player);
         }
 
         [TestMethod]
