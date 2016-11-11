@@ -45,8 +45,10 @@
     <Compile Include="Helper Classes\StringUtils.cs" />
     <Compile Include="Interfaces\ICountablePlayerStats.cs" />
     <Compile Include="Interfaces\IFullPlayerStats.cs" />
+    <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />
+    <Compile Include="Services\MatchService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\SeriesService.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
