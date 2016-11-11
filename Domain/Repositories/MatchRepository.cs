@@ -18,11 +18,9 @@ namespace Domain.Repositories
             return this.matches;
         }
 
-        
-
         public void AddMatch(Match newMatch)
         {
-            this.matches.AddMatch(newMatch);
+            this.matches.Add(newMatch);
         }
     }
 }
