@@ -39,6 +39,19 @@ namespace DomainTests.Entities.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ShirtNumberAlreadyInUseException))]
+        public void ShirtNumberCanThrowAlreadyInUseExceptionIfAlreadyUsed()
+        {
+            var playerOne = this.players.FirstOrDefault();
+            var playerTwo = this.players.ElementAt(1);
+            var teamOne = this.teams.FirstOrDefault();
+            playerOne.TeamId = teamOne.Id;
+            playerTwo.TeamId = teamOne.Id;
+            playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 9);
+            playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 9);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void ShirtNumberLessThanZeroThrowsIndexOutOfRangeException()
         {
