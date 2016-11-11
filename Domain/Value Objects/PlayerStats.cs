@@ -42,5 +42,6 @@ namespace Domain.Entities
             this.penaltyStats = new List<Penalty>();
             this.gamesPlayedIds = new List<Guid>();
         }
+
     }
 }
