@@ -14,19 +14,5 @@ namespace Domain.Entities
             this.PlayerTeamId = teamId;
             this.Value = number;
         }
-
-        //public static bool TryParse(Guid teamId, int value, out ShirtNumber result)
-        //{
-        //    try
-        //    {
-        //        result = new ShirtNumber(teamId, value);
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        result = null;
-        //        return false;
-        //    }
-        //}
     }
 }

@@ -10,6 +10,10 @@ namespace Domain.Entities
         private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
+
+        public Guid TeamId { get; set; } = Guid.Empty;
+        public PlayerStats Stats { get; set; }
+
         public ShirtNumber ShirtNumber
         {
             get
@@ -29,8 +33,6 @@ namespace Domain.Entities
                 this.shirtNumber = value;
             }
         }
-        public Guid TeamId { get; set; } = Guid.Empty;
-        public PlayerStats Stats { get; set; }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
             PlayerStatus status) : base(name, dateOfBirth)
@@ -38,7 +40,6 @@ namespace Domain.Entities
             this.Position = position;
             this.Status = status;
             this.TeamId = Guid.Empty;
-            //this.shirtNumber = new ShirtNumber();
         }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,

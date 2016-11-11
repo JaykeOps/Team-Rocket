@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,17 +29,13 @@ namespace Domain.Value_Objects
             }
         }
 
-        private void UpdateIsAvailableShirtNumber()
+        public int[] AvailableNumbers
         {
-            var playerService = new PlayerService();
-            var players = playerService.GetAll().ToList();
-            foreach (var playerId in this.Team.PlayerIds)
+            get
             {
-                var player = players.Find(x => x.Id == playerId);
-                if (player.ShirtNumber != null)
-                {
-                    this.availableNumbers[player.ShirtNumber.Value] = false;
-                }
+                this.SetAvailableNumbersToTrue();
+                this.UpdateIsAvailableShirtNumber();
+                return this.availableNumbers.Where(x => x.Value).Select(x => x.Key).ToArray();
             }
         }
 
@@ -57,6 +54,20 @@ namespace Domain.Value_Objects
             for (int i = 0; i < 99; i++)
             {
                 this.availableNumbers[i] = true;
+            }
+        }
+
+        private void UpdateIsAvailableShirtNumber()
+        {
+            var playerService = new PlayerService();
+            var players = playerService.GetAll().ToList();
+            foreach (var playerId in this.Team.PlayerIds)
+            {
+                var player = players.Find(x => x.Id == playerId);
+                if (player.ShirtNumber != null)
+                {
+                    this.availableNumbers[player.ShirtNumber.Value] = false;
+                }
             }
         }
     }
