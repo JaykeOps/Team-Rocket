@@ -7,17 +7,18 @@ namespace Domain.Value_Objects
 {
     public class ShirtNumbers : ValueObject<ShirtNumbers>
     {
+        private Dictionary<int, bool> availableNumbers;
         private Team Team { get; }
-        private bool[] isAvailableShirtNumber;
 
         public ShirtNumber this[int number]
         {
             get
             {
+                this.SetAvailableNumbersToTrue();
                 this.UpdateIsAvailableShirtNumber();
-                if (this.isAvailableShirtNumber[number])
+                if (this.availableNumbers[number])
                 {
-                    this.isAvailableShirtNumber[number] = false;
+                    this.availableNumbers[number] = false;
                     return new ShirtNumber(this.Team.Id, number);
                 }
                 else
@@ -31,24 +32,31 @@ namespace Domain.Value_Objects
         {
             var playerService = new PlayerService();
             var players = playerService.GetAll().ToList();
-            var playersInTeam = new List<Player>();
             foreach (var playerId in this.Team.PlayerIds)
             {
-                playersInTeam.Add(players.Find(x => x.TeamId.Equals(this.Team.Id)));
-            }
-            foreach (var player in playersInTeam)
-            {
-                this.isAvailableShirtNumber[player.ShirtNumber.Value] = false;
+                var player = players.Find(x => x.Id == playerId);
+                if (player.ShirtNumber != null)
+                {
+                    this.availableNumbers[player.ShirtNumber.Value] = false;
+                }
             }
         }
 
         public ShirtNumbers(Team team)
         {
             this.Team = team;
-            this.isAvailableShirtNumber = new bool[99];
+            this.availableNumbers = new Dictionary<int, bool>();
             for (int i = 0; i < 99; i++)
             {
-                this.isAvailableShirtNumber[i] = true;
+                this.availableNumbers.Add(i, true);
+            }
+        }
+
+        private void SetAvailableNumbersToTrue()
+        {
+            for (int i = 0; i < 99; i++)
+            {
+                this.availableNumbers[i] = true;
             }
         }
     }
