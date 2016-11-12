@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Team
+    public class Team : IPresentableTeam
     {
         private HashSet<Guid> playerIds;
         private TeamStats teamStatsAndEvents;
@@ -27,7 +27,7 @@ namespace Domain.Entities
             }
         }
 
-        public ArenaName Arena { get; set; }
+        public ArenaName ArenaName { get; set; }
         public EmailAddress Email { get; set; }
 
         public TeamStats StatsAndEvents { get { return this.teamStatsAndEvents; } }
@@ -41,7 +41,7 @@ namespace Domain.Entities
             this.Id = Guid.NewGuid();
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
-            this.Arena = arenaName;
+            this.ArenaName = arenaName;
             this.Email = email;
             this.teamStatsAndEvents = new TeamStats(this.Id);
             this.ShirtNumbers = new ShirtNumbers(this);
@@ -56,7 +56,6 @@ namespace Domain.Entities
         {
             this.playerIds.Remove(playerId);
         }
-
 
         public override string ToString()
         {
