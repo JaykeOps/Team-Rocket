@@ -1,25 +1,38 @@
-﻿using Domain.Services;
+﻿using Domain.Entities;
+using Domain.Interfaces;
+using Domain.Services;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class TeamStats
+    public class TeamStats : IPresentableTeamStats, IPresentableTeamEvents
     {
-        private HashSet<Guid> gameEvents;
+        public Guid TeamId { get; }
+        private HashSet<Guid> gameEventIds;
         private List<Goal> goalEvents;
 
-        public Guid TeamId { get; }
+        public string TeamName { get { return DomainService.FindTeamById(this.TeamId).Name.ToString(); } }
+        public IEnumerable<Game> Games
+        {
+            get
+            {
+                var goals = new List<Game>();
+                foreach (var gameId in this.gameEventIds)
+                {
+                    goals.Add(DomainService.FindGameById(gameId));
+                }
+                return goals;
+            }
+        }
 
-        public HashSet<Guid> GameEvents { get { return this.gameEvents; } }
-        public int GamesPlayed { get { return this.gameEvents.Count; } }
+        public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
+        public int GamesPlayed { get { return this.gameEventIds.Count; } }
 
         public int Wins { get { return this.CalculateAllMatchOutComes(MatchOutcome.Win); } }
 
         public int Losses { get { return this.CalculateAllMatchOutComes(MatchOutcome.Loss); } }
         public int Draws { get { return this.CalculateAllMatchOutComes(MatchOutcome.Draw); } }
-
-        public List<Goal> Goals { get { return this.goalEvents; } }
 
         public int GoalsFor { get { return this.goalEvents.FindAll(x => x.TeamId == this.TeamId).Count; } }
 
@@ -29,10 +42,17 @@ namespace Domain.Value_Objects
 
         public int Points { get { return (this.Wins * 3) + this.Draws; } }
 
+        public TeamStats(Guid teamId)
+        {
+            this.TeamId = teamId;
+            this.gameEventIds = new HashSet<Guid>();
+            this.goalEvents = new List<Goal>();
+        }
+
         private int CalculateAllMatchOutComes(MatchOutcome matchOutcomeToTrack)
         {
             int outcome = 0;
-            foreach (var gameId in this.gameEvents)
+            foreach (var gameId in this.gameEventIds)
             {
                 int gameGoalDifference = 0;
                 var game = DomainService.FindGameById(gameId);
@@ -56,12 +76,14 @@ namespace Domain.Value_Objects
             return outcome;
         }
 
-        public TeamStats(Guid teamId)
+        internal void AddGameId(Guid gameId)
         {
-            
-            this.TeamId = teamId;
-            this.gameEvents = new HashSet<Guid>();
-            this.goalEvents = new List<Goal>();
+            this.gameEventIds.Add(gameId);
+        }
+
+        internal void AddGoal(Goal goal)
+        {
+            this.goalEvents.Add(goal);
         }
     }
 }

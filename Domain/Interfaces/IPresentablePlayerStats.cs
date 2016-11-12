@@ -1,7 +1,8 @@
 ﻿namespace Domain.Interfaces
 {
-    public interface IPlayerStats
+    public interface IPresentablePlayerStats
     {
+        string PlayerName { get; }
         int GoalCount { get; }
         int AssistCount { get; }
         int YellowCardCount { get; }

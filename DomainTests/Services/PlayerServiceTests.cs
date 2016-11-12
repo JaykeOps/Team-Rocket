@@ -114,13 +114,13 @@ namespace Domain.Services.Tests
         }
 
         #region PlayerService, Different Stats on Player 
-        [TestMethod]
-        public void GamesPlayedIdsNotNull()
-        {
-            var expectedGamesPlayedIds = playerService.GetPlayerGamesPlayedIds(zlatanPlayerId);
+        //[TestMethod]
+        //public void GamesPlayedIdsNotNull()
+        //{
+        //    var expectedGamesPlayedIds = playerService.GetPlayerGamesPlayedIds(zlatanPlayerId);
 
-            Assert.IsNotNull(expectedGamesPlayedIds);
-        }
+        //    Assert.IsNotNull(expectedGamesPlayedIds);
+        //}
 
         [TestMethod]
         public void TotalYellowCardsNotNull()

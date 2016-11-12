@@ -53,12 +53,12 @@ namespace Domain.Services
             return result;
         }
 
-        public IEnumerable<List<Guid>> GetPlayerGamesPlayedIds(Guid playerId)
-        {
-            var involvedInEvents = allPlayers.Where(x => x.Id == playerId).Select(x => x.Events);
-            var result = involvedInEvents.Select(x => x.Games);
-            return result;
-        }
+        //public IEnumerable<List<Guid>> GetPlayerGamesPlayedIds(Guid playerId)
+        //{
+        //    var involvedInEvents = allPlayers.Where(x => x.Id == playerId).Select(x => x.Events);
+        //    var result = involvedInEvents.Select(x => x.Games);
+        //    return result;
+        //}
 
         public int GetPlayerTotalYellowCards(Guid playerId)
         {

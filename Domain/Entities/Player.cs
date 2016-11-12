@@ -5,11 +5,12 @@ using System;
 
 namespace Domain.Entities
 {
-    public class Player : Person
+    public class Player : Person, IPresentablePlayer
     {
-        private PlayerStats statsAndEvents = new PlayerStats();
+        private PlayerStats statsAndEvents;
         private Guid teamId;
         private ShirtNumber shirtNumber;
+        public string TeamName { get { return DomainService.FindTeamById(this.teamId).Name.ToString(); } }
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
@@ -23,9 +24,10 @@ namespace Domain.Entities
             }
         }
 
-        public IPlayerStats Stats { get { return this.statsAndEvents; } }
+        public PlayerStats StatsAndEvents { get { return this.statsAndEvents; } }
+        public IPresentablePlayerStats Stats { get { return this.statsAndEvents; } }
 
-        public IEvents Events { get { return this.statsAndEvents; } }
+        public IPresentablePlayerEvents Events { get { return this.statsAndEvents; } }
 
         public ShirtNumber ShirtNumber
         {
@@ -58,7 +60,7 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.statsAndEvents = new PlayerStats();
+            this.statsAndEvents = new PlayerStats(this.Id);
             this.teamId = Guid.Empty;
             this.shirtNumber = new ShirtNumber(this.TeamId, null);
         }

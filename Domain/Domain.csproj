@@ -46,8 +46,12 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
-    <Compile Include="Interfaces\IPlayerStats.cs" />
-    <Compile Include="Interfaces\IEvents.cs" />
+    <Compile Include="Interfaces\IPresentablePlayer.cs" />
+    <Compile Include="Interfaces\IPresentablePlayerStats.cs" />
+    <Compile Include="Interfaces\IPresentablePlayerEvents.cs" />
+    <Compile Include="Interfaces\IPresentableTeam.cs" />
+    <Compile Include="Interfaces\IPresentableTeamEvents.cs" />
+    <Compile Include="Interfaces\IPresentableTeamStats.cs" />
     <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />

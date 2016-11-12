@@ -31,9 +31,9 @@ namespace DomainTests.Entities.Tests
             this.teamOne = this.teams.FirstOrDefault();
             this.teamTwo = this.teams.ElementAt(1);
             this.playerOne.TeamId = this.teamOne.Id;
-            this.teamOne.PlayerIds.Add(this.playerOne.Id);
+            this.teamOne.AddPlayerId(this.playerOne.Id);
             this.playerTwo.TeamId = this.teamOne.Id;
-            this.teamOne.PlayerIds.Add(this.playerTwo.Id);
+            this.teamOne.AddPlayerId(this.playerTwo.Id);
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace DomainTests.Entities.Tests
         {
             this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 55);
             Assert.IsTrue(playerOne.ShirtNumber.Value == 55);
-            this.teamOne.PlayerIds.Remove(playerOne.Id);
+            this.teamOne.RemovePlayerId(playerOne.Id);
             this.playerOne.TeamId = Guid.Empty;
             this.playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 55);
             Assert.IsTrue(playerTwo.ShirtNumber.Value == 55);

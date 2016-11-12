@@ -79,9 +79,8 @@ namespace Domain.Value_Objects
 
         private void UpdateIsAvailableShirtNumber()
         {
-            foreach (var playerId in this.Team.PlayerIds)
+            foreach (var player in this.Team.Players)
             {
-                var player = DomainService.FindPlayerById(playerId);
                 if (player.ShirtNumber.Value.HasValue)
                 {
                     this.availableNumbers[(int)player.ShirtNumber.Value] = false;
