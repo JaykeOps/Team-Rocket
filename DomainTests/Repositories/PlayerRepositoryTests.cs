@@ -1,69 +1,46 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
+using Domain.Entities;
+using Domain.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain.Services;
+using Domain.Value_Objects;
 
 namespace DomainTests.Repositories
 {
-    /// <summary>
-    /// Summary description for PlayerRepositoryTests
-    /// </summary>
     [TestClass]
     public class PlayerRepositoryTests
     {
-        public PlayerRepositoryTests()
+        private PlayerService playerService;
+        private IEnumerable<Player> allPlayers;
+
+        [TestInitialize]
+        public void Init()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            playerService = new PlayerService();
+            allPlayers = playerService.GetAll();
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void RepoGetAllReturnsIEnumerable()
         {
-            //
-            // TODO: Add test logic here
-            //
+            Assert.IsInstanceOfType(allPlayers, typeof(IEnumerable<Player>));
+        }
+
+        [TestMethod]
+        public void AddPlayerWorking()
+        {
+            var newPlayer = new Player(new Name("Manuel", "Neuer"), new DateOfBirth("1986-03-27"), PlayerPosition.GoalKeeper, PlayerStatus.Available, new ShirtNumber(99));
+            playerService.Add(newPlayer);
+            Assert.IsTrue(allPlayers.Contains(newPlayer));
+        }
+
+        [TestMethod]
+        public void GetAllNotNull()
+        {
+            Assert.IsNotNull(allPlayers);
         }
     }
 }
