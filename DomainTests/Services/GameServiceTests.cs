@@ -1,8 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Services;
-using System;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
-using Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Services.Tests
@@ -10,10 +9,10 @@ namespace Domain.Services.Tests
     [TestClass]
     public class GameServiceTests
     {
-        GameService gameService = new GameService();
-        MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
-        Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
-        Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        private GameService gameService = new GameService();
+        private MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
+        private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
+        private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
 
         [TestMethod]
         public void AddGameToListTest()
@@ -41,13 +40,11 @@ namespace Domain.Services.Tests
             Assert.IsTrue(game2IsAdded == false);
         }
 
-
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
         {
             Assert.IsNotNull(gameService.GetAll());
         }
-
 
         [TestMethod]
         public void GetAllReturnsIEnumerable()
