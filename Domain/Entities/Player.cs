@@ -1,7 +1,6 @@
 ﻿using Domain.Services;
 using Domain.Value_Objects;
 using System;
-using System.Linq;
 
 namespace Domain.Entities
 {
@@ -29,8 +28,7 @@ namespace Domain.Entities
             get { return this.shirtNumber; }
             set
             {
-                var teamService = new TeamService();
-                var team = teamService.GetAll().Where(x => x.Id.Equals(this.TeamId)).FirstOrDefault();
+                var team = DomainService.FindTeamById(this.teamId);
                 try
                 {
                     value = team.ShirtNumbers[value.Value];
