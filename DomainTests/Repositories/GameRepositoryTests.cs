@@ -1,22 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Repositories;
+﻿using Domain.CustomExceptions;
+using Domain.Entities;
+using Domain.Value_Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Domain.CustomExceptions;
-using Domain.Value_Objects;
-using Domain.Entities;
 
 namespace Domain.Repositories.Tests
 {
     [TestClass]
     public class GameRepositoryTests
     {
-        GameRepository gameRepository = GameRepository.instance;
-        MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
-        Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
-        Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        private GameRepository gameRepository = GameRepository.instance;
+        private MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
+        private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
+        private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
 
         [TestMethod]
         public void RepoInstancesAreTheSameObject()
@@ -35,7 +32,7 @@ namespace Domain.Repositories.Tests
 
         [TestMethod]
         public void AddGameToListTest()
-        {    
+        {
             var game = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
             var game2 = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
             var gameIsAdded = false;
