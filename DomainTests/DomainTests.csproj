@@ -56,13 +56,13 @@
     <Compile Include="Entities\SeriesTest.cs" />
     <Compile Include="Entities\TeamTest.cs" />
     <Compile Include="Repositories\GameRepositoryTests.cs" />
-    <Compile Include="Repositories\MatchTests.cs" />
+    <Compile Include="Repositories\MatchRepositoryTests.cs" />
     <Compile Include="Repositories\PlayerRepositoryTests.cs" />
     <Compile Include="Repositories\SeriesRepositoryTests.cs" />
     <Compile Include="Repositories\TeamRepositoryTests.cs" />
     <Compile Include="Services\GameServiceTests.cs" />
     <Compile Include="Services\DomainServiceTests.cs" />
-    <Compile Include="Services\MatchTests.cs" />
+    <Compile Include="Services\MatchServiceTests.cs" />
     <Compile Include="Services\PlayerServiceTests.cs" />
     <Compile Include="Services\SeriesServicesTests.cs" />
     <Compile Include="Services\TeamServiceTests.cs" />

@@ -6,13 +6,13 @@ using System;
 namespace DomainTests.Entities
 {
     [TestClass]
-    public class MatchTests
+    public class MatchTestss
     {
         private Match match;
         private Guid awayTeamId;
         private Guid homeTeamId;
 
-        public MatchTests()
+        public MatchTestss()
         {
             var arena = new ArenaName("Ullevi");
             var date = new MatchDateAndTime(new DateTime(2016, 12, 23, 19, 00, 00));
