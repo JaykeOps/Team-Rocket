@@ -23,11 +23,11 @@ namespace Domain.Services
             return gameService.FindById(id);
         }
 
-        //internal static Match FindMatchById(Guid id)
-        //{
-        //    var matchService = new MatchService();
-
-        //}
+        public static Match FindMatchById(Guid id)
+        {
+            var matchService = new MatchService();
+            return matchService.FindById(id);
+        }
 
         public static Series FindSeriesById(Guid id)
         {
