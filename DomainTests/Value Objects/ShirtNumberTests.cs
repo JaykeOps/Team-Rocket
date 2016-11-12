@@ -17,6 +17,7 @@ namespace DomainTests.Entities.Tests
         private Player playerOne;
         private Player playerTwo;
         private Team teamOne;
+        private Team teamTwo;
 
         [TestInitialize]
         public void Init()
@@ -28,6 +29,7 @@ namespace DomainTests.Entities.Tests
             this.playerOne = this.players.FirstOrDefault();
             this.playerTwo = this.players.ElementAt(1);
             this.teamOne = this.teams.FirstOrDefault();
+            this.teamTwo = this.teams.ElementAt(1);
             this.playerOne.TeamId = this.teamOne.Id;
             this.teamOne.PlayerIds.Add(this.playerOne.Id);
             this.playerTwo.TeamId = this.teamOne.Id;
@@ -81,6 +83,17 @@ namespace DomainTests.Entities.Tests
         {
             playerOne.ShirtNumber = new ShirtNumber(teamOne.Id, null);
             Assert.IsNull(playerOne.ShirtNumber.Value);
+        }
+
+        [TestMethod]
+        public void ShirtNumberTeamIdCanChangeWhenPlayerTeamIdChange()
+        {
+            playerTwo.ShirtNumber = new ShirtNumber(teamOne.Id, 7);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 7);
+            playerTwo.TeamId = teamTwo.Id;
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == null);
+            playerTwo.ShirtNumber = new ShirtNumber(9);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 9);
         }
     }
 }

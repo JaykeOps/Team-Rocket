@@ -7,19 +7,26 @@ namespace Domain.Entities
 {
     public class Player : Person
     {
+        private Guid teamId;
         private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
-        public Guid TeamId { get; set; } = Guid.Empty;
+        public Guid TeamId
+        {
+            get { return this.teamId; }
+            set
+            {
+                this.shirtNumber = new ShirtNumber(value, null);
+                this.teamId = value;
+            }
+        }
+
         public PlayerStats Stats { get; set; }
 
         public ShirtNumber ShirtNumber
         {
-            get
-            {
-                return this.shirtNumber;
-            }
+            get { return this.shirtNumber; }
             set
             {
                 var teamService = new TeamService();
@@ -41,7 +48,6 @@ namespace Domain.Entities
                 {
                     this.shirtNumber = value;
                 }
-                
             }
         }
 
@@ -50,7 +56,7 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.TeamId = Guid.Empty;
+            this.teamId = Guid.Empty;
             this.shirtNumber = new ShirtNumber(this.TeamId, null);
         }
     }
