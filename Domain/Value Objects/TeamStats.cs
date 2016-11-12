@@ -17,6 +17,7 @@ namespace Domain.Value_Objects
         public int Wins { get { return this.CalculateAllMatchOutComes(MatchOutcome.Win); } }
 
         public int Losses { get { return this.CalculateAllMatchOutComes(MatchOutcome.Loss); } }
+        public int Draws { get { return this.CalculateAllMatchOutComes(MatchOutcome.Draw); } }
 
         public List<Goal> Goals { get { return this.goalEvents; } }
 
@@ -25,6 +26,8 @@ namespace Domain.Value_Objects
         public int GoalsAgainst { get { return this.goalEvents.FindAll(x => x.TeamId != this.TeamId).Count; } }
 
         public int GoalDifference { get { return this.GoalsFor - this.GoalsAgainst; } }
+
+        public int Points { get { return (this.Wins * 3) + this.Draws; } }
 
         private int CalculateAllMatchOutComes(MatchOutcome matchOutcomeToTrack)
         {
@@ -53,20 +56,12 @@ namespace Domain.Value_Objects
             return outcome;
         }
 
-        //public int Points { get; }
-
-        //public int Draws { get; }
-
         public TeamStats(Guid teamId)
         {
+            
             this.TeamId = teamId;
+            this.gameEvents = new HashSet<Guid>();
+            this.goalEvents = new List<Goal>();
         }
-
-        //public override string ToString()
-        //{
-        //    return $"{this.GamesPlayed.ToString()} : {this.Points.ToString()} : {this.Wins.ToString()} "
-        //            + $": {this.Draws.ToString()} : {this.Losses.ToString()} : {this.GoalsFor.ToString()} "
-        //            + $": {this.GoalsAgainst.ToString()} : {this.GoalDifference.ToString()}";
-        //}
     }
 }
