@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomExceptions\GameAlreadyAddedException.cs" />
+    <Compile Include="CustomExceptions\GameContainsSameTeamTwiceException.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />

@@ -1,11 +1,12 @@
-﻿using Domain.Entities;
-using Domain.Value_Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Domain.Entities;
+using Domain.Value_Objects;
+using Domain.CustomExceptions;
 
 namespace Domain.Repositories
 {
-    internal sealed class GameRepository
+    public sealed class GameRepository
     {
         private List<Game> games;
         public static readonly GameRepository instance = new GameRepository();
@@ -34,14 +35,34 @@ namespace Domain.Repositories
 
         public void Add(Game game)
         {
-            this.games.Add(game);
+            if (IsAdded(game))
+            {
+                throw new GameAlreadyAddedException();    
+            }
+            else
+            {
+                this.games.Add(game);
+            }
+        }
+
+        public bool IsAdded(Game newGame)
+        {
+            var isAdded = false;
+
+            foreach (var game in games)
+            {
+                if (newGame.Id == game.Id)
+                {
+                    isAdded = true;
+                }
+            }
+
+            return isAdded;
         }
 
         public IEnumerable<Game> GetAll()
         {
             return this.games;
         }
-
-        
     }
 }

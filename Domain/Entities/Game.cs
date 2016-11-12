@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Domain.Value_Objects;
 using System;
+using Domain.CustomExceptions;
 
 namespace Domain.Entities
 {
@@ -14,11 +15,18 @@ namespace Domain.Entities
 
         public Game(MatchDuration matchDuration, Guid homeTeamId, Guid awayTeamId)
         {
-            this.Id = Guid.NewGuid();
-            this.MatchDuration = matchDuration;
-            this.HomeTeamId = homeTeamId;
-            this.AwayTeamId = awayTeamId;
-            this.Protocol = new GameProtocol(this.HomeTeamId, this.AwayTeamId);
+            if (homeTeamId != awayTeamId)
+            {
+                this.Id = Guid.NewGuid();
+                this.MatchDuration = matchDuration;
+                this.HomeTeamId = homeTeamId;
+                this.AwayTeamId = awayTeamId;
+                this.Protocol = new GameProtocol(this.HomeTeamId, this.AwayTeamId);
+            }
+            else
+            {
+                throw new GameContainsSameTeamTwiceException();
+            }
         }
     }
 }
