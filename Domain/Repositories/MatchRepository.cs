@@ -11,15 +11,13 @@ namespace Domain.Repositories
     {
         private List<Match> matches;
         public static readonly MatchRepository instance = new MatchRepository();
-        private MatchRepository()
-        {
-            this.matches = new List<Match>();
-        }
 
         private MatchRepository()
         {
             this.matches = new List<Match>();
         }
+
+        
         public IEnumerable<Match> GetAll()
         {
             return this.matches;
