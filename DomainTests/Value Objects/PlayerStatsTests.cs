@@ -23,21 +23,21 @@ namespace DomainTests.Value_Objects
             playerStatsOneDuplicate = new PlayerStats();
             playerStatsTwo = new PlayerStats();
 
-            playerStatsOne.GoalStats.AddRange(new List<Goal>
+            playerStatsOne.Goals.AddRange(new List<Goal>
             {
                 new Goal(new MatchMinute(11), this.playerOneId),
                 new Goal(new MatchMinute(44), this.playerOneId),
                 new Goal(new MatchMinute(89), this.playerOneId)
             });
 
-            playerStatsOneDuplicate.GoalStats.AddRange(new List<Goal>
+            playerStatsOneDuplicate.Goals.AddRange(new List<Goal>
             {
                 new Goal(new MatchMinute(11), this.playerOneId),
                 new Goal(new MatchMinute(44), this.playerOneId),
                 new Goal(new MatchMinute(89), this.playerOneId)
             });
 
-            playerStatsTwo.GoalStats.AddRange(new List<Goal>
+            playerStatsTwo.Goals.AddRange(new List<Goal>
             {
                 new Goal(new MatchMinute(3), this.playerTwoId),
                 new Goal(new MatchMinute(17), this.playerTwoId),
@@ -45,19 +45,19 @@ namespace DomainTests.Value_Objects
                 new Goal(new MatchMinute(34), this.playerTwoId)
             });
 
-            playerStatsOne.AssistStats.AddRange(new List<Assist>
+            playerStatsOne.Assists.AddRange(new List<Assist>
             {
                 new Assist(new MatchMinute(33), this.playerOneId),
                 new Assist(new MatchMinute(82), this.playerOneId)
             });
 
-            playerStatsOneDuplicate.AssistStats.AddRange(new List<Assist>
+            playerStatsOneDuplicate.Assists.AddRange(new List<Assist>
             {
                 new Assist(new MatchMinute(33), this.playerOneId),
                 new Assist(new MatchMinute(82), this.playerOneId)
             });
 
-            playerStatsTwo.AssistStats.AddRange(new List<Assist>
+            playerStatsTwo.Assists.AddRange(new List<Assist>
             {
                 new Assist(new MatchMinute(5), this.playerTwoId),
                 new Assist(new MatchMinute(9), this.playerTwoId),
@@ -66,7 +66,7 @@ namespace DomainTests.Value_Objects
                 new Assist(new MatchMinute(45), this.playerTwoId)
             });
 
-            playerStatsOne.CardStats.AddRange(new List<Card>
+            playerStatsOne.Cards.AddRange(new List<Card>
             {
                 new Card(new MatchMinute(85), this.playerOneId, CardType.Yellow),
                 new Card(new MatchMinute(33), this.playerOneId, CardType.Red),
@@ -74,7 +74,7 @@ namespace DomainTests.Value_Objects
                 new Card(new MatchMinute(23), this.playerOneId, CardType.Yellow)
             });
 
-            playerStatsOneDuplicate.CardStats.AddRange(new List<Card>
+            playerStatsOneDuplicate.Cards.AddRange(new List<Card>
             {
                 new Card(new MatchMinute(85), this.playerOneId, CardType.Yellow),
                 new Card(new MatchMinute(33), this.playerOneId, CardType.Red),
@@ -82,25 +82,25 @@ namespace DomainTests.Value_Objects
                 new Card(new MatchMinute(23), this.playerOneId, CardType.Yellow)
             });
 
-            playerStatsTwo.CardStats.AddRange(new List<Card>
+            playerStatsTwo.Cards.AddRange(new List<Card>
             {
                 new Card(new MatchMinute(90), this.playerTwoId, CardType.Yellow),
                 new Card(new MatchMinute(27), this.playerTwoId, CardType.Red)
             });
 
-            playerStatsOne.PenaltyStats.AddRange(new List<Penalty>
+            playerStatsOne.Penalties.AddRange(new List<Penalty>
             {
                 new Penalty(new MatchMinute(12), this.playerOneId),
                 new Penalty(new MatchMinute(22), this.playerOneId)
             });
 
-            playerStatsOneDuplicate.PenaltyStats.AddRange(new List<Penalty>
+            playerStatsOneDuplicate.Penalties.AddRange(new List<Penalty>
             {
                 new Penalty(new MatchMinute(12), this.playerOneId),
                 new Penalty(new MatchMinute(22), this.playerOneId)
             });
 
-            playerStatsTwo.PenaltyStats.AddRange(new List<Penalty>
+            playerStatsTwo.Penalties.AddRange(new List<Penalty>
             {
                 new Penalty(new MatchMinute(3), this.playerTwoId)
             });
@@ -109,9 +109,9 @@ namespace DomainTests.Value_Objects
             {
                 var idOne = Guid.NewGuid();
                 var idTwo = Guid.NewGuid();
-                this.playerStatsOne.GamesPlayedIds.Add(idOne);
-                this.playerStatsOneDuplicate.GamesPlayedIds.Add(idOne);
-                this.playerStatsTwo.GamesPlayedIds.Add(idTwo);
+                this.playerStatsOne.Games.Add(idOne);
+                this.playerStatsOneDuplicate.Games.Add(idOne);
+                this.playerStatsTwo.Games.Add(idTwo);
             }
         }
 
@@ -127,31 +127,31 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void PlayerStatsGoalCountIsEqualToGoalStats()
         {
-            Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.GoalStats.Count);
-            Assert.IsTrue(this.playerStatsOne.GoalCount == this.playerStatsOne.GoalStats.Count
+            Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.Goals.Count);
+            Assert.IsTrue(this.playerStatsOne.GoalCount == this.playerStatsOne.Goals.Count
                 && this.playerStatsOne.GoalCount == 3);
-            this.playerStatsOne.GoalStats.Add(new Goal(new MatchMinute(3), this.playerOneId));
-            Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.GoalStats.Count);
-            Assert.IsTrue(this.playerStatsOne.GoalCount == this.playerStatsOne.GoalStats.Count
+            this.playerStatsOne.Goals.Add(new Goal(new MatchMinute(3), this.playerOneId));
+            Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.Goals.Count);
+            Assert.IsTrue(this.playerStatsOne.GoalCount == this.playerStatsOne.Goals.Count
                 && this.playerStatsOne.GoalCount == 4);
         }
 
         [TestMethod]
         public void PlayerStatsAssistCountIsEqualToAssistStats()
         {
-            Assert.AreEqual(this.playerStatsOne.AssistCount, this.playerStatsOne.AssistStats.Count);
-            Assert.IsTrue(this.playerStatsOne.AssistCount == this.playerStatsOne.AssistStats.Count
+            Assert.AreEqual(this.playerStatsOne.AssistCount, this.playerStatsOne.Assists.Count);
+            Assert.IsTrue(this.playerStatsOne.AssistCount == this.playerStatsOne.Assists.Count
                 && this.playerStatsOne.AssistCount == 2);
-            this.playerStatsOne.AssistStats.Add(new Assist(new MatchMinute(55), this.playerOneId));
-            Assert.AreEqual(this.playerStatsOne.AssistCount, this.playerStatsOne.AssistStats.Count);
-            Assert.IsTrue(this.playerStatsOne.AssistCount == this.playerStatsOne.AssistStats.Count
+            this.playerStatsOne.Assists.Add(new Assist(new MatchMinute(55), this.playerOneId));
+            Assert.AreEqual(this.playerStatsOne.AssistCount, this.playerStatsOne.Assists.Count);
+            Assert.IsTrue(this.playerStatsOne.AssistCount == this.playerStatsOne.Assists.Count
                 && this.playerStatsOne.AssistCount == 3);
         }
 
         [TestMethod]
         public void PlayerStatsYellowCardCountIsEqualToYellowCardsInCardStats()
         {
-            var yellowCardCount = this.playerStatsOne.CardStats.
+            var yellowCardCount = this.playerStatsOne.Cards.
                 FindAll(x => x.CardType.Equals(CardType.Yellow)).Count;
             Assert.AreEqual(this.playerStatsOne.YellowCardCount, yellowCardCount);
         }
@@ -159,7 +159,7 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void PlayerStatsRedCardCountIsEqualToRedCardsInCardStats()
         {
-            var redCardCount = this.playerStatsOne.CardStats.
+            var redCardCount = this.playerStatsOne.Cards.
                 FindAll(x => x.CardType.Equals(CardType.Red)).Count;
             Assert.AreEqual(this.playerStatsOne.RedCardCount, redCardCount);
         }
@@ -167,24 +167,24 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void PlayerStatsPenaltyCountIsEqualToPenaltyStats()
         {
-            Assert.AreEqual(this.playerStatsOne.PenaltyCount, this.playerStatsOne.PenaltyStats.Count);
-            Assert.IsTrue(this.playerStatsOne.PenaltyCount == this.playerStatsOne.PenaltyStats.Count
+            Assert.AreEqual(this.playerStatsOne.PenaltyCount, this.playerStatsOne.Penalties.Count);
+            Assert.IsTrue(this.playerStatsOne.PenaltyCount == this.playerStatsOne.Penalties.Count
                 && this.playerStatsOne.PenaltyCount == 2);
-            this.playerStatsOne.PenaltyStats.Add(new Penalty(new MatchMinute(62), this.playerOneId));
-            Assert.AreEqual(this.playerStatsOne.PenaltyCount, this.playerStatsOne.PenaltyStats.Count);
-            Assert.IsTrue(this.playerStatsOne.PenaltyCount == this.playerStatsOne.PenaltyStats.Count
+            this.playerStatsOne.Penalties.Add(new Penalty(new MatchMinute(62), this.playerOneId));
+            Assert.AreEqual(this.playerStatsOne.PenaltyCount, this.playerStatsOne.Penalties.Count);
+            Assert.IsTrue(this.playerStatsOne.PenaltyCount == this.playerStatsOne.Penalties.Count
                 && this.playerStatsOne.PenaltyCount == 3);
         }
 
         [TestMethod]
         public void PlayerStatsGamesPlayedCountIsEqualToGamesPlayedIdsCount()
         {
-            Assert.AreEqual(this.playerStatsOne.GamesPlayedCount, this.playerStatsOne.GamesPlayedIds.Count);
-            Assert.IsTrue(this.playerStatsOne.GamesPlayedCount == this.playerStatsOne.GamesPlayedIds.Count &&
+            Assert.AreEqual(this.playerStatsOne.GamesPlayedCount, this.playerStatsOne.Games.Count);
+            Assert.IsTrue(this.playerStatsOne.GamesPlayedCount == this.playerStatsOne.Games.Count &&
                 this.playerStatsOne.GamesPlayedCount == 10);
-            this.playerStatsOne.GamesPlayedIds.Add(Guid.NewGuid());
-            Assert.AreEqual(this.playerStatsOne.GamesPlayedCount, this.playerStatsOne.GamesPlayedIds.Count);
-            Assert.IsTrue(this.playerStatsOne.GamesPlayedCount == this.playerStatsOne.GamesPlayedIds.Count &&
+            this.playerStatsOne.Games.Add(Guid.NewGuid());
+            Assert.AreEqual(this.playerStatsOne.GamesPlayedCount, this.playerStatsOne.Games.Count);
+            Assert.IsTrue(this.playerStatsOne.GamesPlayedCount == this.playerStatsOne.Games.Count &&
                 this.playerStatsOne.GamesPlayedCount == 11);
         }
     }

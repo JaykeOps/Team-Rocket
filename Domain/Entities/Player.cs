@@ -1,4 +1,5 @@
-﻿using Domain.Services;
+﻿using Domain.Interfaces;
+using Domain.Services;
 using Domain.Value_Objects;
 using System;
 
@@ -6,6 +7,7 @@ namespace Domain.Entities
 {
     public class Player : Person
     {
+        private PlayerStats statsAndEvents = new PlayerStats();
         private Guid teamId;
         private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
@@ -21,7 +23,9 @@ namespace Domain.Entities
             }
         }
 
-        public PlayerStats Stats { get; set; }
+        public IPlayerStats Stats { get { return this.statsAndEvents; } }
+
+        public IEvents Events { get { return this.statsAndEvents; } }
 
         public ShirtNumber ShirtNumber
         {
@@ -54,7 +58,7 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.Stats = new PlayerStats();
+            this.statsAndEvents = new PlayerStats();
             this.teamId = Guid.Empty;
             this.shirtNumber = new ShirtNumber(this.TeamId, null);
         }

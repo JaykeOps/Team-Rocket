@@ -55,8 +55,8 @@ namespace Domain.Services
 
         public IEnumerable<List<Guid>> GetPlayerGamesPlayedIds(Guid playerId)
         {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.GamesPlayedIds);
+            var involvedInEvents = allPlayers.Where(x => x.Id == playerId).Select(x => x.Events);
+            var result = involvedInEvents.Select(x => x.Games);
             return result;
         }
 

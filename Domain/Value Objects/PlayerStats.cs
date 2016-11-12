@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class PlayerStats : ValueObject<PlayerStats>, ICountablePlayerStats, IFullPlayerStats
+    public class PlayerStats : ValueObject<PlayerStats>, IPlayerStats, IEvents
     {
         private List<Goal> goalStats;
         private List<Assist> assistStats;
         private List<Card> cardStats;
         private List<Penalty> penaltyStats;
         private List<Guid> gamesPlayedIds;
-        public List<Goal> GoalStats { get { return this.goalStats; } }
-        public List<Assist> AssistStats { get { return this.assistStats; } }
-        public List<Card> CardStats { get { return this.cardStats; } }
-        public List<Penalty> PenaltyStats { get { return this.penaltyStats; } }
-        public List<Guid> GamesPlayedIds { get { return this.gamesPlayedIds; } }
+        public List<Goal> Goals { get { return this.goalStats; } }
+        public List<Assist> Assists { get { return this.assistStats; } }
+        public List<Card> Cards { get { return this.cardStats; } }
+        public List<Penalty> Penalties { get { return this.penaltyStats; } }
+        public List<Guid> Games { get { return this.gamesPlayedIds; } }
 
         public int GoalCount { get { return this.goalStats.Count; } }
         public int AssistCount { get { return this.assistStats.Count; } }

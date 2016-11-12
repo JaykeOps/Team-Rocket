@@ -45,8 +45,8 @@
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
-    <Compile Include="Interfaces\ICountablePlayerStats.cs" />
-    <Compile Include="Interfaces\IFullPlayerStats.cs" />
+    <Compile Include="Interfaces\IPlayerStats.cs" />
+    <Compile Include="Interfaces\IEvents.cs" />
     <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />
