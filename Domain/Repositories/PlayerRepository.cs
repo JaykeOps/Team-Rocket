@@ -6,7 +6,7 @@ using System;
 
 namespace Domain.Repositories
 {
-    internal sealed class PlayerRepository
+    public sealed class PlayerRepository
     {
         private List<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();

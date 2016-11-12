@@ -1,15 +1,47 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Domain.Entities;
+using Domain.Repositories;
+using Domain.Value_Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DomainTests.Repositories
 {
-    [TestClass()]
+    [TestClass]
     public class SeriesRepositoryTests
     {
-        [TestMethod()]
-        public void AddSeries()
+
+        [TestMethod]
+        public void RepoStateIsTheSame()
         {
-            //Don't know what to test here.
-            //TODO: Add tests(?).
+            var instance = SeriesRepository.instance;
+            var instance2 = SeriesRepository.instance;
+
+            Assert.AreEqual(instance, instance2);
+        }
+
+        [TestMethod]
+        public void RepoGetAllReturnsIEnumerable()
+        {
+            Assert.IsInstanceOfType(SeriesRepository.instance.GetAll(), typeof(IEnumerable<Series>));
+        }
+
+        [TestMethod]
+        public void RepoAddIsWorking()
+        {
+            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), 16);
+            var series2 = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), 16);
+            SeriesRepository.instance.AddSeries(series);
+            var allSeries = SeriesRepository.instance.GetAll();
+            Assert.IsTrue(allSeries.Contains(series));
+            Assert.IsFalse(allSeries.Contains(series2));
+        }
+
+        [TestMethod]
+        public void GetAllNotReturningNull()
+        {
+            Assert.IsNotNull(SeriesRepository.instance.GetAll());
         }
     }
 }

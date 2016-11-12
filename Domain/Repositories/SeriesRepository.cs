@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Domain.Repositories
 {
-    internal sealed class SeriesRepository
+    public sealed class SeriesRepository
     {
         private List<Series> series;
 

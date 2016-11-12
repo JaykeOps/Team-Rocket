@@ -13,34 +13,38 @@ namespace DomainTests.Repositories
     [TestClass]
     public class PlayerRepositoryTests
     {
-        private PlayerService playerService;
-        private IEnumerable<Player> allPlayers;
 
-        [TestInitialize]
-        public void Init()
+
+
+        [TestMethod]
+        public void RepoStateIsTheSame()
         {
-            playerService = new PlayerService();
-            allPlayers = playerService.GetAll();
+            var instance = TeamRepository.instance;
+            var instance2 = TeamRepository.instance;
+
+            Assert.AreEqual(instance, instance2);
         }
 
         [TestMethod]
         public void RepoGetAllReturnsIEnumerable()
         {
-            Assert.IsInstanceOfType(allPlayers, typeof(IEnumerable<Player>));
+            Assert.IsInstanceOfType(PlayerRepository.instance.GetAll(), typeof(IEnumerable<Player>));
         }
 
         [TestMethod]
         public void AddPlayerWorking()
         {
             var newPlayer = new Player(new Name("Manuel", "Neuer"), new DateOfBirth("1986-03-27"), PlayerPosition.GoalKeeper, PlayerStatus.Available);
-            playerService.Add(newPlayer);
+            PlayerRepository.instance.Add(newPlayer);
+            var allPlayers = PlayerRepository.instance.GetAll();
             Assert.IsTrue(allPlayers.Contains(newPlayer));
         }
 
         [TestMethod]
         public void GetAllNotNull()
         {
-            Assert.IsNotNull(allPlayers);
+
+            Assert.IsNotNull(PlayerRepository.instance.GetAll());
         }
     }
 }
