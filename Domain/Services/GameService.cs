@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Services
 {
@@ -21,6 +23,11 @@ namespace Domain.Services
         public IEnumerable<Game> GetAll()
         {
             return this.repository.GetAll();
+        }
+
+        public Game FindById(Guid id)
+        {
+            return this.GetAll().ToList().Find(g => g.Id == id);
         }
     }
 }

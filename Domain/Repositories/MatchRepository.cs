@@ -12,6 +12,10 @@ namespace Domain.Repositories
         private List<Match> matches = new List<Match>();
 
         public static readonly MatchRepository instance = new MatchRepository();
+        private MatchRepository()
+        {
+            this.matches = new List<Match>();
+        }
 
         public IEnumerable<Match> GetAll()
         {
