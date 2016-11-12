@@ -9,20 +9,19 @@ namespace Domain.Services
     public class TeamService
     {
         private readonly TeamRepository repository;
-
         public TeamService()
         {
-            this.repository = TeamRepository.instance;
+            repository = TeamRepository.instance;
         }
 
         public void AddTeam(Team team)
         {
-            this.repository.Add(team);
+            TeamRepository.instance.Add(team);
         }
 
         public IEnumerable<Team> GetAll()
         {
-            return this.repository.GetAll();
+            return TeamRepository.instance.GetAll();
         }
 
         public Team FindById(Guid teamId)

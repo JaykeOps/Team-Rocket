@@ -1,74 +1,99 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Entities.Tests
 {
     [TestClass]
     public class ShirtNumberTests
     {
+        private PlayerService playerService;
+        private TeamService teamService;
+        private IEnumerable<Player> players;
+        private IEnumerable<Team> teams;
+        private Player playerOne;
+        private Player playerTwo;
+        private Team teamOne;
+        private Team teamTwo;
+
+        [TestInitialize]
+        public void Init()
+        {
+            this.playerService = new PlayerService();
+            this.teamService = new TeamService();
+            this.players = this.playerService.GetAll();
+            this.teams = this.teamService.GetAll();
+            this.playerOne = this.players.FirstOrDefault();
+            this.playerTwo = this.players.ElementAt(1);
+            this.teamOne = this.teams.FirstOrDefault();
+            this.teamTwo = this.teams.ElementAt(1);
+            this.playerOne.TeamId = this.teamOne.Id;
+            this.teamOne.PlayerIds.Add(this.playerOne.Id);
+            this.playerTwo.TeamId = this.teamOne.Id;
+            this.teamOne.PlayerIds.Add(this.playerTwo.Id);
+        }
+
         [TestMethod]
         public void ShirtNumberIsEqualToValidEntry()
         {
-            var shirtNumber = new ShirtNumber(1);
-            Assert.IsTrue(shirtNumber.Value == 1);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void ShirtNumberLessThanZeroThrowsIndexOutOfRangeException()
-        {
-            var shirtNumber = new ShirtNumber(-1);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void ShirtNumberGreaterThanNinteyNineThrowsIndexOutOfRangeException()
-        {
-            var shirtNumber = new ShirtNumber(100);
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 9);
+            this.playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 20);
+            Assert.IsTrue(playerOne.ShirtNumber.Value == 9);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 20);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ShirtNumberAlreadyInUseException))]
-        public void ShirtNumberUnAvailibeUseThrowsShirtNumberAlreadyInUseException()
+        public void ShirtNumberCanThrowAlreadyInUseExceptionIfAlreadyUsed()
         {
-            var shirtNumber = new ShirtNumber(8);
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 9);
+            this.playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 9);
         }
 
         [TestMethod]
-        public void ShirtNumberTryParseCanOutValidResult()
+        public void ShirtNumberCanBeAssignedAfterBeingUnAssigned()
         {
-            ShirtNumber result;
-            ShirtNumber.TryParse(17, out result);
-            Assert.IsTrue(result.Value == 17);
+            playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 55);
+            Assert.IsTrue(playerOne.ShirtNumber.Value == 55);
+            this.teamOne.PlayerIds.Remove(playerOne.Id);
+            this.playerOne.TeamId = Guid.Empty;
+            playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 55);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 55);
         }
 
         [TestMethod]
-        public void ShirtNumberTryParseCanReturnTrue()
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void ShirtNumberThrowsIndexOutOfRangeExceptionIfNumberIsGreaterThanNinteyNine()
         {
-            ShirtNumber result;
-            Assert.IsTrue(ShirtNumber.TryParse(17, out result));
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 100);
         }
 
         [TestMethod]
-        public void ShirtNumberIsComparableByValue()
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void ShirtNumberThrowsIndexOutOfRangeExceptionIfNumberIsLessThanZero()
         {
-            var shirtNumberOne = new ShirtNumber(25);
-            var shirtNumberTwo = new ShirtNumber(25);
-            Assert.AreEqual(shirtNumberOne, shirtNumberTwo);
-            Assert.IsTrue(shirtNumberOne == shirtNumberTwo);
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, -1);
         }
 
         [TestMethod]
-        public void ShirtNumberWorksWithHashSet()
+        public void ShirtNumberGetPropertyCanReturnNull()
         {
-            var shirtNumberOne = new ShirtNumber(25);
-            var shirtNumberTwo = new ShirtNumber(25);
-            var shirtNumberHashSet = new HashSet<ShirtNumber>();
-            shirtNumberHashSet.Add(shirtNumberOne);
-            shirtNumberHashSet.Add(shirtNumberTwo);
-            Assert.IsTrue(shirtNumberHashSet.Count == 1);
+            playerOne.ShirtNumber = new ShirtNumber(teamOne.Id, null);
+            Assert.IsNull(playerOne.ShirtNumber.Value);
+        }
+
+        [TestMethod]
+        public void ShirtNumberTeamIdCanChangeWhenPlayerTeamIdChange()
+        {
+            playerTwo.ShirtNumber = new ShirtNumber(teamOne.Id, 7);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 7);
+            playerTwo.TeamId = teamTwo.Id;
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == null);
+            playerTwo.ShirtNumber = new ShirtNumber(9);
+            Assert.IsTrue(playerTwo.ShirtNumber.Value == 9);
         }
     }
 }
