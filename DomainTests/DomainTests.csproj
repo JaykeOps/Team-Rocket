@@ -59,6 +59,7 @@
     <Compile Include="Repositories\PlayerRepositoryTests.cs" />
     <Compile Include="Repositories\SeriesRepositoryTests.cs" />
     <Compile Include="Repositories\TeamRepositoryTests.cs" />
+    <Compile Include="Services\DomainServiceTests.cs" />
     <Compile Include="Services\PlayerServiceTests.cs" />
     <Compile Include="Services\TeamServiceTests.cs" />
     <Compile Include="Services\SeriesServicesTests.cs" />
