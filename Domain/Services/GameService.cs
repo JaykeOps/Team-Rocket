@@ -1,6 +1,6 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,8 +12,9 @@ namespace Domain.Services
 
         public GameService()
         {
-                this.repository = GameRepository.instance;
+            this.repository = GameRepository.instance;
         }
+
         public void Add(Game game)
         {
             this.repository.Add(game);
