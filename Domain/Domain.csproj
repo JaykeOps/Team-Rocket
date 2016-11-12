@@ -43,7 +43,6 @@
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
-    <Compile Include="Interfaces\IAvailableNumbers.cs" />
     <Compile Include="Interfaces\ICountablePlayerStats.cs" />
     <Compile Include="Interfaces\IFullPlayerStats.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />

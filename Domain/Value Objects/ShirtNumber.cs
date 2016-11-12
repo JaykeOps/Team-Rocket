@@ -7,9 +7,9 @@ namespace Domain.Entities
     {
         public Guid PlayerTeamId { get; }
 
-        public int Value { get; set; }
+        public int? Value { get; }
 
-        public ShirtNumber(Guid teamId, int number)
+        public ShirtNumber(Guid teamId, int? number)
         {
             this.PlayerTeamId = teamId;
             this.Value = number;

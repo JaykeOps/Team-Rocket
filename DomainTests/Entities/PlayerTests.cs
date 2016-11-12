@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Value_Objects;
-using football_series_manager.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -66,21 +65,6 @@ namespace DomainTests.Entities.Tests
             Assert.IsFalse(this.testPlayer.Status == PlayerStatus.Injured);
             this.testPlayer.Status = PlayerStatus.Injured;
             Assert.IsTrue(this.testPlayer.Status == PlayerStatus.Injured);
-        }
-
-        [TestMethod]
-        public void PlayerShirtNumberCanChange()
-        {
-            Assert.IsFalse(this.testPlayer.ShirtNumber.Value == 10);
-            //this.testPlayer.ShirtNumber = new ShirtNumber(10);
-            Assert.IsTrue(this.testPlayer.ShirtNumber.Value == 10);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ShirtNumberAlreadyInUseException))]
-        public void PlayerShirtNumberCanThrowExceptionIfShirtNumberAlreadyInUse()
-        {
-            //this.testPlayer.ShirtNumber = new ShirtNumber(0);
         }
 
         [TestMethod()]

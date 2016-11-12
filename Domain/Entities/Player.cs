@@ -18,19 +18,30 @@ namespace Domain.Entities
         {
             get
             {
-                return shirtNumber;
+                return this.shirtNumber;
             }
             set
             {
                 var teamService = new TeamService();
                 var team = teamService.GetAll().Where(x => x.Id.Equals(this.TeamId)).FirstOrDefault();
-                value = team.ShirtNumbers[value.Value];
+                try
+                {
+                    value = team.ShirtNumbers[value.Value];
+                }
+                catch (ShirtNumberAlreadyInUseException ex)
+                {
+                    this.shirtNumber = new ShirtNumber(this.TeamId, null);
+                    throw ex;
+                }
                 if (value == null)
                 {
-                    throw new ShirtNumberAlreadyInUseException("The shirt number you tried to assign is already " +
-                        "being used by another player on the team.");
+                    this.shirtNumber = new ShirtNumber(this.TeamId, null);
                 }
-                this.shirtNumber = value;
+                else
+                {
+                    this.shirtNumber = value;
+                }
+                
             }
         }
 
@@ -40,13 +51,7 @@ namespace Domain.Entities
             this.Position = position;
             this.Status = status;
             this.TeamId = Guid.Empty;
-        }
-
-        public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
-            PlayerStatus status, ShirtNumber shirtNumber) : this(name, dateOfBirth,
-                position, status)
-        {
-            this.shirtNumber = shirtNumber;
+            this.shirtNumber = new ShirtNumber(this.TeamId, null);
         }
     }
 }

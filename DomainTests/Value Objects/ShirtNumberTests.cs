@@ -61,5 +61,26 @@ namespace DomainTests.Entities.Tests
             playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 55);
             Assert.IsTrue(playerTwo.ShirtNumber.Value == 55);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void ShirtNumberThrowsIndexOutOfRangeExceptionIfNumberIsGreaterThanNinteyNine()
+        {
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 100);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void ShirtNumberThrowsIndexOutOfRangeExceptionIfNumberIsLessThanZero()
+        {
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, -1);
+        }
+
+        [TestMethod]
+        public void ShirtNumberGetPropertyCanReturnNull()
+        {
+            playerOne.ShirtNumber = new ShirtNumber(teamOne.Id, null);
+            Assert.IsNull(playerOne.ShirtNumber.Value);
+        }
     }
 }
