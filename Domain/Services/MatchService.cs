@@ -24,6 +24,10 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
+        public Match FindById(Guid id)
+        {
+            return this.GetAll().ToList().Find(m => m.Id == id);
+        }
        
     }
 }
