@@ -56,11 +56,11 @@ namespace DomainTests.Entities.Tests
         [TestMethod]
         public void ShirtNumberCanBeAssignedAfterBeingUnAssigned()
         {
-            playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 55);
+            this.playerOne.ShirtNumber = new ShirtNumber(playerOne.TeamId, 55);
             Assert.IsTrue(playerOne.ShirtNumber.Value == 55);
             this.teamOne.PlayerIds.Remove(playerOne.Id);
             this.playerOne.TeamId = Guid.Empty;
-            playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 55);
+            this.playerTwo.ShirtNumber = new ShirtNumber(playerTwo.TeamId, 55);
             Assert.IsTrue(playerTwo.ShirtNumber.Value == 55);
         }
 
@@ -81,14 +81,14 @@ namespace DomainTests.Entities.Tests
         [TestMethod]
         public void ShirtNumberGetPropertyCanReturnNull()
         {
-            playerOne.ShirtNumber = new ShirtNumber(teamOne.Id, null);
+            this.playerOne.ShirtNumber = new ShirtNumber(teamOne.Id, null);
             Assert.IsNull(playerOne.ShirtNumber.Value);
         }
 
         [TestMethod]
         public void ShirtNumberTeamIdCanChangeWhenPlayerTeamIdChange()
         {
-            playerTwo.ShirtNumber = new ShirtNumber(teamOne.Id, 7);
+            this.playerTwo.ShirtNumber = new ShirtNumber(teamOne.Id, 7);
             Assert.IsTrue(playerTwo.ShirtNumber.Value == 7);
             playerTwo.TeamId = teamTwo.Id;
             Assert.IsTrue(playerTwo.ShirtNumber.Value == null);
