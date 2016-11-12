@@ -29,8 +29,9 @@ namespace Domain.Entities
             get { return this.shirtNumber; }
             set
             {
-                var teamService = new TeamService();
-                var team = teamService.GetAll().Where(x => x.Id.Equals(this.TeamId)).FirstOrDefault();
+                var team = DomainService.FindTeamById(this.teamId);
+                //var teamService = new TeamService();
+                //var team = teamService.GetAll().Where(x => x.Id.Equals(this.TeamId)).FirstOrDefault();
                 try
                 {
                     value = team.ShirtNumbers[value.Value];

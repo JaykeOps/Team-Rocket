@@ -1,22 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.CustomExceptions;
 using Domain.Value_Objects;
-using Domain.CustomExceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Domain.Entities.Tests
 {
     [TestClass]
     public class GameTests
     {
-
-        MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
-        Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
-        Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        private MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
+        private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
+        private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
 
         [TestMethod]
         public void ConstructorInitiatesCorrectlyTest()
@@ -40,9 +34,7 @@ namespace Domain.Entities.Tests
             //}
             //catch(GameContainsSameTeamTwiceException)
             //{
-
             //}
-            
         }
     }
 }
