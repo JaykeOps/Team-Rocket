@@ -9,7 +9,7 @@ namespace Domain.Repositories
 {
     internal sealed class MatchRepository
     {
-        private List<Match> matches;
+        private List<Match> matches = new List<Match>();
 
         public static readonly MatchRepository instance = new MatchRepository();
 
