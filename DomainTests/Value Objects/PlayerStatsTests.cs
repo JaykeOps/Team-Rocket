@@ -11,6 +11,8 @@ namespace DomainTests.Value_Objects
     {
         internal Guid playerOneId;
         internal Guid playerTwoId;
+        internal Guid playerOneTeamId;
+        internal Guid playerTwoTeamId;
         internal PlayerStats playerStatsOne;
         internal PlayerStats playerStatsOneDuplicate;
         internal PlayerStats playerStatsTwo;
@@ -19,30 +21,32 @@ namespace DomainTests.Value_Objects
         {
             this.playerOneId = Guid.NewGuid();
             this.playerTwoId = Guid.NewGuid();
+            this.playerOneTeamId = Guid.NewGuid();
+            this.playerTwoTeamId = Guid.NewGuid();
             playerStatsOne = new PlayerStats();
             playerStatsOneDuplicate = new PlayerStats();
             playerStatsTwo = new PlayerStats();
 
             playerStatsOne.Goals.AddRange(new List<Goal>
             {
-                new Goal(new MatchMinute(11), this.playerOneId),
-                new Goal(new MatchMinute(44), this.playerOneId),
-                new Goal(new MatchMinute(89), this.playerOneId)
+                new Goal(new MatchMinute(11), this.playerOneTeamId, this.playerOneId),
+                new Goal(new MatchMinute(44), this.playerOneTeamId, this.playerOneId),
+                new Goal(new MatchMinute(89), this.playerOneTeamId, this.playerOneId)
             });
 
             playerStatsOneDuplicate.Goals.AddRange(new List<Goal>
             {
-                new Goal(new MatchMinute(11), this.playerOneId),
-                new Goal(new MatchMinute(44), this.playerOneId),
-                new Goal(new MatchMinute(89), this.playerOneId)
+                new Goal(new MatchMinute(11), this.playerOneTeamId, this.playerOneId),
+                new Goal(new MatchMinute(44), this.playerOneTeamId, this.playerOneId),
+                new Goal(new MatchMinute(89), this.playerOneTeamId, this.playerOneId)
             });
 
             playerStatsTwo.Goals.AddRange(new List<Goal>
             {
-                new Goal(new MatchMinute(3), this.playerTwoId),
-                new Goal(new MatchMinute(17), this.playerTwoId),
-                new Goal(new MatchMinute(32), this.playerTwoId),
-                new Goal(new MatchMinute(34), this.playerTwoId)
+                new Goal(new MatchMinute(3), this.playerTwoTeamId, this.playerTwoId),
+                new Goal(new MatchMinute(17), this.playerTwoTeamId, this.playerTwoId),
+                new Goal(new MatchMinute(32), this.playerTwoTeamId, this.playerTwoId),
+                new Goal(new MatchMinute(34), this.playerTwoTeamId, this.playerTwoId)
             });
 
             playerStatsOne.Assists.AddRange(new List<Assist>
@@ -130,7 +134,7 @@ namespace DomainTests.Value_Objects
             Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.Goals.Count);
             Assert.IsTrue(this.playerStatsOne.GoalCount == this.playerStatsOne.Goals.Count
                 && this.playerStatsOne.GoalCount == 3);
-            this.playerStatsOne.Goals.Add(new Goal(new MatchMinute(3), this.playerOneId));
+            this.playerStatsOne.Goals.Add(new Goal(new MatchMinute(3), this.playerOneTeamId, this.playerOneId));
             Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.Goals.Count);
             Assert.IsTrue(this.playerStatsOne.GoalCount == this.playerStatsOne.Goals.Count
                 && this.playerStatsOne.GoalCount == 4);

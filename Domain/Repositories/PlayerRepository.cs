@@ -41,8 +41,8 @@ namespace Domain.Repositories
             var player9 = new Player(new Name("Claudio", "Bravo"), new DateOfBirth("1983-04-13"), PlayerPosition.GoalKeeper, PlayerStatus.Available);
             var player10 = new Player(new Name("John", "Stones"), new DateOfBirth("1994-07-28"), PlayerPosition.Defender, PlayerStatus.Available);
 
-            player1.Events.Goals.Add((new Goal(new MatchMinute(44), player1.Id)));
-            player1.Events.Goals.Add(new Goal(new MatchMinute(47), player1.Id));
+            player1.Events.Goals.Add((new Goal(new MatchMinute(44), player1.TeamId, player1.Id)));
+            player1.Events.Goals.Add(new Goal(new MatchMinute(47), player1.TeamId, player1.Id));
             player1.Events.Assists.Add(new Assist(new MatchMinute(23), player1.Id));
             player1.Events.Cards.Add(new Card(new MatchMinute(77), player1.Id, CardType.Yellow));
             player1.Events.Cards.Add(new Card(new MatchMinute(87), player1.Id, CardType.Yellow));
@@ -50,8 +50,8 @@ namespace Domain.Repositories
             player1.Events.Games.Add(Guid.NewGuid());
             player1.Events.Games.Add(Guid.NewGuid());
 
-            player2.Events.Goals.Add(new Goal(new MatchMinute(11), player2.Id));
-            player2.Events.Goals.Add(new Goal(new MatchMinute(22), player2.Id));
+            player2.Events.Goals.Add(new Goal(new MatchMinute(11), player2.TeamId, player2.Id));
+            player2.Events.Goals.Add(new Goal(new MatchMinute(22), player2.TeamId, player2.Id));
             player2.Events.Assists.Add(new Assist(new MatchMinute(44), player2.Id));
             player2.Events.Cards.Add(new Card(new MatchMinute(89), player2.Id, CardType.Red));
             player2.Events.Penalties.Add(new Penalty(new MatchMinute(87), player2.Id));
