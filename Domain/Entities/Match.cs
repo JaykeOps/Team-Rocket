@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Domain.Value_Objects;
 using System;
+using Domain.Services;
 
 namespace Domain.Entities
 {
@@ -25,7 +26,7 @@ namespace Domain.Entities
 
         public override string ToString()
         {
-            return $"Location: {this.Location} Time:{this.MatchDate} Hometeam: {this.HomeTeamId} Awayteam: {this.AwayTeamId}";
+            return $"Location: {this.Location} Time:{this.MatchDate} Hometeam: {DomainService.FindTeamById(this.HomeTeamId)} Awayteam: {DomainService.FindTeamById(this.AwayTeamId)}";
         }
     }
 }
