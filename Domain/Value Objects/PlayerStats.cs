@@ -85,5 +85,25 @@ namespace Domain.Entities
         {
             this.gameEventIds.Add(gameId);
         }
+
+        public void RemoveGoal(Goal goal)
+        {
+            this.goalEvents.Remove(goal);
+        }
+
+        public void RemoveAssist(Assist assist)
+        {
+            this.assistEvents.Remove(assist);
+        }
+
+        public void RemoveCard(Card card)
+        {
+            this.cardEvents.Remove(card);
+        }
+
+        public void RemovePenalty(Penalty penalty)
+        {
+            this.penaltyEvents.Remove(penalty);
+        }
     }
 }
