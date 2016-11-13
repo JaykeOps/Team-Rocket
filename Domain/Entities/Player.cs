@@ -2,21 +2,34 @@
 using Domain.Services;
 using Domain.Value_Objects;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
     public class Player : Person, IPresentablePlayer
     {
-        private PlayerStats statsAndEvents;
         private Guid teamId;
+        private Dictionary<Guid, PlayerSeriesEvents> playerSeriesEvents;
+        private Dictionary<Guid, PlayerSeriesStats> playerSeriesStats;
         private ShirtNumber shirtNumber;
-        public string TeamName { get { return DomainService.FindTeamById(this.teamId).Name.ToString(); } }
+
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
+        public string TeamName
+        {
+            get
+            {
+                return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
+
         public Guid TeamId
         {
-            get { return this.teamId; }
+            get
+            {
+                return this.teamId;
+            }
             set
             {
                 this.shirtNumber = new ShirtNumber(value, null);
@@ -24,10 +37,21 @@ namespace Domain.Entities
             }
         }
 
-        public PlayerStats StatsAndEvents { get { return this.statsAndEvents; } }
-        public IPresentablePlayerStats Stats { get { return this.statsAndEvents; } }
+        public IReadOnlyDictionary<Guid, PlayerSeriesEvents> PlayerSeriesEvents
+        {
+            get
+            {
+                return this.playerSeriesEvents;
+            }
+        }
 
-        public IPresentablePlayerEvents Events { get { return this.statsAndEvents; } }
+        public IReadOnlyDictionary<Guid, PlayerSeriesStats> PlayerSeriesStats
+        {
+            get
+            {
+                return this.playerSeriesStats;
+            }
+        }
 
         public ShirtNumber ShirtNumber
         {
@@ -60,9 +84,9 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.statsAndEvents = new PlayerStats(this.Id);
-            this.teamId = Guid.Empty;
-            this.shirtNumber = new ShirtNumber(this.TeamId, null);
+            this.playerSeriesEvents = new Dictionary<Guid, PlayerSeriesEvents>();
+            this.playerSeriesStats = new Dictionary<Guid, PlayerSeriesStats>();
+            this.TeamId = Guid.Empty;
         }
     }
 }

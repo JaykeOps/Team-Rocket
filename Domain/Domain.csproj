@@ -61,8 +61,9 @@
     <Compile Include="Services\SeriesService.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Services\GameService.cs" />
-    <Compile Include="Value Objects\LeagueEvents.cs" />
-    <Compile Include="Value Objects\PlayerStats.cs" />
+    <Compile Include="Value Objects\PlayerSeriesEvents.cs" />
+    <Compile Include="Value Objects\TeamSeriesEvents.cs" />
+    <Compile Include="Value Objects\PlayerSeriesStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />
     <Compile Include="Interfaces\IGameEvent.cs" />
@@ -73,8 +74,7 @@
     <Compile Include="Value Objects\Goal.cs" />
     <Compile Include="CustomExceptions\ShirtNumberMissingTeamIdException.cs" />
     <Compile Include="Value Objects\ShirtNumbers.cs" />
-    <Compile Include="Value Objects\LeagueStats.cs" />
-    <Compile Include="Value Objects\TeamStats.cs" />
+    <Compile Include="Value Objects\TeamSeriesStats.cs" />
     <Compile Include="Value Objects\MatchMinute.cs" />
     <Compile Include="Value Objects\OverTime.cs" />
     <Compile Include="Value Objects\Penalty.cs" />

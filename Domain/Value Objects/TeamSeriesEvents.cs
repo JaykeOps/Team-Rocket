@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class SeriesEvents
+    public class TeamSeriesEvents
     {
-        public Guid TeamId { get; }
+        private Guid seriesId;
+        public Guid teamId;
         private HashSet<Guid> gameEventIds;
         private List<Goal> goalEvents;
 
-        public string TeamName { get { return DomainService.FindTeamById(this.TeamId).Name.ToString(); } }
+        public string TeamName { get { return DomainService.FindTeamById(this.teamId).Name.ToString(); } }
 
         public IEnumerable<Game> Games
         {
@@ -28,9 +29,10 @@ namespace Domain.Value_Objects
 
         public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
 
-        public SeriesEvents(Guid teamId)
+        public TeamSeriesEvents(Guid teamId, Guid seriesId)
         {
-            this.TeamId = teamId;
+            this.seriesId = seriesId;
+            this.teamId = teamId;
             this.gameEventIds = new HashSet<Guid>();
             this.goalEvents = new List<Goal>();
         }

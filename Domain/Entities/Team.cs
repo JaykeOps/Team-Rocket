@@ -10,8 +10,8 @@ namespace Domain.Entities
     {
         private HashSet<Guid> playerIds;
         private Dictionary<Guid, List<Match>> matchSchedule;
-        private Dictionary<Guid, SeriesEvents> seriesEvents;
-        private Dictionary<Guid, SeriesStats> seriesStats;
+        private Dictionary<Guid, TeamSeriesEvents> seriesEvents;
+        private Dictionary<Guid, TeamSeriesStats> seriesStats;
         public Guid Id { get; }
 
         public TeamName Name { get; set; }
@@ -33,8 +33,8 @@ namespace Domain.Entities
         public EmailAddress Email { get; set; }
 
         public IReadOnlyDictionary<Guid, List<Match>> TeamsSeriesSchedule { get { return this.matchSchedule; } }
-        public IReadOnlyDictionary<Guid, SeriesEvents> SeriesEvents { get { return this.seriesEvents; } }
-        public IReadOnlyDictionary<Guid, SeriesStats> SeriesStats { get { return this.seriesStats; } }
+        public IReadOnlyDictionary<Guid, TeamSeriesEvents> SeriesEvents { get { return this.seriesEvents; } }
+        public IReadOnlyDictionary<Guid, TeamSeriesStats> SeriesStats { get { return this.seriesStats; } }
 
         public ShirtNumbers ShirtNumbers { get; }
 
@@ -46,8 +46,8 @@ namespace Domain.Entities
             this.ArenaName = arenaName;
             this.Email = email;
             this.matchSchedule = new Dictionary<Guid, List<Match>>();
-            this.seriesEvents = new Dictionary<Guid, SeriesEvents>();
-            this.seriesStats = new Dictionary<Guid, SeriesStats>();
+            this.seriesEvents = new Dictionary<Guid, TeamSeriesEvents>();
+            this.seriesStats = new Dictionary<Guid, TeamSeriesStats>();
             this.ShirtNumbers = new ShirtNumbers(this);
         }
 
@@ -74,8 +74,8 @@ namespace Domain.Entities
         public void AddSeriesSchedule(Guid seriesId, List<Match> matches)
         {
             this.AddSeriesSchedule(seriesId, matches);
-            this.seriesEvents.Add(seriesId, new SeriesEvents(this.Id));
-            this.seriesStats.Add(seriesId, new SeriesStats(this.Id));
+            this.seriesEvents.Add(seriesId, new TeamSeriesEvents(this.Id, Guid.NewGuid()));
+            this.seriesStats.Add(seriesId, new TeamSeriesStats(this.Id, Guid.NewGuid()));
         }
 
         public void RemoveSeriesSchedule(Guid seriesId)

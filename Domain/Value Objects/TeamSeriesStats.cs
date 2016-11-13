@@ -4,15 +4,16 @@ using System.Linq;
 
 namespace Domain.Value_Objects
 {
-    public class SeriesStats
+    public class TeamSeriesStats
     {
+        private Guid seriesId;
         private Guid teamId;
 
-        private SeriesEvents LeagueEvents
+        private TeamSeriesEvents LeagueEvents
         {
             get
             {
-                return DomainService.FindTeamById(this.teamId).SeriesEvents[this.teamId];
+                return DomainService.FindTeamById(this.teamId).SeriesEvents[this.seriesId];
             }
         }
 
@@ -71,7 +72,7 @@ namespace Domain.Value_Objects
             return outcome;
         }
 
-        public SeriesStats(Guid teamId)
+        public TeamSeriesStats(Guid teamId, Guid seriesId)
         {
             this.teamId = teamId;
         }

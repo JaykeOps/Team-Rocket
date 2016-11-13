@@ -1,12 +1,11 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
 using Domain.Services;
-using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace Domain.Value_Objects
 {
-    public class PlayerStats : ValueObject<PlayerStats>, IPresentablePlayerStats, IPresentablePlayerEvents
+    public class PlayerSeriesEvents
     {
         private Guid playerId;
         private List<Goal> goalEvents;
@@ -35,23 +34,7 @@ namespace Domain.Entities
         public IEnumerable<Card> Cards { get { return this.cardEvents; } }
         public IEnumerable<Penalty> Penalties { get { return this.penaltyEvents; } }
 
-        public int GoalCount { get { return this.goalEvents.Count; } }
-        public int AssistCount { get { return this.assistEvents.Count; } }
-
-        public int YellowCardCount
-        {
-            get { return this.cardEvents.FindAll(x => x.CardType.Equals(CardType.Yellow)).Count; }
-        }
-
-        public int RedCardCount
-        {
-            get { return this.cardEvents.FindAll(x => x.CardType.Equals(CardType.Red)).Count; }
-        }
-
-        public int PenaltyCount { get { return this.penaltyEvents.Count; } }
-        public int GamesPlayedCount { get { return this.gameEventIds.Count; } }
-
-        public PlayerStats(Guid playerId)
+        public PlayerSeriesEvents(Guid playerId)
         {
             this.goalEvents = new List<Goal>();
             this.assistEvents = new List<Assist>();

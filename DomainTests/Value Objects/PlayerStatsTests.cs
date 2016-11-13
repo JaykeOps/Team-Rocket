@@ -14,9 +14,9 @@ namespace DomainTests.Value_Objects
         internal Guid playerTwoId;
         internal Guid playerOneTeamId;
         internal Guid playerTwoTeamId;
-        internal PlayerStats playerStatsOne;
-        internal PlayerStats playerStatsOneDuplicate;
-        internal PlayerStats playerStatsTwo;
+        internal PlayerSeriesStats playerStatsOne;
+        internal PlayerSeriesStats playerStatsOneDuplicate;
+        internal PlayerSeriesStats playerStatsTwo;
 
         [TestInitialize]
         public void Init()
@@ -26,9 +26,9 @@ namespace DomainTests.Value_Objects
             this.playerTwoId = playerService.GetAll().ToList().ElementAt(1).Id;
             this.playerOneTeamId = Guid.NewGuid();
             this.playerTwoTeamId = Guid.NewGuid();
-            playerStatsOne = new PlayerStats(this.playerOneId);
-            playerStatsOneDuplicate = new PlayerStats(this.playerOneId);
-            playerStatsTwo = new PlayerStats(this.playerTwoId);
+            playerStatsOne = new PlayerSeriesStats(this.playerOneId);
+            playerStatsOneDuplicate = new PlayerSeriesStats(this.playerOneId);
+            playerStatsTwo = new PlayerSeriesStats(this.playerTwoId);
 
             this.playerStatsOne.AddGoal(new Goal(new MatchMinute(11), this.playerOneTeamId, this.playerOneId));
             this.playerStatsOne.AddGoal(new Goal(new MatchMinute(44), this.playerOneTeamId, this.playerOneId));

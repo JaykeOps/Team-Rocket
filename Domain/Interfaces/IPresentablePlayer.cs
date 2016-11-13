@@ -1,18 +1,22 @@
 ﻿using Domain.Entities;
 using Domain.Value_Objects;
+using System;
+using System.Collections.Generic;
 
 namespace Domain.Interfaces
 {
     public interface IPresentablePlayer
     {
+        string TeamName { get; }
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
         ContactInformation ContactInformation { get; set; }
-        string TeamName { get; }
+
         PlayerPosition Position { get; set; }
         PlayerStatus Status { get; set; }
-        IPresentablePlayerStats Stats { get; }
-        IPresentablePlayerEvents Events { get; }
+        IReadOnlyDictionary<Guid, PlayerSeriesEvents> PlayerSeriesEvents { get; }
+        IReadOnlyDictionary<Guid, PlayerSeriesStats> PlayerSeriesStats { get; }
+
         ShirtNumber ShirtNumber { get; }
     }
 }

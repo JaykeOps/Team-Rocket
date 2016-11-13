@@ -12,8 +12,8 @@ namespace Domain.Interfaces
         ArenaName ArenaName { get; set; }
         EmailAddress Email { get; set; }
         IReadOnlyDictionary<Guid, List<Match>> TeamsSeriesSchedule { get; }
-        IReadOnlyDictionary<Guid, SeriesEvents> SeriesEvents { get; }
-        IReadOnlyDictionary<Guid, SeriesStats> SeriesStats { get; }
+        IReadOnlyDictionary<Guid, TeamSeriesEvents> SeriesEvents { get; }
+        IReadOnlyDictionary<Guid, TeamSeriesStats> SeriesStats { get; }
         ShirtNumbers ShirtNumbers { get; }
     }
 }
