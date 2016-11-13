@@ -8,11 +8,11 @@ namespace Domain.Entities
     public class Series : IGameDuration
     {
         public Guid Id { get; }
-        public int NumberOfTeams { get; }
+        public NumberOfTeams NumberOfTeams { get; }
         public MatchDuration MatchDuration { get; }
         public List<Guid> Schedule { get; } //Holds a list of match guid
 
-        public Series(MatchDuration matchDuration, int numberOfTeams)
+        public Series(MatchDuration matchDuration, NumberOfTeams numberOfTeams)
         {
             this.Id = Guid.NewGuid();
             this.NumberOfTeams = numberOfTeams;

@@ -16,13 +16,13 @@ namespace DomainTests.Services
         {
             this.seriesService = new SeriesService();
 
-            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), 16);
+            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(16));
         }
 
         [TestMethod]
         public void AddSeries()
         {
-            seriesService.AddSeries(new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), 16));
+            seriesService.AddSeries(new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16)));
         }
 
         [TestMethod]
