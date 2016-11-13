@@ -2,6 +2,7 @@
 using System;
 using Domain.Entities;
 using Domain.Value_Objects;
+using System.Linq;
 
 namespace DomainTests.Entities
 {
@@ -25,9 +26,9 @@ namespace DomainTests.Entities
         {
             Assert.IsTrue(this.team.Id != Guid.Empty);
             Assert.IsTrue(this.team.Name == new TeamName("Ifk Göteborg"));
-            Assert.IsTrue(this.team.Arena == new ArenaName("Ullevi"));
+            Assert.IsTrue(this.team.ArenaName == new ArenaName("Ullevi"));
             Assert.IsTrue(this.team.Email == new EmailAddress("Ifk@gmail.com"));
-            Assert.IsTrue(this.team.PlayerIds != null);
+            Assert.IsTrue(this.team.Players != null);
 
         }
 
@@ -44,9 +45,9 @@ namespace DomainTests.Entities
         public void TeamArenaCanChange()
         {
             var arena = new ArenaName("Bravida");
-            Assert.IsFalse(this.team.Arena == arena);
-            this.team.Arena = arena;
-            Assert.IsTrue(this.team.Arena == arena);
+            Assert.IsFalse(this.team.ArenaName == arena);
+            this.team.ArenaName = arena;
+            Assert.IsTrue(this.team.ArenaName == arena);
         }
 
         [TestMethod]
@@ -61,8 +62,8 @@ namespace DomainTests.Entities
         [TestMethod]
         public void TeamsHashSetOFPlayersCanAdd()
         {
-            this.team.PlayerIds.Add(Guid.NewGuid());
-            Assert.IsTrue(team.PlayerIds.Count==1);
+            this.team.AddPlayerId(Guid.NewGuid());
+            Assert.IsTrue(team.Players.Count() == 1);
         }
     }
 }

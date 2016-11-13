@@ -51,7 +51,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\GameTests.cs" />
+    <Compile Include="Entities\MatchTests.cs" />
     <Compile Include="Entities\PlayerTests.cs" />
+    <Compile Include="Entities\SeriesTest.cs" />
+    <Compile Include="Entities\TeamTest.cs" />
     <Compile Include="Repositories\GameRepositoryTests.cs" />
     <Compile Include="Repositories\PlayerRepositoryTests.cs" />
     <Compile Include="Repositories\SeriesRepositoryTests.cs" />
