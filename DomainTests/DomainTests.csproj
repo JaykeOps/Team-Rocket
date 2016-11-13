@@ -78,6 +78,7 @@
     <Compile Include="Value Objects\NameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Value Objects\DateOfBirthTests.cs" />
+    <Compile Include="Value Objects\NumberOfTeamsTests.cs" />
     <Compile Include="Value Objects\OverTimeTests.cs" />
     <Compile Include="Value Objects\PenaltyTests.cs" />
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />

@@ -2,7 +2,7 @@
 
 namespace Domain.Value_Objects
 {
-    public class NumberOfTeams
+    public class NumberOfTeams : ValueObject<NumberOfTeams>
     {
         public int Value { get; }
 
