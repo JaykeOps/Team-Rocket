@@ -10,15 +10,18 @@ namespace Domain.Services.Tests
     public class GameServiceTests
     {
         private GameService gameService = new GameService();
-        private MatchDuration matchDuration90Minutes = new MatchDuration(new TimeSpan(0, 90, 0));
+        private Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16));
+        private MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
+
         private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
         private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
 
         [TestMethod]
         public void AddGameToListTest()
         {
-            var game = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
-            var game2 = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
+            Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamGreen.Id, series, date);
+            var game = new Game(matchOne);
+            var game2 = new Game(matchOne);
             var gameIsAdded = false;
             var game2IsAdded = false;
 

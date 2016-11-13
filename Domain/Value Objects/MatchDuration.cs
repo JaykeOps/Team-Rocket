@@ -14,7 +14,7 @@ namespace Domain.Value_Objects
             }
             else
             {
-                throw new ArgumentException("Invalid match duration format. Value must be 10-90 min");
+               throw new ArgumentException("Invalid match duration format. Value must be 10-90 min");
             }
         }
 

@@ -13,14 +13,14 @@ namespace Domain.Entities
         public Guid AwayTeamId { get; }
         public GameProtocol Protocol { get; }
 
-        public Game(MatchDuration matchDuration, Guid homeTeamId, Guid awayTeamId)
+        public Game(Match match)
         {
-            if (homeTeamId != awayTeamId)
+            if (match.HomeTeamId != match.AwayTeamId)
             {
                 this.Id = Guid.NewGuid();
-                this.MatchDuration = matchDuration;
-                this.HomeTeamId = homeTeamId;
-                this.AwayTeamId = awayTeamId;
+                this.MatchDuration = match.MatchDuration;
+                this.HomeTeamId = match.HomeTeamId;
+                this.AwayTeamId = match.AwayTeamId;
                 this.Protocol = new GameProtocol(this.HomeTeamId, this.AwayTeamId);
             }
             else
