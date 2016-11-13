@@ -8,8 +8,8 @@ namespace Domain.Services
 {
     public class GameService
     {
-        private readonly GameRepository repository; 
-        
+        private readonly GameRepository repository;
+
         public GameService()
         {
             repository = GameRepository.instance;

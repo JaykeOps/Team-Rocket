@@ -28,8 +28,5 @@ namespace Domain.Repositories
         {
             this.series.Add(newSeries);
         }
-
-       
-
     }
 }

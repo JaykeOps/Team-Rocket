@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.CustomExceptions;
 using Domain.Entities;
 using Domain.Value_Objects;
-using Domain.CustomExceptions;
+using System;
+using System.Collections.Generic;
 
 namespace Domain.Repositories
 {
@@ -37,7 +37,7 @@ namespace Domain.Repositories
         {
             if (IsAdded(game))
             {
-                throw new GameAlreadyAddedException();    
+                throw new GameAlreadyAddedException();
             }
             else
             {

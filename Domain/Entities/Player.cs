@@ -57,7 +57,6 @@ namespace Domain.Entities
             this.Stats = new PlayerStats();
             this.teamId = Guid.Empty;
             this.shirtNumber = new ShirtNumber(this.TeamId, null);
-            
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +9,7 @@ namespace Domain.Services
     public class TeamService
     {
         private readonly TeamRepository repository;
+
         public TeamService()
         {
             repository = TeamRepository.instance;
@@ -28,6 +29,5 @@ namespace Domain.Services
         {
             return GetAll().ToList().Find(t => t.Id.Equals(teamId));
         }
-
     }
 }

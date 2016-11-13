@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repositories;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Repositories
 {
     [TestClass]
     public class SeriesRepositoryTests
     {
-
         [TestMethod]
         public void RepoStateIsTheSame()
         {

@@ -56,6 +56,7 @@
     <Compile Include="Services\SeriesService.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Services\GameService.cs" />
+    <Compile Include="Value Objects\NumberOfTeams.cs" />
     <Compile Include="Value Objects\PlayerStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />

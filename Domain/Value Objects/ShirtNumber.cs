@@ -14,6 +14,7 @@ namespace Domain.Entities
             this.PlayerTeamId = teamId;
             this.Value = number;
         }
+
         public ShirtNumber(int? number)
         {
             this.Value = number;

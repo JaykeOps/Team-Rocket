@@ -1,10 +1,9 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.ComponentModel;
 using System.Linq;
-using Domain.Services;
 
 namespace DomainTests.Entities.Tests
 {
@@ -15,8 +14,6 @@ namespace DomainTests.Entities.Tests
 
         public PlayerTests()
         {
-
-
             var name = new Name("John", "Doe");
             var dateOfBirth = new DateOfBirth("1974-08-24");
             var contactInformation = new ContactInformation(new PhoneNumber("0735-688231"),
@@ -28,7 +25,7 @@ namespace DomainTests.Entities.Tests
         [TestMethod]
         public void PlayerCanHoldValidEntries()
         {
-            var service= new TeamService();
+            var service = new TeamService();
             var team = service.GetAll().First();
             this.testPlayer.TeamId = team.Id;
             this.testPlayer.ShirtNumber = new ShirtNumber(25);
@@ -41,7 +38,6 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue(this.testPlayer.Status == PlayerStatus.Available);
             Assert.IsTrue(this.testPlayer.ShirtNumber.Value == 25);
             Assert.IsTrue(this.testPlayer.TeamId == team.Id);
-            
         }
 
         [TestMethod]

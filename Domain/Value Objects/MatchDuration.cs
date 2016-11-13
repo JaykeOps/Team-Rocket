@@ -18,7 +18,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public static bool IsMatchDuration(TimeSpan duration)
+        private static bool IsMatchDuration(TimeSpan duration)
         {
             return duration.TotalMinutes <= 90 && duration.TotalMinutes >= 10;
         }

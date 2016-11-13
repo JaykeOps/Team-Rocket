@@ -35,7 +35,7 @@ namespace Domain.Services
         public IEnumerable<Player> FindPlayer(string searchText, StringComparison comp)
         {
             var result = allPlayers.Where(x =>
-                x.Name.ToString().Contains(searchText,comp ) ||
+                x.Name.ToString().Contains(searchText, comp) ||
                 x.DateOfBirth.Value.ToString().Contains(searchText, comp));
 
             return result;
