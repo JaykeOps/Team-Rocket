@@ -17,12 +17,12 @@ namespace Domain.Value_Objects
         {
             get
             {
-                var goals = new List<Game>();
+                var games = new List<Game>();
                 foreach (var gameId in this.gameEventIds)
                 {
-                    goals.Add(DomainService.FindGameById(gameId));
+                    games.Add(DomainService.FindGameById(gameId));
                 }
-                return goals;
+                return games;
             }
         }
 

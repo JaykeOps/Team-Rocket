@@ -1,8 +1,8 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DomainTests.Value_Objects
@@ -18,10 +18,12 @@ namespace DomainTests.Value_Objects
         internal PlayerStats playerStatsOneDuplicate;
         internal PlayerStats playerStatsTwo;
 
-        public PlayerStatsTests()
+        [TestInitialize]
+        public void Init()
         {
-            this.playerOneId = Guid.NewGuid();
-            this.playerTwoId = Guid.NewGuid();
+            var playerService = new PlayerService();
+            this.playerOneId = playerService.GetAll().ToList().First().Id;
+            this.playerTwoId = playerService.GetAll().ToList().ElementAt(1).Id;
             this.playerOneTeamId = Guid.NewGuid();
             this.playerTwoTeamId = Guid.NewGuid();
             playerStatsOne = new PlayerStats(this.playerOneId);
@@ -72,8 +74,6 @@ namespace DomainTests.Value_Objects
 
             this.playerStatsTwo.AddPenalty(new Penalty(new MatchMinute(3), this.playerTwoId));
 
-            
-
             for (int i = 0; i < 10; i++)
             {
                 var idOne = Guid.NewGuid();
@@ -96,7 +96,7 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void PlayerStatsGoalCountIsEqualToGoalStats()
         {
-            Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.GoalCount);
+            Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.Goals.Count());
             Assert.IsTrue(this.playerStatsOne.GoalCount == 3);
             this.playerStatsOne.AddGoal(new Goal(new MatchMinute(3), this.playerOneTeamId, this.playerOneId));
             Assert.AreEqual(this.playerStatsOne.GoalCount, this.playerStatsOne.Goals.ToList().Count);

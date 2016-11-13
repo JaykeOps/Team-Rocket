@@ -9,7 +9,9 @@ namespace Domain.Entities
     public class Team : IPresentableTeam
     {
         private HashSet<Guid> playerIds;
-        private TeamStats teamStatsAndEvents;
+        private Dictionary<Guid, List<Match>> matchSchedule;
+        private Dictionary<Guid, SeriesEvents> seriesEvents;
+        private Dictionary<Guid, SeriesStats> seriesStats;
         public Guid Id { get; }
 
         public TeamName Name { get; set; }
@@ -30,9 +32,9 @@ namespace Domain.Entities
         public ArenaName ArenaName { get; set; }
         public EmailAddress Email { get; set; }
 
-        public TeamStats StatsAndEvents { get { return this.teamStatsAndEvents; } }
-        public IPresentableTeamStats Stats { get { return this.teamStatsAndEvents; } }
-        public IPresentableTeamEvents Events { get { return this.teamStatsAndEvents; } }
+        public IReadOnlyDictionary<Guid, List<Match>> TeamsSeriesSchedule { get { return this.matchSchedule; } }
+        public IReadOnlyDictionary<Guid, SeriesEvents> SeriesEvents { get { return this.seriesEvents; } }
+        public IReadOnlyDictionary<Guid, SeriesStats> SeriesStats { get { return this.seriesStats; } }
 
         public ShirtNumbers ShirtNumbers { get; }
 
@@ -43,7 +45,9 @@ namespace Domain.Entities
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
             this.Email = email;
-            this.teamStatsAndEvents = new TeamStats(this.Id);
+            this.matchSchedule = new Dictionary<Guid, List<Match>>();
+            this.seriesEvents = new Dictionary<Guid, SeriesEvents>();
+            this.seriesStats = new Dictionary<Guid, SeriesStats>();
             this.ShirtNumbers = new ShirtNumbers(this);
         }
 
@@ -52,9 +56,61 @@ namespace Domain.Entities
             this.playerIds.Add(playerId);
         }
 
+        public void AddPlayerId(Player player)
+        {
+            this.playerIds.Add(player.Id);
+        }
+
+        public void RemovePlayerId(Player player)
+        {
+            this.playerIds.Remove(player.Id);
+        }
+
         public void RemovePlayerId(Guid playerId)
         {
             this.playerIds.Remove(playerId);
+        }
+
+        public void AddSeriesSchedule(Guid seriesId, List<Match> matches)
+        {
+            this.AddSeriesSchedule(seriesId, matches);
+            this.seriesEvents.Add(seriesId, new SeriesEvents(this.Id));
+            this.seriesStats.Add(seriesId, new SeriesStats(this.Id));
+        }
+
+        public void RemoveSeriesSchedule(Guid seriesId)
+        {
+            this.matchSchedule.Remove(seriesId);
+        }
+
+        public void AddGameEventId(Guid seriesId, Game game)
+        {
+            this.seriesEvents[seriesId].AddGameId(game.Id);
+        }
+
+        public void AddGameEventId(Guid seriesId, Guid gameId)
+        {
+            this.seriesEvents[seriesId].AddGameId(gameId);
+        }
+
+        public void RemoveGameEventId(Guid seriesId, Game game)
+        {
+            this.seriesEvents[seriesId].RemoveGameId(game.Id);
+        }
+
+        public void RemoveGameEventId(Guid seriesId, Guid gameId)
+        {
+            this.seriesEvents[seriesId].RemoveGameId(gameId);
+        }
+
+        public void AddGoalEvent(Guid seriesId, Goal goal)
+        {
+            this.seriesEvents[seriesId].AddGoal(goal);
+        }
+
+        public void RemoveGoalEvent(Guid seriesId, Goal goal)
+        {
+            this.seriesEvents[seriesId].RemoveGoal(goal);
         }
 
         public override string ToString()
