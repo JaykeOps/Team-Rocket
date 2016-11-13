@@ -32,14 +32,6 @@ namespace Domain.Entities.Tests
         {
             Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamRed.Id, series, date);
             var game = new Game(matchOne);
-
-            //try
-            //{
-            //    var game = new Game(matchDuration90Minutes, teamRed.Id, teamRed.Id);
-            //}
-            //catch(GameContainsSameTeamTwiceException)
-            //{
-            //}
         }
     }
 }
