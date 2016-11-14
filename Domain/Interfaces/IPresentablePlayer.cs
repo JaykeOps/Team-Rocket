@@ -14,8 +14,8 @@ namespace Domain.Interfaces
 
         PlayerPosition Position { get; set; }
         PlayerStatus Status { get; set; }
-        IReadOnlyDictionary<Guid, PlayerSeriesEvents> PlayerSeriesEvents { get; }
-        IReadOnlyDictionary<Guid, PlayerSeriesStats> PlayerSeriesStats { get; }
+        IPresentablePlayerSeriesEvents PresentableSeriesEvents { get; }
+        IPresentablePlayerSeriesStats PresentableSeriesStats { get; }
 
         ShirtNumber ShirtNumber { get; }
     }

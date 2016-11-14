@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class PlayerSeriesEvents
+    public class PlayerSeriesEvents : IPresentablePlayerSeriesEvents
     {
         private Dictionary<Guid, PlayerEvents> seriesEvents;
 
@@ -37,6 +37,10 @@ namespace Domain.Value_Objects
             {
                 return this.seriesEvents;
             }
+        }
+        public PlayerSeriesEvents()
+        {
+            this.seriesEvents = new Dictionary<Guid, PlayerEvents>();
         }
     }
 }

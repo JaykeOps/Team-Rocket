@@ -1,22 +1,23 @@
-﻿using Domain.Services;
+﻿using Domain.Interfaces;
+using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Linq;
 
 namespace Domain.Entities
 {
-    public class PlayerSeriesStats : ValueObject<PlayerSeriesStats>
+    public class PlayerStats : ValueObject<PlayerStats>
     {
         private Guid seriesId;
         private Guid playerId;
         private Guid teamId;
 
-        private PlayerEvents SeriesSpecificEvents
+        private IPresentablePlayerEvents SeriesEvents
         {
             get
             {
                 var player = DomainService.FindPlayerById(this.playerId);
-                return player.PlayerSeriesEvents[this.seriesId];
+                return player.SeriesEvents[this.seriesId];
             }
         }
 
@@ -32,7 +33,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.SeriesSpecificEvents.Goals.Count();
+                return this.SeriesEvents.Goals.Count();
             }
         }
 
@@ -40,7 +41,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.SeriesSpecificEvents.Assists.Count();
+                return this.SeriesEvents.Assists.Count();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Domain.Entities
         {
             get
             {
-                var cards = this.SeriesSpecificEvents.Cards;
+                var cards = this.SeriesEvents.Cards;
                 return cards.Where(x => x.CardType.Equals(CardType.Yellow)).Count();
             }
         }
@@ -57,7 +58,7 @@ namespace Domain.Entities
         {
             get
             {
-                var cards = this.SeriesSpecificEvents.Cards;
+                var cards = this.SeriesEvents.Cards;
                 return cards.Where(x => x.CardType.Equals(CardType.Red)).Count();
             }
         }
@@ -66,7 +67,7 @@ namespace Domain.Entities
         {
             get
             {
-                return SeriesSpecificEvents.Penalties.Count();
+                return SeriesEvents.Penalties.Count();
             }
         }
 
@@ -74,11 +75,11 @@ namespace Domain.Entities
         {
             get
             {
-                return SeriesSpecificEvents.Games.Count();
+                return SeriesEvents.Games.Count();
             }
         }
 
-        public PlayerSeriesStats(Guid playerId, Guid teamId, Guid seriesId)
+        public PlayerStats(Guid playerId, Guid teamId, Guid seriesId)
         {
             this.seriesId = seriesId;
             this.playerId = playerId;

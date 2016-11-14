@@ -8,6 +8,7 @@ namespace Domain.Interfaces
 {
     public interface IPresentablePlayerSeriesEvents
     {
-
+        IPresentablePlayerEvents this[Guid seriesId] { get; }
+        IEnumerable<IPresentablePlayerEvents> this[params Guid[] seriesIds] { get; }
     }
 }

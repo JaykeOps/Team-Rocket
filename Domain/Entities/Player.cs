@@ -12,7 +12,6 @@ namespace Domain.Entities
         private Dictionary<Guid, PlayerEvents> playerSeriesEvents;
         private PlayerSeriesEvents seriesEvents;
         private PlayerSeriesStats seriesStats;
-
         private ShirtNumber shirtNumber;
 
         public PlayerPosition Position { get; set; }
@@ -39,25 +38,32 @@ namespace Domain.Entities
             }
         }
 
+        public IPresentablePlayerSeriesEvents PresentableSeriesEvents
+        {
+            get { return this.seriesEvents; }
+        }
+
+        public IPresentablePlayerSeriesStats PresentableSeriesStats
+        {
+            get { return this.seriesStats; }
+        }
+
         public PlayerSeriesEvents SeriesEvents //Will be internal
         {
-            get
-            {
-                return seriesEvents;
-            }
+            get { return seriesEvents; }
         }
 
         public PlayerSeriesStats SeriesStats //Will be internal
         {
-            get
-            {
-                return seriesStats;
-            }
+            get { return seriesStats; }
         }
 
         public ShirtNumber ShirtNumber
         {
-            get { return this.shirtNumber; }
+            get
+            {
+                return this.shirtNumber;
+            }
             set
             {
                 var team = DomainService.FindTeamById(this.teamId);
@@ -86,39 +92,9 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.playerSeriesEvents = new Dictionary<Guid, PlayerEvents>();
-            this.playerSeriesStats = new Dictionary<Guid, PlayerSeriesStats>();
             this.TeamId = Guid.Empty;
-        }
-
-        public void AddSeriesEvents(Guid seriesId)
-        {
-            this.playerSeriesEvents.Add(seriesId, new PlayerEvents(this.Id, this.teamId, seriesId));
-        }
-
-        public void AddSeriesStats(Guid seriesId)
-        {
-            this.playerSeriesStats.Add(seriesId, new PlayerSeriesStats(this.Id, this.teamId, seriesId));
-        }
-
-        public void AddGoalToSeriesEvents(Guid seriesId, Goal goal)
-        {
-            this.playerSeriesEvents[seriesId].AddGoal(goal);
-        }
-
-        public void AddAssistToSeriesEvents(Guid seriesId, Assist assist)
-        {
-            this.playerSeriesEvents[seriesId].AddAssist(assist);
-        }
-
-        public void AddCardToSeriesEvents(Guid seriesId, Card card)
-        {
-            this.playerSeriesEvents[seriesId].AddCard(card);
-        }
-
-        public void AddPenaltyToSeriesEvents(Guid seriesId, Penalty penalty)
-        {
-            this.playerSeriesEvents[seriesId].AddPenalty(penalty);
+            this.seriesEvents = new PlayerSeriesEvents();
+            this.seriesStats = new PlayerSeriesStats();
         }
     }
 }

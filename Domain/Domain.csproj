@@ -47,6 +47,8 @@
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
     <Compile Include="Interfaces\IPresentablePlayer.cs" />
+    <Compile Include="Interfaces\IPresentablePlayerSeriesEvents.cs" />
+    <Compile Include="Interfaces\IPresentablePlayerSeriesStats.cs" />
     <Compile Include="Interfaces\IPresentablePlayerStats.cs" />
     <Compile Include="Interfaces\IPresentablePlayerEvents.cs" />
     <Compile Include="Interfaces\IPresentableTeam.cs" />
@@ -61,8 +63,9 @@
     <Compile Include="Services\SeriesService.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Services\GameService.cs" />
+    <Compile Include="Value Objects\PlayerEvents.cs" />
     <Compile Include="Value Objects\PlayerSeriesEvents.cs" />
-    <Compile Include="Value Objects\TeamSeriesEvents.cs" />
+    <Compile Include="Value Objects\PlayerStats.cs" />
     <Compile Include="Value Objects\PlayerSeriesStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />
@@ -74,7 +77,6 @@
     <Compile Include="Value Objects\Goal.cs" />
     <Compile Include="CustomExceptions\ShirtNumberMissingTeamIdException.cs" />
     <Compile Include="Value Objects\ShirtNumbers.cs" />
-    <Compile Include="Value Objects\TeamSeriesStats.cs" />
     <Compile Include="Value Objects\MatchMinute.cs" />
     <Compile Include="Value Objects\OverTime.cs" />
     <Compile Include="Value Objects\Penalty.cs" />
@@ -96,9 +98,11 @@
     <Compile Include="Value Objects\ArenaName.cs" />
     <Compile Include="Value Objects\MatchDateAndTime.cs" />
     <Compile Include="Value Objects\MatchDuration.cs" />
+    <Compile Include="Value Objects\TeamEvents.cs" />
     <Compile Include="Value Objects\TeamName.cs" />
     <Compile Include="Value Objects\PhoneNumber.cs" />
     <Compile Include="CustomExceptions\ShirtNumberAlreadyInUseException.cs" />
+    <Compile Include="Value Objects\TeamStats.cs" />
     <Compile Include="Value Objects\ValueObject.cs" />
   </ItemGroup>
   <ItemGroup />

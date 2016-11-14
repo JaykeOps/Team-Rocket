@@ -1,10 +1,11 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class PlayerSeriesStats
+    public class PlayerSeriesStats : IPresentablePlayerSeriesStats
     {
         private Dictionary<Guid, PlayerStats> seriesStats;
 
@@ -40,6 +41,11 @@ namespace Domain.Value_Objects
             {
                 return seriesStats;
             }
+        }
+
+        public PlayerSeriesStats()
+        {
+            this.seriesStats = new Dictionary<Guid, PlayerStats>();
         }
     }
 }
