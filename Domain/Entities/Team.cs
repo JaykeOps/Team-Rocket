@@ -3,13 +3,14 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Entities
 {
     public class Team : IPresentableTeam
     {
         private HashSet<Guid> playerIds;
-        private Dictionary<Guid, List<Match>> matchSchedule;
+        private Dictionary<Guid, List<Guid>> matchSchedule;
         private Dictionary<Guid, TeamSeriesEvents> seriesEvents;
         private Dictionary<Guid, TeamSeriesStats> seriesStats;
         public Guid Id { get; }
@@ -32,9 +33,30 @@ namespace Domain.Entities
         public ArenaName ArenaName { get; set; }
         public EmailAddress Email { get; set; }
 
-        public IReadOnlyDictionary<Guid, List<Match>> TeamsSeriesSchedule { get { return this.matchSchedule; } }
+        public IReadOnlyDictionary<Guid, List<Guid>> TeamsSeriesSchedule { get { return this.matchSchedule; } }
         public IReadOnlyDictionary<Guid, TeamSeriesEvents> SeriesEvents { get { return this.seriesEvents; } }
         public IReadOnlyDictionary<Guid, TeamSeriesStats> SeriesStats { get { return this.seriesStats; } }
+
+        //Going to be internal
+        public Dictionary<Guid, List<Guid>> EditableTeamSeriesSchedule
+        {
+            get
+            {
+                return this.matchSchedule;
+            }
+        }
+
+        //Going to be internal
+        public Dictionary<Guid, TeamSeriesEvents> EditableTeamSeriesEvents
+        {
+            get { return this.seriesEvents; }
+        }
+
+        //Going to be internal
+        public Dictionary<Guid, TeamSeriesStats> EditableTeamSeriesStats
+        {
+            get { return this.seriesStats; }
+        }
 
         public ShirtNumbers ShirtNumbers { get; }
 
@@ -45,7 +67,7 @@ namespace Domain.Entities
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
             this.Email = email;
-            this.matchSchedule = new Dictionary<Guid, List<Match>>();
+            this.matchSchedule = new Dictionary<Guid, List<Guid>>();
             this.seriesEvents = new Dictionary<Guid, TeamSeriesEvents>();
             this.seriesStats = new Dictionary<Guid, TeamSeriesStats>();
             this.ShirtNumbers = new ShirtNumbers(this);
@@ -71,11 +93,21 @@ namespace Domain.Entities
             this.playerIds.Remove(playerId);
         }
 
-        public void AddSeriesSchedule(Guid seriesId, List<Match> matches)
+        public void AddSeries(Guid seriesId, IEnumerable<Guid> matchIds)
         {
-            this.AddSeriesSchedule(seriesId, matches);
-            this.seriesEvents.Add(seriesId, new TeamSeriesEvents(this.Id, Guid.NewGuid()));
-            this.seriesStats.Add(seriesId, new TeamSeriesStats(this.Id, Guid.NewGuid()));
+            this.matchSchedule.Add(seriesId, matchIds.ToList());
+            this.AddSeriesEvents(seriesId);
+            this.AddSeriesStats(seriesId);
+        }
+
+        private void AddSeriesEvents(Guid seriesId)
+        {
+            this.seriesEvents.Add(seriesId, new TeamSeriesEvents(this.Id, seriesId));
+        }
+
+        private void AddSeriesStats(Guid seriesId)
+        {
+            this.seriesStats.Add(seriesId, new TeamSeriesStats(this.Id, seriesId));
         }
 
         public void RemoveSeriesSchedule(Guid seriesId)

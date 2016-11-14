@@ -74,6 +74,7 @@ namespace Domain.Value_Objects
 
         public TeamSeriesStats(Guid teamId, Guid seriesId)
         {
+            this.seriesId = seriesId;
             this.teamId = teamId;
         }
     }

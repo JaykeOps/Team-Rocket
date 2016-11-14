@@ -8,6 +8,8 @@ namespace Domain.Value_Objects
     public class PlayerSeriesEvents
     {
         private Guid playerId;
+        private Guid teamId;
+        private Guid seriesId;
         private List<Goal> goalEvents;
         private List<Assist> assistEvents;
         private List<Card> cardEvents;
@@ -34,7 +36,7 @@ namespace Domain.Value_Objects
         public IEnumerable<Card> Cards { get { return this.cardEvents; } }
         public IEnumerable<Penalty> Penalties { get { return this.penaltyEvents; } }
 
-        public PlayerSeriesEvents(Guid playerId)
+        public PlayerSeriesEvents(Guid playerId, Guid teamId, Guid seriesId)
         {
             this.goalEvents = new List<Goal>();
             this.assistEvents = new List<Assist>();
@@ -42,6 +44,8 @@ namespace Domain.Value_Objects
             this.penaltyEvents = new List<Penalty>();
             this.gameEventIds = new List<Guid>();
             this.playerId = playerId;
+            this.teamId = teamId;
+            this.seriesId = seriesId;
         }
 
         public void AddGoal(Goal goal)

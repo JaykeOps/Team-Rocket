@@ -1,8 +1,6 @@
-﻿using Domain.Interfaces;
-using Domain.Services;
+﻿using Domain.Services;
 using Domain.Value_Objects;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Domain.Entities
@@ -11,6 +9,8 @@ namespace Domain.Entities
     {
         private Guid seriesId;
         private Guid playerId;
+        private Guid teamId;
+
         private PlayerSeriesEvents SeriesSpecificEvents
         {
             get
@@ -35,8 +35,10 @@ namespace Domain.Entities
                 return this.SeriesSpecificEvents.Goals.Count();
             }
         }
+
         public int AssistCount
-        { get
+        {
+            get
             {
                 return this.SeriesSpecificEvents.Assists.Count();
             }
@@ -67,6 +69,7 @@ namespace Domain.Entities
                 return SeriesSpecificEvents.Penalties.Count();
             }
         }
+
         public int GamesPlayedCount
         {
             get
@@ -75,10 +78,11 @@ namespace Domain.Entities
             }
         }
 
-        public PlayerSeriesStats(Guid playerId, Guid seriesId)
+        public PlayerSeriesStats(Guid playerId, Guid teamId, Guid seriesId)
         {
             this.seriesId = seriesId;
             this.playerId = playerId;
+            this.teamId = teamId;
         }
     }
 }
