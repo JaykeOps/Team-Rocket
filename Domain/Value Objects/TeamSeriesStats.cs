@@ -20,8 +20,8 @@ namespace Domain.Value_Objects
                 }
                 else
                 {
-                    throw new SeriesMissingException("Team does not contain any statistic record for " +
-                        $"a series with id '{seriesId}'.");
+                    throw new SeriesMissingException("A team specific statistic record for " +
+                        $"a series with id '{seriesId}' could not be found!");
                 }
             }
         }

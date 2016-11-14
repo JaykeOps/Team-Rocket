@@ -13,7 +13,17 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return this.seriesStats[seriesId];
+                PlayerStats playerStats;
+                this.seriesStats.TryGetValue(seriesId, out playerStats);
+                if (playerStats != null)
+                {
+                    return playerStats;
+                }
+                else
+                {
+                    throw new SeriesMissingException("A player specific statistic record for " +
+                        $"a series with id '{seriesId}' could not be found!");
+                }
             }
         }
 

@@ -10,7 +10,20 @@ namespace Domain.Value_Objects
 
         public TeamEvents this[Guid seriesId]
         {
-            get { return this.seriesEvents[seriesId]; }
+            get
+            {
+                TeamEvents teamEvents;
+                seriesEvents.TryGetValue(seriesId, out teamEvents);
+                if (teamEvents != null)
+                {
+                    return teamEvents;
+                }
+                else
+                {
+                    throw new SeriesMissingException("A team specific events record for " +
+                        $"a series with id '{seriesId}' could not be found!");
+                }
+            }
         }
 
         public IEnumerable<TeamEvents> this[params Guid[] seriesIds]
