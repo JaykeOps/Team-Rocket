@@ -14,8 +14,7 @@ namespace Domain.Value_Objects
             get
             {
                 PlayerEvents playerEvents;
-                this.seriesEvents.TryGetValue(seriesId, out playerEvents);
-                if (playerEvents != null)
+                if (this.seriesEvents.TryGetValue(seriesId, out playerEvents))
                 {
                     return playerEvents;
                 }
@@ -35,8 +34,7 @@ namespace Domain.Value_Objects
                 PlayerEvents playerEvents;
                 foreach (var seriesId in seriesIds)
                 {
-                    this.seriesEvents.TryGetValue(seriesId, out playerEvents);
-                    if (playerEvents != null)
+                    if (this.seriesEvents.TryGetValue(seriesId, out playerEvents))
                     {
                         seriesEvents.Add(playerEvents);
                     }
@@ -44,6 +42,7 @@ namespace Domain.Value_Objects
                 return seriesEvents;
             }
         }
+
         public PlayerSeriesEvents()
         {
             this.seriesEvents = new Dictionary<Guid, PlayerEvents>();

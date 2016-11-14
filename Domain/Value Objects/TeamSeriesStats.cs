@@ -14,8 +14,7 @@ namespace Domain.Value_Objects
             get
             {
                 TeamStats teamStats;
-                this.seriesStats.TryGetValue(seriesId, out teamStats);
-                if (teamStats != null)
+                if (this.seriesStats.TryGetValue(seriesId, out teamStats))
                 {
                     return teamStats;
                 }
@@ -35,8 +34,7 @@ namespace Domain.Value_Objects
                 var seriesStats = new List<TeamStats>();
                 foreach (var seriesId in seriesIds)
                 {
-                    this.seriesStats.TryGetValue(seriesId, out teamStats);
-                    if (teamStats != null)
+                    if (this.seriesStats.TryGetValue(seriesId, out teamStats))
                     {
                         seriesStats.Add(teamStats);
                     }
