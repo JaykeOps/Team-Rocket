@@ -3,6 +3,8 @@ using Domain.Services;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Services
 {
@@ -15,30 +17,42 @@ namespace DomainTests.Services
         public SeriesServicesTests()
         {
             this.seriesService = new SeriesService();
-
-            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(16));
+            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(4));
+            testSerieOne.TeamIds.Add(Guid.NewGuid());
+            testSerieOne.TeamIds.Add(Guid.NewGuid());
+            testSerieOne.TeamIds.Add(Guid.NewGuid());
+            testSerieOne.TeamIds.Add(Guid.NewGuid());
         }
 
         [TestMethod]
         public void AddSeries()
         {
-            seriesService.AddSeries(new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16)));
+            Assert.IsFalse(seriesService.GetAll().Contains(testSerieOne));
+            seriesService.AddSeries(testSerieOne);
+            Assert.IsTrue(seriesService.GetAll().Contains(testSerieOne));
         }
 
         [TestMethod]
-        public void GetAllSerieses()
+        public void GetAllSeriesesIsReturningIEnumerable()
         {
-            var seriesList = seriesService.GetAll();
+            Assert.IsInstanceOfType(seriesService.GetAll(), typeof(IEnumerable<Series>));
         }
 
 
         [TestMethod]
         public void FindSeriesByIdIsWorking()
         {
-
             Assert.IsFalse(seriesService.FindById(testSerieOne.Id) == testSerieOne);
             seriesService.AddSeries(testSerieOne);
             Assert.IsTrue(seriesService.FindById(testSerieOne.Id) == testSerieOne);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SeriesCanOnlyBeAddedToDbIfTeamIdsCountIsEqualToNumberOfTeams()
+        {
+            testSerieOne.TeamIds.Add(Guid.NewGuid());
+            seriesService.AddSeries(testSerieOne);
         }
     }
 }
