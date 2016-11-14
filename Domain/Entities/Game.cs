@@ -11,7 +11,7 @@ namespace Domain.Entities
         public MatchDuration MatchDuration { get; }
         public Guid HomeTeamId { get; }
         public Guid AwayTeamId { get; }
-        public GameProtocol Protocol { get; }
+        public GameProtocol Protocol { get; set; }
 
         public Game(Match match)
         {
