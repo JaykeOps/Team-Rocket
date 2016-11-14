@@ -8,8 +8,8 @@ namespace Domain.Value_Objects
 {
     public class ShirtNumbers : ValueObject<ShirtNumbers>
     {
+        private Guid teamId;
         private Dictionary<int, bool> availableNumbers;
-        private Team Team { get; }
 
         public ShirtNumber this[int? number]
         {
@@ -24,7 +24,7 @@ namespace Domain.Value_Objects
                         if (this.availableNumbers[(int)number])
                         {
                             this.availableNumbers[(int)number] = false;
-                            return new ShirtNumber(this.Team.Id, number);
+                            return new ShirtNumber(this.teamId, number);
                         }
                         else
                         {
@@ -59,9 +59,9 @@ namespace Domain.Value_Objects
             }
         }
 
-        public ShirtNumbers(Team team)
+        public ShirtNumbers(Guid teamId)
         {
-            this.Team = team;
+            this.teamId = teamId;
             this.availableNumbers = new Dictionary<int, bool>();
             for (int i = 0; i < 99; i++)
             {
@@ -79,7 +79,8 @@ namespace Domain.Value_Objects
 
         private void UpdateIsAvailableShirtNumber()
         {
-            foreach (var player in this.Team.Players)
+            var players = DomainService.FindTeamById(teamId).Players;
+            foreach (var player in players)
             {
                 if (player.ShirtNumber.Value.HasValue)
                 {

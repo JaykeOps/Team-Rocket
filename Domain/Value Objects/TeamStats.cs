@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
         private Guid seriesId;
         private Guid teamId;
 
-        private TeamEvents LeagueEvents
+        private TeamEvents TeamEvents
         {
             get
             {
@@ -17,20 +17,48 @@ namespace Domain.Value_Objects
             }
         }
 
-        public string TeamName { get { return DomainService.FindTeamById(this.teamId).Name.ToString(); } }
+        public string TeamName
+        {
+            get
+            {
+                return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
 
-        public int GamesPlayed { get { return this.LeagueEvents.Goals.Count(); } }
+        public int GamesPlayed
+        {
+            get
+            {
+                return this.TeamEvents.Goals.Count();
+            }
+        }
 
-        public int Wins { get { return this.CalculateAllMatchOutComes(MatchOutcome.Win); } }
+        public int Wins
+        {
+            get
+            { return this.CalculateAllMatchOutComes(MatchOutcome.Win);
+            }
+        }
 
-        public int Losses { get { return this.CalculateAllMatchOutComes(MatchOutcome.Loss); } }
-        public int Draws { get { return this.CalculateAllMatchOutComes(MatchOutcome.Draw); } }
+        public int Losses
+        {
+            get
+            {
+                return this.CalculateAllMatchOutComes(MatchOutcome.Loss);
+            }
+        }
+        public int Draws
+        { get
+            {
+                return this.CalculateAllMatchOutComes(MatchOutcome.Draw);
+            }
+        }
 
         public int GoalsFor
         {
             get
             {
-                return this.LeagueEvents.Goals.Where(x => x.TeamId == this.teamId).Count();
+                return this.TeamEvents.Goals.Where(x => x.TeamId == this.teamId).Count();
             }
         }
 
@@ -38,18 +66,29 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return this.LeagueEvents.Goals.Where(x => x.TeamId != this.teamId).Count();
+                return this.TeamEvents.Goals.Where(x => x.TeamId != this.teamId).Count();
             }
         }
 
-        public int GoalDifference { get { return this.GoalsFor - this.GoalsAgainst; } }
+        public int GoalDifference
+        {
+            get
+            { return this.GoalsFor - this.GoalsAgainst;
+            }
+        }
 
-        public int Points { get { return (this.Wins * 3) + this.Draws; } }
+        public int Points
+        {
+            get
+            {
+                return (this.Wins * 3) + this.Draws;
+            }
+        }
 
         private int CalculateAllMatchOutComes(MatchOutcome matchOutcomeToTrack)
         {
             int outcome = 0;
-            foreach (var game in this.LeagueEvents.Games)
+            foreach (var game in this.TeamEvents.Games)
             {
                 int gameGoalDifference = 0;
                 foreach (var goal in game.Protocol.Goals)
@@ -72,7 +111,7 @@ namespace Domain.Value_Objects
             return outcome;
         }
 
-        public TeamStats(Guid teamId, Guid seriesId)
+        public TeamStats(Guid seriesId, Guid teamId)
         {
             this.seriesId = seriesId;
             this.teamId = teamId;

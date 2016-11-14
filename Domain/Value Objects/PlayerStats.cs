@@ -79,7 +79,7 @@ namespace Domain.Entities
             }
         }
 
-        public PlayerStats(Guid playerId, Guid teamId, Guid seriesId)
+        public PlayerStats(Guid seriesId, Guid teamId, Guid playerId)
         {
             this.seriesId = seriesId;
             this.playerId = playerId;

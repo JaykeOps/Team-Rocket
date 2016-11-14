@@ -12,7 +12,7 @@ namespace Domain.Interfaces
         ArenaName ArenaName { get; set; }
         EmailAddress Email { get; set; }
         IReadOnlyDictionary<Guid, List<Match>> TeamsSeriesSchedule { get; }
-        IReadOnlyDictionary<Guid, TeamSeriesEvents> SeriesEvents { get; }
+        IReadOnlyDictionary<Guid, TeamEvents> SeriesEvents { get; }
         IReadOnlyDictionary<Guid, TeamSeriesStats> SeriesStats { get; }
         ShirtNumbers ShirtNumbers { get; }
     }

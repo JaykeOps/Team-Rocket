@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -30,17 +31,19 @@ namespace Domain.Value_Objects
                 return seriesEvents;
             }
         }
-
-        public Dictionary<Guid, PlayerEvents> SeriesEvents //Will be internal
-        {
-            get
-            {
-                return this.seriesEvents;
-            }
-        }
         public PlayerSeriesEvents()
         {
             this.seriesEvents = new Dictionary<Guid, PlayerEvents>();
+        }
+
+        public void AddSeries(Series series, Guid teamId, Guid playerId) //Will be internal
+        {
+            this.seriesEvents.Add(series.Id, new PlayerEvents(series.Id, teamId, playerId));
+        }
+
+        public void RemoveSeries(Series series) //Will be internal
+        {
+            this.seriesEvents.Remove(series.Id);
         }
     }
 }

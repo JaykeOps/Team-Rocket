@@ -35,17 +35,19 @@ namespace Domain.Value_Objects
             }
         }
 
-        public Dictionary<Guid, PlayerStats> SeriesStats //Will be internal
-        {
-            get
-            {
-                return seriesStats;
-            }
-        }
-
         public PlayerSeriesStats()
         {
             this.seriesStats = new Dictionary<Guid, PlayerStats>();
+        }
+
+        public void AddSeries(Series series, Guid teamId, Guid playerId)
+        {
+            this.seriesStats.Add(series.Id, new PlayerStats(series.Id, teamId, playerId));
+        }
+
+        public void RemoveSeries(Series series)
+        {
+            this.seriesStats.Remove(series.Id);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class TeamSeriesEvents
+    public class TeamEvents
     {
         private Guid seriesId;
         public Guid teamId;
@@ -29,7 +29,7 @@ namespace Domain.Value_Objects
 
         public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
 
-        public TeamSeriesEvents(Guid teamId, Guid seriesId)
+        public TeamEvents(Guid seriesId, Guid teamId)
         {
             this.seriesId = seriesId;
             this.teamId = teamId;
@@ -37,22 +37,22 @@ namespace Domain.Value_Objects
             this.goalEvents = new List<Goal>();
         }
 
-        internal void AddGameId(Guid gameId)
+        public void AddGameId(Game game)
         {
-            this.gameEventIds.Add(gameId);
+            this.gameEventIds.Add(game.Id);
         }
 
-        internal void RemoveGameId(Guid gameId)
+        public void RemoveGameId(Game game)
         {
-            this.gameEventIds.Remove(gameId);
+            this.gameEventIds.Remove(game.Id);
         }
 
-        internal void AddGoal(Goal goal)
+        public void AddGoal(Goal goal)
         {
             this.goalEvents.Add(goal);
         }
 
-        internal void RemoveGoal(Goal goal)
+        public void RemoveGoal(Goal goal)
         {
             this.goalEvents.Remove(goal);
         }
