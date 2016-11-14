@@ -9,8 +9,10 @@ namespace Domain.Entities
     public class Player : Person, IPresentablePlayer
     {
         private Guid teamId;
-        private Dictionary<Guid, PlayerSeriesEvents> playerSeriesEvents;
-        private Dictionary<Guid, PlayerSeriesStats> playerSeriesStats;
+        private Dictionary<Guid, PlayerEvents> playerSeriesEvents;
+        private PlayerSeriesEvents seriesEvents;
+        private PlayerSeriesStats seriesStats;
+
         private ShirtNumber shirtNumber;
 
         public PlayerPosition Position { get; set; }
@@ -37,19 +39,19 @@ namespace Domain.Entities
             }
         }
 
-        public IReadOnlyDictionary<Guid, PlayerSeriesEvents> PlayerSeriesEvents
+        public PlayerSeriesEvents SeriesEvents //Will be internal
         {
             get
             {
-                return this.playerSeriesEvents;
+                return seriesEvents;
             }
         }
 
-        public IReadOnlyDictionary<Guid, PlayerSeriesStats> PlayerSeriesStats
+        public PlayerSeriesStats SeriesStats //Will be internal
         {
             get
             {
-                return this.playerSeriesStats;
+                return seriesStats;
             }
         }
 
@@ -84,14 +86,14 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.playerSeriesEvents = new Dictionary<Guid, PlayerSeriesEvents>();
+            this.playerSeriesEvents = new Dictionary<Guid, PlayerEvents>();
             this.playerSeriesStats = new Dictionary<Guid, PlayerSeriesStats>();
             this.TeamId = Guid.Empty;
         }
 
         public void AddSeriesEvents(Guid seriesId)
         {
-            this.playerSeriesEvents.Add(seriesId, new PlayerSeriesEvents(this.Id, this.teamId, seriesId));
+            this.playerSeriesEvents.Add(seriesId, new PlayerEvents(this.Id, this.teamId, seriesId));
         }
 
         public void AddSeriesStats(Guid seriesId)
@@ -118,7 +120,5 @@ namespace Domain.Entities
         {
             this.playerSeriesEvents[seriesId].AddPenalty(penalty);
         }
-
-
     }
 }

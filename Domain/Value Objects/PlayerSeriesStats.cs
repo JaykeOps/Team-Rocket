@@ -1,88 +1,45 @@
-﻿using Domain.Services;
-using Domain.Value_Objects;
+﻿using Domain.Entities;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace Domain.Value_Objects
 {
-    public class PlayerSeriesStats : ValueObject<PlayerSeriesStats>
+    public class PlayerSeriesStats
     {
-        private Guid seriesId;
-        private Guid playerId;
-        private Guid teamId;
+        private Dictionary<Guid, PlayerStats> seriesStats;
 
-        private PlayerSeriesEvents SeriesSpecificEvents
+        public PlayerStats this[Guid seriesId]
         {
             get
             {
-                var player = DomainService.FindPlayerById(this.playerId);
-                return player.PlayerSeriesEvents[this.seriesId];
+                return this.seriesStats[seriesId];
             }
         }
 
-        public string PlayerName
+        public IEnumerable<PlayerStats> this[params Guid[] seriesIds]
         {
             get
             {
-                return DomainService.FindPlayerById(this.playerId).Name.ToString();
+                var seriesStats = new List<PlayerStats>();
+                foreach (var seriesId in seriesIds)
+                {
+                    PlayerStats playerStats;
+                    this.seriesStats.TryGetValue(seriesId, out playerStats);
+                    if (playerStats != null)
+                    {
+                        seriesStats.Add(playerStats);
+                    }
+                }
+                return seriesStats;
             }
         }
 
-        public int GoalCount
+        public Dictionary<Guid, PlayerStats> SeriesStats //Will be internal
         {
             get
             {
-                return this.SeriesSpecificEvents.Goals.Count();
+                return seriesStats;
             }
-        }
-
-        public int AssistCount
-        {
-            get
-            {
-                return this.SeriesSpecificEvents.Assists.Count();
-            }
-        }
-
-        public int YellowCardCount
-        {
-            get
-            {
-                var cards = this.SeriesSpecificEvents.Cards;
-                return cards.Where(x => x.CardType.Equals(CardType.Yellow)).Count();
-            }
-        }
-
-        public int RedCardCount
-        {
-            get
-            {
-                var cards = this.SeriesSpecificEvents.Cards;
-                return cards.Where(x => x.CardType.Equals(CardType.Red)).Count();
-            }
-        }
-
-        public int PenaltyCount
-        {
-            get
-            {
-                return SeriesSpecificEvents.Penalties.Count();
-            }
-        }
-
-        public int GamesPlayedCount
-        {
-            get
-            {
-                return SeriesSpecificEvents.Games.Count();
-            }
-        }
-
-        public PlayerSeriesStats(Guid playerId, Guid teamId, Guid seriesId)
-        {
-            this.seriesId = seriesId;
-            this.playerId = playerId;
-            this.teamId = teamId;
         }
     }
 }

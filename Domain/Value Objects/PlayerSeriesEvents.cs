@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Services;
+﻿using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -7,90 +6,37 @@ namespace Domain.Value_Objects
 {
     public class PlayerSeriesEvents
     {
-        private Guid playerId;
-        private Guid teamId;
-        private Guid seriesId;
-        private List<Goal> goalEvents;
-        private List<Assist> assistEvents;
-        private List<Card> cardEvents;
-        private List<Penalty> penaltyEvents;
-        private List<Guid> gameEventIds;
+        private Dictionary<Guid, PlayerEvents> seriesEvents;
 
-        public string PlayerName { get { return DomainService.FindPlayerById(this.playerId).Name.ToString(); } }
+        public IPresentablePlayerEvents this[Guid seriesId]
+        {
+            get { return this.seriesEvents[seriesId]; }
+        }
 
-        public IEnumerable<Game> Games
+        public IEnumerable<IPresentablePlayerEvents> this[params Guid[] seriesIds]
         {
             get
             {
-                var games = new List<Game>();
-                foreach (var gameId in this.gameEventIds)
+                var seriesEvents = new List<PlayerEvents>();
+                PlayerEvents playerEvents;
+                foreach (var seriesId in seriesIds)
                 {
-                    games.Add(DomainService.FindGameById(gameId));
+                    this.seriesEvents.TryGetValue(seriesId, out playerEvents);
+                    if (playerEvents != null)
+                    {
+                        seriesEvents.Add(playerEvents);
+                    }
                 }
-                return games;
+                return seriesEvents;
             }
         }
 
-        public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
-        public IEnumerable<Assist> Assists { get { return this.assistEvents; } }
-        public IEnumerable<Card> Cards { get { return this.cardEvents; } }
-        public IEnumerable<Penalty> Penalties { get { return this.penaltyEvents; } }
-
-        public PlayerSeriesEvents(Guid playerId, Guid teamId, Guid seriesId)
+        public Dictionary<Guid, PlayerEvents> SeriesEvents //Will be internal
         {
-            this.goalEvents = new List<Goal>();
-            this.assistEvents = new List<Assist>();
-            this.cardEvents = new List<Card>();
-            this.penaltyEvents = new List<Penalty>();
-            this.gameEventIds = new List<Guid>();
-            this.playerId = playerId;
-            this.teamId = teamId;
-            this.seriesId = seriesId;
-        }
-
-        public void AddGoal(Goal goal)
-        {
-            this.goalEvents.Add(goal);
-        }
-
-        public void AddAssist(Assist assist)
-        {
-            this.assistEvents.Add(assist);
-        }
-
-        public void AddCard(Card card)
-        {
-            this.cardEvents.Add(card);
-        }
-
-        public void AddPenalty(Penalty penalty)
-        {
-            this.penaltyEvents.Add(penalty);
-        }
-
-        public void AddGameId(Guid gameId)
-        {
-            this.gameEventIds.Add(gameId);
-        }
-
-        public void RemoveGoal(Goal goal)
-        {
-            this.goalEvents.Remove(goal);
-        }
-
-        public void RemoveAssist(Assist assist)
-        {
-            this.assistEvents.Remove(assist);
-        }
-
-        public void RemoveCard(Card card)
-        {
-            this.cardEvents.Remove(card);
-        }
-
-        public void RemovePenalty(Penalty penalty)
-        {
-            this.penaltyEvents.Remove(penalty);
+            get
+            {
+                return this.seriesEvents;
+            }
         }
     }
 }
