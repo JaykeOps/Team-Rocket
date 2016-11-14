@@ -9,14 +9,16 @@ namespace Domain.Entities
     {
         public Guid Id { get; }
         public NumberOfTeams NumberOfTeams { get; }
+        public HashSet<Guid> TeamIds { get; }
         public MatchDuration MatchDuration { get; }
-        public List<Guid> Schedule { get; } //Holds a list of match guid
+        public List<Guid> Schedule { get; }
 
         public Series(MatchDuration matchDuration, NumberOfTeams numberOfTeams)
         {
             this.Id = Guid.NewGuid();
             this.NumberOfTeams = numberOfTeams;
             this.MatchDuration = matchDuration;
+            this.TeamIds = new HashSet<Guid>();
             this.Schedule = new List<Guid>();
         }
     }
