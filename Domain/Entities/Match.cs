@@ -24,6 +24,15 @@ namespace Domain.Entities
             this.AwayTeamId = awayTeam;
         }
 
+        public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series)
+        {
+            this.Id = Guid.NewGuid();
+            this.Location = location;
+            this.MatchDuration = series.MatchDuration;
+            this.HomeTeamId = homeTeam;
+            this.AwayTeamId = awayTeam;
+        }
+
         public override string ToString()
         {
             return $"Location: {this.Location} Time:{this.MatchDate} Hometeam: {DomainService.FindTeamById(this.HomeTeamId)} Awayteam: {DomainService.FindTeamById(this.AwayTeamId)}";
