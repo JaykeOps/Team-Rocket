@@ -12,8 +12,13 @@ namespace Domain.Entities
         private HashSet<Guid> playerIds;
         private Dictionary<Guid, List<Guid>> matchSchedule;
         private TeamSeriesEvents seriesEvents;
+        private TeamSeriesStats seriesStats;
 
         public TeamName Name { get; set; }
+
+        public ArenaName ArenaName { get; set; }
+        public EmailAddress Email { get; set; }
+        public ShirtNumbers ShirtNumbers { get; }
 
         public IEnumerable<Player> Players
         {
@@ -28,15 +33,43 @@ namespace Domain.Entities
             }
         }
 
-        public ArenaName ArenaName { get; set; }
-        public EmailAddress Email { get; set; }
-        public TeamSeriesEvents SeriesEvents { get { return this.seriesEvents; } }
-        public ShirtNumbers ShirtNumbers { get; }
+        public IPresentableTeamSeriesEvents PresentableSeriesEvents
+        {
+            get
+            {
+                return this.seriesEvents;
+            }
+        }
+
+        public IPresentableTeamSeriesStats PresentableSeriesStats
+        {
+            get
+            {
+                return this.seriesStats;
+            }
+        }
+
+        public TeamSeriesEvents SeriesEvents
+        {
+            get
+            {
+                return this.seriesEvents;
+            }
+        }
+
+        public TeamSeriesStats SeriesStats
+        {
+            get
+            {
+                return this.seriesStats;
+            }
+        }
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
             this.id = Guid.NewGuid();
             this.seriesEvents = new TeamSeriesEvents();
+            this.seriesStats = new TeamSeriesStats();
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;

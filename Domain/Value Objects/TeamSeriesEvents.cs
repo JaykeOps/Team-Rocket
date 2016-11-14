@@ -1,14 +1,15 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class TeamSeriesEvents
+    public class TeamSeriesEvents : IPresentableTeamSeriesEvents
     {
         private Dictionary<Guid, TeamEvents> seriesEvents;
 
-        public TeamEvents this[Guid seriesId]
+        public IPresentableTeamEvents this[Guid seriesId]
         {
             get
             {
@@ -26,7 +27,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public IEnumerable<TeamEvents> this[params Guid[] seriesIds]
+        public IEnumerable<IPresentableTeamEvents> this[params Guid[] seriesIds]
         {
             get
             {
@@ -44,11 +45,11 @@ namespace Domain.Value_Objects
             }
         }
 
-        public Dictionary<Guid, TeamEvents> SeriesEvents //Will be internal
+        public Dictionary<Guid, TeamEvents> SeriesEvents
         {
             get
             {
-                return seriesEvents;
+                return this.seriesEvents;
             }
         }
 

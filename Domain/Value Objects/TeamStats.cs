@@ -1,19 +1,21 @@
-﻿using Domain.Services;
+﻿using Domain.Interfaces;
+using Domain.Services;
 using System;
 using System.Linq;
 
 namespace Domain.Value_Objects
 {
-    public class TeamStats
+    public class TeamStats : IPresentableTeamStats
     {
         private Guid seriesId;
         private Guid teamId;
 
-        private TeamEvents TeamEvents
+        private IPresentableTeamEvents TeamEvents
         {
             get
             {
-                return DomainService.FindTeamById(this.teamId).SeriesEvents[this.seriesId];
+                var thisTeam = DomainService.FindTeamById(this.teamId);
+                return thisTeam.SeriesEvents[this.seriesId];
             }
         }
 
@@ -36,7 +38,8 @@ namespace Domain.Value_Objects
         public int Wins
         {
             get
-            { return this.CalculateAllMatchOutComes(MatchOutcome.Win);
+            {
+                return this.CalculateAllMatchOutComes(MatchOutcome.Win);
             }
         }
 
@@ -48,7 +51,8 @@ namespace Domain.Value_Objects
             }
         }
         public int Draws
-        { get
+        {
+            get
             {
                 return this.CalculateAllMatchOutComes(MatchOutcome.Draw);
             }
@@ -73,7 +77,8 @@ namespace Domain.Value_Objects
         public int GoalDifference
         {
             get
-            { return this.GoalsFor - this.GoalsAgainst;
+            {
+                return this.GoalsFor - this.GoalsAgainst;
             }
         }
 

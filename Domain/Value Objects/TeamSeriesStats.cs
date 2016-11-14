@@ -1,10 +1,11 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
-    public class TeamSeriesStats
+    public class TeamSeriesStats : IPresentableTeamSeriesStats
     {
         private Dictionary<Guid, TeamStats> seriesStats;
 

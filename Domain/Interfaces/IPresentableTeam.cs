@@ -7,13 +7,14 @@ namespace Domain.Interfaces
 {
     public interface IPresentableTeam
     {
-        TeamName Name { get; set; }
+        TeamName Name { get; }
         IEnumerable<Player> Players { get; }
-        ArenaName ArenaName { get; set; }
-        EmailAddress Email { get; set; }
+        ArenaName ArenaName { get; }
+        EmailAddress Email { get; }
         IReadOnlyDictionary<Guid, List<Match>> TeamsSeriesSchedule { get; }
-        IReadOnlyDictionary<Guid, TeamEvents> SeriesEvents { get; }
-        IReadOnlyDictionary<Guid, TeamSeriesStats> SeriesStats { get; }
+        IPresentableTeamSeriesEvents PresentableSeriesEvents { get; }
+        IPresentableTeamSeriesStats PresentableSeriesStats { get; }
+
         ShirtNumbers ShirtNumbers { get; }
     }
 }
