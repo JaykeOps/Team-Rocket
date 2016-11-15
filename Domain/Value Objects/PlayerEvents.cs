@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Value_Objects
 {
@@ -32,10 +33,39 @@ namespace Domain.Value_Objects
             }
         }
 
-        public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
-        public IEnumerable<Assist> Assists { get { return this.assistEvents; } }
-        public IEnumerable<Card> Cards { get { return this.cardEvents; } }
-        public IEnumerable<Penalty> Penalties { get { return this.penaltyEvents; } }
+        public IEnumerable<Goal> Goals
+        {
+            get
+            {
+                var allGames = DomainService.GetAllGames();
+                return (from game in allGames from goal in game.Protocol.Goals where goal.PlayerId == this.playerId select goal);
+            }
+        }
+
+        public IEnumerable<Assist> Assists
+        {
+            get
+            {
+                var allGames = DomainService.GetAllGames();
+                return (from game in allGames from assist in game.Protocol.Assists where assist.PlayerId == this.playerId select assist);
+            }
+        }
+        public IEnumerable<Card> Cards
+        {
+            get
+            {
+                var allGames = DomainService.GetAllGames();
+                return (from game in allGames from card in game.Protocol.Cards where card.PlayerId == this.playerId select card);
+            }
+        }
+        public IEnumerable<Penalty> Penalties
+        {
+            get
+            {
+                var allGames = DomainService.GetAllGames();
+                return (from game in allGames from penalty in game.Protocol.Penalties where penalty.PlayerId == this.playerId select penalty);
+            }
+        }
 
         public PlayerEvents(Guid playerId, Guid teamId, Guid seriesId)
         {
@@ -48,5 +78,10 @@ namespace Domain.Value_Objects
             this.teamId = teamId;
             this.seriesId = seriesId;
         }
+
+
+
+
     }
+
 }
