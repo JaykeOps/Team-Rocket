@@ -53,7 +53,7 @@ namespace Domain.Value_Objects
             else
             {
                 throw new SeriesMissingException($"Could not find any match schedule " +
-                        $"with the ID '{seriesId}'");
+                        $"with the ID '{series.Id}'");
             }
         }
     }

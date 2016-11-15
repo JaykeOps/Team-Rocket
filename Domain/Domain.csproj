@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CustomExceptions\GameAlreadyAddedException.cs" />
     <Compile Include="CustomExceptions\GameContainsSameTeamTwiceException.cs" />
+    <Compile Include="CustomExceptions\SeriesMissingException.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Enums\MatchOutcome.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="Interfaces\IPresentablePlayerEvents.cs" />
     <Compile Include="Interfaces\IPresentableTeam.cs" />
     <Compile Include="Interfaces\IPresentableTeamEvents.cs" />
+    <Compile Include="Interfaces\IPresentableTeamSeriesEvents.cs" />
+    <Compile Include="Interfaces\IPresentableTeamSeriesStats.cs" />
     <Compile Include="Interfaces\IPresentableTeamStats.cs" />
     <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
@@ -99,9 +102,12 @@
     <Compile Include="Value Objects\MatchDateAndTime.cs" />
     <Compile Include="Value Objects\MatchDuration.cs" />
     <Compile Include="Value Objects\TeamEvents.cs" />
+    <Compile Include="Value Objects\TeamMatchSchedule.cs" />
     <Compile Include="Value Objects\TeamName.cs" />
     <Compile Include="Value Objects\PhoneNumber.cs" />
     <Compile Include="CustomExceptions\ShirtNumberAlreadyInUseException.cs" />
+    <Compile Include="Value Objects\TeamSeriesEvents.cs" />
+    <Compile Include="Value Objects\TeamSeriesStats.cs" />
     <Compile Include="Value Objects\TeamStats.cs" />
     <Compile Include="Value Objects\ValueObject.cs" />
   </ItemGroup>

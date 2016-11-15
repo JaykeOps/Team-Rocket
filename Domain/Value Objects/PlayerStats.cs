@@ -29,6 +29,13 @@ namespace Domain.Entities
             }
         }
 
+        public string TeamName
+        {
+            get
+            {
+                 return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
         public int GoalCount
         {
             get

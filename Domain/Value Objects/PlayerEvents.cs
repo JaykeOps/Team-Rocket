@@ -48,50 +48,5 @@ namespace Domain.Value_Objects
             this.teamId = teamId;
             this.seriesId = seriesId;
         }
-
-        public void AddGoal(Goal goal)
-        {
-            this.goalEvents.Add(goal);
-        }
-
-        public void AddAssist(Assist assist)
-        {
-            this.assistEvents.Add(assist);
-        }
-
-        public void AddCard(Card card)
-        {
-            this.cardEvents.Add(card);
-        }
-
-        public void AddPenalty(Penalty penalty)
-        {
-            this.penaltyEvents.Add(penalty);
-        }
-
-        public void AddGameId(Guid gameId)
-        {
-            this.gameEventIds.Add(gameId);
-        }
-
-        public void RemoveGoal(Goal goal)
-        {
-            this.goalEvents.Remove(goal);
-        }
-
-        public void RemoveAssist(Assist assist)
-        {
-            this.assistEvents.Remove(assist);
-        }
-
-        public void RemoveCard(Card card)
-        {
-            this.cardEvents.Remove(card);
-        }
-
-        public void RemovePenalty(Penalty penalty)
-        {
-            this.penaltyEvents.Remove(penalty);
-        }
     }
 }
