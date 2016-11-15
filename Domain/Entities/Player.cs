@@ -33,12 +33,12 @@ namespace Domain.Entities
             {
                 this.shirtNumber = new ShirtNumber(value, null);
                 this.teamId = value;
-                this.TeamsPlayedInIds.Add(this.TeamId);
+                
             }
         }
 
 
-        public List<Guid> TeamsPlayedInIds { get;}
+        
         public IPresentablePlayerSeriesEvents PresentableSeriesEvents
         {
             get { return this.seriesEvents; }
@@ -96,7 +96,7 @@ namespace Domain.Entities
             this.TeamId = Guid.Empty;
             this.seriesEvents = new PlayerSeriesEvents();
             this.seriesStats = new PlayerSeriesStats();
-            this.TeamsPlayedInIds= new List<Guid>();
+            
         }
 
         public void AddSeries(Series series)
