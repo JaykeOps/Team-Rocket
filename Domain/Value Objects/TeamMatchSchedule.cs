@@ -33,14 +33,24 @@ namespace Domain.Value_Objects
             }
         }
 
-        public IEnumerable<IEnumerable<Match>> this[params Guid[] seriesId]
-        {
-            get
-            {
-                List<Match> schedules = new List<Match>();
-                List<Guid> 
-            }
-        }
+        //public IEnumerable<IEnumerable<Match>> this[params Guid[] seriesIds]
+        //{
+        //    get
+        //    {
+        //        List<Guid> matchScheduleIds = new List<Guid>();
+        //        List<List<Match>> allschedules = new List<List<Match>>();
+        //        foreach (var seriesId in seriesIds)
+        //        {
+        //            if (this.matchSchedule.TryGetValue(seriesId, out matchScheduleIds))
+        //            {
+        //                foreach (var matchId in matchScheduleIds)
+        //                {
+                            
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         public TeamMatchSchedule()
         {
