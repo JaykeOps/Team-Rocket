@@ -9,6 +9,10 @@ namespace Domain.Value_Objects
         public Guid AwayTeamId { get; }
         private OverTime OverTime { get; set; }
         private GameResult GameResult { get; set; }
+        public HashSet<Guid> HomeTeamStartingPlayers { get;}
+        public HashSet<Guid> HomeTeamSub { get;}
+        public HashSet<Guid> AwayTeamStartingPlayers { get;}
+        public HashSet<Guid> AwayTeamSub { get; }
         public List<Goal> Goals { get; }
         public List<Assist> Assists { get; }
         public List<Penalty> Penalties { get; }
@@ -22,6 +26,10 @@ namespace Domain.Value_Objects
             this.Assists = new List<Assist>();
             this.Penalties = new List<Penalty>();
             this.Cards = new List<Card>();
+            this.AwayTeamStartingPlayers=new HashSet<Guid>();
+            this.HomeTeamStartingPlayers=new HashSet<Guid>();
+            this.AwayTeamSub= new HashSet<Guid>();
+            this.HomeTeamSub=new HashSet<Guid>();
         }
     }
 }

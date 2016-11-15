@@ -1,31 +1,69 @@
-﻿using Domain.Services;
+﻿using Domain.Interfaces;
+using Domain.Services;
 using Domain.Value_Objects;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Player : Person
+    public class Player : Person, IPresentablePlayer
     {
         private Guid teamId;
+        private PlayerSeriesEvents seriesEvents;
+        private PlayerSeriesStats seriesStats;
         private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
+        public string TeamName
+        {
+            get
+            {
+                return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
+
         public Guid TeamId
         {
-            get { return this.teamId; }
+            get
+            {
+                return this.teamId;
+            }
             set
             {
                 this.shirtNumber = new ShirtNumber(value, null);
                 this.teamId = value;
+                
             }
         }
 
-        public PlayerStats Stats { get; set; }
+        
+        public IPresentablePlayerSeriesEvents PresentableSeriesEvents
+        {
+            get { return this.seriesEvents; }
+        }
+
+        public IPresentablePlayerSeriesStats PresentableSeriesStats
+        {
+            get { return this.seriesStats; }
+        }
+
+        public PlayerSeriesEvents SeriesEvents //Will be internal
+        {
+            get { return seriesEvents; }
+        }
+
+        public PlayerSeriesStats SeriesStats //Will be internal
+        {
+            get { return seriesStats; }
+        }
 
         public ShirtNumber ShirtNumber
         {
-            get { return this.shirtNumber; }
+            get
+            {
+                return this.shirtNumber;
+            }
             set
             {
                 var team = DomainService.FindTeamById(this.teamId);
@@ -54,9 +92,16 @@ namespace Domain.Entities
         {
             this.Position = position;
             this.Status = status;
-            this.Stats = new PlayerStats();
-            this.teamId = Guid.Empty;
-            this.shirtNumber = new ShirtNumber(this.TeamId, null);
+            this.TeamId = Guid.Empty;
+            this.seriesEvents = new PlayerSeriesEvents();
+            this.seriesStats = new PlayerSeriesStats();
+            
+        }
+
+        public void AddSeries(Series series)
+        {
+            this.seriesEvents.AddSeries(series, this.teamId, this.Id);
+            this.seriesStats.AddSeries(series, this.teamId, this.Id);
         }
     }
 }

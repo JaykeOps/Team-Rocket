@@ -83,9 +83,10 @@
     <Compile Include="Value Objects\PenaltyTests.cs" />
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
-    <Compile Include="Value Objects\PlayerStatsTests.cs" />
+    <Compile Include="Value Objects\PlayerSeriesEventsTests.cs" />
     <Compile Include="Value Objects\ShirtNumberTests.cs" />
     <Compile Include="Value Objects\TeamNameTest.cs" />
+    <Compile Include="Value Objects\TeamStatsTests.cs" />
     <Compile Include="Value Objects\ValueObjectDummyClasses.cs" />
     <Compile Include="Value Objects\ValueObjectTests.cs" />
   </ItemGroup>

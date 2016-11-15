@@ -1,47 +1,96 @@
 ﻿using Domain.Interfaces;
+using Domain.Services;
 using Domain.Value_Objects;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Entities
 {
-    public class PlayerStats : ValueObject<PlayerStats>, ICountablePlayerStats, IFullPlayerStats
+    public class PlayerStats : ValueObject<PlayerStats>
     {
-        private List<Goal> goalStats;
-        private List<Assist> assistStats;
-        private List<Card> cardStats;
-        private List<Penalty> penaltyStats;
-        private List<Guid> gamesPlayedIds;
-        public List<Goal> GoalStats { get { return this.goalStats; } }
-        public List<Assist> AssistStats { get { return this.assistStats; } }
-        public List<Card> CardStats { get { return this.cardStats; } }
-        public List<Penalty> PenaltyStats { get { return this.penaltyStats; } }
-        public List<Guid> GamesPlayedIds { get { return this.gamesPlayedIds; } }
+        private Guid seriesId;
+        private Guid playerId;
+        private Guid teamId;
 
-        public int GoalCount { get { return this.goalStats.Count; } }
-        public int AssistCount { get { return this.assistStats.Count; } }
+        private IPresentablePlayerEvents SeriesEvents
+        {
+            get
+            {
+                var player = DomainService.FindPlayerById(this.playerId);
+                return player.SeriesEvents[this.seriesId];
+            }
+        }
+
+        public string PlayerName
+        {
+            get
+            {
+                return DomainService.FindPlayerById(this.playerId).Name.ToString();
+            }
+        }
+
+        public string TeamName
+        {
+            get
+            {
+                 return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
+        public int GoalCount
+        {
+            get
+            {
+                return this.SeriesEvents.Goals.Count();
+            }
+        }
+
+        public int AssistCount
+        {
+            get
+            {
+                return this.SeriesEvents.Assists.Count();
+            }
+        }
 
         public int YellowCardCount
         {
-            get { return this.cardStats.FindAll(x => x.CardType.Equals(CardType.Yellow)).Count; }
+            get
+            {
+                var cards = this.SeriesEvents.Cards;
+                return cards.Where(x => x.CardType.Equals(CardType.Yellow)).Count();
+            }
         }
 
         public int RedCardCount
         {
-            get { return this.cardStats.FindAll(x => x.CardType.Equals(CardType.Red)).Count; }
+            get
+            {
+                var cards = this.SeriesEvents.Cards;
+                return cards.Where(x => x.CardType.Equals(CardType.Red)).Count();
+            }
         }
 
-        public int PenaltyCount { get { return this.penaltyStats.Count; } }
-        public int GamesPlayedCount { get { return this.gamesPlayedIds.Count; } }
-
-        public PlayerStats()
+        public int PenaltyCount
         {
-            this.goalStats = new List<Goal>();
-            this.assistStats = new List<Assist>();
-            this.cardStats = new List<Card>();
-            this.penaltyStats = new List<Penalty>();
-            this.gamesPlayedIds = new List<Guid>();
+            get
+            {
+                return SeriesEvents.Penalties.Count();
+            }
         }
 
+        public int GamesPlayedCount
+        {
+            get
+            {
+                return SeriesEvents.Games.Count();
+            }
+        }
+
+        public PlayerStats(Guid seriesId, Guid teamId, Guid playerId)
+        {
+            this.seriesId = seriesId;
+            this.playerId = playerId;
+            this.teamId = teamId;
+        }
     }
 }

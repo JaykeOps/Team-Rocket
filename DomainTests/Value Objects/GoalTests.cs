@@ -12,14 +12,18 @@ namespace Domain.Value_Objects.Tests
         private Goal goalThree;
         private Guid playerIdOne;
         private Guid playerIdTwo;
+        private Guid playerTeamIdOne;
+        private Guid playerTeamIdTwo;
 
         public GoalTests()
         {
             this.playerIdOne = Guid.NewGuid();
             this.playerIdTwo = Guid.NewGuid();
-            this.goalOne = new Goal(new MatchMinute(25), this.playerIdOne);
-            this.goalTwo = new Goal(new MatchMinute(25), this.playerIdOne);
-            this.goalThree = new Goal(new MatchMinute(25), this.playerIdTwo);
+            this.playerTeamIdOne = Guid.NewGuid();
+            this.playerTeamIdTwo = Guid.NewGuid();
+            this.goalOne = new Goal(new MatchMinute(25), this.playerTeamIdOne, this.playerIdOne);
+            this.goalTwo = new Goal(new MatchMinute(25), this.playerTeamIdOne, this.playerIdOne);
+            this.goalThree = new Goal(new MatchMinute(25), this.playerTeamIdTwo, this.playerIdTwo);
         }
 
         [TestMethod]
@@ -52,7 +56,7 @@ namespace Domain.Value_Objects.Tests
         {
             MatchMinute minute = null;
             var playerId = Guid.NewGuid();
-            new Goal(minute, playerId);
+            new Goal(minute, this.playerTeamIdOne, playerId);
         }
     }
 }

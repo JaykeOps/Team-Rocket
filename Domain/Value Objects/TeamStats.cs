@@ -1,44 +1,125 @@
-﻿namespace Domain.Value_Objects
+﻿using Domain.Interfaces;
+using Domain.Services;
+using System;
+using System.Linq;
+
+namespace Domain.Value_Objects
 {
-    public class TeamStats
+    public class TeamStats : IPresentableTeamStats
     {
-        private int goalDiff;
+        private Guid seriesId;
+        private Guid teamId;
 
-        public int GamesPlayed { get; }
+        private IPresentableTeamEvents TeamEvents
+        {
+            get
+            {
+                var thisTeam = DomainService.FindTeamById(this.teamId);
+                return thisTeam.SeriesEvents[this.seriesId];
+            }
+        }
 
-        public int Points { get; }
+        public string TeamName
+        {
+            get
+            {
+                return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
 
-        public int Wins { get; }
+        public int GamesPlayed
+        {
+            get
+            {
+                return this.TeamEvents.Games.Count();
+            }
+        }
 
-        public int Draws { get; }
+        public int Wins
+        {
+            get
+            {
+                return this.CalculateAllMatchOutComes(MatchOutcome.Win);
+            }
+        }
 
-        public int Losses { get; }
+        public int Losses
+        {
+            get
+            {
+                return this.CalculateAllMatchOutComes(MatchOutcome.Loss);
+            }
+        }
+        public int Draws
+        {
+            get
+            {
+                return this.CalculateAllMatchOutComes(MatchOutcome.Draw);
+            }
+        }
 
-        public int GoalsFor { get; }
+        public int GoalsFor
+        {
+            get
+            {
+                return this.TeamEvents.Goals.Where(x => x.TeamId == this.teamId).Count();
+            }
+        }
 
-        public int GoalsAgainst { get; }
+        public int GoalsAgainst
+        {
+            get
+            {
+                return this.TeamEvents.Goals.Where(x => x.TeamId != this.teamId).Count();
+            }
+        }
 
         public int GoalDifference
         {
             get
             {
-                return goalDiff;
+                return this.GoalsFor - this.GoalsAgainst;
             }
-            set
+        }
+
+        public int Points
+        {
+            get
             {
-                goalDiff = this.GoalsFor - this.GoalsAgainst;
+                return (this.Wins * 3) + this.Draws;
             }
         }
 
-        public TeamStats()
+        private int CalculateAllMatchOutComes(MatchOutcome matchOutcomeToTrack)
         {
+            int outcome = 0;
+            foreach (var game in this.TeamEvents.Games)
+            {
+                int gameGoalDifference = 0;
+                foreach (var goal in game.Protocol.Goals)
+                {
+                    gameGoalDifference += (goal.TeamId == this.teamId) ? 1 : -1;
+                }
+                if (gameGoalDifference > 0 && matchOutcomeToTrack.Equals(MatchOutcome.Win))
+                {
+                    outcome++;
+                }
+                else if (gameGoalDifference < 0 && matchOutcomeToTrack.Equals(MatchOutcome.Loss))
+                {
+                    outcome++;
+                }
+                else if (gameGoalDifference == 0 && matchOutcomeToTrack.Equals(MatchOutcome.Draw))
+                {
+                    outcome++;
+                }
+            }
+            return outcome;
         }
 
-        public override string ToString()
+        public TeamStats(Guid seriesId, Guid teamId)
         {
-            return $"{this.GamesPlayed.ToString()} : {this.Points.ToString()} : {this.Wins.ToString()} "
-                    + $": {this.Draws.ToString()} : {this.Losses.ToString()} : {this.GoalsFor.ToString()} "
-                    + $": {this.GoalsAgainst.ToString()} : {this.GoalDifference.ToString()}";
+            this.seriesId = seriesId;
+            this.teamId = teamId;
         }
     }
 }
