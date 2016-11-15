@@ -11,7 +11,7 @@ namespace Domain.Value_Objects
     {
         private Guid playerId;
         private Guid teamId;
-        private Guid seriesId;
+        
        
         public string PlayerName
         {
@@ -86,12 +86,12 @@ namespace Domain.Value_Objects
             }
         }
 
-        public PlayerEvents(Guid playerId, Guid teamId, Guid seriesId)
+        public PlayerEvents(Guid playerId, Guid teamId)
         {
            
             this.playerId = playerId;
             this.teamId = teamId;
-            this.seriesId = seriesId;
+            
         }
     }
 

@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
 {
     public class TeamEvents : IPresentableTeamEvents
     {
-        private Guid seriesId;
+        
         public Guid teamId;
 
         public string TeamName
@@ -44,7 +44,7 @@ namespace Domain.Value_Objects
 
         public TeamEvents(Guid seriesId, Guid teamId)
         {
-            this.seriesId = seriesId;
+            
             this.teamId = teamId;
 
         }
