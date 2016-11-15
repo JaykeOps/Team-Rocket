@@ -15,7 +15,7 @@ namespace Domain.Repositories
         {
             this.series = new List<Series>()
             {
-                new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16))
+                new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(8))
             };
         }
 

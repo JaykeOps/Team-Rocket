@@ -2,60 +2,70 @@
 using Domain.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Value_Objects;
 
-namespace RoundRobinTest
+namespace Domain.Helper_Classes
 {
-    class Schedule
+    public class Schedule
     {
         //Work in progress..
 
         private const int BYE = -1;
 
-        public List<Match> AllMatchesDescending = new List<Match>();
-        public List<Match> AllMatchesAscending = new List<Match>();
-        public List<Match> AllMatches = new List<Match>();
-        public List<Team> Teams = new List<Team>();
-        public Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
+        private List<Match> AllMatchesDescending = new List<Match>();
+        private List<Match> AllMatchesAscending = new List<Match>();
+        private List<Match> AllMatches = new List<Match>();
+        private List<Team> Teams = new List<Team>();
+        private Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
 
 
-        public Dictionary<int, List<Match>> GenerateScheduleTest(int numberOfTeams)
+        public Dictionary<int, List<Match>> GenerateScheduleTest(Series series)
         {
-            var teamService = new TeamService();
-            var seriesService = new SeriesService();
+            int numberOfTeams = series.TeamIds.Count;
 
-            var listOfAllTeams = teamService.GetAll();
-            var listOfAllSeries = seriesService.GetAll();
+            if (numberOfTeams % 2 == 0)
+            {
+                foreach (var teamId in series.TeamIds)
+                {
+                    this.Teams.Add(DomainService.FindTeamById(teamId));
+                }
 
+                int[,] results = GenerateRoundRobin(numberOfTeams);
 
-            this.Teams.AddRange(listOfAllTeams);
+                //Generates the schedule for descending matches
+                GenerateDescendingMatches(numberOfTeams, results, series);
 
-            var testSerie = listOfAllSeries.ElementAt(0);
+                //Generates the schedule for ascending matches
+                GenerateAscendingMatches(numberOfTeams, results, series);
 
+                this.AllMatchesAscending.Reverse();
+                this.AllMatches.AddRange(this.AllMatchesDescending);
+                this.AllMatches.AddRange(this.AllMatchesAscending);
 
-            int[,] results = GenerateRoundRobin(numberOfTeams);
+                //Generate dictionary with roundnumber as key and matches for each round as value
+                return GenerateRoundsWithMatches(numberOfTeams);
+            }
+            else
+            {
+                throw new ArgumentException("Teams must be even numbers.");
+            }
+        }
 
-            
-
-            //Generates the schedule for descending matches
+        public void GenerateDescendingMatches(int numberOfTeams, int[,] results, Series series)
+        {
             for (int round = 0; round <= results.GetUpperBound(1); round++)
             {
                 for (int team = 0; team < numberOfTeams; team++)
                 {
                     if (team < results[team, round] && round % 2 == 0)
                     {
-                        Match match = new Match(this.Teams.ElementAt(team).Arena, 
-                            this.Teams.ElementAt(team).Id, 
-                            this.Teams.ElementAt(results[team, round]).Id, 
-                            testSerie);
+
+                        Match match = new Match(this.Teams.ElementAt(team).Arena,
+                            this.Teams.ElementAt(team).Id,
+                            this.Teams.ElementAt(results[team, round]).Id,
+                            series);
 
                         this.AllMatchesDescending.Add(match);
-                        
-
                     }
 
                     else if (team < results[team, round] && round % 2 == 1)
@@ -63,18 +73,16 @@ namespace RoundRobinTest
                         Match match = new Match(this.Teams.ElementAt(results[team, round]).Arena,
                             this.Teams.ElementAt(results[team, round]).Id,
                             this.Teams.ElementAt(team).Id,
-                            testSerie);
+                            series);
 
                         this.AllMatchesDescending.Add(match);
-
-                        
                     }
-
                 }
-
             }
+        }
 
-            //Generates the schedule for ascending matches
+        private void GenerateAscendingMatches(int numberOfTeams, int[,] results, Series series)
+        {
             for (int round = 0; round <= results.GetUpperBound(1); round++)
             {
                 for (int team = 0; team < numberOfTeams; team++)
@@ -84,10 +92,9 @@ namespace RoundRobinTest
                         Match match = new Match(this.Teams.ElementAt(team).Arena,
                             this.Teams.ElementAt(team).Id,
                             this.Teams.ElementAt(results[team, round]).Id,
-                            testSerie);
+                            series);
 
                         this.AllMatchesAscending.Add(match);
-
                     }
 
                     else if (team < results[team, round] && round % 2 == 0)
@@ -95,21 +102,16 @@ namespace RoundRobinTest
                         Match match = new Match(this.Teams.ElementAt(results[team, round]).Arena,
                             this.Teams.ElementAt(results[team, round]).Id,
                             this.Teams.ElementAt(team).Id,
-                            testSerie);
+                            series);
 
                         this.AllMatchesAscending.Add(match);
                     }
-                    
                 }
-                
             }
+        }
 
-            this.AllMatchesAscending.Reverse();
-            this.AllMatches.AddRange(this.AllMatchesDescending);
-            this.AllMatches.AddRange(this.AllMatchesAscending);
-
-
-            //Generate dictionary with roundnumber as key and matches for each round as value
+        private Dictionary<int, List<Match>> GenerateRoundsWithMatches(int numberOfTeams)
+        {
             int numberOfMatches = this.AllMatches.Count;
 
             int numberOfRounds = (numberOfMatches / numberOfTeams) * 2;
@@ -120,9 +122,9 @@ namespace RoundRobinTest
 
                 if (i >= 1)
                 {
-                    upperCounter = upperCounter + numberOfTeams/2;
-                    int lowerCounter = upperCounter - numberOfTeams/2;
-                    this.AllMatchesWithRounds.Add(i, AllMatches.GetRange(lowerCounter, numberOfTeams/2));
+                    upperCounter = upperCounter + numberOfTeams / 2;
+                    int lowerCounter = upperCounter - numberOfTeams / 2;
+                    this.AllMatchesWithRounds.Add(i, AllMatches.GetRange(lowerCounter, numberOfTeams / 2));
                 }
                 else
                 {
@@ -136,12 +138,16 @@ namespace RoundRobinTest
         private int[,] GenerateRoundRobin(int numberOfTeams)
         {
             if (numberOfTeams % 2 == 0)
+            {
                 return GenerateRoundRobinEven(numberOfTeams);
+            }
             else
-                return GenerateRoundRobinOdd(numberOfTeams);
+            {
+                return RotateRounds(numberOfTeams);
+            }
         }
 
-        private int[,] GenerateRoundRobinOdd(int numberOfTeams)
+        private int[,] RotateRounds(int numberOfTeams)
         {
             int n2 = (int)((numberOfTeams - 1) / 2);
             int[,] results = new int[numberOfTeams, numberOfTeams];
@@ -182,7 +188,8 @@ namespace RoundRobinTest
         private int[,] GenerateRoundRobinEven(int numberOfTeams)
         {
 
-            int[,] results = GenerateRoundRobinOdd(numberOfTeams - 1);
+            int[,] results = RotateRounds(numberOfTeams - 1);
+
 
             int[,] results2 = new int[numberOfTeams, numberOfTeams - 1];
             for (int team = 0; team < numberOfTeams - 1; team++)

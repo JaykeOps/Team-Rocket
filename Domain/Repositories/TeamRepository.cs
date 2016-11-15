@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Value_Objects;
 using System.Collections.Generic;
 
@@ -34,6 +35,7 @@ namespace Domain.Repositories
             var Chelsea = new Team(new TeamName("Chelsea"), new ArenaName("Stamford Bridge"), new EmailAddress("Chelsea@gmail.com"));
             var BayernMunchen = new Team(new TeamName("Bayern Munchen"), new ArenaName("Allianz Arena"), new EmailAddress("BayernMunchen@gmail.com"));
             var ManchesterCity = new Team(new TeamName("Manchester City"), new ArenaName("Etihad Stadium"), new EmailAddress("ManchesterCity@gmail.com"));
+            var GAIS = new Team(new TeamName("GAIS"), new ArenaName("Ullevi"), new EmailAddress("gais@gais.se"));
 
             teams.Add(ManchesterUnited);
             teams.Add(RealMadrid);
@@ -42,6 +44,7 @@ namespace Domain.Repositories
             teams.Add(Chelsea);
             teams.Add(BayernMunchen);
             teams.Add(ManchesterCity);
+            teams.Add(GAIS);
         }
     }
 }
