@@ -24,9 +24,8 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return DomainService.GetAllGames().Where(game =>
-                game.HomeTeamId == this.teamId
-                || game.AwayTeamId == this.teamId).ToList();
+                return DomainService.GetTeamsGamesInSeries(this.teamId, this.seriesId);
+
             }
         }
 
@@ -34,12 +33,8 @@ namespace Domain.Value_Objects
         {
             get
             {
-                var allGames = DomainService.GetAllGames();
-                return
-                from game in allGames
-                from goal in game.Protocol.Goals
-                where goal.TeamId == this.teamId
-                select goal;
+                return DomainService.GetAllTeamsGoalsInSeries(this.teamId,this.seriesId); 
+                
             }
         }
 

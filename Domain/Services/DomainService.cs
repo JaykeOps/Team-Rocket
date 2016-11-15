@@ -84,6 +84,13 @@ namespace Domain.Services
                 select game;
         }
 
+        public static IEnumerable<Goal> GetAllTeamsGoalsInSeries(Guid teamId, Guid seriesId)
+        {
+            var allGames = DomainService.GetAllGames();
+            var allMatchinGames = allGames.Where(game => game.SeriesId == seriesId).ToList();
+            return (from game in allMatchinGames from goal in game.Protocol.Goals where goal.TeamId == teamId select goal).ToList();
+        }
+
 
 
         public static IEnumerable<Goal> GetPlayersGoalsInSeries(Guid playerId,
@@ -131,9 +138,9 @@ namespace Domain.Services
             var allGames = GetAllGames();
             var gamesMatchingSeries = allGames.Where(game => game.SeriesId == seriesId).ToList();
             return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamStartingPlayers.Contains(playerId) ||
-                                                                            game.Protocol.AwayTeamSub.Contains(playerId) ||
-                                                                game.Protocol.HomeTeamStartingPlayers.Contains(playerId) ||
-                                                                         game.Protocol.HomeTeamSub.Contains(playerId));
+                                                                 game.Protocol.AwayTeamSub.Contains(playerId) ||
+                                                     game.Protocol.HomeTeamStartingPlayers.Contains(playerId) ||
+                                                                 game.Protocol.HomeTeamSub.Contains(playerId));
         }
     }
 }

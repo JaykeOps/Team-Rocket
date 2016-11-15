@@ -37,7 +37,6 @@ namespace Domain.Entities
             }
         }
 
-
         
         public IPresentablePlayerSeriesEvents PresentableSeriesEvents
         {
