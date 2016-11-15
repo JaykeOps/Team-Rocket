@@ -13,6 +13,7 @@ namespace Domain.Value_Objects
         {
             get
             {
+                
                 PlayerStats playerStats;
                 if (this.seriesStats.TryGetValue(seriesId, out playerStats))
                 {

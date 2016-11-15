@@ -32,7 +32,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
+        public IEnumerable<Goal> Goals { get { return DomainService.GetAllGames(). } }
         public IEnumerable<Assist> Assists { get { return this.assistEvents; } }
         public IEnumerable<Card> Cards { get { return this.cardEvents; } }
         public IEnumerable<Penalty> Penalties { get { return this.penaltyEvents; } }
@@ -49,49 +49,6 @@ namespace Domain.Value_Objects
             this.seriesId = seriesId;
         }
 
-        public void AddGoal(Goal goal)
-        {
-            this.goalEvents.Add(goal);
-        }
-
-        public void AddAssist(Assist assist)
-        {
-            this.assistEvents.Add(assist);
-        }
-
-        public void AddCard(Card card)
-        {
-            this.cardEvents.Add(card);
-        }
-
-        public void AddPenalty(Penalty penalty)
-        {
-            this.penaltyEvents.Add(penalty);
-        }
-
-        public void AddGameId(Guid gameId)
-        {
-            this.gameEventIds.Add(gameId);
-        }
-
-        public void RemoveGoal(Goal goal)
-        {
-            this.goalEvents.Remove(goal);
-        }
-
-        public void RemoveAssist(Assist assist)
-        {
-            this.assistEvents.Remove(assist);
-        }
-
-        public void RemoveCard(Card card)
-        {
-            this.cardEvents.Remove(card);
-        }
-
-        public void RemovePenalty(Penalty penalty)
-        {
-            this.penaltyEvents.Remove(penalty);
-        }
+        
     }
 }
