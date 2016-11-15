@@ -17,24 +17,24 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void AddGameToListTest()
         {
-            var game = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
-            var game2 = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
+            //var game = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
+            //var game2 = new Game(matchDuration90Minutes, teamRed.Id, teamGreen.Id);
             var gameIsAdded = false;
             var game2IsAdded = false;
 
-            gameService.Add(game);
+            //gameService.Add(game);
 
-            foreach (var gameItem in gameService.GetAll())
-            {
-                if (game.Id == gameItem.Id)
-                {
-                    gameIsAdded = true;
-                }
-                if (game2.Id == gameItem.Id)
-                {
-                    game2IsAdded = true;
-                }
-            }
+            //foreach (var gameItem in gameService.GetAll())
+            //{
+            //    if (game.Id == gameItem.Id)
+            //    {
+            //        gameIsAdded = true;
+            //    }
+            //    if (game2.Id == gameItem.Id)
+            //    {
+            //        game2IsAdded = true;
+            //    }
+            //}
 
             Assert.IsTrue(gameIsAdded == true);
             Assert.IsTrue(game2IsAdded == false);

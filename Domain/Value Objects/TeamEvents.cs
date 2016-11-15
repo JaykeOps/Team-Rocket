@@ -9,7 +9,6 @@ namespace Domain.Value_Objects
 {
     public class TeamEvents : IPresentableTeamEvents
     {
-        
         public Guid teamId;
         private Guid seriesId;
 
@@ -25,7 +24,9 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return DomainService.GetAllGames().Where(game => game.HomeTeamId == this.teamId || game.AwayTeamId == this.teamId).ToList();
+                return DomainService.GetAllGames().Where(game =>
+                game.HomeTeamId == this.teamId
+                || game.AwayTeamId == this.teamId).ToList();
             }
         }
 
@@ -35,20 +36,17 @@ namespace Domain.Value_Objects
             {
                 var allGames = DomainService.GetAllGames();
                 return
-                (from game in allGames
-                 from goal in game.Protocol.Goals
-                 where goal.TeamId == this.teamId
-                 select goal);
-
+                from game in allGames
+                from goal in game.Protocol.Goals
+                where goal.TeamId == this.teamId
+                select goal;
             }
         }
 
         public TeamEvents(Guid seriesId, Guid teamId)
         {
-            
             this.teamId = teamId;
             this.seriesId = seriesId;
-
         }
     }
 }

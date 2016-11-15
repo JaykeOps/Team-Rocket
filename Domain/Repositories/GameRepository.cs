@@ -23,13 +23,13 @@ namespace Domain.Repositories
 
             this.games = new List<Game>()
             {
-                new Game(matchDuration90Minutes, teamYellow.Id, teamRed.Id),
-                new Game(matchDuration90Minutes, teamGreen.Id, teamBlue.Id),
-                new Game(matchDuration90Minutes, teamWhite.Id, teamBlack.Id),
-                // Returmöten:
-                new Game(matchDuration90Minutes, teamRed.Id, teamYellow.Id),
-                new Game(matchDuration90Minutes, teamBlue.Id, teamGreen.Id),
-                new Game(matchDuration90Minutes, teamBlack.Id, teamWhite.Id)
+                //new Game(matchDuration90Minutes, teamYellow.Id, teamRed.Id),
+                //new Game(matchDuration90Minutes, teamGreen.Id, teamBlue.Id),
+                //new Game(matchDuration90Minutes, teamWhite.Id, teamBlack.Id),
+                //// Returmöten:
+                //new Game(matchDuration90Minutes, teamRed.Id, teamYellow.Id),
+                //new Game(matchDuration90Minutes, teamBlue.Id, teamGreen.Id),
+                //new Game(matchDuration90Minutes, teamBlack.Id, teamWhite.Id)
             };
         }
 

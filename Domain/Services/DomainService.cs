@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,12 +64,37 @@ namespace Domain.Services
             }
         }
 
-        public static void AddSeriesToPlayers(Series series, IEnumerable<Player> players)
+        public static void AddSeriesToPlayers(Series series,
+            IEnumerable<Player> players)
         {
             foreach (var player in players)
             {
                 player.AddSeries(series);
             }
+        }
+
+        public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
+            Guid seriesId)
+        {
+            return
+                from game in GetAllGames()
+                where game.SeriesId == seriesId
+                && (game.Protocol.HomeTeamId == teamId
+                || game.Protocol.AwayTeamId == teamId)
+                select game;
+        }
+
+        
+
+        public static IEnumerable<Goal> GetPlayersGoalsInSeries(Guid playerId,
+            Guid seriesId)
+        {
+            List<Goal> playerGoals = new List<Goal>();
+            var playerGoalsInGames = GetAllGames().Where(x => x.SeriesId == seriesId)
+                .Select(x => x.Protocol.Goals.Where(y => y.PlayerId == playerId))
+                .ToList();
+            playerGoalsInGames.ForEach(x => playerGoals.AddRange(x));
+            return playerGoals;
         }
     }
 }
