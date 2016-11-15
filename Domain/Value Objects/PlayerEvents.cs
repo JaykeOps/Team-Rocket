@@ -37,12 +37,7 @@ namespace Domain.Value_Objects
         {
             get
             {
-                var games = new List<Game>();
-                foreach (var gameId in this.gameEventIds)
-                {
-                    games.Add(DomainService.FindGameById(gameId));
-                }
-                return games;
+                return DomainService.GetAllGames().Where(game => game.HomeTeamId == this.teamId || game.AwayTeamId == this.teamId).ToList();
             }
         }
 
