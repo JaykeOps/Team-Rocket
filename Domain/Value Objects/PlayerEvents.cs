@@ -32,7 +32,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public IEnumerable<Goal> Goals { get { return DomainService.GetAllGames(). } }
+        public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
         public IEnumerable<Assist> Assists { get { return this.assistEvents; } }
         public IEnumerable<Card> Cards { get { return this.cardEvents; } }
         public IEnumerable<Penalty> Penalties { get { return this.penaltyEvents; } }
@@ -48,7 +48,5 @@ namespace Domain.Value_Objects
             this.teamId = teamId;
             this.seriesId = seriesId;
         }
-
-        
     }
 }

@@ -95,6 +95,8 @@ namespace Domain.Entities
             this.TeamId = Guid.Empty;
             this.seriesEvents = new PlayerSeriesEvents();
             this.seriesStats = new PlayerSeriesStats();
+            var eventss = this.seriesEvents[Guid.NewGuid()];
+            eventss.
         }
     }
 }
