@@ -63,7 +63,7 @@ namespace Domain.Value_Objects
             get
             {
                 var allGames = DomainService.GetAllGames();
-                return (from game in allGames from penalty in game.Protocol.Penalties where penalty.PlayerId == this.playerId select penalty);
+                return (from game in allGames from penalties in game.Protocol.Penalties where penalties.PlayerId == this.playerId select penalties);
             }
         }
 
