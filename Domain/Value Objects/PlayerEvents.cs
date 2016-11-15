@@ -12,8 +12,8 @@ namespace Domain.Value_Objects
         private Guid playerId;
         private Guid teamId;
         private Guid seriesId;
-        
-       
+
+
         public string PlayerName
         {
             get
@@ -33,7 +33,9 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return DomainService.GetAllGames().Where(game => game.HomeTeamId == this.teamId || game.AwayTeamId == this.teamId).ToList();
+                return DomainService.GetAllGames().Where(game => game.HomeTeamId == this.teamId
+                                                              || game.AwayTeamId == this.teamId
+                                                              && game.SeriesId == this.seriesId).ToList();
             }
         }
 
@@ -41,12 +43,8 @@ namespace Domain.Value_Objects
         {
             get
             {
-                var allGames = DomainService.GetAllGames();
-                return 
-                    from game in allGames
-                    from goal in game.Protocol.Goals
-                    where goal.PlayerId == this.playerId
-                    select goal;
+                return DomainService.GetPlayersGoalsInSeries(this.playerId, this.seriesId);
+
             }
         }
 
@@ -54,42 +52,30 @@ namespace Domain.Value_Objects
         {
             get
             {
-                var allGames = DomainService.GetAllGames();
-                return 
-                    from game in allGames
-                    from assist in game.Protocol.Assists
-                    where assist.PlayerId == this.playerId
-                    select assist;
+                return DomainService.GetPlayerAssistInSeries(this.playerId, this.seriesId);
+
             }
         }
         public IEnumerable<Card> Cards
         {
             get
             {
-                var allGames = DomainService.GetAllGames();
-                return 
-                    from game in allGames
-                    from card in game.Protocol.Cards
-                    where card.PlayerId == this.playerId
-                    select card;
+                return DomainService.GetPlayerCardsInSeries(this.playerId, this.seriesId);
+
             }
         }
         public IEnumerable<Penalty> Penalties
         {
             get
             {
-                var allGames = DomainService.GetAllGames();
-                return 
-                    from game in allGames
-                    from penalties in game.Protocol.Penalties
-                    where penalties.PlayerId == this.playerId
-                    select penalties;
+                return DomainService.GetPlayerPenaltiesInSeries(this.playerId, this.seriesId);
+
             }
         }
 
         public PlayerEvents(Guid playerId, Guid teamId, Guid seriesId)
         {
-           
+
             this.playerId = playerId;
             this.teamId = teamId;
             this.seriesId = seriesId;

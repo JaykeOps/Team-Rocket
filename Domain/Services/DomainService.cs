@@ -84,17 +84,56 @@ namespace Domain.Services
                 select game;
         }
 
-        
+
 
         public static IEnumerable<Goal> GetPlayersGoalsInSeries(Guid playerId,
             Guid seriesId)
         {
-            List<Goal> playerGoals = new List<Goal>();
+            var playerGoals = new List<Goal>();
             var playerGoalsInGames = GetAllGames().Where(x => x.SeriesId == seriesId)
                 .Select(x => x.Protocol.Goals.Where(y => y.PlayerId == playerId))
                 .ToList();
             playerGoalsInGames.ForEach(x => playerGoals.AddRange(x));
             return playerGoals;
+        }
+
+        public static IEnumerable<Assist> GetPlayerAssistInSeries(Guid playerId, Guid seriesId)
+        {
+            var playerAssists = new List<Assist>();
+            var playerAssistInGames = GetAllGames().Where(x => x.SeriesId == seriesId)
+                .Select(x => x.Protocol.Assists.Where(y => y.PlayerId == playerId))
+                .ToList();
+            playerAssistInGames.ForEach(x => playerAssists.AddRange(x));
+            return playerAssists;
+        }
+
+        public static IEnumerable<Card> GetPlayerCardsInSeries(Guid playerId, Guid seriesId)
+        {
+            var playerCards = new List<Card>();
+            var playerCardsInGames = GetAllGames().Where(x => x.SeriesId == seriesId)
+                .Select(x => x.Protocol.Cards.Where(y => y.PlayerId == playerId))
+                .ToList();
+            playerCardsInGames.ForEach(x => playerCards.AddRange(x));
+            return playerCards;
+        }
+        public static IEnumerable<Penalty> GetPlayerPenaltiesInSeries(Guid playerId, Guid seriesId)
+        {
+            var playerPenalties = new List<Penalty>();
+            var playerPenaltiesInGames = GetAllGames().Where(x => x.SeriesId == seriesId)
+                .Select(x => x.Protocol.Penalties.Where(y => y.PlayerId == playerId))
+                .ToList();
+            playerPenaltiesInGames.ForEach(x => playerPenalties.AddRange(x));
+            return playerPenalties;
+        }
+
+        public static IEnumerable<Game> GetPlayerPlayedGamesInSeries(Guid playerId, Guid seriesId)
+        {
+
+            var player = FindPlayerById(playerId);
+            return GetAllGames().Where(game => game.HomeTeamId == player.TeamId
+                                                               || game.AwayTeamId == player.TeamId
+                                                               && game.SeriesId == seriesId).ToList();
+
         }
     }
 }
