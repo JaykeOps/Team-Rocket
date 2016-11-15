@@ -31,7 +31,7 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return this.TeamEvents.Goals.Count();
+                return this.TeamEvents.Games.Count();
             }
         }
 

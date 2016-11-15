@@ -3,7 +3,6 @@ using Domain.Interfaces;
 using Domain.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Domain.Value_Objects
 {
@@ -26,18 +25,16 @@ namespace Domain.Value_Objects
         {
             get
             {
-               return DomainService.GetAllGames().Where(game => game.HomeTeamId == this.teamId || game.AwayTeamId == this.teamId).ToList();
+                var games = new List<Game>();
+                foreach (var gameId in this.gameEventIds)
+                {
+                    games.Add(DomainService.FindGameById(gameId));
+                }
+                return games;
             }
         }
 
-        public IEnumerable<Goal> Goals
-        {
-            get
-            {
-                var allGames = DomainService.GetAllGames();
-                return (from game in allGames from goal in game.Protocol.Goals where goal.TeamId == this.teamId select goal);
-            }
-        }
+        public IEnumerable<Goal> Goals { get { return this.goalEvents; } }
 
         public TeamEvents(Guid seriesId, Guid teamId)
         {
@@ -46,7 +43,5 @@ namespace Domain.Value_Objects
             this.gameEventIds = new HashSet<Guid>();
             this.goalEvents = new List<Goal>();
         }
-
-        
     }
 }
