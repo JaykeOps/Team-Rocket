@@ -19,7 +19,7 @@ namespace Domain.Helper_Classes
         private Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
 
 
-        public Dictionary<int, List<Match>> GenerateScheduleTest(Series series)
+        public Dictionary<int, List<Match>> GenerateSchedule(Series series)
         {
             int numberOfTeams = series.TeamIds.Count;
 
@@ -42,7 +42,7 @@ namespace Domain.Helper_Classes
                 this.AllMatches.AddRange(this.AllMatchesDescending);
                 this.AllMatches.AddRange(this.AllMatchesAscending);
 
-                //Generate dictionary with roundnumber as key and matches for each round as value
+                //Generate dictionary with roundnumber as key(int) and matches for each round as value(List<Match>)
                 return GenerateRoundsWithMatches(numberOfTeams);
             }
             else
@@ -51,7 +51,7 @@ namespace Domain.Helper_Classes
             }
         }
 
-        public void GenerateDescendingMatches(int numberOfTeams, int[,] results, Series series)
+        private void GenerateDescendingMatches(int numberOfTeams, int[,] results, Series series)
         {
             for (int round = 0; round <= results.GetUpperBound(1); round++)
             {
@@ -139,7 +139,7 @@ namespace Domain.Helper_Classes
         {
             if (numberOfTeams % 2 == 0)
             {
-                return GenerateRoundRobinEven(numberOfTeams);
+                return GenerateRoundRobinEvenTeams(numberOfTeams);
             }
             else
             {
@@ -185,7 +185,7 @@ namespace Domain.Helper_Classes
             teams[0] = tmp;
         }
 
-        private int[,] GenerateRoundRobinEven(int numberOfTeams)
+        private int[,] GenerateRoundRobinEvenTeams(int numberOfTeams)
         {
 
             int[,] results = RotateRounds(numberOfTeams - 1);

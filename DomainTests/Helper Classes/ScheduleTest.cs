@@ -43,7 +43,7 @@ namespace DomainTests.Helper_Classes
             {
                 series.TeamIds.Add(team.Id);
             }
-            var generatedMatchSchedule = schedule.GenerateScheduleTest(series);
+            var generatedMatchSchedule = schedule.GenerateSchedule(series);
             Assert.IsNotNull(generatedMatchSchedule);
         }
 
@@ -64,7 +64,7 @@ namespace DomainTests.Helper_Classes
             {
                 series.TeamIds.Add(team.Id);
             }
-            var generatedMatchSchedule = schedule.GenerateScheduleTest(series);
+            var generatedMatchSchedule = schedule.GenerateSchedule(series);
             Assert.IsNotNull(generatedMatchSchedule);
         }
 
@@ -80,7 +80,7 @@ namespace DomainTests.Helper_Classes
                 series.TeamIds.Add(team.Id);
             }
 
-            schedule.GenerateScheduleTest(series);
+            schedule.GenerateSchedule(series);
         }
     }
 }

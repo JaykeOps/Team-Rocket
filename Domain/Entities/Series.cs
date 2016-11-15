@@ -2,6 +2,7 @@
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using Domain.Helper_Classes;
 
 namespace Domain.Entities
 {
@@ -12,6 +13,8 @@ namespace Domain.Entities
         public HashSet<Guid> TeamIds { get; }
         public MatchDuration MatchDuration { get; }
         public List<Guid> Schedule { get; }
+
+
 
         public Series(MatchDuration matchDuration, NumberOfTeams numberOfTeams)
         {
