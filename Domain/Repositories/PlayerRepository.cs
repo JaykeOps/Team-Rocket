@@ -42,21 +42,21 @@ namespace Domain.Repositories
             var player10 = new Player(new Name("John", "Stones"), new DateOfBirth("1994-07-28"), PlayerPosition.Defender, PlayerStatus.Available);
             var events= player1.SeriesEvents[Guid.NewGuid()];
             
-            player1.StatsAndEvents.AddGoal((new Goal(new MatchMinute(44), player1.TeamId, player1.Id)));
-            player1.StatsAndEvents.AddGoal(new Goal(new MatchMinute(47), player1.TeamId, player1.Id));
-            player1.StatsAndEvents.AddAssist(new Assist(new MatchMinute(23), player1.Id));
-            player1.StatsAndEvents.AddCard(new Card(new MatchMinute(77), player1.Id, CardType.Yellow));
-            player1.StatsAndEvents.AddCard(new Card(new MatchMinute(87), player1.Id, CardType.Yellow));
-            player1.StatsAndEvents.AddPenalty(new Penalty(new MatchMinute(87), player1.Id));
-            player1.StatsAndEvents.AddGameId(Guid.NewGuid());
-            player1.StatsAndEvents.AddGameId(Guid.NewGuid());
+            //player1.StatsAndEvents.AddGoal((new Goal(new MatchMinute(44), player1.TeamId, player1.Id)));
+            //player1.StatsAndEvents.AddGoal(new Goal(new MatchMinute(47), player1.TeamId, player1.Id));
+            //player1.StatsAndEvents.AddAssist(new Assist(new MatchMinute(23), player1.Id));
+            //player1.StatsAndEvents.AddCard(new Card(new MatchMinute(77), player1.Id, CardType.Yellow));
+            //player1.StatsAndEvents.AddCard(new Card(new MatchMinute(87), player1.Id, CardType.Yellow));
+            //player1.StatsAndEvents.AddPenalty(new Penalty(new MatchMinute(87), player1.Id));
+            //player1.StatsAndEvents.AddGameId(Guid.NewGuid());
+            //player1.StatsAndEvents.AddGameId(Guid.NewGuid());
 
-            player2.StatsAndEvents.AddGoal(new Goal(new MatchMinute(11), player2.TeamId, player2.Id));
-            player2.StatsAndEvents.AddGoal(new Goal(new MatchMinute(22), player2.TeamId, player2.Id));
-            player2.StatsAndEvents.AddAssist(new Assist(new MatchMinute(44), player2.Id));
-            player2.StatsAndEvents.AddCard(new Card(new MatchMinute(89), player2.Id, CardType.Red));
-            player2.StatsAndEvents.AddPenalty(new Penalty(new MatchMinute(87), player2.Id));
-            player2.StatsAndEvents.AddGameId(Guid.NewGuid());
+            //player2.StatsAndEvents.AddGoal(new Goal(new MatchMinute(11), player2.TeamId, player2.Id));
+            //player2.StatsAndEvents.AddGoal(new Goal(new MatchMinute(22), player2.TeamId, player2.Id));
+            //player2.StatsAndEvents.AddAssist(new Assist(new MatchMinute(44), player2.Id));
+            //player2.StatsAndEvents.AddCard(new Card(new MatchMinute(89), player2.Id, CardType.Red));
+            //player2.StatsAndEvents.AddPenalty(new Penalty(new MatchMinute(87), player2.Id));
+            //player2.StatsAndEvents.AddGameId(Guid.NewGuid());
 
             players.Add(player1);
             players.Add(player2);

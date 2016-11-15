@@ -8,6 +8,7 @@ namespace Domain.Value_Objects
     public class TeamSeriesStats : IPresentableTeamSeriesStats
     {
         private Dictionary<Guid, TeamStats> seriesStats;
+        private Guid teamId;
 
         public TeamStats this[Guid seriesId]
         {
@@ -43,14 +44,16 @@ namespace Domain.Value_Objects
             }
         }
 
-        public TeamSeriesStats()
+        public TeamSeriesStats(Guid teamId)
         {
+            this.teamId = teamId;
             this.seriesStats = new Dictionary<Guid, TeamStats>();
         }
 
-        public void AddSeries(Series series, Guid teamId)
+        public void AddSeries(Series series)
         {
-            this.seriesStats.Add(series.Id, new TeamStats(series.Id, teamId));
+            this.seriesStats.Add(series.Id, 
+                new TeamStats(series.Id, this.teamId));
         }
 
         public void RemoveSeries(Series series)

@@ -60,39 +60,39 @@ namespace Domain.Services
         //    return result;
         //}
 
-        public int GetPlayerTotalYellowCards(Guid playerId)
-        {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.YellowCardCount).First();
-            return result;
-        }
+        //public int GetPlayerTotalYellowCards(Guid playerId)
+        //{
+        //    var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+        //    var result = playerStats.Select(x => x.YellowCardCount).First();
+        //    return result;
+        //}
 
-        public int GetPlayerTotalRedCards(Guid playerId)
-        {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.RedCardCount).First();
-            return result;
-        }
+        //public int GetPlayerTotalRedCards(Guid playerId)
+        //{
+        //    var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+        //    var result = playerStats.Select(x => x.RedCardCount).First();
+        //    return result;
+        //}
 
-        public int GetPlayerTotalGoals(Guid playerId)
-        {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.GoalCount).First();
-            return result;
-        }
+        //public int GetPlayerTotalGoals(Guid playerId)
+        //{
+        //    var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+        //    var result = playerStats.Select(x => x.GoalCount).First();
+        //    return result;
+        //}
 
-        public int GetPlayerTotalAssists(Guid playerId)
-        {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.AssistCount).First();
-            return result;
-        }
+        //public int GetPlayerTotalAssists(Guid playerId)
+        //{
+        //    var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+        //    var result = playerStats.Select(x => x.AssistCount).First();
+        //    return result;
+        //}
 
-        public int GetPlayerTotalPenalties(Guid playerId)
-        {
-            var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
-            var result = playerStats.Select(x => x.AssistCount).First();
-            return result;
-        }
+        //public int GetPlayerTotalPenalties(Guid playerId)
+        //{
+        //    var playerStats = allPlayers.Where(x => x.Id == playerId).Select(x => x.Stats);
+        //    var result = playerStats.Select(x => x.AssistCount).First();
+        //    return result;
+        //}
     }
 }

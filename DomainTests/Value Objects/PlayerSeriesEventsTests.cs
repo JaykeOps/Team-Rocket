@@ -25,12 +25,12 @@ namespace DomainTests.Value_Objects
             this.seriesOne = seriesService.GetAll().ElementAt(0);
         }
 
-        [TestMethod]
-        public void PlayerSeriesEventsCanReturnValidEntries()
-        {
-            this.teamOne.AddSeries(this.seriesOne.Id, this.seriesOne.Schedule);
-            this.playerOne.AddSeriesEvents(this.seriesOne.Id);
-            this.playerOne.PlayerSeriesEvents
-        }
+        //[TestMethod]
+        //public void PlayerSeriesEventsCanReturnValidEntries()
+        //{
+        //    this.teamOne.AddSeries(this.seriesOne.Id, this.seriesOne.Schedule);
+        //    this.playerOne.AddSeriesEvents(this.seriesOne.Id);
+        //    this.playerOne.PlayerSeriesEvents
+        //}
     }
 }

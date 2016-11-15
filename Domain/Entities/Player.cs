@@ -9,7 +9,6 @@ namespace Domain.Entities
     public class Player : Person, IPresentablePlayer
     {
         private Guid teamId;
-        private Dictionary<Guid, PlayerEvents> playerSeriesEvents;
         private PlayerSeriesEvents seriesEvents;
         private PlayerSeriesStats seriesStats;
         private ShirtNumber shirtNumber;
@@ -95,6 +94,12 @@ namespace Domain.Entities
             this.TeamId = Guid.Empty;
             this.seriesEvents = new PlayerSeriesEvents();
             this.seriesStats = new PlayerSeriesStats();
+        }
+
+        public void AddSeries(Series series)
+        {
+            this.seriesEvents.AddSeries(series, this.teamId, this.Id);
+            this.seriesStats.AddSeries(series, this.teamId, this.Id);
         }
     }
 }

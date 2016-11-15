@@ -11,6 +11,7 @@ namespace Domain.Value_Objects
     {
         
         public Guid teamId;
+        private Guid seriesId;
 
         public string TeamName
         {
@@ -46,6 +47,7 @@ namespace Domain.Value_Objects
         {
             
             this.teamId = teamId;
+            this.seriesId = seriesId;
 
         }
     }

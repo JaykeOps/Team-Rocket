@@ -8,6 +8,7 @@ namespace Domain.Value_Objects
     public class TeamMatchSchedule
     {
         private Dictionary<Guid, List<Guid>> matchSchedule;
+        private Guid teamId;
 
         public IEnumerable<Match> this[Guid seriesId]
         {
@@ -52,8 +53,9 @@ namespace Domain.Value_Objects
         //    }
         //}
 
-        public TeamMatchSchedule()
+        public TeamMatchSchedule(Guid teamId)
         {
+            this.teamId = teamId;
             this.matchSchedule = new Dictionary<Guid, List<Guid>>();
         }
 

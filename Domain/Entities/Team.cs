@@ -8,11 +8,12 @@ namespace Domain.Entities
 {
     public class Team : IPresentableTeam
     {
-        private Guid id;
         private HashSet<Guid> playerIds;
-        private Dictionary<Guid, List<Guid>> matchSchedule;
+        private TeamMatchSchedule matchSchedules;
         private TeamSeriesEvents seriesEvents;
         private TeamSeriesStats seriesStats;
+
+        public Guid Id { get; set; }
 
         public TeamName Name { get; set; }
 
@@ -49,6 +50,14 @@ namespace Domain.Entities
             }
         }
 
+        public TeamMatchSchedule AllTeamMatchSchedules
+        {
+            get
+            {
+                return this.matchSchedules;
+            }
+        }
+
         public TeamSeriesEvents SeriesEvents
         {
             get
@@ -67,15 +76,15 @@ namespace Domain.Entities
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
-            this.id = Guid.NewGuid();
-            this.seriesEvents = new TeamSeriesEvents();
-            this.seriesStats = new TeamSeriesStats();
+            this.Id = Guid.NewGuid();
+            this.seriesEvents = new TeamSeriesEvents(this.Id);
+            this.seriesStats = new TeamSeriesStats(this.Id);
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
             this.Email = email;
-            this.matchSchedule = new Dictionary<Guid, List<Guid>>();
-            this.ShirtNumbers = new ShirtNumbers(this.id);
+            this.matchSchedules = new TeamMatchSchedule(this.Id);
+            this.ShirtNumbers = new ShirtNumbers(this.Id);
         }
 
         public void AddPlayerId(Guid playerId)
@@ -96,6 +105,13 @@ namespace Domain.Entities
         public void RemovePlayerId(Guid playerId)
         {
             this.playerIds.Remove(playerId);
+        }
+
+        public void AddSeries(Series series, IEnumerable<Guid> matchSchedule)
+        {
+            this.matchSchedules.AddSeries(series);
+            this.seriesEvents.AddSeries(series);
+            this.seriesStats.AddSeries(series);
         }
 
         public override string ToString()
