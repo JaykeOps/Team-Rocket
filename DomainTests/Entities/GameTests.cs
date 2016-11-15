@@ -17,7 +17,7 @@ namespace Domain.Entities.Tests
         [TestMethod]
         public void ConstructorInitiatesCorrectlyTest()
         {
-            Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
 
             var game = new Game(matchOne);
 
@@ -30,7 +30,7 @@ namespace Domain.Entities.Tests
         [ExpectedException(typeof(GameContainsSameTeamTwiceException))]
         public void ConstructorThrowsSameTeamException()
         {
-            Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamRed.Id, series, date);
+            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamRed.Id, series, date);
             var game = new Game(matchOne);
         }
     }

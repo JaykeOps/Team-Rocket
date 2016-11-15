@@ -19,7 +19,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void AddGameToListTest()
         {
-            Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
             var game = new Game(matchOne);
             var game2 = new Game(matchOne);
             var gameIsAdded = false;

@@ -34,7 +34,7 @@ namespace Domain.Repositories.Tests
         [TestMethod]
         public void AddGameToListTest()
         {
-            Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
             
             var game = new Game(matchOne);
             var game2 = new Game(matchOne);
@@ -63,7 +63,7 @@ namespace Domain.Repositories.Tests
         [ExpectedException(typeof(GameAlreadyAddedException))]
         public void AddThrowsGameAlreadyAddedException()
         {
-            Match matchOne = new Match(teamRed.Arena, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
             var game = new Game(matchOne);
 
             gameRepository.Add(game);

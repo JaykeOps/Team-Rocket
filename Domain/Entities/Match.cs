@@ -13,7 +13,7 @@ namespace Domain.Entities
         public MatchDateAndTime MatchDate { get; set; }
         public Guid HomeTeamId { get; set; }
         public Guid AwayTeamId { get; set; }
-
+        public Guid SeriesId { get; set; }
         public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series, MatchDateAndTime date)
         {
             this.Id = Guid.NewGuid();
@@ -22,6 +22,7 @@ namespace Domain.Entities
             this.MatchDate = date;
             this.HomeTeamId = homeTeam;
             this.AwayTeamId = awayTeam;
+            this.SeriesId = series.Id;
         }
 
         public override string ToString()

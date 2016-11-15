@@ -22,12 +22,12 @@ namespace Domain.Repositories
             Team teamBlue = new Team(new TeamName("BlueTeam"), new ArenaName("BlueArena"), new EmailAddress("blue@gmail.se"));
             Team teamWhite = new Team(new TeamName("WhiteTeam"), new ArenaName("WhiteArena"), new EmailAddress("white@gmail.se"));
             Team teamBlack = new Team(new TeamName("BlackTeam"), new ArenaName("BlackArena"), new EmailAddress("black@gmail.se"));
-            Match matchOne = new Match(teamYellow.Arena, teamYellow.Id, teamRed.Id, series, date);
-            Match matchTwo = new Match(teamGreen.Arena, teamGreen.Id, teamBlue.Id, series, date);
-            Match matchThree = new Match(teamWhite.Arena, teamWhite.Id, teamBlack.Id, series, date);
-            Match matchFour = new Match(teamRed.Arena, teamRed.Id, teamYellow.Id, series, date);
-            Match matchFive = new Match(teamBlue.Arena, teamBlue.Id, teamGreen.Id, series, date);
-            Match matchSix = new Match(teamBlack.Arena, teamBlack.Id, teamWhite.Id, series, date);
+            Match matchOne = new Match(teamYellow.ArenaName, teamYellow.Id, teamRed.Id, series, date);
+            Match matchTwo = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
+            Match matchThree = new Match(teamWhite.ArenaName, teamWhite.Id, teamBlack.Id, series, date);
+            Match matchFour = new Match(teamRed.ArenaName, teamRed.Id, teamYellow.Id, series, date);
+            Match matchFive = new Match(teamBlue.ArenaName, teamBlue.Id, teamGreen.Id, series, date);
+            Match matchSix = new Match(teamBlack.ArenaName, teamBlack.Id, teamWhite.Id, series, date);
             this.games = new List<Game>()
             {
                 new Game(matchOne),

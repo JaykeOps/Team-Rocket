@@ -16,7 +16,7 @@ namespace Domain.Entities
         public Guid AwayTeamId { get; }
         public List<Guid> AwayTeamSquad { get; }
         public GameProtocol Protocol { get; }
-        public GameProtocol Protocol { get; set; }
+        
 
         public Game(Match match)
         {
@@ -26,11 +26,8 @@ namespace Domain.Entities
                 this.MatchDuration = match.MatchDuration;
                 this.HomeTeamId = match.HomeTeamId;
                 this.AwayTeamId = match.AwayTeamId;
-                this.MatchDuration = matchDuration;
-                this.SeriesId = seriesId;
-                this.HomeTeamId = homeTeamId;
+                this.SeriesId = match.SeriesId;
                 this.HomeTeamSquad= new List<Guid>();
-                this.AwayTeamId = awayTeamId;
                 this.AwayTeamSquad=new List<Guid>();
                 this.Protocol = new GameProtocol(this.HomeTeamId, this.AwayTeamId);
             }
