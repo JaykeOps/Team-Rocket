@@ -86,10 +86,6 @@ namespace Domain.Value_Objects
             this.teamId = teamId;
             this.seriesId = seriesId;
         }
-
-
-
-
     }
 
 }
