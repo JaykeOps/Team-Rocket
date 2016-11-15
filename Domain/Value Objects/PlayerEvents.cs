@@ -12,12 +12,7 @@ namespace Domain.Value_Objects
         private Guid playerId;
         private Guid teamId;
         private Guid seriesId;
-        private List<Goal> goalEvents;
-        private List<Assist> assistEvents;
-        private List<Card> cardEvents;
-        private List<Penalty> penaltyEvents;
-        private List<Guid> gameEventIds;
-
+       
         public string PlayerName
         {
             get
@@ -77,11 +72,7 @@ namespace Domain.Value_Objects
 
         public PlayerEvents(Guid playerId, Guid teamId, Guid seriesId)
         {
-            this.goalEvents = new List<Goal>();
-            this.assistEvents = new List<Assist>();
-            this.cardEvents = new List<Card>();
-            this.penaltyEvents = new List<Penalty>();
-            this.gameEventIds = new List<Guid>();
+           
             this.playerId = playerId;
             this.teamId = teamId;
             this.seriesId = seriesId;
