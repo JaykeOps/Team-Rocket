@@ -128,12 +128,12 @@ namespace Domain.Services
 
         public static IEnumerable<Game> GetPlayerPlayedGamesInSeries(Guid playerId, Guid seriesId)
         {
-
-            var player = FindPlayerById(playerId);
-            return GetAllGames().Where(game => game.HomeTeamId == player.TeamId
-                                                               || game.AwayTeamId == player.TeamId
-                                                               && game.SeriesId == seriesId).ToList();
-
+            var allGames = GetAllGames();
+            var gamesMatchingSeries = allGames.Where(game => game.SeriesId == seriesId).ToList();
+            return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamStartingPlayers.Contains(playerId) ||
+                                                                            game.Protocol.AwayTeamSub.Contains(playerId) ||
+                                                                game.Protocol.HomeTeamStartingPlayers.Contains(playerId) ||
+                                                                         game.Protocol.HomeTeamSub.Contains(playerId));
         }
     }
 }

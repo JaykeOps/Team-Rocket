@@ -33,9 +33,8 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return DomainService.GetAllGames().Where(game => game.HomeTeamId == this.teamId
-                                                              || game.AwayTeamId == this.teamId
-                                                              && game.SeriesId == this.seriesId).ToList();
+                return DomainService.GetPlayerPlayedGamesInSeries(this.playerId,this.seriesId);
+                
             }
         }
 

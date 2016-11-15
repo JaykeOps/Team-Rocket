@@ -12,7 +12,6 @@ namespace Domain.Entities
         private PlayerSeriesEvents seriesEvents;
         private PlayerSeriesStats seriesStats;
         private ShirtNumber shirtNumber;
-
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
