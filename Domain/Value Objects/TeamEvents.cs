@@ -43,25 +43,5 @@ namespace Domain.Value_Objects
             this.gameEventIds = new HashSet<Guid>();
             this.goalEvents = new List<Goal>();
         }
-
-        public void AddGameId(Game game)
-        {
-            this.gameEventIds.Add(game.Id);
-        }
-
-        public void RemoveGameId(Game game)
-        {
-            this.gameEventIds.Remove(game.Id);
-        }
-
-        public void AddGoal(Goal goal)
-        {
-            this.goalEvents.Add(goal);
-        }
-
-        public void RemoveGoal(Goal goal)
-        {
-            this.goalEvents.Remove(goal);
-        }
     }
 }

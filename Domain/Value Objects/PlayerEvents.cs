@@ -17,8 +17,21 @@ namespace Domain.Value_Objects
         private List<Penalty> penaltyEvents;
         private List<Guid> gameEventIds;
 
-        public string PlayerName { get { return DomainService.FindPlayerById(this.playerId).Name.ToString(); } }
+        public string PlayerName
+        {
+            get
+            {
+                return DomainService.FindPlayerById(this.playerId).Name.ToString();
+            }
+        }
 
+        public string TeamName
+        {
+            get
+            {
+                return DomainService.FindTeamById(this.teamId).Name.ToString();
+            }
+        }
         public IEnumerable<Game> Games
         {
             get
