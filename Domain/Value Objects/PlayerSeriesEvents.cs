@@ -21,7 +21,7 @@ namespace Domain.Value_Objects
                 else
                 {
                     throw new SeriesMissingException("A player specific events record for " +
-                        $"a series with id '{seriesId}' could not be found!");
+                        $"a series with id '{seriesId}' could not be found! ");
                 }
             }
         }
