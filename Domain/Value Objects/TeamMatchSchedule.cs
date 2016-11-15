@@ -33,6 +33,15 @@ namespace Domain.Value_Objects
             }
         }
 
+        public IEnumerable<IEnumerable<Match>> this[params Guid[] seriesId]
+        {
+            get
+            {
+                List<Match> schedules = new List<Match>();
+                List<Guid> 
+            }
+        }
+
         public TeamMatchSchedule()
         {
             this.matchSchedule = new Dictionary<Guid, List<Guid>>();

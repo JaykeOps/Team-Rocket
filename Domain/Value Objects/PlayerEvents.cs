@@ -41,7 +41,11 @@ namespace Domain.Value_Objects
             get
             {
                 var allGames = DomainService.GetAllGames();
-                return (from game in allGames from goal in game.Protocol.Goals where goal.PlayerId == this.playerId select goal);
+                return 
+                    from game in allGames
+                    from goal in game.Protocol.Goals
+                    where goal.PlayerId == this.playerId
+                    select goal;
             }
         }
 
@@ -50,7 +54,11 @@ namespace Domain.Value_Objects
             get
             {
                 var allGames = DomainService.GetAllGames();
-                return (from game in allGames from assist in game.Protocol.Assists where assist.PlayerId == this.playerId select assist);
+                return 
+                    from game in allGames
+                    from assist in game.Protocol.Assists
+                    where assist.PlayerId == this.playerId
+                    select assist;
             }
         }
         public IEnumerable<Card> Cards
@@ -58,7 +66,11 @@ namespace Domain.Value_Objects
             get
             {
                 var allGames = DomainService.GetAllGames();
-                return (from game in allGames from card in game.Protocol.Cards where card.PlayerId == this.playerId select card);
+                return 
+                    from game in allGames
+                    from card in game.Protocol.Cards
+                    where card.PlayerId == this.playerId
+                    select card;
             }
         }
         public IEnumerable<Penalty> Penalties
@@ -66,7 +78,11 @@ namespace Domain.Value_Objects
             get
             {
                 var allGames = DomainService.GetAllGames();
-                return (from game in allGames from penalties in game.Protocol.Penalties where penalties.PlayerId == this.playerId select penalties);
+                return 
+                    from game in allGames
+                    from penalties in game.Protocol.Penalties
+                    where penalties.PlayerId == this.playerId
+                    select penalties;
             }
         }
 
