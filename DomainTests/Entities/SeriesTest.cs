@@ -2,6 +2,7 @@
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace DomainTests.Entities
 {
@@ -28,7 +29,8 @@ namespace DomainTests.Entities
         [TestMethod]
         public void SeriesScheduleCanAddMatch()
         {
-            this.series.Schedule.Add(Guid.NewGuid());
+            var match = new Match(new ArenaName("Ullevi"),Guid.NewGuid(), Guid.NewGuid(), series);
+            this.series.Schedule.Add(1,new List<Match>() {match});
             Assert.IsTrue(series.Schedule.Count == 1);
         }
     }

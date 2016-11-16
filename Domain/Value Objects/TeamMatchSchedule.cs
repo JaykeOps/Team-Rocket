@@ -2,6 +2,7 @@
 using Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Value_Objects
 {
@@ -30,7 +31,7 @@ namespace Domain.Value_Objects
                     throw new SeriesMissingException($"Could not find any match schedule " +
                         $"with the ID '{seriesId}'");
                 }
-                
+
             }
         }
 
@@ -46,7 +47,7 @@ namespace Domain.Value_Objects
         //            {
         //                foreach (var matchId in matchScheduleIds)
         //                {
-                            
+
         //                }
         //            }
         //        }
@@ -59,9 +60,9 @@ namespace Domain.Value_Objects
             this.matchSchedule = new Dictionary<Guid, List<Guid>>();
         }
 
-        public void AddSeries(Series series)
+        public void AddSeries(Series series, IEnumerable<Guid> schedule)
         {
-            this.matchSchedule.Add(series.Id, series.Schedule);
+            this.matchSchedule.Add(series.Id, schedule.ToList());
         }
 
         public void UpdateSchedule(Series series, List<Guid> newSchedule)

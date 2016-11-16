@@ -2,6 +2,7 @@
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -13,10 +14,23 @@ namespace Domain.Repositories
 
         private SeriesRepository()
         {
-            this.series = new List<Series>()
+
+
+            
+
+            this.series= new List<Series>();
+            Load();
+        }
+
+        public void Load()
+        {
+            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16), "Allsvenskan");
+            foreach (var team in DomainService.GetAllTeams())
             {
-                new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16),"Allsvenskan")
-            };
+                series.TeamIds.Add(team.Id);
+            }
+            series.Schedule= DomainService.ScheduleGenerator(series.Id);
+            this.series.Add(series);
         }
 
         public IEnumerable<Series> GetAll()

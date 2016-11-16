@@ -155,5 +155,22 @@ namespace Domain.Services
             var teamService = new TeamService();
             return teamService.GetAll();
         }
+
+        public static IEnumerable<Match> GetAllMatches()
+        {
+            var matchService= new MatchService();
+            return matchService.GetAll();
+        }
+
+        public static IEnumerable<Series> GetAllSeries()
+        {
+            var seriesService=new SeriesService();
+            return seriesService.GetAll();
+        }
+        public static IEnumerable<Guid> GetTeamSeriesSchedule(Guid teamId)
+        {
+            
+            return from match in GetAllMatches() where match.HomeTeamId == teamId || match.AwayTeamId == teamId select match.Id;
+        }
     }
 }

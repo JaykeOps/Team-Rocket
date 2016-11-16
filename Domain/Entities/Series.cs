@@ -15,14 +15,9 @@ namespace Domain.Entities
         public NumberOfTeams NumberOfTeams { get; }
         public HashSet<Guid> TeamIds { get; }
         public MatchDuration MatchDuration { get; }
-        public List<Guid> Schedule { get; }
-        public Dictionary<int, List<Match>> CalculatedRounds
-        {
-            get
-            {
-                return DomainService.ScheduleGenerator(this.Id);
-            }
-        }
+        public Dictionary<int, List<Match>> Schedule { get; set; }
+        
+        
 
         public Series(MatchDuration matchDuration, NumberOfTeams numberOfTeams, string seriesName)
         {
@@ -31,7 +26,8 @@ namespace Domain.Entities
             this.NumberOfTeams = numberOfTeams;
             this.MatchDuration = matchDuration;
             this.TeamIds = new HashSet<Guid>();
-            this.Schedule = new List<Guid>();
+            this.Schedule=new Dictionary<int, List<Match>>();
+            
         }
     }
 }

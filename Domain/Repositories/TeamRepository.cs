@@ -2,6 +2,8 @@
 using Domain.Entities;
 using Domain.Value_Objects;
 using System.Collections.Generic;
+using System.Linq;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -36,7 +38,12 @@ namespace Domain.Repositories
             var BayernMunchen = new Team(new TeamName("Bayern Munchen"), new ArenaName("Allianz Arena"), new EmailAddress("BayernMunchen@gmail.com"));
             var ManchesterCity = new Team(new TeamName("Manchester City"), new ArenaName("Etihad Stadium"), new EmailAddress("ManchesterCity@gmail.com"));
             var GAIS = new Team(new TeamName("GAIS"), new ArenaName("Ullevi"), new EmailAddress("gais@gais.se"));
+            var Ifk = new Team(new TeamName("Ifk Göteborg"), new ArenaName("Ullevi"), new EmailAddress("Ifk@Ifk.se"));
+            var hacken = new Team(new TeamName("Häcken"), new ArenaName("Bravida"), new EmailAddress("hacken@gais.se"));
+            var Ois = new Team(new TeamName("Öis"), new ArenaName("Ullevi"), new EmailAddress("ois@ois.se"));
+            var IfkNorr = new Team(new TeamName("Ifk Norrköping"), new ArenaName("Norrporten"), new EmailAddress("ifkn@ifkn.se"));
 
+            //ManchesterUnited.AddSeries(DomainService.GetAllSeries().ToList().First(),);
             teams.Add(ManchesterUnited);
             teams.Add(RealMadrid);
             teams.Add(FCBarcelona);
