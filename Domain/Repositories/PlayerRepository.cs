@@ -56,7 +56,7 @@ namespace Domain.Repositories
             var player25 = new Player(new Name("Round", "Stones"), new DateOfBirth("1984-02-08"), PlayerPosition.Defender, PlayerStatus.Available);
             var player26 = new Player(new Name("Old", "Stones"), new DateOfBirth("1974-07-28"), PlayerPosition.Defender, PlayerStatus.Available);
             var events= player1.SeriesEvents[Guid.NewGuid()];
-            player10.ShirtNumber= new ShirtNumber(13);
+          //  player10.ShirtNumber= new ShirtNumber(13);
             var test = player10.ShirtNumber;
             //player1.StatsAndEvents.AddGoal((new Goal(new MatchMinute(44), player1.TeamId, player1.Id)));
             //player1.StatsAndEvents.AddGoal(new Goal(new MatchMinute(47), player1.TeamId, player1.Id));
