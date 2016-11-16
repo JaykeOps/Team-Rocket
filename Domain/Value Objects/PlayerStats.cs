@@ -12,7 +12,7 @@ namespace Domain.Entities
         private Guid playerId;
         private Guid teamId;
 
-        private IPresentablePlayerEvents SeriesEvents
+        private PlayerEvents SeriesEvents
         {
             get
             {

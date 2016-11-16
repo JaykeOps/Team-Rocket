@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
     {
         private Dictionary<Guid, PlayerEvents> seriesEvents;
 
-        public IPresentablePlayerEvents this[Guid seriesId]
+        public PlayerEvents this[Guid seriesId]
         {
             get
             {
@@ -26,7 +26,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public IEnumerable<IPresentablePlayerEvents> this[params Guid[] seriesIds]
+        public IEnumerable<PlayerEvents> this[params Guid[] seriesIds]
         {
             get
             {

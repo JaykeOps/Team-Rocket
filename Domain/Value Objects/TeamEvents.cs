@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Domain.Value_Objects
 {
-    public class TeamEvents : IPresentableTeamEvents
+    public class TeamEvents
     {
         public Guid teamId;
         private Guid seriesId;

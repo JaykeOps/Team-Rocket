@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Value_Objects;
 
 namespace Domain.Interfaces
 {
     public interface IPresentableTeamSeriesEvents
     {
-        IPresentableTeamEvents this[Guid seriesId] { get; }
-        IEnumerable<IPresentableTeamEvents> this [params Guid[] seriesIds] { get; }
+        TeamEvents this[Guid seriesId] { get; }
+        IEnumerable<TeamEvents> this [params Guid[] seriesIds] { get; }
     }
 }

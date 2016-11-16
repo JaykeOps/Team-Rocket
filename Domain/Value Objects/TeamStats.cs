@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Domain.Value_Objects
 {
-    public class TeamStats : IPresentableTeamStats
+    public class TeamStats
     {
         private Guid seriesId;
         private Guid teamId;
 
-        private IPresentableTeamEvents TeamEvents
+        private TeamEvents TeamEvents
         {
             get
             {
