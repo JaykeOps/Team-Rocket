@@ -17,7 +17,7 @@ namespace DomainTests.Services
         public SeriesServicesTests()
         {
             this.seriesService = new SeriesService();
-            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(4));
+            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(4), "Allsvenskan");
             testSerieOne.TeamIds.Add(Guid.NewGuid());
             testSerieOne.TeamIds.Add(Guid.NewGuid());
             testSerieOne.TeamIds.Add(Guid.NewGuid());

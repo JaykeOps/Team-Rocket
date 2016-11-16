@@ -21,15 +21,15 @@ namespace Domain.Services
         {
             this.repository.Add(player);
         }
-       /* public IEnumerable<object>GetTopScorers()
+       public IEnumerable<object>GetTopScorers(Guid seriesId)
         {
-            return allPlayers.ToList().OrderByDescending(p => p.Stats.GoalCount).Take(15);
+            return allPlayers.ToList().OrderByDescending(p => p.SeriesEvents[seriesId]).Take(15);
         }
 
-        public IEnumerable<object> GetTopRedCards()
+        public IEnumerable<object> GetTopRedCards(Guid seriesId)
         {
-            return allPlayers.ToList().OrderByDescending(p => p.Stats.RedCardCount).Take(5);
-        }*/
+            return allPlayers.ToList().OrderByDescending(p => p.SeriesEvents[seriesId].Cards).Take(5);
+        }
 
         public IEnumerable<Player> GetAll()
         {

@@ -29,8 +29,8 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void RepoAddIsWorking()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16));
-            var series2 = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16));
+            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
+            var series2 = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
             SeriesRepository.instance.AddSeries(series);
             var allSeries = SeriesRepository.instance.GetAll();
             Assert.IsTrue(allSeries.Contains(series));

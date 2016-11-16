@@ -13,7 +13,7 @@ namespace DomainTests.Entities
         private NumberOfTeams numberOfTeams= new NumberOfTeams(16);
         public SeriesTest()
         {
-            this.series = new Series(new MatchDuration(duartion), numberOfTeams);
+            this.series = new Series(new MatchDuration(duartion), numberOfTeams,"Allsvenskan");
         }
 
         [TestMethod]

@@ -13,7 +13,7 @@ namespace Domain.Repositories
 
         private GameRepository()
         {
-            Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16));
+            Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16),"Allsvenskan");
             
             MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
             Team teamYellow = new Team(new TeamName("YellowTeam"), new ArenaName("YellowArena"), new EmailAddress("yellow@gmail.se"));
