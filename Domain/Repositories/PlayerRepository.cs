@@ -2,6 +2,7 @@
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -55,7 +56,8 @@ namespace Domain.Repositories
             var player25 = new Player(new Name("Round", "Stones"), new DateOfBirth("1984-02-08"), PlayerPosition.Defender, PlayerStatus.Available);
             var player26 = new Player(new Name("Old", "Stones"), new DateOfBirth("1974-07-28"), PlayerPosition.Defender, PlayerStatus.Available);
             var events= player1.SeriesEvents[Guid.NewGuid()];
-            
+            player10.ShirtNumber= new ShirtNumber(13);
+            var test = player10.ShirtNumber;
             //player1.StatsAndEvents.AddGoal((new Goal(new MatchMinute(44), player1.TeamId, player1.Id)));
             //player1.StatsAndEvents.AddGoal(new Goal(new MatchMinute(47), player1.TeamId, player1.Id));
             //player1.StatsAndEvents.AddAssist(new Assist(new MatchMinute(23), player1.Id));
@@ -71,7 +73,7 @@ namespace Domain.Repositories
             //player2.StatsAndEvents.AddCard(new Card(new MatchMinute(89), player2.Id, CardType.Red));
             //player2.StatsAndEvents.AddPenalty(new Penalty(new MatchMinute(87), player2.Id));
             //player2.StatsAndEvents.AddGameId(Guid.NewGuid());
-
+            players.Add(player10);
             players.Add(player1);
             players.Add(player2);
             players.Add(player3);

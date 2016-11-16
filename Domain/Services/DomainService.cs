@@ -26,12 +26,6 @@ namespace Domain.Services
             return gameService.FindById(id);
         }
 
-        public static IEnumerable<Game> GetAllGames()
-        {
-            var gameService = new GameService();
-            return gameService.GetAll();
-        }
-
         public static Match FindMatchById(Guid id)
         {
             var matchService = new MatchService();
@@ -42,6 +36,11 @@ namespace Domain.Services
         {
             var seriesService = new SeriesService();
             return seriesService.FindById(id);
+        }
+        public static IEnumerable<Game> GetAllGames()
+        {
+            var gameService = new GameService();
+            return gameService.GetAll();
         }
 
         public static void AddSeriesToTeam(Guid seriesId, IEnumerable<Guid> matchIds,
@@ -72,6 +71,7 @@ namespace Domain.Services
                 player.AddSeries(series);
             }
         }
+        
 
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
             Guid seriesId)
