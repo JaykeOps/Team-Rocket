@@ -55,5 +55,59 @@ namespace DomainTests.Services
             service.AddMatch(match);
             Assert.IsTrue(service.FindById(match.Id) == match);
         }
+
+
+        //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
+        //MatchDateAndTime date = new MatchDateAndTime(new DateTime(2016, 12, 24));
+        //Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        //Team teamBlue = new Team(new TeamName("BlueTeam"), new ArenaName("BlueArena"), new EmailAddress("blue@gmail.se"));
+
+        //[TestMethod]
+        //public void SearchMatchByLocation()
+        //{
+        //    Match searchMatch = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
+        //    service.AddMatch(searchMatch);
+
+        //    IEnumerable<Match> matches = service.SearchMatch("GreenArena", StringComparison.CurrentCultureIgnoreCase);
+
+        //    Assert.IsNotNull(matches);
+        //    Assert.AreEqual(searchMatch.Id, matches.First().Id);
+        //}
+
+        //[TestMethod]
+        //public void SearchMatchByMatchDate()
+        //{
+        //    Match searchMatch = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
+        //    service.AddMatch(searchMatch);
+
+        //    IEnumerable<Match> matches = service.SearchMatch("2016-12-24", StringComparison.CurrentCultureIgnoreCase);
+
+        //    Assert.IsNotNull(matches);
+        //    Assert.AreEqual(searchMatch.Id, matches.First().Id);
+        //}
+
+        //[TestMethod]
+        //public void SearchMatchByHomeTeam()
+        //{
+        //    Match searchMatch = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
+        //    service.AddMatch(searchMatch);
+
+        //    IEnumerable<Match> matches = service.SearchMatch("GreenTeam", StringComparison.CurrentCultureIgnoreCase);
+
+        //    Assert.IsNotNull(matches);
+        //    Assert.AreEqual(searchMatch.Id, matches.First().Id);
+        //}
+
+        //[TestMethod]
+        //public void SearchMatchByAwayTeam()
+        //{
+        //    Match searchMatch = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
+        //    service.AddMatch(searchMatch);
+
+        //    IEnumerable<Match> matches = service.SearchMatch("BlueTeam", StringComparison.CurrentCultureIgnoreCase);
+
+        //    Assert.IsNotNull(matches);
+        //    Assert.AreEqual(searchMatch.Id, matches.First().Id);
+        //}
     }
 }

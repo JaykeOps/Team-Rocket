@@ -3,8 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Helper_Classes;
 
 namespace Domain.Services
 {
@@ -27,6 +26,11 @@ namespace Domain.Services
         public Match FindById(Guid id)
         {
             return this.GetAll().ToList().Find(m => m.Id == id);
+        }
+
+        public IEnumerable<Match> SearchMatch(string searchText, StringComparison comp)
+        {
+            return GetAll().Where(m => m.ToString().Contains(searchText, comp));
         }
        
     }
