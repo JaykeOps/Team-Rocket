@@ -149,5 +149,11 @@ namespace Domain.Services
             var schedule = new Schedule();
             return schedule.GenerateSchedule(FindSeriesById(seriesId));
         }
+
+        public static IEnumerable<Team> GetAllTeams()
+        {
+            var teamService = new TeamService();
+            return teamService.GetAll();
+        }
     }
 }

@@ -62,26 +62,21 @@ namespace Domain.Value_Objects
             var booleans = new List<bool?>();
             var inputDictionaryObject = (IDictionary)propertyValueOfInputObject;
             var thisDictionaryObject = (IDictionary)propertyValueOfThisObject;
+
             if (inputDictionaryObject.Count != thisDictionaryObject.Count)
             {
                 return false;
             }
             else
             {
-                if (inputDictionaryObject.Count != thisDictionaryObject.Count)
+                foreach (var key in inputDictionaryObject.Keys)
                 {
-                    return false;
+                    var inputValue = inputDictionaryObject?[key];
+                    var thisValue = thisDictionaryObject?[key];
+                    booleans.Add(inputValue.Equals(thisValue));
                 }
-                else
-                {
-                    foreach (var key in inputDictionaryObject.Keys)
-                    {
-                        var inputValue = inputDictionaryObject?[key];
-                        var thisValue = thisDictionaryObject?[key];
-                        booleans.Add(inputValue.Equals(thisValue));
-                    }
-                    return !booleans.Contains(false) && !booleans.Contains(null);
-                }
+                return !booleans.Contains(false) && !booleans.Contains(null);
+
             }
         }
 
