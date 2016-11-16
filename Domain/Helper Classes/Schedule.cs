@@ -60,7 +60,7 @@ namespace Domain.Helper_Classes
                     if (team < results[team, round] && round % 2 == 0)
                     {
 
-                        Match match = new Match(this.Teams.ElementAt(team).Arena,
+                        Match match = new Match(this.Teams.ElementAt(team).ArenaName,
                             this.Teams.ElementAt(team).Id,
                             this.Teams.ElementAt(results[team, round]).Id,
                             series);
@@ -70,7 +70,7 @@ namespace Domain.Helper_Classes
 
                     else if (team < results[team, round] && round % 2 == 1)
                     {
-                        Match match = new Match(this.Teams.ElementAt(results[team, round]).Arena,
+                        Match match = new Match(this.Teams.ElementAt(results[team, round]).ArenaName,
                             this.Teams.ElementAt(results[team, round]).Id,
                             this.Teams.ElementAt(team).Id,
                             series);
@@ -89,7 +89,7 @@ namespace Domain.Helper_Classes
                 {
                     if (team < results[team, round] && round % 2 == 1)
                     {
-                        Match match = new Match(this.Teams.ElementAt(team).Arena,
+                        Match match = new Match(this.Teams.ElementAt(team).ArenaName,
                             this.Teams.ElementAt(team).Id,
                             this.Teams.ElementAt(results[team, round]).Id,
                             series);
@@ -99,7 +99,7 @@ namespace Domain.Helper_Classes
 
                     else if (team < results[team, round] && round % 2 == 0)
                     {
-                        Match match = new Match(this.Teams.ElementAt(results[team, round]).Arena,
+                        Match match = new Match(this.Teams.ElementAt(results[team, round]).ArenaName,
                             this.Teams.ElementAt(results[team, round]).Id,
                             this.Teams.ElementAt(team).Id,
                             series);

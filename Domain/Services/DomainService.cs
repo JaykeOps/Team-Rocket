@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Value_Objects;
+using Domain.Helper_Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,6 +142,12 @@ namespace Domain.Services
                                                                  game.Protocol.AwayTeamSub.Contains(playerId) ||
                                                      game.Protocol.HomeTeamStartingPlayers.Contains(playerId) ||
                                                                  game.Protocol.HomeTeamSub.Contains(playerId));
+        }
+
+        public static Dictionary<int, List<Match>> ScheduleGenerator(Guid seriesId)
+        {
+            var schedule = new Schedule();
+            return schedule.GenerateSchedule(FindSeriesById(seriesId));
         }
     }
 }
