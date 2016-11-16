@@ -19,7 +19,7 @@ namespace Domain.Entities
         {
             get
             {
-                return DomainService.FindTeamById(this.teamId).Name.ToString();
+                return this.teamId==Guid.Empty ? "No Team" : DomainService.FindTeamById(this.teamId).Name.ToString();
             }
         }
 

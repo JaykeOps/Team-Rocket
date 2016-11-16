@@ -4,6 +4,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Interfaces;
 
 namespace Domain.Services
 {
@@ -21,14 +22,14 @@ namespace Domain.Services
         {
             this.repository.Add(player);
         }
-       public IEnumerable<object>GetTopScorers(Guid seriesId)
+       public IEnumerable<IPresentablePlayer> GetTopScorers(Guid seriesId)
         {
-            return allPlayers.ToList().OrderByDescending(p => p.SeriesEvents[seriesId]).Take(15);
+            return allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId]).Take(15);
         }
 
-        public IEnumerable<object> GetTopRedCards(Guid seriesId)
+        public IEnumerable<IPresentablePlayer> GetTopRedCards(Guid seriesId)
         {
-            return allPlayers.ToList().OrderByDescending(p => p.SeriesEvents[seriesId].Cards).Take(5);
+            return allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId].RedCardCount).Take(5);
         }
 
         public IEnumerable<Player> GetAll()
