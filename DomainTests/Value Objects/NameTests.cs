@@ -104,5 +104,35 @@ namespace football_series_manager.Domain.Entities.Tests
             nameHashSet.Add(nameTwo);
             Assert.IsTrue(nameHashSet.Count == 2);
         }
+
+        [TestMethod]
+        public void NameCanHoldGermanLetters()
+        {
+            var name = new Name("äöü", "ßÄÖÜẞ");
+        }
+
+        [TestMethod]
+        public void NameCanHoldFrenchLetters()
+        {
+            var name = new Name("àâäôéèëêïîçùûüÿ", "æœÀÂÄÔÉÈËÊÏÎŸÇÙÛÜÆŒ");
+        }
+
+        [TestMethod]
+        public void NameCanHoldPolishLetters()
+        {
+            var name = new Name("ąćęłńóśźż", "ĄĆĘŁŃÓŚŹŻ");
+        }
+
+        [TestMethod]
+        public void NameCanHoldItalianLetters()
+        {
+            var name = new Name("àèéìíîòóùú", "ÀÈÉÌÍÎÒÓÙÚ");
+        }
+
+        [TestMethod]
+        public void NameCanHoldSpanishLetters()
+        {
+            var name = new Name("áéíñóúü", "ÁÉÍÑÓÚÜ");
+        }
     }
 }
