@@ -22,16 +22,27 @@ namespace Domain.Services
         {
             this.repository.Add(player);
         }
-       public IEnumerable<IPresentablePlayer> GetTopScorers(Guid seriesId)
+
+        public IEnumerable<IPresentablePlayer> GetTopScorers(Guid seriesId)
         {
             return allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId]).Take(15);
+        }
+
+        public IEnumerable<IPresentablePlayer> GetTopAssists(Guid seriesId)
+        {
+            return GetAll().OrderByDescending(p => p.SeriesStats[seriesId].AssistCount).Take(15);
+        }
+
+        public IEnumerable<IPresentablePlayer> GetTopYellowCards(Guid seriesId)
+        {
+            return GetAll().OrderByDescending(p => p.SeriesStats[seriesId].YellowCardCount).Take(5);
         }
 
         public IEnumerable<IPresentablePlayer> GetTopRedCards(Guid seriesId)
         {
             return allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId].RedCardCount).Take(5);
         }
-
+        
         public IEnumerable<Player> GetAll()
         {
             return this.repository.GetAll();
