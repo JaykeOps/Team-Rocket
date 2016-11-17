@@ -1,10 +1,14 @@
-﻿using Domain.CustomExceptions;
+﻿using System;
+using Domain.CustomExceptions;
 using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
@@ -12,9 +16,13 @@ namespace Domain.Repositories
     {
         private List<Game> games;
         public static readonly GameRepository instance = new GameRepository();
+        private IFormatter formatter;
+        private string filePath;
 
         private GameRepository()
         {
+            this.formatter = new BinaryFormatter();
+            this.filePath = @"..//..//games.bin";
             //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
 
             var matches = DomainService.GetAllMatches();
@@ -40,7 +48,7 @@ namespace Domain.Repositories
             var game3 = this.games.ElementAt(2);
             var game4 = this.games.ElementAt(3);
 
-            game1.Protocol.Goals.Add(new Goal(new MatchMinute(14), game1.HomeTeamId, 
+            game1.Protocol.Goals.Add(new Goal(new MatchMinute(14), game1.HomeTeamId,
                 team1.Players.ElementAt(0).Id));
             game1.Protocol.Assists.Add(new Assist(new MatchMinute(14),
                 team1.Players.ElementAt(0).Id));
@@ -51,6 +59,66 @@ namespace Domain.Repositories
             game1.Protocol.Cards.Add(new Card(new MatchMinute(75), team2.Players.ElementAt(0).Id,
                 CardType.Red));
 
+        }
+
+        public void SaveData()
+        {
+            try
+            {
+                using (var streamWriter = new FileStream(this.filePath, FileMode.Create,
+                    FileAccess.Write, FileShare.None))
+                {
+                    this.formatter.Serialize(streamWriter, this.games);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Failed to save data to file!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void LoadData()
+        {
+            try
+            {
+                var games = new List<Game>();
+                using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, 
+                    FileAccess.Read, FileShare.Read))
+                {
+                    games = (List<Game>) this.formatter.Deserialize(streamReader);
+                    this.games = games;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Load failed!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
         }
 
         public void Add(Game game)
