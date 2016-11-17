@@ -47,5 +47,12 @@ namespace DomainTests.Repositories
 
             Assert.IsNotNull(PlayerRepository.instance.GetAll());
         }
+
+        [TestMethod]
+        public void PlayerLoadTest()
+        {
+            var players = PlayerRepository.instance.GetAll();
+            Assert.IsTrue(players.Count() != 0);
+        }
     }
 }

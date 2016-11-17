@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class PlayerStats : ValueObject<PlayerStats>
     {
         private Guid seriesId;

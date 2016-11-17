@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class Player : Person, IPresentablePlayer
     {
         private Guid teamId;

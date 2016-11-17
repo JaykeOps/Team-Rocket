@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public abstract class ValueObject<T> : IEquatable<T>
         where T : ValueObject<T>
     {
