@@ -107,10 +107,10 @@ namespace Domain.Entities
             this.playerIds.Remove(playerId);
         }
 
-        public void AddSeries(Series series, IEnumerable<Guid> matchSchedule)
+        public void AddSeries(Series series)
         {
             
-            this.matchSchedules.AddSeries(series, matchSchedule);
+            this.matchSchedules.AddSeries(series);
             this.seriesEvents.AddSeries(series);
             this.seriesStats.AddSeries(series);
         }

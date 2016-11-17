@@ -4,6 +4,7 @@ using Domain.Helper_Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Domain.Services
 {
@@ -44,24 +45,10 @@ namespace Domain.Services
             return gameService.GetAll();
         }
 
-        public static void AddSeriesToTeam(Guid seriesId, IEnumerable<Guid> matchIds,
-            IEnumerable<Team> teams)
+        public static void AddSeriesToTeam(Guid seriesId, Guid teamId)
         {
-            var series = FindSeriesById(seriesId);
-            var matches = new List<Match>();
-            foreach (var matchId in matchIds)
-            {
-                matches.Add(FindMatchById(matchId));
-            }
-
-            foreach (var team in teams)
-            {
-                var matchIdsRelevantForTeam = matches.Where(x => x.HomeTeamId.Equals(team.Id)
-                    || x.AwayTeamId.Equals(team.Id)).Select(x => x.Id);
-
-                team.AddSeries(series, matchIdsRelevantForTeam);
-                AddSeriesToPlayers(series, team.Players);
-            }
+            var team = FindTeamById(teamId);
+            team.AddSeries(FindSeriesById(seriesId));
         }
 
         public static void AddSeriesToPlayers(Series series,
