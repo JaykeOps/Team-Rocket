@@ -28,6 +28,8 @@ namespace Domain.Repositories
             return this.teams;
         }
 
+        
+
         public void LoadData()
         {
             var ManchesterUnited = new Team(new TeamName("Manchester United"), new ArenaName("Old Trafford"), new EmailAddress("ManchesterUnited@gmail.com"));
@@ -43,7 +45,8 @@ namespace Domain.Repositories
             var Ois = new Team(new TeamName("Öis"), new ArenaName("Ullevi"), new EmailAddress("ois@ois.se"));
             var IfkNorr = new Team(new TeamName("Ifk Norrköping"), new ArenaName("Norrporten"), new EmailAddress("ifkn@ifkn.se"));
 
-            //ManchesterUnited.AddSeries(DomainService.GetAllSeries().ToList().First(),);
+            
+            
             teams.Add(ManchesterUnited);
             teams.Add(RealMadrid);
             teams.Add(FCBarcelona);

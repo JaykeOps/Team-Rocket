@@ -16,6 +16,8 @@ namespace Domain.Repositories
         {
             this.players = new List<Player>();
             LoadData();
+            var series = DomainService.GetAllSeries().First();
+            
         }
 
         public void Add(Player player)

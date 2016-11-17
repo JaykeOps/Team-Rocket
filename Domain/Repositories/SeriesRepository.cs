@@ -22,13 +22,14 @@ namespace Domain.Repositories
 
         public void Load()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(8), "Allsvenskan");
+            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(12), "Allsvenskan");
             foreach (var team in DomainService.GetAllTeams())
             {
                 series.TeamIds.Add(team.Id);
             }
             
             this.series.Add(series);
+            
         }
 
         public IEnumerable<Series> GetAll()
