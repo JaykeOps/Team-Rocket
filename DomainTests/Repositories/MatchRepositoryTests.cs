@@ -43,6 +43,7 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void GetAllNotReturningNull()
         {
+            var teset = MatchRepository.instance.GetAll();
             Assert.IsNotNull(MatchRepository.instance.GetAll());
         }
 

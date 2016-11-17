@@ -5,6 +5,7 @@ using Domain.Services;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class Match : IGameDuration
     {
         public Guid Id { get; }
@@ -14,6 +15,7 @@ namespace Domain.Entities
         public Guid HomeTeamId { get; set; }
         public Guid AwayTeamId { get; set; }
         public Guid SeriesId { get; set; }
+
         public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series, MatchDateAndTime date)
         {
             this.Id = Guid.NewGuid();

@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class MatchDateAndTime : ValueObject<MatchDateAndTime>
     {
         public const string FORMAT = "yyyy-MM-dd HH:mm";

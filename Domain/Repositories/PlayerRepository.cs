@@ -24,7 +24,7 @@ namespace Domain.Repositories
         public void Add(Player player)
         {
             this.players.Add(player);
-            SaveData();
+            
         }
 
         public IEnumerable<Player> GetAll()

@@ -44,7 +44,7 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void GetAllNotNull()
         {
-
+            var test = PlayerRepository.instance.GetAll();
             Assert.IsNotNull(PlayerRepository.instance.GetAll());
         }
 
