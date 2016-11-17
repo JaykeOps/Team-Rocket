@@ -52,6 +52,10 @@ namespace Domain.Repositories
             teams.Add(BayernMunchen);
             teams.Add(ManchesterCity);
             teams.Add(GAIS);
+            teams.Add(Ifk);
+            teams.Add(hacken);
+            teams.Add(Ois);
+            teams.Add(IfkNorr);
         }
     }
 }

@@ -16,20 +16,18 @@ namespace Domain.Repositories
         {
 
 
-            
-
             this.series= new List<Series>();
-            Load();
+           Load();
         }
 
         public void Load()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16), "Allsvenskan");
+            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(8), "Allsvenskan");
             foreach (var team in DomainService.GetAllTeams())
             {
                 series.TeamIds.Add(team.Id);
             }
-            series.Schedule= DomainService.ScheduleGenerator(series.Id);
+            
             this.series.Add(series);
         }
 
