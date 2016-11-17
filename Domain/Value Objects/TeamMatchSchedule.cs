@@ -67,7 +67,7 @@ namespace Domain.Value_Objects
         private IEnumerable<Guid> GetMatchScheduleForSeries(Guid seriesId)
         {
             var series = DomainService.FindSeriesById(seriesId);
-            List<Match> allSeriesMatches = new List<Match>();
+            var allSeriesMatches = new List<Match>();
             foreach (var pair in series.Schedule)
             {
                 allSeriesMatches.AddRange(pair.Value);
