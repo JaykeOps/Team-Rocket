@@ -4,6 +4,8 @@ using Domain.Value_Objects;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Services;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
@@ -11,10 +13,14 @@ namespace Domain.Repositories
     {
         private List<Team> teams;
         public static readonly TeamRepository instance = new TeamRepository();
+        private IFormatter formatter;
+        private string filePath;
 
         private TeamRepository()
         {
             this.teams = new List<Team>();
+            this.formatter = new BinaryFormatter();
+            this.filePath = @"..//..//teams.bin";
             LoadData();
         }
 
@@ -48,8 +54,30 @@ namespace Domain.Repositories
             var allPlayers = DomainService.GetAllPlayers();
 
             ManchesterUnited.AddPlayerId(allPlayers.ElementAt(0));
-            
-            
+            ManchesterUnited.AddPlayerId(allPlayers.ElementAt(1));
+            RealMadrid.AddPlayerId(allPlayers.ElementAt(2));
+            RealMadrid.AddPlayerId(allPlayers.ElementAt(3));
+            FCBarcelona.AddPlayerId(allPlayers.ElementAt(4));
+            FCBarcelona.AddPlayerId(allPlayers.ElementAt(5));
+            Arsenal.AddPlayerId(allPlayers.ElementAt(6));
+            Arsenal.AddPlayerId(allPlayers.ElementAt(7));
+            Chelsea.AddPlayerId(allPlayers.ElementAt(8));
+            Chelsea.AddPlayerId(allPlayers.ElementAt(9));
+            BayernMunchen.AddPlayerId(allPlayers.ElementAt(10));
+            BayernMunchen.AddPlayerId(allPlayers.ElementAt(11));
+            ManchesterCity.AddPlayerId(allPlayers.ElementAt(12));
+            ManchesterCity.AddPlayerId(allPlayers.ElementAt(13));
+            GAIS.AddPlayerId(allPlayers.ElementAt(14));
+            GAIS.AddPlayerId(allPlayers.ElementAt(15));
+            Ifk.AddPlayerId(allPlayers.ElementAt(16));
+            Ifk.AddPlayerId(allPlayers.ElementAt(17));
+            hacken.AddPlayerId(allPlayers.ElementAt(18));
+            hacken.AddPlayerId(allPlayers.ElementAt(19));
+            Ois.AddPlayerId(allPlayers.ElementAt(20));
+            Ois.AddPlayerId(allPlayers.ElementAt(21));
+            IfkNorr.AddPlayerId(allPlayers.ElementAt(22));
+            IfkNorr.AddPlayerId(allPlayers.ElementAt(23));
+
             teams.Add(ManchesterUnited);
             teams.Add(RealMadrid);
             teams.Add(FCBarcelona);
