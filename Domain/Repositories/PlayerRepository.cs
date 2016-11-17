@@ -1,9 +1,6 @@
-﻿using System;
-using Domain.Entities;
-using Domain.Services;
+﻿using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -21,7 +18,7 @@ namespace Domain.Repositories
             this.players = new List<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
-            LoadData();
+            this.LoadData();
         }
 
         public void Add(Player player)
@@ -34,9 +31,8 @@ namespace Domain.Repositories
             return this.players;
         }
 
-        public void SaveData(Player player)
+        public void SaveData()
         {
-            this.players.Add(player);
             try
             {
                 using (
@@ -74,7 +70,7 @@ namespace Domain.Repositories
                     var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
                         FileShare.Read))
                 {
-                    players = (List<Player>) this.formatter.Deserialize(streamReader);
+                    players = (List<Player>)this.formatter.Deserialize(streamReader);
                     this.players = players;
                 }
             }

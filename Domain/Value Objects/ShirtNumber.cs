@@ -3,6 +3,7 @@ using System;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class ShirtNumber : ValueObject<ShirtNumber>
     {
         public Guid PlayerTeamId { get; }

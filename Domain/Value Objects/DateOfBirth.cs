@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class DateOfBirth : ValueObject<DateOfBirth>
     {
         public DateTime Value { get; }
