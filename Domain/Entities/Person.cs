@@ -3,6 +3,7 @@ using System;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public abstract class Person
     {
         public Guid Id { get; }

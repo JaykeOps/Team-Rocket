@@ -4,6 +4,7 @@ using System;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class Name : ValueObject<Name>
     {
         public string FirstName { get; }

@@ -7,6 +7,7 @@ using Domain.Value_Objects;
 
 namespace Domain.Interfaces
 {
+
     public interface IPresentablePlayerSeriesEvents
     {
         PlayerEvents this[Guid seriesId] { get; }

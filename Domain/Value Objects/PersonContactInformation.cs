@@ -1,5 +1,8 @@
-﻿namespace Domain.Value_Objects
+﻿using System;
+
+namespace Domain.Value_Objects
 {
+    [Serializable]
     public class ContactInformation : ValueObject<ContactInformation>
     {
         public PhoneNumber Phone { get; set; }
