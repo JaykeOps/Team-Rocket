@@ -1,21 +1,15 @@
-﻿using System;
-using System.Text;
+﻿using Domain.Entities;
+using Domain.Repositories;
+using Domain.Value_Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Entities;
-using Domain.Repositories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Services;
-using Domain.Value_Objects;
 
 namespace DomainTests.Repositories
 {
     [TestClass]
     public class PlayerRepositoryTests
     {
-
-
-
         [TestMethod]
         public void RepoStateIsTheSame()
         {
@@ -35,7 +29,7 @@ namespace DomainTests.Repositories
         public void AddPlayerWorking()
         {
             var newPlayer = new Player(new Name("Manuel", "Neuer"), new DateOfBirth("1986-03-27"), PlayerPosition.GoalKeeper, PlayerStatus.Available);
-            var play= newPlayer;
+            var play = newPlayer;
             PlayerRepository.instance.Add(newPlayer);
             var allPlayers = PlayerRepository.instance.GetAll();
             Assert.IsTrue(allPlayers.Contains(newPlayer));
