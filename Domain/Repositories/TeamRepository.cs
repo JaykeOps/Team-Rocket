@@ -45,6 +45,9 @@ namespace Domain.Repositories
             var Ois = new Team(new TeamName("Öis"), new ArenaName("Ullevi"), new EmailAddress("ois@ois.se"));
             var IfkNorr = new Team(new TeamName("Ifk Norrköping"), new ArenaName("Norrporten"), new EmailAddress("ifkn@ifkn.se"));
 
+            var allPlayers = DomainService.GetAllPlayers();
+
+            ManchesterUnited.AddPlayerId(allPlayers.ElementAt(0));
             
             
             teams.Add(ManchesterUnited);
