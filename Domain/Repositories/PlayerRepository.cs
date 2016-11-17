@@ -1,9 +1,11 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Services;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
@@ -17,9 +19,9 @@ namespace Domain.Repositories
         private PlayerRepository()
         {
             this.players = new List<Player>();
+            this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
             LoadData();
-            var series = DomainService.GetAllSeries().First();
         }
 
         public void Add(Player player)
@@ -32,6 +34,36 @@ namespace Domain.Repositories
             return this.players;
         }
 
+        public void SaveData(Player player)
+        {
+            this.players.Add(player);
+            try
+            {
+                using (
+                    var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    formatter.Serialize(streamWriter, players);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Failed to save data to file!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
+        }
+
         public void LoadData()
         {
             var players = new List<Player>();
@@ -39,7 +71,7 @@ namespace Domain.Repositories
             try
             {
                 using (
-                    var streamReader = new FileStream(@"..//..//players.bin", FileMode.OpenOrCreate, FileAccess.Read,
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
                         FileShare.Read))
                 {
                     players = (List<Player>) this.formatter.Deserialize(streamReader);
@@ -48,7 +80,7 @@ namespace Domain.Repositories
             }
             catch (FileNotFoundException)
             {
-                throw new FileNotFoundException($"File missing at \"..//..//players.bin\"." +
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
                                                 "Load failed!");
             }
             catch (DirectoryNotFoundException ex)
