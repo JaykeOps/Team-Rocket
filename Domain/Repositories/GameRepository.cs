@@ -47,6 +47,8 @@ namespace Domain.Repositories
             var game2 = this.games.ElementAt(1);
             var game3 = this.games.ElementAt(2);
             var game4 = this.games.ElementAt(3);
+            var game5 = this.games.ElementAt(4);
+            var game6 = this.games.ElementAt(5);
 
             game1.Protocol.Goals.Add(new Goal(new MatchMinute(14), game1.HomeTeamId,
                 team1.Players.ElementAt(0).Id));
@@ -56,8 +58,105 @@ namespace Domain.Repositories
                 team1.Players.ElementAt(0).Id));
             game1.Protocol.Assists.Add(new Assist(new MatchMinute(82),
                 team1.Players.ElementAt(0).Id));
-            game1.Protocol.Cards.Add(new Card(new MatchMinute(75), team2.Players.ElementAt(0).Id,
+            game1.Protocol.Cards.Add(new Card(new MatchMinute(75), team1.Players.ElementAt(0).Id,
                 CardType.Red));
+
+            game1.Protocol.Goals.Add(new Goal(new MatchMinute(28), game1.HomeTeamId,
+               team1.Players.ElementAt(1).Id));
+            game1.Protocol.Assists.Add(new Assist(new MatchMinute(28),
+                team1.Players.ElementAt(1).Id));
+            game1.Protocol.Goals.Add(new Goal(new MatchMinute(86), game1.HomeTeamId,
+                team1.Players.ElementAt(1).Id));
+            game1.Protocol.Assists.Add(new Assist(new MatchMinute(12),
+                team1.Players.ElementAt(1).Id));
+            game1.Protocol.Cards.Add(new Card(new MatchMinute(62), team2.Players.ElementAt(1).Id,
+                CardType.Red));
+
+            game2.Protocol.Goals.Add(new Goal(new MatchMinute(14), game1.HomeTeamId,
+               team2.Players.ElementAt(0).Id));
+            game2.Protocol.Assists.Add(new Assist(new MatchMinute(14),
+                team2.Players.ElementAt(0).Id));
+            game2.Protocol.Goals.Add(new Goal(new MatchMinute(82), game1.HomeTeamId,
+                team2.Players.ElementAt(0).Id));
+            game2.Protocol.Assists.Add(new Assist(new MatchMinute(82),
+                team1.Players.ElementAt(0).Id));
+            game2.Protocol.Cards.Add(new Card(new MatchMinute(75), team2.Players.ElementAt(0).Id,
+                CardType.Red));
+
+            game2.Protocol.Goals.Add(new Goal(new MatchMinute(28), game1.HomeTeamId,
+               team2.Players.ElementAt(1).Id));
+            game2.Protocol.Assists.Add(new Assist(new MatchMinute(28),
+                team2.Players.ElementAt(1).Id));
+            game2.Protocol.Goals.Add(new Goal(new MatchMinute(86), game1.HomeTeamId,
+                team2.Players.ElementAt(1).Id));
+            game2.Protocol.Assists.Add(new Assist(new MatchMinute(12),
+                team1.Players.ElementAt(1).Id));
+            game2.Protocol.Cards.Add(new Card(new MatchMinute(62), team2.Players.ElementAt(1).Id,
+                CardType.Red));
+
+            game3.Protocol.Goals.Add(new Goal(new MatchMinute(14), game1.HomeTeamId,
+               team3.Players.ElementAt(0).Id));
+            game3.Protocol.Assists.Add(new Assist(new MatchMinute(14),
+                team3.Players.ElementAt(0).Id));
+            game3.Protocol.Goals.Add(new Goal(new MatchMinute(82), game1.HomeTeamId,
+                team3.Players.ElementAt(0).Id));
+            game3.Protocol.Assists.Add(new Assist(new MatchMinute(82),
+                team3.Players.ElementAt(0).Id));
+            game3.Protocol.Cards.Add(new Card(new MatchMinute(75), team3.Players.ElementAt(0).Id,
+                CardType.Red));
+
+            game3.Protocol.Goals.Add(new Goal(new MatchMinute(28), game1.HomeTeamId,
+               team3.Players.ElementAt(1).Id));
+            game3.Protocol.Assists.Add(new Assist(new MatchMinute(28),
+                team3.Players.ElementAt(1).Id));
+            game3.Protocol.Goals.Add(new Goal(new MatchMinute(86), game1.HomeTeamId,
+                team3.Players.ElementAt(1).Id));
+            game3.Protocol.Assists.Add(new Assist(new MatchMinute(12),
+                team3.Players.ElementAt(1).Id));
+            game3.Protocol.Cards.Add(new Card(new MatchMinute(62), team3.Players.ElementAt(1).Id,
+                CardType.Red));
+
+            game4.Protocol.Goals.Add(new Goal(new MatchMinute(14), game1.HomeTeamId,
+              team4.Players.ElementAt(0).Id));
+            game4.Protocol.Assists.Add(new Assist(new MatchMinute(14),
+                team4.Players.ElementAt(0).Id));
+            game4.Protocol.Goals.Add(new Goal(new MatchMinute(82), game1.HomeTeamId,
+                team4.Players.ElementAt(0).Id));
+            game4.Protocol.Assists.Add(new Assist(new MatchMinute(82),
+                team4.Players.ElementAt(0).Id));
+            game4.Protocol.Cards.Add(new Card(new MatchMinute(75), team3.Players.ElementAt(0).Id,
+                CardType.Red));
+
+            game4.Protocol.Goals.Add(new Goal(new MatchMinute(28), game1.HomeTeamId,
+               team4.Players.ElementAt(1).Id));
+            game4.Protocol.Assists.Add(new Assist(new MatchMinute(28),
+                team4.Players.ElementAt(1).Id));
+            game4.Protocol.Goals.Add(new Goal(new MatchMinute(86), game1.HomeTeamId,
+                team4.Players.ElementAt(1).Id));
+            game4.Protocol.Assists.Add(new Assist(new MatchMinute(12),
+                team4.Players.ElementAt(1).Id));
+            game4.Protocol.Cards.Add(new Card(new MatchMinute(62), team3.Players.ElementAt(1).Id,
+                CardType.Red));
+
+            game5.Protocol.Goals.Add(new Goal(new MatchMinute(10), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game5.Protocol.Goals.Add(new Goal(new MatchMinute(15), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game5.Protocol.Goals.Add(new Goal(new MatchMinute(20), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game5.Protocol.Goals.Add(new Goal(new MatchMinute(25), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game6.Protocol.Goals.Add(new Goal(new MatchMinute(10), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game6.Protocol.Goals.Add(new Goal(new MatchMinute(15), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game6.Protocol.Goals.Add(new Goal(new MatchMinute(20), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game6.Protocol.Goals.Add(new Goal(new MatchMinute(25), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+            game6.Protocol.Goals.Add(new Goal(new MatchMinute(30), game1.HomeTeamId,
+               team4.Players.ElementAt(4).Id));
+
 
         }
 
@@ -95,10 +194,10 @@ namespace Domain.Repositories
             try
             {
                 var games = new List<Game>();
-                using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, 
+                using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate,
                     FileAccess.Read, FileShare.Read))
                 {
-                    games = (List<Game>) this.formatter.Deserialize(streamReader);
+                    games = (List<Game>)this.formatter.Deserialize(streamReader);
                     this.games = games;
                 }
             }
