@@ -3,6 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class ArenaName : ValueObject<ArenaName>
     {
         public string Value { get; }

@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class TeamMatchSchedule
     {
         private Dictionary<Guid, List<Guid>> matchSchedule;

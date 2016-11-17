@@ -3,6 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class EmailAddress : ValueObject<EmailAddress>
     {
         public string Value { get; }
