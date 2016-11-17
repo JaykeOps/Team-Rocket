@@ -3,6 +3,8 @@ using Domain.Entities;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -13,31 +15,24 @@ namespace Domain.Repositories
 
         private GameRepository()
         {
-            Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16),"Allsvenskan");
+            //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
+
             
-            MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
-            Team teamYellow = new Team(new TeamName("YellowTeam"), new ArenaName("YellowArena"), new EmailAddress("yellow@gmail.se"));
-            Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
-            Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
-            Team teamBlue = new Team(new TeamName("BlueTeam"), new ArenaName("BlueArena"), new EmailAddress("blue@gmail.se"));
-            Team teamWhite = new Team(new TeamName("WhiteTeam"), new ArenaName("WhiteArena"), new EmailAddress("white@gmail.se"));
-            Team teamBlack = new Team(new TeamName("BlackTeam"), new ArenaName("BlackArena"), new EmailAddress("black@gmail.se"));
-            Match matchOne = new Match(teamYellow.ArenaName, teamYellow.Id, teamRed.Id, series, date);
-            Match matchTwo = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
-            Match matchThree = new Match(teamWhite.ArenaName, teamWhite.Id, teamBlack.Id, series, date);
-            Match matchFour = new Match(teamRed.ArenaName, teamRed.Id, teamYellow.Id, series, date);
-            Match matchFive = new Match(teamBlue.ArenaName, teamBlue.Id, teamGreen.Id, series, date);
-            Match matchSix = new Match(teamBlack.ArenaName, teamBlack.Id, teamWhite.Id, series, date);
-            this.games = new List<Game>()
-            {
-                new Game(matchOne),
-                new Game(matchTwo),
-                new Game(matchThree),
-                
-                new Game(matchFour),
-                new Game(matchFive),
-                new Game(matchSix)
-            };
+            var matches = DomainService.GetAllMatches();
+
+            var game1 = new Game(matches.ElementAt(0));
+            var game2 = new Game(matches.ElementAt(1));
+            var game3 = new Game(matches.ElementAt(2));
+            var game4 = new Game(matches.ElementAt(3));
+            var game5 = new Game(matches.ElementAt(4));
+            var game6 = new Game(matches.ElementAt(5));
+            var game7 = new Game(matches.ElementAt(6));
+            var game8 = new Game(matches.ElementAt(7));
+            var game9 = new Game(matches.ElementAt(8));
+            var game10 = new Game(matches.ElementAt(9));
+           
+            
+
         }
 
         public void Add(Game game)
