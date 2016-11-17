@@ -31,7 +31,6 @@ namespace Domain.Value_Objects
                     throw new SeriesMissingException($"Could not find any match schedule " +
                         $"with the ID '{seriesId}'");
                 }
-
             }
         }
 
@@ -47,7 +46,6 @@ namespace Domain.Value_Objects
         //            {
         //                foreach (var matchId in matchScheduleIds)
         //                {
-
         //                }
         //            }
         //        }
@@ -60,9 +58,23 @@ namespace Domain.Value_Objects
             this.matchSchedule = new Dictionary<Guid, List<Guid>>();
         }
 
-        public void AddSeries(Series series, IEnumerable<Guid> schedule)
+        public void AddSeries(Series series)
         {
-            this.matchSchedule.Add(series.Id, schedule.ToList());
+            var teamsMatchSchedule = this.GetMatchScheduleForSeries(series.Id);
+            this.matchSchedule.Add(series.Id, teamsMatchSchedule.ToList());
+        }
+
+        private IEnumerable<Guid> GetMatchScheduleForSeries(Guid seriesId)
+        {
+            var series = DomainService.FindSeriesById(seriesId);
+            var allSeriesMatches = new List<Match>();
+            foreach (var pair in series.Schedule)
+            {
+                allSeriesMatches.AddRange(pair.Value);
+            }
+
+            return allSeriesMatches.Where(x => x.HomeTeamId == this.teamId || x.AwayTeamId == this.teamId)
+                .Select(y => y.Id);
         }
 
         public void UpdateSchedule(Series series, List<Guid> newSchedule)

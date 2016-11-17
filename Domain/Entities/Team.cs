@@ -110,7 +110,7 @@ namespace Domain.Entities
         public void AddSeries(Series series, IEnumerable<Guid> matchSchedule)
         {
             
-            this.matchSchedules.AddSeries(series,matchSchedule);
+            this.matchSchedules.AddSeries(series, matchSchedule);
             this.seriesEvents.AddSeries(series);
             this.seriesStats.AddSeries(series);
         }
