@@ -90,5 +90,35 @@ namespace DomainTests.Value_Objects
             var nameHashSet = new HashSet<TeamName> { nameOne, nameTwo };
             Assert.IsTrue(nameHashSet.Count == 1);
         }
+
+        [TestMethod]
+        public void TeamNameCanHoldGermanLetters()
+        {
+            var teamName = new TeamName("äöü ßÄÖÜẞ");
+        }
+
+        [TestMethod]
+        public void TeamNameCanHoldFrenchLetters()
+        {
+            var teamName = new TeamName("àâäôéèëêïîçùûüÿ æœÀÂÄÔÉÈËÊÏÎŸÇÙÛÜÆŒ");
+        }
+
+        [TestMethod]
+        public void TeamNameCanHoldPolishLetters()
+        {
+            var teamName = new TeamName("ąćęłńóśźż ĄĆĘŁŃÓŚŹŻ");
+        }
+
+        [TestMethod]
+        public void TeamNameCanHoldItalianLetters()
+        {
+            var teamName = new TeamName("àèéìíîòóùú ÀÈÉÌÍÎÒÓÙÚ");
+        }
+
+        [TestMethod]
+        public void TeamNameCanHoldSpanishLetters()
+        {
+            var teamName = new TeamName("áéíñóúü ÁÉÍÑÓÚÜ");
+        }
     }
 }

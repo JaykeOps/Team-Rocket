@@ -16,6 +16,49 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
+        public void ArenaNameCanHoldGermanLetters()
+        {
+            var arenaName = new ArenaName("äöü ßÄÖÜẞ");
+            Assert.IsTrue(arenaName.Value == "äöü ßÄÖÜẞ");
+        }
+
+        [TestMethod]
+        public void ArenaNameCanHoldFrenchLetters()
+        {
+            var arenaName = new ArenaName("àâäôéèëêïîçùûüÿ æœÀÂÄÔÉÈËÊÏÎŸÇÙÛÜÆŒ");
+            Assert.IsTrue(arenaName.Value == "àâäôéèëêïîçùûüÿ æœÀÂÄÔÉÈËÊÏÎŸÇÙÛÜÆŒ");
+        }
+
+        [TestMethod]
+        public void ArenaNameCanHoldPolishLetters()
+        {
+            var arenaName = new ArenaName("ąćęłńóśźż ĄĆĘŁŃÓŚŹŻ");
+            Assert.IsTrue(arenaName.Value == "ąćęłńóśźż ĄĆĘŁŃÓŚŹŻ");
+        }
+
+        [TestMethod]
+        public void ArenaNameCanHoldItalianLetters()
+        {
+            var arenaName = new ArenaName("àèéìíîòóùú ÀÈÉÌÍÎÒÓÙÚ");
+            Assert.IsTrue(arenaName.Value == "àèéìíîòóùú ÀÈÉÌÍÎÒÓÙÚ");
+        }
+
+        [TestMethod]
+        public void ArenaNameCanHoldSpanishLetters()
+        {
+            var arenaName = new ArenaName("áéíñóúü ÁÉÍÑÓÚÜ");
+            Assert.IsTrue(arenaName.Value == "áéíñóúü ÁÉÍÑÓÚÜ");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void ArenaNameCanNotHoldSpecialUnicode()
+        {
+            var arenaName = new ArenaName("@£$€{[]}\\^'*~¨!\"#¤%&/()=?`´_:;,.-<>|");
+            Assert.IsNotNull(arenaName);
+        }
+
+        [TestMethod]
         public void ArenaNameIsNotNull()
         {
             var arenaName = new ArenaName("Ullevi");
