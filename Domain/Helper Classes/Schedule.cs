@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Domain.Helper_Classes
 {
+    [Serializable]
     public class Schedule
     {
         //Work in progress..

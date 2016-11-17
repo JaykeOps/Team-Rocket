@@ -8,6 +8,7 @@ using Domain.Helper_Classes;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class Series : IGameDuration
     {
         public Guid Id { get; }

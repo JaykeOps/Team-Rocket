@@ -42,5 +42,12 @@ namespace DomainTests.Repositories
         {
             Assert.IsNotNull(SeriesRepository.instance.GetAll());
         }
+
+        [TestMethod]
+        public void SeriesLoadTest()
+        {
+            var series = SeriesRepository.instance.GetAll();
+            Assert.IsTrue(series.Count() != 0);
+        }
     }
 }

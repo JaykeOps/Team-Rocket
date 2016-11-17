@@ -2,6 +2,7 @@
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class NumberOfTeams : ValueObject<NumberOfTeams>
     {
         public int Value { get; }

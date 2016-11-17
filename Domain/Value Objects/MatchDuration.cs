@@ -2,6 +2,7 @@
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class MatchDuration : ValueObject<MatchDuration>
     {
         public TimeSpan Value { get; }

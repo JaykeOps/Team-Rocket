@@ -28,6 +28,7 @@ namespace Domain.Repositories
         public void Add(Team team)
         {
             this.teams.Add(team);
+            SaveData();
         }
 
         public IEnumerable<Team> GetAll()
