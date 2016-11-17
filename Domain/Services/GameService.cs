@@ -3,6 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Helper_Classes;
 
 namespace Domain.Services
 {
@@ -28,6 +29,11 @@ namespace Domain.Services
         public Game FindById(Guid id)
         {
             return this.GetAll().ToList().Find(g => g.Id == id);
+        }
+
+        public IEnumerable<Game> SearchGame(string searchText, StringComparison comp)
+        {
+            return GetAll().Where(g => g.ToString().Contains(searchText, comp));
         }
     }
 }
