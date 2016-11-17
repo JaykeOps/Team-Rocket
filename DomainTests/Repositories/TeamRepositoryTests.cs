@@ -43,5 +43,12 @@ namespace DomainTests.Repositories
         {
             Assert.IsNotNull(TeamRepository.instance.GetAll());
         }
+
+        [TestMethod]
+        public void TeamLoadTest()
+        {
+            var teams = TeamRepository.instance.GetAll();
+            Assert.IsTrue(teams.Count() != 0);
+        }
     }
 }

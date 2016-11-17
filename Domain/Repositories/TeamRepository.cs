@@ -4,6 +4,9 @@ using Domain.Value_Objects;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Services;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Domain.Repositories
 {
@@ -11,10 +14,14 @@ namespace Domain.Repositories
     {
         private List<Team> teams;
         public static readonly TeamRepository instance = new TeamRepository();
+        private IFormatter formatter;
+        private string filePath;
 
         private TeamRepository()
         {
             this.teams = new List<Team>();
+            this.formatter = new BinaryFormatter();
+            this.filePath = @"..//..//teams.bin";
             LoadData();
         }
 
@@ -28,37 +35,68 @@ namespace Domain.Repositories
             return this.teams;
         }
 
-        
+        public void SaveData()
+        {
+            try
+            {
+                using (
+                    var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    formatter.Serialize(streamWriter, teams);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Failed to save data to file!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
+        }
 
         public void LoadData()
         {
-            var ManchesterUnited = new Team(new TeamName("Manchester United"), new ArenaName("Old Trafford"), new EmailAddress("ManchesterUnited@gmail.com"));
-            var RealMadrid = new Team(new TeamName("Real Madrid"), new ArenaName("Santiago Bernabeu"), new EmailAddress("RealMadrid@gmail.com"));
-            var FCBarcelona = new Team(new TeamName("FC Barcelona"), new ArenaName("Camp Noud"), new EmailAddress("FCBarcelona@gmail.com"));
-            var Arsenal = new Team(new TeamName("Arsenal"), new ArenaName("Emirates Stadium"), new EmailAddress("Arsenal@gmail.com"));
-            var Chelsea = new Team(new TeamName("Chelsea"), new ArenaName("Stamford Bridge"), new EmailAddress("Chelsea@gmail.com"));
-            var BayernMunchen = new Team(new TeamName("Bayern Munchen"), new ArenaName("Allianz Arena"), new EmailAddress("BayernMunchen@gmail.com"));
-            var ManchesterCity = new Team(new TeamName("Manchester City"), new ArenaName("Etihad Stadium"), new EmailAddress("ManchesterCity@gmail.com"));
-            var GAIS = new Team(new TeamName("GAIS"), new ArenaName("Ullevi"), new EmailAddress("gais@gais.se"));
-            var Ifk = new Team(new TeamName("Ifk Göteborg"), new ArenaName("Ullevi"), new EmailAddress("Ifk@Ifk.se"));
-            var hacken = new Team(new TeamName("Häcken"), new ArenaName("Bravida"), new EmailAddress("hacken@gais.se"));
-            var Ois = new Team(new TeamName("Öis"), new ArenaName("Ullevi"), new EmailAddress("ois@ois.se"));
-            var IfkNorr = new Team(new TeamName("Ifk Norrköping"), new ArenaName("Norrporten"), new EmailAddress("ifkn@ifkn.se"));
+            var teams = new List<Team>();
 
-            
-            
-            teams.Add(ManchesterUnited);
-            teams.Add(RealMadrid);
-            teams.Add(FCBarcelona);
-            teams.Add(Arsenal);
-            teams.Add(Chelsea);
-            teams.Add(BayernMunchen);
-            teams.Add(ManchesterCity);
-            teams.Add(GAIS);
-            teams.Add(Ifk);
-            teams.Add(hacken);
-            teams.Add(Ois);
-            teams.Add(IfkNorr);
+            try
+            {
+                using (
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
+                        FileShare.Read))
+                {
+                    teams = (List<Team>)this.formatter.Deserialize(streamReader);
+                    this.teams = teams;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Load failed!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
         }
+
+      
     }
 }

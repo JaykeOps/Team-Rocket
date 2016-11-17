@@ -154,6 +154,13 @@ namespace Domain.Services
             var seriesService=new SeriesService();
             return seriesService.GetAll();
         }
+
+        public static IEnumerable<Player> GetAllPlayers()
+        {
+            var playerService = new PlayerService();
+            return playerService.GetAll();
+        }
+
         public static IEnumerable<Guid> GetTeamSeriesSchedule(Guid teamId)
         {
             
