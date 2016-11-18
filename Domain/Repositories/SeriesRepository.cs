@@ -30,12 +30,7 @@ namespace Domain.Repositories
 
         }
 
-        public void fixlist()
-        {
-            var bufflist= new HashSet<Series>();
-            bufflist.Add(this.series.ElementAt(0));
-            this.series = bufflist;
-        }
+        
 
 
         public void SaveData()
