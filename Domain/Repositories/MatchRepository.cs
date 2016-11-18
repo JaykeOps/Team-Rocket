@@ -18,7 +18,6 @@ namespace Domain.Repositories
             this.matches = new List<Match>();
         }
 
-        
         public IEnumerable<Match> GetAll()
         {
             return this.matches;
