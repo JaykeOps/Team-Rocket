@@ -8,23 +8,23 @@ namespace Domain.Repositories
 {
     public sealed class PlayerRepository
     {
-        private List<Player> players;
+        private HashSet<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();
         private IFormatter formatter;
         private string filePath;
 
         private PlayerRepository()
         {
-            this.players = new List<Player>();
+            this.players = new HashSet<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
             this.LoadData();
+            this.SaveData();
         }
 
         public void Add(Player player)
         {
             this.players.Add(player);
-            
         }
 
         public IEnumerable<Player> GetAll()
@@ -37,10 +37,9 @@ namespace Domain.Repositories
             try
             {
                 using (
-                    var streamWriter = new FileStream(this.filePath, FileMode.Create, 
-                    FileAccess.Write, FileShare.None))
+                    var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    this.formatter.Serialize(streamWriter, this.players);
+                    formatter.Serialize(streamWriter, this.players);
                 }
             }
             catch (FileNotFoundException)
@@ -64,7 +63,7 @@ namespace Domain.Repositories
 
         public void LoadData()
         {
-            var players = new List<Player>();
+            var players = new HashSet<Player>();
 
             try
             {
@@ -72,7 +71,7 @@ namespace Domain.Repositories
                     var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
                         FileShare.Read))
                 {
-                    players = (List<Player>)this.formatter.Deserialize(streamReader);
+                    players = (HashSet<Player>)this.formatter.Deserialize(streamReader);
                     this.players = players;
                 }
             }

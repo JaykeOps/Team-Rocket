@@ -1,34 +1,30 @@
-﻿using System;
-using Domain.Entities;
-using Domain.Value_Objects;
+﻿using Domain.Entities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Domain.Services;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
 namespace Domain.Repositories
 {
     public sealed class TeamRepository
     {
-        private List<Team> teams;
+        private HashSet<Team> teams;
         public static readonly TeamRepository instance = new TeamRepository();
         private IFormatter formatter;
         private string filePath;
 
         private TeamRepository()
         {
-            this.teams = new List<Team>();
+            this.teams = new HashSet<Team>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//teams.bin";
-            LoadData();
+            this.LoadData();
         }
 
         public void Add(Team team)
         {
             this.teams.Add(team);
-            //SaveData();
         }
 
         public IEnumerable<Team> GetAll()
@@ -43,7 +39,7 @@ namespace Domain.Repositories
                 using (
                     var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    formatter.Serialize(streamWriter, teams);
+                    this.formatter.Serialize(streamWriter, this.teams);
                 }
             }
             catch (FileNotFoundException)
@@ -67,7 +63,7 @@ namespace Domain.Repositories
 
         public void LoadData()
         {
-            var teams = new List<Team>();
+            var teams = new HashSet<Team>();
 
             try
             {
@@ -75,7 +71,7 @@ namespace Domain.Repositories
                     var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
                         FileShare.Read))
                 {
-                    teams = (List<Team>)this.formatter.Deserialize(streamReader);
+                    teams = (HashSet<Team>)this.formatter.Deserialize(streamReader);
                     this.teams = teams;
                 }
             }
@@ -97,7 +93,5 @@ namespace Domain.Repositories
                 throw ex;
             }
         }
-
-      
     }
 }
