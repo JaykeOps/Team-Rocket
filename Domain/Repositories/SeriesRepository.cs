@@ -25,8 +25,16 @@ namespace Domain.Repositories
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
             LoadData();
+            
            
 
+        }
+
+        public void fixlist()
+        {
+            var bufflist= new HashSet<Series>();
+            bufflist.Add(this.series.ElementAt(0));
+            this.series = bufflist;
         }
 
 
