@@ -100,7 +100,7 @@ namespace Domain.Repositories
         public void AddSeries(Series newSeries)
         {
             this.series.Add(newSeries);
-            SaveData();
+            
         }
     }
 }
