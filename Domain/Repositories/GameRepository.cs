@@ -14,7 +14,7 @@ namespace Domain.Repositories
 {
     public sealed class GameRepository
     {
-        private List<Game> games;
+        private HashSet<Game> games;
         public static readonly GameRepository instance = new GameRepository();
         private IFormatter formatter;
         private string filePath;
@@ -193,11 +193,11 @@ namespace Domain.Repositories
         {
             try
             {
-                var games = new List<Game>();
+                var games = new HashSet<Game>();
                 using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate,
                     FileAccess.Read, FileShare.Read))
                 {
-                    games = (List<Game>)this.formatter.Deserialize(streamReader);
+                    games = (HashSet<Game>)this.formatter.Deserialize(streamReader);
                     this.games = games;
                 }
             }
