@@ -3,6 +3,7 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using Domain.CustomExceptions;
+using Domain.Services;
 
 namespace Domain.Entities
 {
@@ -15,6 +16,8 @@ namespace Domain.Entities
         public List<Guid>HomeTeamSquad { get;}
         public Guid AwayTeamId { get; }
         public List<Guid> AwayTeamSquad { get; }
+        public ArenaName Location { get; set; }
+        public MatchDateAndTime MatchDate { get; set; }
         public GameProtocol Protocol { get; }
         
 
@@ -27,6 +30,8 @@ namespace Domain.Entities
                 this.HomeTeamId = match.HomeTeamId;
                 this.AwayTeamId = match.AwayTeamId;
                 this.SeriesId = match.SeriesId;
+                this.Location = match.Location;
+                this.MatchDate = match.MatchDate;
                 this.HomeTeamSquad= new List<Guid>();
                 this.AwayTeamSquad=new List<Guid>();
                 this.Protocol = new GameProtocol(this.HomeTeamId, this.AwayTeamId);
@@ -35,6 +40,11 @@ namespace Domain.Entities
             {
                 throw new GameContainsSameTeamTwiceException();
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Location: {this.Location} Time: {this.MatchDate} Hometeam: {DomainService.FindTeamById(this.HomeTeamId)} Awayteam: {DomainService.FindTeamById(this.AwayTeamId)}";
         }
     }
 }
