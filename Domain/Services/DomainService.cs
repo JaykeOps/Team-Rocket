@@ -189,7 +189,7 @@ namespace Domain.Services
             }
             else
             {
-                throw new NullReferenceException("GameProtcol goal list is null");
+                throw new NullReferenceException("GameProtocol goal list is null");
             }
         }
     }
