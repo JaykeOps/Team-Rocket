@@ -6,24 +6,29 @@ using Domain.Services;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Linq;
 
 namespace Domain.Repositories
 {
     public sealed class SeriesRepository
     {
-        private List<Series> series;
+        private HashSet<Series> series;
         public static readonly SeriesRepository instance = new SeriesRepository();
         private IFormatter formatter;
         private string filePath;
+       
 
         private SeriesRepository()
         {
 
-            this.series = new List<Series>();
+            this.series= new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
             LoadData();
+           
+
         }
+
 
         public void SaveData()
         {
@@ -32,7 +37,7 @@ namespace Domain.Repositories
                 using (
                     var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    formatter.Serialize(streamWriter, series);
+                    formatter.Serialize(streamWriter, this.series);
                 }
             }
             catch (FileNotFoundException)
@@ -56,7 +61,7 @@ namespace Domain.Repositories
 
         public void LoadData()
         {
-            var series = new List<Series>();
+            var series = new HashSet<Series>();
 
             try
             {
@@ -64,7 +69,7 @@ namespace Domain.Repositories
                     var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
                         FileShare.Read))
                 {
-                    series = (List<Series>)this.formatter.Deserialize(streamReader);
+                    series = (HashSet<Series>)this.formatter.Deserialize(streamReader);
                     this.series = series;
                 }
             }
