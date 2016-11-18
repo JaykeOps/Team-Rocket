@@ -37,9 +37,10 @@ namespace Domain.Repositories
             try
             {
                 using (
-                    var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    var streamWriter = new FileStream(this.filePath, FileMode.Create, 
+                    FileAccess.Write, FileShare.None))
                 {
-                    formatter.Serialize(streamWriter, players);
+                    this.formatter.Serialize(streamWriter, this.players);
                 }
             }
             catch (FileNotFoundException)

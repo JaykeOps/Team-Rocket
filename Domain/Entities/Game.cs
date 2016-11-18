@@ -7,6 +7,7 @@ using Domain.Services;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class Game : IGameDuration
     {
         public Guid Id { get; }

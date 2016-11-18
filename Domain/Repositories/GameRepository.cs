@@ -1,48 +1,95 @@
-﻿using Domain.CustomExceptions;
+﻿using System;
+using Domain.CustomExceptions;
 using Domain.Entities;
+using Domain.Services;
 using Domain.Value_Objects;
-using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
     public sealed class GameRepository
     {
-        private List<Game> games;
+        private HashSet<Game> games;
         public static readonly GameRepository instance = new GameRepository();
+        private IFormatter formatter;
+        private string filePath;
 
         private GameRepository()
         {
-            Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16),"Allsvenskan");
-            
-            MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
-            Team teamYellow = new Team(new TeamName("YellowTeam"), new ArenaName("YellowArena"), new EmailAddress("yellow@gmail.se"));
-            Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
-            Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
-            Team teamBlue = new Team(new TeamName("BlueTeam"), new ArenaName("BlueArena"), new EmailAddress("blue@gmail.se"));
-            Team teamWhite = new Team(new TeamName("WhiteTeam"), new ArenaName("WhiteArena"), new EmailAddress("white@gmail.se"));
-            Team teamBlack = new Team(new TeamName("BlackTeam"), new ArenaName("BlackArena"), new EmailAddress("black@gmail.se"));
-            Match matchOne = new Match(teamYellow.ArenaName, teamYellow.Id, teamRed.Id, series, date);
-            Match matchTwo = new Match(teamGreen.ArenaName, teamGreen.Id, teamBlue.Id, series, date);
-            Match matchThree = new Match(teamWhite.ArenaName, teamWhite.Id, teamBlack.Id, series, date);
-            Match matchFour = new Match(teamRed.ArenaName, teamRed.Id, teamYellow.Id, series, date);
-            Match matchFive = new Match(teamBlue.ArenaName, teamBlue.Id, teamGreen.Id, series, date);
-            Match matchSix = new Match(teamBlack.ArenaName, teamBlack.Id, teamWhite.Id, series, date);
-            this.games = new List<Game>()
+            this.formatter = new BinaryFormatter();
+            this.filePath = @"..//..//games.bin";
+            this.games = new HashSet<Game>();
+            LoadData();
+        }
+
+        public void SaveData()
+        {
+            try
             {
-                new Game(matchOne),
-                new Game(matchTwo),
-                new Game(matchThree),
-                
-                new Game(matchFour),
-                new Game(matchFive),
-                new Game(matchSix)
-            };
+                using (var streamWriter = new FileStream(this.filePath, FileMode.Create,
+                    FileAccess.Write, FileShare.None))
+                {
+                    this.formatter.Serialize(streamWriter, this.games);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Failed to save data to file!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void LoadData()
+        {
+            try
+            {
+                var games = new HashSet<Game>();
+                using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate,
+                    FileAccess.Read, FileShare.Read))
+                {
+                    games = (HashSet<Game>)this.formatter.Deserialize(streamReader);
+                    this.games = games;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Load failed!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
         }
 
         public void Add(Game game)
         {
-            if (IsAdded(game))
+            if (this.IsAdded(game))
             {
                 throw new GameAlreadyAddedException();
             }
@@ -56,7 +103,7 @@ namespace Domain.Repositories
         {
             var isAdded = false;
 
-            foreach (var game in games)
+            foreach (var game in this.games)
             {
                 if (newGame.Id == game.Id)
                 {
