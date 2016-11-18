@@ -1,20 +1,21 @@
 ﻿using Domain.Entities;
 using System;
+using Domain.Services;
 
 namespace Domain.Value_Objects
 {
     [Serializable]
     public class GameResult : ValueObject<GameResult>
     {
-        public TeamName HomeTeam_Name { get; } // Maybe a field instead?
-        public TeamName AwayTeam_Name { get; } // Maybe a field instead?
+        public Guid HomeTeamId { get; } // Maybe a field instead?
+        public Guid AwayTeamId { get; } // Maybe a field instead?
         public int HomeTeam_Score { get; }     // Maybe a field instead?
         public int AwayTeam_Score { get; }     // Maybe a field instead?
 
-        public GameResult(Team homeTeam_Name, Team awayTeam_Name, int homeTeam_Score, int awayTeam_Score)
+        public GameResult(Guid homeTeamId, Guid awayTeamId, int homeTeam_Score, int awayTeam_Score)
         {
-            this.HomeTeam_Name = homeTeam_Name.Name;
-            this.AwayTeam_Name = awayTeam_Name.Name;
+            this.HomeTeamId = homeTeamId;
+            this.AwayTeamId = awayTeamId;
 
             if (IsScoreValid(homeTeam_Score))
             {
@@ -49,7 +50,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{HomeTeam_Name.ToString()}  {HomeTeam_Score} : {AwayTeam_Score}  {AwayTeam_Name.ToString()}"; // E.g. "Hammarby  3 : 0  Malmö"
+            return $"{DomainService.FindTeamById(this.HomeTeamId)}  {HomeTeam_Score} : {AwayTeam_Score}  {DomainService.FindTeamById(this.AwayTeamId)}"; // E.g. "Hammarby  3 : 0  Malmö"
         }                                                                                                          // Format style can be discussed...
     }
 }

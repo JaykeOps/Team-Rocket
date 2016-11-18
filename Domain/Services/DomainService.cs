@@ -59,7 +59,7 @@ namespace Domain.Services
                 player.AddSeries(series);
             }
         }
-        
+
 
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
             Guid seriesId)
@@ -145,13 +145,13 @@ namespace Domain.Services
 
         public static IEnumerable<Match> GetAllMatches()
         {
-            var matchService= new MatchService();
+            var matchService = new MatchService();
             return matchService.GetAll();
         }
 
         public static IEnumerable<Series> GetAllSeries()
         {
-            var seriesService=new SeriesService();
+            var seriesService = new SeriesService();
             return seriesService.GetAll();
         }
 
@@ -163,8 +163,34 @@ namespace Domain.Services
 
         public static IEnumerable<Guid> GetTeamSeriesSchedule(Guid teamId)
         {
-            
+
             return from match in GetAllMatches() where match.HomeTeamId == teamId || match.AwayTeamId == teamId select match.Id;
+        }
+
+        public static GameResult GetGameResult(GameProtocol protocol)
+        {
+            var homeTeamScore = 0;
+            var awayTeamScore = 0;
+            if (protocol.Goals != null)
+            {
+                foreach (var goal in protocol.Goals)
+                {
+                    if (goal.TeamId == protocol.HomeTeamId)
+                    {
+                        homeTeamScore++;
+                    }
+                    else if (goal.TeamId == protocol.AwayTeamId)
+                    {
+                        awayTeamScore++;
+                    }
+
+                }
+                return new GameResult(protocol.HomeTeamId, protocol.AwayTeamId, homeTeamScore, awayTeamScore);
+            }
+            else
+            {
+                throw new NullReferenceException("GameProtcol goal list is null");
+            }
         }
     }
 }
