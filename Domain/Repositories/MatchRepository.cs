@@ -14,20 +14,21 @@ namespace Domain.Repositories
 {
     public sealed class MatchRepository
     {
-        private List<Match> matches;
+        private HashSet<Match> matches;
         public static readonly MatchRepository instance = new MatchRepository();
         private IFormatter formatter;
         private string filePath;
 
         private MatchRepository()
         {
-            this.matches = new List<Match>();
+            this.matches = new HashSet<Match>();;
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//matchs.bin";
             Load();
             
         }
 
+        
         public void SaveData()
         {
             try
@@ -60,7 +61,7 @@ namespace Domain.Repositories
 
         private void Load()
         {
-           var matches = new List<Match>();
+           var matches = new HashSet<Match>();
 
             try
             {
@@ -68,7 +69,7 @@ namespace Domain.Repositories
                     var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
                         FileShare.Read))
                 {
-                    matches = (List<Match>)this.formatter.Deserialize(streamReader);
+                    matches = (HashSet<Match>)this.formatter.Deserialize(streamReader);
                     this.matches = matches;
                 }
             }
