@@ -6,6 +6,7 @@ using Domain.CustomExceptions;
 
 namespace Domain.Entities
 {
+    [Serializable]
     public class Game : IGameDuration
     {
         public Guid Id { get; }

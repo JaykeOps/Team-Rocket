@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class GameProtocol : ValueObject<GameProtocol>
     {
         public Guid HomeTeamId { get; }

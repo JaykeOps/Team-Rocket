@@ -3,6 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class GameResult : ValueObject<GameResult>
     {
         public TeamName HomeTeam_Name { get; } // Maybe a field instead?

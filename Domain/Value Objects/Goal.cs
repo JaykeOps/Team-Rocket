@@ -3,6 +3,7 @@ using System;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class Goal : ValueObject<Goal>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }

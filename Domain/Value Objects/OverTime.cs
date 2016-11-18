@@ -2,6 +2,7 @@
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class OverTime : ValueObject<OverTime>
     {
         public int Value { get; }
