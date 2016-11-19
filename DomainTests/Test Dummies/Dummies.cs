@@ -157,6 +157,13 @@ namespace DomainTests.Test_Dummies
                 new ArenaName("Dummy ArenaFour"),
                 new EmailAddress("dummy_TeamFour@dummies.tp")
                 );
+
+            this.FillTeamsWithPlayer();
+            var teamService = new TeamService();
+            teamService.AddTeam(this.DummyTeamOne);
+            teamService.AddTeam(this.DummyTeamTwo);
+            teamService.AddTeam(this.DummyTeamThree);
+            teamService.AddTeam(this.DummyTeamFour);
         }
 
         private void FillTeamsWithPlayer()
@@ -174,12 +181,6 @@ namespace DomainTests.Test_Dummies
             this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTen.Id);
             this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerEleven.Id);
             this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTwelve.Id);
-
-            var teamService = new TeamService();
-            teamService.AddTeam(this.DummyTeamOne);
-            teamService.AddTeam(this.DummyTeamTwo);
-            teamService.AddTeam(this.DummyTeamThree);
-            teamService.AddTeam(this.DummyTeamFour);
         }
     }
 
@@ -187,11 +188,12 @@ namespace DomainTests.Test_Dummies
     {
         public Series SeriesDummy { get; }
         public DummyTeams teams { get; }
+
         public DummySeries()
         {
             this.SeriesDummy = new Series
                 (
-                new MatchDuration(new TimeSpan(0,90,0)),
+                new MatchDuration(new TimeSpan(0, 90, 0)),
                 new NumberOfTeams(4),
                 "The Dummy Series"
                 );
@@ -217,7 +219,5 @@ namespace DomainTests.Test_Dummies
 
     public class DummyGames
     {
-        
     }
-
 }
