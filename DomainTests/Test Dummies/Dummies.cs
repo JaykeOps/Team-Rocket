@@ -1,6 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Services;
 using Domain.Value_Objects;
+using System;
 
 namespace DomainTests.Test_Dummies
 {
@@ -106,6 +107,20 @@ namespace DomainTests.Test_Dummies
                 PlayerPosition.Forward,
                 PlayerStatus.Available
                 );
+
+            var playerService = new PlayerService();
+            playerService.Add(this.DummyPlayerOne);
+            playerService.Add(this.DummyPlayerTwo);
+            playerService.Add(this.DummyPlayerThree);
+            playerService.Add(this.DummyPlayerFour);
+            playerService.Add(this.DummyPlayerFive);
+            playerService.Add(this.DummyPlayerSix);
+            playerService.Add(this.DummyPlayerSeven);
+            playerService.Add(this.DummyPlayerEight);
+            playerService.Add(this.DummyPlayerNine);
+            playerService.Add(this.DummyPlayerTen);
+            playerService.Add(this.DummyPlayerEleven);
+            playerService.Add(this.DummyPlayerTwelve);
         }
     }
 
@@ -142,7 +157,6 @@ namespace DomainTests.Test_Dummies
                 new ArenaName("Dummy ArenaFour"),
                 new EmailAddress("dummy_TeamFour@dummies.tp")
                 );
-            
         }
 
         private void FillTeamsWithPlayer()
@@ -160,6 +174,34 @@ namespace DomainTests.Test_Dummies
             this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTen.Id);
             this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerEleven.Id);
             this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTwelve.Id);
+
+            var teamService = new TeamService();
+            teamService.AddTeam(this.DummyTeamOne);
+            teamService.AddTeam(this.DummyTeamTwo);
+            teamService.AddTeam(this.DummyTeamThree);
+            teamService.AddTeam(this.DummyTeamFour);
+        }
+    }
+
+    public class DummySeries
+    {
+        public Series SeriesDummy { get; }
+
+        public DummySeries()
+        {
+            this.SeriesDummy = new Series
+                (
+                new MatchDuration(new TimeSpan(90)),
+                new NumberOfTeams(4),
+                "The Dummy Series"
+                );
+            var teams = new DummyTeams();
+            this.SeriesDummy.TeamIds.Add(teams.DummyTeamOne.Id);
+            this.SeriesDummy.TeamIds.Add(teams.DummyTeamTwo.Id);
+            this.SeriesDummy.TeamIds.Add(teams.DummyTeamThree.Id);
+            this.SeriesDummy.TeamIds.Add(teams.DummyTeamFour.Id);
+            var seriesService = new SeriesService();
+            seriesService.AddSeries(this.SeriesDummy);
         }
     }
 }
