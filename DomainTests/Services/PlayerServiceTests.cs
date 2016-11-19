@@ -13,13 +13,19 @@ namespace Domain.Services.Tests
         private PlayerService playerService;
         private IEnumerable<Player> allPlayers;
         private Guid zlatanPlayerId;
+        private Series series;
+        private Team team1;
+        private Team team2;
+        private Team team3;
+        private Team team4;
 
         [TestInitialize]
         public void Init()
         {
-            playerService = new PlayerService();
-            allPlayers = playerService.GetAll();
-            zlatanPlayerId = allPlayers.ElementAt(0).Id;
+            this.playerService = new PlayerService();
+            this.allPlayers = playerService.GetAll();
+            this.zlatanPlayerId = allPlayers.ElementAt(0).Id;
+            this.series =new Series(new MatchDuration(new TimeSpan(0,90,0)),new NumberOfTeams(4), "TestSerie" );
         }
 
         [TestMethod]
@@ -33,51 +39,51 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerByIdIsWorking()
         {
-            var player = new Player(new Name("John","Doe"),new DateOfBirth("1985-05-20"),PlayerPosition.Forward,PlayerStatus.Absent);
-            Assert.IsFalse(playerService.FindById(player.Id)==player);
+            var player = new Player(new Name("John", "Doe"), new DateOfBirth("1985-05-20"), PlayerPosition.Forward, PlayerStatus.Absent);
+            Assert.IsFalse(playerService.FindById(player.Id) == player);
             playerService.Add(player);
-            Assert.IsTrue(playerService.FindById(player.Id)==player);
+            Assert.IsTrue(playerService.FindById(player.Id) == player);
         }
 
         #region PlayerService, FindPlayer metod tests
         [TestMethod]
         public void FindPlayerFullName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayer = (Player)playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).First();
+            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
-
-            Assert.AreEqual(expectedPlayerId, actualPlayerId);
+            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
         }
 
         [TestMethod]
         public void FindPlayerCaseSensitive()
         {
-            var expectedPlayerId = playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayer= (Player)playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
-            Assert.AreEqual(expectedPlayerId, actualPlayerId);
+            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
+
+            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
         }
 
         [TestMethod]
         public void FindPlayerPartOfFirstName()
         {
-            var expectedPlayerId = playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayer = (Player)playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
+            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
 
-            Assert.AreEqual(expectedPlayerId, actualPlayerId);
+            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
         }
 
         [TestMethod]
         public void FindPlayerPartOfLastName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayer =(Player) playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
+            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
 
-            Assert.AreEqual(expectedPlayerId, actualPlayerId);
+            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
         }
 
         [TestMethod]
@@ -113,54 +119,12 @@ namespace Domain.Services.Tests
             Assert.IsNotNull(expectedTeamId);
         }
 
-        #region PlayerService, Different Stats on Player 
-        //[TestMethod]
-        //public void GamesPlayedIdsNotNull()
-        //{
-        //    var expectedGamesPlayedIds = playerService.GetPlayerGamesPlayedIds(zlatanPlayerId);
+        [TestMethod]
+        public void GetTopScorers()
+        {
+            
+        }
 
-        //    Assert.IsNotNull(expectedGamesPlayedIds);
-        //}
-
-        //[TestMethod]
-        //public void TotalYellowCardsNotNull()
-        //{
-        //    var expectedTotalYellowCards = playerService.GetPlayerTotalYellowCards(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalYellowCards);
-        //}
-
-        //[TestMethod]
-        //public void TotalRedCardsNotNull()
-        //{
-        //    var expectedTotalRedCards = playerService.GetPlayerTotalRedCards(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalRedCards);
-        //}
-
-        //[TestMethod]
-        //public void TotalGoalsNotNull()
-        //{
-        //    var expectedTotalGoals = playerService.GetPlayerTotalGoals(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalGoals);
-        //}
-
-        //[TestMethod]
-        //public void TotalAssistsNotNull()
-        //{
-        //    var expectedTotalAssists = playerService.GetPlayerTotalAssists(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalAssists);
-        //}
-
-        //[TestMethod]
-        //public void TotalPenaltiesNotNull()
-        //{
-        //    var expectedTotalPenalties = playerService.GetPlayerTotalPenalties(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalPenalties);
-        //}
-        #endregion
+        
     }
 }
