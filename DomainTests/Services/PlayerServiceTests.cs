@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Interfaces;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 
@@ -90,7 +91,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerSpecialCharactersNotAllowed()
         {
-            Player expectedPlayerObj = this.playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
+            IPresentablePlayer expectedPlayerObj = this.playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
         }
