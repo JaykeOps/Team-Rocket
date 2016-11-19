@@ -13,7 +13,7 @@ namespace Domain.Services
 
         public GameService()
         {
-            repository = GameRepository.instance;
+            this.repository = GameRepository.instance;
         }
 
         public void Add(Game game)
@@ -33,7 +33,7 @@ namespace Domain.Services
 
         public IEnumerable<Game> SearchGame(string searchText, StringComparison comp)
         {
-            return GetAll().Where(g => g.ToString().Contains(searchText, comp));
+            return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
         }
     }
 }

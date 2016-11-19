@@ -20,22 +20,22 @@ namespace DomainTests.Services
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
         {
-            Assert.IsInstanceOfType(service.GetAll(), typeof(IEnumerable<Match>));
+            Assert.IsInstanceOfType(this.service.GetAll(), typeof(IEnumerable<Match>));
         }
 
         [TestMethod]
         public void GetAllMatchsNotReturningNull()
         {
-            Assert.IsNotNull(service.GetAll());
+            Assert.IsNotNull(this.service.GetAll());
         }
 
         [TestMethod]
         public void AddMatchIsWorking()
         {
-            service.AddMatch(match);
-            IEnumerable<Match> matchs = service.GetAll();
-            Assert.IsTrue(matchs.Contains(match));
-            Assert.IsFalse(matchs.Contains(match2));
+            this.service.AddMatch(this.match);
+            IEnumerable<Match> matchs = this.service.GetAll();
+            Assert.IsTrue(matchs.Contains(this.match));
+            Assert.IsFalse(matchs.Contains(this.match2));
         }
 
         [TestMethod]
@@ -43,17 +43,17 @@ namespace DomainTests.Services
         {
             MatchService service1 = new MatchService();
             MatchService service2 = new MatchService();
-            service1.AddMatch(match);
+            service1.AddMatch(this.match);
             IEnumerable<Match> matchs = service2.GetAll();
-            Assert.IsTrue(matchs.Contains(match));
+            Assert.IsTrue(matchs.Contains(this.match));
         }
 
         [TestMethod]
         public void FindMatchByIdIsWorking()
         {
-            Assert.IsFalse(service.FindById(match.Id) == match);
-            service.AddMatch(match);
-            Assert.IsTrue(service.FindById(match.Id) == match);
+            Assert.IsFalse(this.service.FindById(this.match.Id) == this.match);
+            this.service.AddMatch(this.match);
+            Assert.IsTrue(this.service.FindById(this.match.Id) == this.match);
         }
 
 

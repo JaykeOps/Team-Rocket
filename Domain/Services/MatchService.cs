@@ -30,7 +30,7 @@ namespace Domain.Services
 
         public IEnumerable<Match> SearchMatch(string searchText, StringComparison comp)
         {
-            return GetAll().Where(m => m.ToString().Contains(searchText, comp));
+            return this.GetAll().Where(m => m.ToString().Contains(searchText, comp));
         }
        
     }

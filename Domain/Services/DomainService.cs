@@ -74,7 +74,7 @@ namespace Domain.Services
 
         public static IEnumerable<Goal> GetAllTeamsGoalsInSeries(Guid teamId, Guid seriesId)
         {
-            var allGames = DomainService.GetAllGames();
+            var allGames = GetAllGames();
             var allMatchinGames = allGames.Where(game => game.SeriesId == seriesId).ToList();
             return (from game in allMatchinGames from goal in game.Protocol.Goals where goal.TeamId == teamId select goal).ToList();
         }

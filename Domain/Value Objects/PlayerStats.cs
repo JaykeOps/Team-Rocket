@@ -75,7 +75,7 @@ namespace Domain.Entities
         {
             get
             {
-                return SeriesEvents.Penalties.Count();
+                return this.SeriesEvents.Penalties.Count();
             }
         }
 
@@ -83,7 +83,7 @@ namespace Domain.Entities
         {
             get
             {
-                return SeriesEvents.Games.Count();
+                return this.SeriesEvents.Games.Count();
             }
         }
 

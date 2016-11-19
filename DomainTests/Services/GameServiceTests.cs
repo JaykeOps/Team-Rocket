@@ -19,15 +19,15 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void AddGameToListTest()
         {
-            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
             Game game = new Game(matchOne);
             Game game2 = new Game(matchOne);
             bool gameIsAdded = false;
             bool game2IsAdded = false;
 
-            gameService.Add(game);
+            this.gameService.Add(game);
 
-            foreach (Game gameItem in gameService.GetAll())
+            foreach (Game gameItem in this.gameService.GetAll())
             {
                 if (game.Id == gameItem.Id)
                 {
@@ -46,13 +46,13 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
         {
-            Assert.IsNotNull(gameService.GetAll());
+            Assert.IsNotNull(this.gameService.GetAll());
         }
 
         [TestMethod]
         public void GetAllReturnsIEnumerable()
         {
-            Assert.IsInstanceOfType(gameService.GetAll(), typeof(IEnumerable<Game>));
+            Assert.IsInstanceOfType(this.gameService.GetAll(), typeof(IEnumerable<Game>));
         }
     }
 }

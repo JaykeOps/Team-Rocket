@@ -24,7 +24,7 @@ namespace Domain.Repositories
             this.series= new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
-            LoadData();
+            this.LoadData();
             
            
 
@@ -40,7 +40,7 @@ namespace Domain.Repositories
                 using (
                     var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    formatter.Serialize(streamWriter, this.series);
+                    this.formatter.Serialize(streamWriter, this.series);
                 }
             }
             catch (FileNotFoundException)

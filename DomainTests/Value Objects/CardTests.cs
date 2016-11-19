@@ -17,17 +17,17 @@ namespace Domain.Value_Objects.Tests
         {
             this.playerIdOne = Guid.NewGuid();
             this.playerIdTwo = Guid.NewGuid();
-            this.cardOne = new Card(new MatchMinute(15), playerIdOne, CardType.Yellow);
-            this.cardTwo = new Card(new MatchMinute(15), playerIdOne, CardType.Yellow);
-            this.cardThree = new Card(new MatchMinute(15), playerIdTwo, CardType.Red);
+            this.cardOne = new Card(new MatchMinute(15), this.playerIdOne, CardType.Yellow);
+            this.cardTwo = new Card(new MatchMinute(15), this.playerIdOne, CardType.Yellow);
+            this.cardThree = new Card(new MatchMinute(15), this.playerIdTwo, CardType.Red);
         }
 
         [TestMethod]
         public void CardIsEqualToEntry()
         {
-            Assert.IsTrue(cardOne.CardType.Equals(CardType.Yellow));
-            Assert.IsTrue(cardOne.MatchMinute.Value.Equals(15));
-            Assert.IsTrue(cardOne.PlayerId == this.playerIdOne);
+            Assert.IsTrue(this.cardOne.CardType.Equals(CardType.Yellow));
+            Assert.IsTrue(this.cardOne.MatchMinute.Value.Equals(15));
+            Assert.IsTrue(this.cardOne.PlayerId == this.playerIdOne);
         }
 
         [TestMethod]

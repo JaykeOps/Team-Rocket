@@ -39,7 +39,7 @@ namespace Domain.Repositories
                 using (
                     var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    formatter.Serialize(streamWriter, this.players);
+                    this.formatter.Serialize(streamWriter, this.players);
                 }
             }
             catch (FileNotFoundException)

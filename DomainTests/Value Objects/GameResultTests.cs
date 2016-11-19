@@ -19,11 +19,11 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void GameResultIsEqualToValidEntries()
         {
-            var gameResult = new GameResult(teamOne.Id, teamTwo.Id, 3, 0);
+            var gameResult = new GameResult(this.teamOne.Id, this.teamTwo.Id, 3, 0);
 
-            Assert.AreEqual(gameResult.HomeTeamId, teamOne.Id);
+            Assert.AreEqual(gameResult.HomeTeamId, this.teamOne.Id);
             Assert.AreEqual(gameResult.HomeTeam_Score, 3);
-            Assert.AreEqual(gameResult.AwayTeamId, teamTwo.Id);
+            Assert.AreEqual(gameResult.AwayTeamId, this.teamTwo.Id);
             Assert.AreEqual(gameResult.AwayTeam_Score, 0);
         }
 
@@ -31,35 +31,35 @@ namespace Domain.Value_Objects.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void GameResultThrowsArgumentExceptionIfHomeTeamScoreIsLessThanZero()
         {
-            var gameResult = new GameResult(teamOne.Id, teamTwo.Id, -1, 0);
+            var gameResult = new GameResult(this.teamOne.Id, this.teamTwo.Id, -1, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GameResultThrowsArgumentExceptionIfAwayTeamScoreIsLessThanZero()
         {
-            var gameResult = new GameResult(teamOne.Id, teamTwo.Id, 0, -1);
+            var gameResult = new GameResult(this.teamOne.Id, this.teamTwo.Id, 0, -1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GameResultThrowsArgumentExceptionIfHomeTeamScoreIsGreaterThanFifty()
         {
-            var gameResult = new GameResult(teamOne.Id, teamTwo.Id, 51, 0);
+            var gameResult = new GameResult(this.teamOne.Id, this.teamTwo.Id, 51, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GameResultThrowsArgumentExceptionIfAwayTeamScoreIsGreaterThanFifty()
         {
-            var gameResult = new GameResult(teamOne.Id, teamTwo.Id, 0, 51);
+            var gameResult = new GameResult(this.teamOne.Id, this.teamTwo.Id, 0, 51);
         }
 
         [TestMethod]
         public void GameResultIsComparableByValue()
         {
-            var gameResultOne = new GameResult(teamOne.Id, teamTwo.Id, 3, 0);
-            var gameResultTwo = new GameResult(teamOne.Id, teamTwo.Id, 3, 0);
+            var gameResultOne = new GameResult(this.teamOne.Id, this.teamTwo.Id, 3, 0);
+            var gameResultTwo = new GameResult(this.teamOne.Id, this.teamTwo.Id, 3, 0);
             Assert.AreEqual(gameResultOne, gameResultTwo);
             Assert.IsTrue(gameResultOne == gameResultTwo);
         }
@@ -67,8 +67,8 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void GameResultWorksWithHashSet()
         {
-            var gameResultOne = new GameResult(teamOne.Id, teamTwo.Id, 3, 0);
-            var gameResultTwo = new GameResult(teamOne.Id, teamTwo.Id, 3, 0);
+            var gameResultOne = new GameResult(this.teamOne.Id, this.teamTwo.Id, 3, 0);
+            var gameResultTwo = new GameResult(this.teamOne.Id, this.teamTwo.Id, 3, 0);
             var gameResultHashSet = new HashSet<GameResult>();
             gameResultHashSet.Add(gameResultOne);
             gameResultHashSet.Add(gameResultTwo);

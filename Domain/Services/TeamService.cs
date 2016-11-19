@@ -12,7 +12,7 @@ namespace Domain.Services
 
         public TeamService()
         {
-            repository = TeamRepository.instance;
+            this.repository = TeamRepository.instance;
         }
 
         public void AddTeam(Team team)
@@ -27,7 +27,7 @@ namespace Domain.Services
 
         public Team FindById(Guid teamId)
         {
-            return GetAll().ToList().Find(t => t.Id.Equals(teamId));
+            return this.GetAll().ToList().Find(t => t.Id.Equals(teamId));
         }
     }
 }

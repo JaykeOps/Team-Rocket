@@ -15,7 +15,7 @@ namespace Domain.Services
 
         public PlayerService()
         {
-            allPlayers = repository.GetAll();
+            this.allPlayers = this.repository.GetAll();
         }
 
         public void Add(Player player)
@@ -25,22 +25,22 @@ namespace Domain.Services
 
         public IEnumerable<IPresentablePlayer> GetTopScorers(Guid seriesId)
         {
-            return allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId]).Take(15);
+            return this.allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId]).Take(15);
         }
 
         public IEnumerable<IPresentablePlayer> GetTopAssists(Guid seriesId)
         {
-            return GetAll().OrderByDescending(p => p.SeriesStats[seriesId].AssistCount).Take(15);
+            return this.GetAll().OrderByDescending(p => p.SeriesStats[seriesId].AssistCount).Take(15);
         }
 
         public IEnumerable<IPresentablePlayer> GetTopYellowCards(Guid seriesId)
         {
-            return GetAll().OrderByDescending(p => p.SeriesStats[seriesId].YellowCardCount).Take(5);
+            return this.GetAll().OrderByDescending(p => p.SeriesStats[seriesId].YellowCardCount).Take(5);
         }
 
         public IEnumerable<IPresentablePlayer> GetTopRedCards(Guid seriesId)
         {
-            return allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId].RedCardCount).Take(5);
+            return this.allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId].RedCardCount).Take(5);
         }
         
         public IEnumerable<Player> GetAll()
@@ -50,12 +50,12 @@ namespace Domain.Services
 
         public Player FindById(Guid playerId)
         {
-            return allPlayers.ToList().Find(p => p.Id.Equals(playerId));
+            return this.allPlayers.ToList().Find(p => p.Id.Equals(playerId));
         }
 
         public IEnumerable<Player> FindPlayer(string searchText, StringComparison comp)
         {
-            var result = allPlayers.Where(x =>
+            var result = this.allPlayers.Where(x =>
                 x.Name.ToString().Contains(searchText, comp) ||
                 x.DateOfBirth.Value.ToString().Contains(searchText, comp));
 
@@ -64,13 +64,13 @@ namespace Domain.Services
 
         public string GetPlayerName(Guid playerId)
         {
-            var result = allPlayers.Where(x => x.Id == playerId).Select(x => x.Name.ToString()).First();
+            var result = this.allPlayers.Where(x => x.Id == playerId).Select(x => x.Name.ToString()).First();
             return result;
         }
 
         public Guid GetPlayerTeamId(Guid playerId)
         {
-            var result = allPlayers.Where(x => x.Id == playerId).Select(x => x.TeamId).First();
+            var result = this.allPlayers.Where(x => x.Id == playerId).Select(x => x.TeamId).First();
             return result;
         }
 

@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
 
         public MatchMinute(int value)
         {
-            if (IsMatchMinute(value))
+            if (this.IsMatchMinute(value))
             {
                 this.Value = value;
             }

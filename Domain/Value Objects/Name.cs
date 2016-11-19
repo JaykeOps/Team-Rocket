@@ -45,7 +45,7 @@ namespace Domain.Entities
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName}";
+            return $"{this.FirstName} {this.LastName}";
         }
     }
 }

@@ -17,22 +17,22 @@ namespace DomainTests.Services
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
         {
-            Assert.IsInstanceOfType(service.GetAll(), typeof(IEnumerable<Team>));
+            Assert.IsInstanceOfType(this.service.GetAll(), typeof(IEnumerable<Team>));
         }
 
         [TestMethod]
         public void GetAllTeamsNotReturningNull()
         {
-            Assert.IsNotNull(service.GetAll());
+            Assert.IsNotNull(this.service.GetAll());
         }
 
         [TestMethod]
         public void AddTeamIsWorking()
         {
-            service.AddTeam(team);
-            IEnumerable<Team> teams = service.GetAll();
-            Assert.IsTrue(teams.Contains(team));
-            Assert.IsFalse(teams.Contains(team2));
+            this.service.AddTeam(this.team);
+            IEnumerable<Team> teams = this.service.GetAll();
+            Assert.IsTrue(teams.Contains(this.team));
+            Assert.IsFalse(teams.Contains(this.team2));
         }
 
         [TestMethod]
@@ -40,17 +40,17 @@ namespace DomainTests.Services
         {
             TeamService service1 = new TeamService();
             TeamService service2 = new TeamService();
-            service1.AddTeam(team);
+            service1.AddTeam(this.team);
             IEnumerable<Team> teams = service2.GetAll();
-            Assert.IsTrue(teams.Contains(team));
+            Assert.IsTrue(teams.Contains(this.team));
         }
 
         [TestMethod]
         public void FindTeamByIdIsWorking()
         {
-            Assert.IsFalse(service.FindById(team.Id) == team);
-            service.AddTeam(team);
-            Assert.IsTrue(service.FindById(team.Id) == team);
+            Assert.IsFalse(this.service.FindById(this.team.Id) == this.team);
+            this.service.AddTeam(this.team);
+            Assert.IsTrue(this.service.FindById(this.team.Id) == this.team);
         }
     }
 }

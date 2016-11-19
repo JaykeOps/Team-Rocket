@@ -18,41 +18,41 @@ namespace DomainTests.Services
         {
             this.seriesService = new SeriesService();
             this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(4), "Allsvenskan");
-            testSerieOne.TeamIds.Add(Guid.NewGuid());
-            testSerieOne.TeamIds.Add(Guid.NewGuid());
-            testSerieOne.TeamIds.Add(Guid.NewGuid());
-            testSerieOne.TeamIds.Add(Guid.NewGuid());
+            this.testSerieOne.TeamIds.Add(Guid.NewGuid());
+            this.testSerieOne.TeamIds.Add(Guid.NewGuid());
+            this.testSerieOne.TeamIds.Add(Guid.NewGuid());
+            this.testSerieOne.TeamIds.Add(Guid.NewGuid());
         }
 
         [TestMethod]
         public void AddSeries()
         {
-            Assert.IsFalse(seriesService.GetAll().Contains(testSerieOne));
-            seriesService.AddSeries(testSerieOne);
-            Assert.IsTrue(seriesService.GetAll().Contains(testSerieOne));
+            Assert.IsFalse(this.seriesService.GetAll().Contains(this.testSerieOne));
+            this.seriesService.AddSeries(this.testSerieOne);
+            Assert.IsTrue(this.seriesService.GetAll().Contains(this.testSerieOne));
         }
 
         [TestMethod]
         public void GetAllSeriesesIsReturningIEnumerable()
         {
-            Assert.IsInstanceOfType(seriesService.GetAll(), typeof(IEnumerable<Series>));
+            Assert.IsInstanceOfType(this.seriesService.GetAll(), typeof(IEnumerable<Series>));
         }
 
 
         [TestMethod]
         public void FindSeriesByIdIsWorking()
         {
-            Assert.IsFalse(seriesService.FindById(testSerieOne.Id) == testSerieOne);
-            seriesService.AddSeries(testSerieOne);
-            Assert.IsTrue(seriesService.FindById(testSerieOne.Id) == testSerieOne);
+            Assert.IsFalse(this.seriesService.FindById(this.testSerieOne.Id) == this.testSerieOne);
+            this.seriesService.AddSeries(this.testSerieOne);
+            Assert.IsTrue(this.seriesService.FindById(this.testSerieOne.Id) == this.testSerieOne);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void SeriesCanOnlyBeAddedToDbIfTeamIdsCountIsEqualToNumberOfTeams()
         {
-            testSerieOne.TeamIds.Add(Guid.NewGuid());
-            seriesService.AddSeries(testSerieOne);
+            this.testSerieOne.TeamIds.Add(Guid.NewGuid());
+            this.seriesService.AddSeries(this.testSerieOne);
         }
     }
 }
