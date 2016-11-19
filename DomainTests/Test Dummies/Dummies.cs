@@ -186,7 +186,7 @@ namespace DomainTests.Test_Dummies
     public class DummySeries
     {
         public Series SeriesDummy { get; }
-
+        public DummyTeams teams { get; }
         public DummySeries()
         {
             this.SeriesDummy = new Series
@@ -195,7 +195,7 @@ namespace DomainTests.Test_Dummies
                 new NumberOfTeams(4),
                 "The Dummy Series"
                 );
-            var teams = new DummyTeams();
+            this.teams = new DummyTeams();
             this.SeriesDummy.TeamIds.Add(teams.DummyTeamOne.Id);
             this.SeriesDummy.TeamIds.Add(teams.DummyTeamTwo.Id);
             this.SeriesDummy.TeamIds.Add(teams.DummyTeamThree.Id);
@@ -206,14 +206,11 @@ namespace DomainTests.Test_Dummies
 
         public void GeneratDummySeriesSchedual()
         {
-            var dummyTeams =new DummyTeams();
-            
             var teamService = new TeamService();
-            
-            teamService.AddTeam(dummyTeams.DummyTeamOne);
-            teamService.AddTeam(dummyTeams.DummyTeamTwo);
-            teamService.AddTeam(dummyTeams.DummyTeamThree);
-            teamService.AddTeam(dummyTeams.DummyTeamFour);
+            teamService.AddTeam(teams.DummyTeamOne);
+            teamService.AddTeam(teams.DummyTeamTwo);
+            teamService.AddTeam(teams.DummyTeamThree);
+            teamService.AddTeam(teams.DummyTeamFour);
             this.SeriesDummy.Schedule = DomainService.ScheduleGenerator(this.SeriesDummy.Id);
         }
     }

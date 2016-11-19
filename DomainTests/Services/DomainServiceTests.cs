@@ -47,28 +47,28 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerByIdCanReturnPlayer()
         {
-            var playerId = this.playerService.FindById(this.playerId).Id;
+            Guid playerId = this.playerService.FindById(this.playerId).Id;
             Assert.AreEqual(playerId, this.playerOne.Id);
         }
 
         [TestMethod]
         public void FindTeamByIdCanReturnTeam()
         {
-            var teamId = this.teamService.FindById(this.teamId).Id;
+            Guid teamId = this.teamService.FindById(this.teamId).Id;
             Assert.AreEqual(teamId, this.teamOne.Id);
         }
 
         [TestMethod]
         public void FindGameByIdTest()
         {
-            var gameId = this.gameService.FindById(this.gameId).Id;
+            Guid gameId = this.gameService.FindById(this.gameId).Id;
             Assert.AreEqual(gameId, this.gameOne.Id);
         }
 
         [TestMethod]
         public void FindSeriesByIdTest()
         {
-            var seriesId = this.seriesService.FindById(this.seriesId).Id;
+            Guid seriesId = this.seriesService.FindById(this.seriesId).Id;
             Assert.AreEqual(seriesId, this.seriesOne.Id);
         }
     }

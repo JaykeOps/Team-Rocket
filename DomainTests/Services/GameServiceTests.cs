@@ -20,14 +20,14 @@ namespace Domain.Services.Tests
         public void AddGameToListTest()
         {
             Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
-            var game = new Game(matchOne);
-            var game2 = new Game(matchOne);
-            var gameIsAdded = false;
-            var game2IsAdded = false;
+            Game game = new Game(matchOne);
+            Game game2 = new Game(matchOne);
+            bool gameIsAdded = false;
+            bool game2IsAdded = false;
 
             gameService.Add(game);
 
-            foreach (var gameItem in gameService.GetAll())
+            foreach (Game gameItem in gameService.GetAll())
             {
                 if (game.Id == gameItem.Id)
                 {

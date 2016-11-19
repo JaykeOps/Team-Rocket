@@ -26,7 +26,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetAllPlayersNotNull()
         {
-            var getAllPlayers = playerService.GetAll();
+            IEnumerable<Player> getAllPlayers = playerService.GetAll();
 
             Assert.IsNotNull(getAllPlayers);
         }
@@ -34,7 +34,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerByIdIsWorking()
         {
-            var player = new Player(new Name("John", "Doe"), new DateOfBirth("1985-05-20"), PlayerPosition.Forward, PlayerStatus.Absent);
+            Player player = new Player(new Name("John", "Doe"), new DateOfBirth("1985-05-20"), PlayerPosition.Forward, PlayerStatus.Absent);
             Assert.IsFalse(playerService.FindById(player.Id) == player);
             playerService.Add(player);
             Assert.IsTrue(playerService.FindById(player.Id) == player);
@@ -44,9 +44,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerFullName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            Guid expectedPlayerId = playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
+            Guid actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -54,9 +54,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerCaseSensitive()
         {
-            var expectedPlayerId = playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            Guid expectedPlayerId = playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
+            Guid actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -64,9 +64,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerPartOfFirstName()
         {
-            var expectedPlayerId = playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            Guid expectedPlayerId = playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
+            Guid actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -74,9 +74,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerPartOfLastName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            Guid expectedPlayerId = playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
+            Guid actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -84,7 +84,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerSpecialCharactersNotAllowed()
         {
-            var expectedPlayerObj = playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
+            Player expectedPlayerObj = playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
         }
@@ -93,7 +93,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerNameNotNull()
         {
-            var expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
+            string expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
 
             Assert.IsNotNull(expectedPlayerName);
         }
@@ -101,7 +101,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerNameNotEmpty()
         {
-            var expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
+            string expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
 
             Assert.AreNotEqual("", expectedPlayerName);
         }
@@ -109,17 +109,11 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerTeamIdNotNull()
         {
-            var expectedTeamId = playerService.GetPlayerTeamId(zlatanPlayerId);
+            Guid expectedTeamId = playerService.GetPlayerTeamId(zlatanPlayerId);
 
             Assert.IsNotNull(expectedTeamId);
         }
 
-        [TestMethod]
-        public void testfordommy()
-        {
-            var dummySeries = new DummySeries();
-            dummySeries.GeneratDummySeriesSchedual();
-            var meatces = dummySeries.SeriesDummy.Schedule;
-        }
+        
     }
 }
