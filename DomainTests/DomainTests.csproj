@@ -67,6 +67,7 @@
     <Compile Include="Services\PlayerServiceTests.cs" />
     <Compile Include="Services\SeriesServicesTests.cs" />
     <Compile Include="Services\TeamServiceTests.cs" />
+    <Compile Include="Test Dummies\Dummies.cs" />
     <Compile Include="Value Objects\ArenaNameTest.cs" />
     <Compile Include="Value Objects\AssistTests.cs" />
     <Compile Include="Value Objects\CardTests.cs" />
