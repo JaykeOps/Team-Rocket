@@ -79,15 +79,20 @@ namespace Domain.Value_Objects.Tests
         public void GameResultCalculationIsWorking()
         {
             var games = DomainService.GetAllGames();
-            var game = games.ElementAt(0);
-            var result = game.Protocol.GameResult;
-            var awayScore = 0;
-            var homeScore = 0;
-            awayScore += game.Protocol.Goals.Count(goal => goal.TeamId == result.AwayTeamId);
-            homeScore += game.Protocol.Goals.Count(goal => goal.TeamId == result.HomeTeamId);
+            foreach (var game in games)
+            {
+                
+                var result = game.Protocol.GameResult;
+                var awayScore = 0;
+                var homeScore = 0;
+                awayScore += game.Protocol.Goals.Count(goal => goal.TeamId == result.AwayTeamId);
+                homeScore += game.Protocol.Goals.Count(goal => goal.TeamId == result.HomeTeamId);
 
-            Assert.IsTrue(awayScore == result.AwayTeam_Score);
-            Assert.IsTrue(homeScore == result.HomeTeam_Score);
+                Assert.IsTrue(awayScore == result.AwayTeam_Score);
+                Assert.IsTrue(homeScore == result.HomeTeam_Score);
+
+            }
+            
         }
     }
 }
