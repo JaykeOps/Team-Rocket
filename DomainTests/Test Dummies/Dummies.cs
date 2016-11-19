@@ -219,5 +219,9 @@ namespace DomainTests.Test_Dummies
 
     public class DummyGames
     {
+        public DummyGames()
+        {
+            var dummySeries = new DummySeries();
+        }
     }
 }
