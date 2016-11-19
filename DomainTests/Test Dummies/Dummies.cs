@@ -215,7 +215,7 @@ namespace DomainTests.Test_Dummies
         }
     }
 
-    public class DummyMatches
+    public class DummyGames
     {
         
     }
