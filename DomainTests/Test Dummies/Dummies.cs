@@ -2,6 +2,7 @@
 using Domain.Services;
 using Domain.Value_Objects;
 using System;
+using System.Security.AccessControl;
 
 namespace DomainTests.Test_Dummies
 {
@@ -219,9 +220,20 @@ namespace DomainTests.Test_Dummies
 
     public class DummyGames
     {
+        public Game GameOne { get;}
+        public Game Gametwo { get; }
+        public Game GameThree { get; }
+        public Game GameFour { get; }
+        public Game GameFive { get; }
+        public Game GameSix { get; }
+
         public DummyGames()
         {
+            
             var dummySeries = new DummySeries();
+            dummySeries.GeneratDummySeriesSchedual();
+            
+            
         }
     }
 }
