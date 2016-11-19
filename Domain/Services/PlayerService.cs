@@ -53,7 +53,7 @@ namespace Domain.Services
             return this.allPlayers.ToList().Find(p => p.Id.Equals(playerId));
         }
 
-        public IEnumerable<Player> FindPlayer(string searchText, StringComparison comp)
+        public IEnumerable<IPresentablePlayer> FindPlayer(string searchText, StringComparison comp)
         {
             var result = this.allPlayers.Where(x =>
                 x.Name.ToString().Contains(searchText, comp) ||
