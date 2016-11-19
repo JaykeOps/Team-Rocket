@@ -3,8 +3,6 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Linq;
 
 namespace DomainTests.Test_Dummies
 {
@@ -237,16 +235,36 @@ namespace DomainTests.Test_Dummies
 
         public DummyGames()
         {
-
             var dummySeries = new DummySeries();
             dummySeries.GeneratDummySeriesSchedual();
 
+            this.GameOne = new Game(dummySeries.SeriesDummy.Schedule[0].ElementAt(0));
+            this.GameTwo = new Game(dummySeries.SeriesDummy.Schedule[0].ElementAt(1));
+            this.GameThree = new Game(dummySeries.SeriesDummy.Schedule[1].ElementAt(0));
+            this.GameFour = new Game(dummySeries.SeriesDummy.Schedule[1].ElementAt(1));
+            this.GameFive = new Game(dummySeries.SeriesDummy.Schedule[2].ElementAt(0));
+            this.GameSix = new Game(dummySeries.SeriesDummy.Schedule[2].ElementAt(1));
             this.GameSeven = new Game(dummySeries.SeriesDummy.Schedule[3].ElementAt(0));
             this.GameEight = new Game(dummySeries.SeriesDummy.Schedule[3].ElementAt(1));
             this.GameNine = new Game(dummySeries.SeriesDummy.Schedule[4].ElementAt(0));
             this.GameTen = new Game(dummySeries.SeriesDummy.Schedule[4].ElementAt(1));
             this.GameEleven = new Game(dummySeries.SeriesDummy.Schedule[5].ElementAt(0));
             this.GameTwelve = new Game(dummySeries.SeriesDummy.Schedule[5].ElementAt(1));
+
+            this.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(28), this.GameOne.HomeTeamId, DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(0).Id));
+            this.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(48), this.GameOne.HomeTeamId, DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(1).Id));
+            this.GameOne.Protocol.Cards.Add(new Card(new MatchMinute(75), DomainService.FindTeamById(this.GameOne.AwayTeamId).Players.ElementAt(2).Id, CardType.Red));
+
+            this.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(30), this.GameThree.AwayTeamId, DomainService.FindTeamById(this.GameThree.AwayTeamId).Players.ElementAt(1).Id));
+            this.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(50), this.GameThree.HomeTeamId, DomainService.FindTeamById(this.GameThree.HomeTeamId).Players.ElementAt(2).Id));
+            this.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(75), DomainService.FindTeamById(this.GameThree.AwayTeamId).Players.ElementAt(2).Id, CardType.Yellow));
+
+            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(20), this.GameFive.AwayTeamId, DomainService.FindTeamById(this.GameFive.AwayTeamId).Players.ElementAt(1).Id));
+            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(45), this.GameFive.HomeTeamId, DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(0).Id));
+            this.GameFive.Protocol.Cards.Add(new Card(new MatchMinute(70), DomainService.FindTeamById(this.GameFive.AwayTeamId).Players.ElementAt(2).Id, CardType.Red));
+            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(74), this.GameFive.AwayTeamId, DomainService.FindTeamById(this.GameOne.AwayTeamId).Players.ElementAt(1).Id));
+            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(80), this.GameFive.HomeTeamId, DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(1).Id));
+            this.GameFive.Protocol.Cards.Add(new Card(new MatchMinute(89), DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(2).Id, CardType.Yellow));
 
             this.GameSeven.Protocol.Goals.Add(new Goal(new MatchMinute(11),
                 this.GameSeven.HomeTeamId,
@@ -285,33 +303,6 @@ namespace DomainTests.Test_Dummies
             this.GameEleven.Protocol.Goals.Add(new Goal(new MatchMinute(88),
                 this.GameEleven.HomeTeamId,
                 DomainService.FindTeamById(this.GameEleven.HomeTeamId).Players.ElementAt(1).Id));
-
-            this.GameOne = new Game(dummySeries.SeriesDummy.Schedule[0].ElementAt(0));
-            this.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(28), this.GameOne.HomeTeamId, DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(0).Id));
-            this.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(48), this.GameOne.HomeTeamId, DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(1).Id));
-            this.GameOne.Protocol.Cards.Add(new Card(new MatchMinute(75), DomainService.FindTeamById(this.GameOne.AwayTeamId).Players.ElementAt(2).Id, CardType.Red));
-
-            this.GameTwo = new Game(dummySeries.SeriesDummy.Schedule[0].ElementAt(1));
-
-            this.GameThree = new Game(dummySeries.SeriesDummy.Schedule[1].ElementAt(0));
-            this.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(30), this.GameThree.AwayTeamId, DomainService.FindTeamById(this.GameThree.AwayTeamId).Players.ElementAt(1).Id));
-            this.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(50), this.GameThree.HomeTeamId, DomainService.FindTeamById(this.GameThree.HomeTeamId).Players.ElementAt(2).Id));
-            this.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(75), DomainService.FindTeamById(this.GameThree.AwayTeamId).Players.ElementAt(2).Id, CardType.Yellow));
-
-            this.GameFour = new Game(dummySeries.SeriesDummy.Schedule[1].ElementAt(1));
-
-            this.GameFive = new Game(dummySeries.SeriesDummy.Schedule[2].ElementAt(0));
-            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(20), this.GameFive.AwayTeamId, DomainService.FindTeamById(this.GameFive.AwayTeamId).Players.ElementAt(1).Id));
-            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(45), this.GameFive.HomeTeamId, DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(0).Id));
-            this.GameFive.Protocol.Cards.Add(new Card(new MatchMinute(70), DomainService.FindTeamById(this.GameFive.AwayTeamId).Players.ElementAt(2).Id, CardType.Red));
-            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(74), this.GameFive.AwayTeamId, DomainService.FindTeamById(this.GameOne.AwayTeamId).Players.ElementAt(1).Id));
-            this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(80), this.GameFive.HomeTeamId, DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(1).Id));
-            this.GameFive.Protocol.Cards.Add(new Card(new MatchMinute(89), DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(2).Id, CardType.Yellow));
-            this.GameSix = new Game(dummySeries.SeriesDummy.Schedule[2].ElementAt(1));
-
-
-
-
         }
     }
 }
