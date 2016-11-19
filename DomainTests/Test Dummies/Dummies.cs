@@ -303,6 +303,20 @@ namespace DomainTests.Test_Dummies
             this.GameEleven.Protocol.Goals.Add(new Goal(new MatchMinute(88),
                 this.GameEleven.HomeTeamId,
                 DomainService.FindTeamById(this.GameEleven.HomeTeamId).Players.ElementAt(1).Id));
+
+            var gameService = new GameService();
+            gameService.Add(this.GameOne);
+            gameService.Add(this.GameTwo);
+            gameService.Add(this.GameThree);
+            gameService.Add(this.GameFour);
+            gameService.Add(this.GameFive);
+            gameService.Add(this.GameSix);
+            gameService.Add(this.GameSeven);
+            gameService.Add(this.GameEight);
+            gameService.Add(this.GameNine);
+            gameService.Add(this.GameTen);
+            gameService.Add(this.GameEleven);
+            gameService.Add(this.GameTwelve);
         }
     }
 }
