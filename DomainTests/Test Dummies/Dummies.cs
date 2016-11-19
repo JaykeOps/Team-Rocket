@@ -1,10 +1,24 @@
-﻿using Domain.Entities;
+﻿using System.Runtime.CompilerServices;
+using Domain.Entities;
 using Domain.Value_Objects;
 
 namespace DomainTests.Test_Dummies
 {
     public class DummyPlayers
     {
+        public Player DummyPlayerOne { get; }
+        public Player DummyPlayerTwo { get; }
+        public Player DummyPlayerThree { get; }
+        public Player DummyPlayerFour { get; }
+        public Player DummyPlayerFive { get; }
+        public Player DummyPlayerSix { get; }
+        public Player DummyPlayerSeven { get; }
+        public Player DummyPlayerEight { get; }
+        public Player DummyPlayerNine { get; }
+        public Player DummyPlayerTen { get; }
+        public Player DummyPlayerEleven { get; }
+        public Player DummyPlayerTwelve { get; }
+
         public DummyPlayers()
         {
             this.DummyPlayerOne = new Player
@@ -21,7 +35,6 @@ namespace DomainTests.Test_Dummies
                 PlayerPosition.Forward,
                 PlayerStatus.Available
                 );
-
             this.DummyPlayerThree = this.DummyPlayerTwo = new Player
                 (
                 new Name("Player", "Three"),
@@ -94,18 +107,59 @@ namespace DomainTests.Test_Dummies
                 PlayerStatus.Available
                 );
         }
+    }
 
-        public Player DummyPlayerOne { get; }
-        public Player DummyPlayerTwo { get; }
-        public Player DummyPlayerThree { get; }
-        public Player DummyPlayerFour { get; }
-        public Player DummyPlayerFive { get; }
-        public Player DummyPlayerSix { get; }
-        public Player DummyPlayerSeven { get; }
-        public Player DummyPlayerEight { get; }
-        public Player DummyPlayerNine { get; }
-        public Player DummyPlayerTen { get; }
-        public Player DummyPlayerEleven { get; }
-        public Player DummyPlayerTwelve { get; }
+    public class DummyTeams
+    {
+        public Team DummyTeamOne { get; }
+        public Team DummyTeamTwo { get; }
+        public Team DummyTeamThree { get; }
+        public Team DummyTeamFour { get; }
+
+        public DummyTeams()
+        {
+            this.DummyTeamOne = new Team
+                (
+                new TeamName("Dummy TeamOne"),
+                new ArenaName("Dummy ArenaOne"),
+                new EmailAddress("dummy_TeamOne@dummies.tp")
+                );
+            this.DummyTeamTwo = new Team
+                (
+                new TeamName("Dummy TeamTwo"),
+                new ArenaName("Dummy ArenaTwo"),
+                new EmailAddress("dummy_TeamTwo@dummies.tp")
+                );
+            this.DummyTeamThree = new Team
+                (
+                new TeamName("Dummy TeamThree"),
+                new ArenaName("Dummy ArenaThree"),
+                new EmailAddress("dummy_TeamThree@dummies.tp")
+                );
+            this.DummyTeamFour = new Team
+                (
+                new TeamName("Dummy TeamFour"),
+                new ArenaName("Dummy ArenaFour"),
+                new EmailAddress("dummy_TeamFour@dummies.tp")
+                );
+            
+        }
+
+        private void FillTeamsWithPlayer()
+        {
+            var dummyPlayers = new DummyPlayers();
+            this.DummyTeamOne.AddPlayerId(dummyPlayers.DummyPlayerOne.Id);
+            this.DummyTeamOne.AddPlayerId(dummyPlayers.DummyPlayerTwo.Id);
+            this.DummyTeamOne.AddPlayerId(dummyPlayers.DummyPlayerThree.Id);
+            this.DummyTeamTwo.AddPlayerId(dummyPlayers.DummyPlayerFour);
+            this.DummyTeamTwo.AddPlayerId(dummyPlayers.DummyPlayerFive.Id);
+            this.DummyTeamTwo.AddPlayerId(dummyPlayers.DummyPlayerSix.Id);
+            this.DummyTeamThree.AddPlayerId(dummyPlayers.DummyPlayerSeven.Id);
+            this.DummyTeamThree.AddPlayerId(dummyPlayers.DummyPlayerEight.Id);
+            this.DummyTeamThree.AddPlayerId(dummyPlayers.DummyPlayerNine.Id);
+            this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTen.Id);
+            this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerEleven.Id);
+            this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTwelve.Id);
+        }
     }
 }
