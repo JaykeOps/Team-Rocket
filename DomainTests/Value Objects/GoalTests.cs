@@ -29,18 +29,18 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void GoalIsEqualToEntry()
         {
-            Assert.IsTrue(goalOne.MatchMinute.Value.Equals(25));
-            Assert.IsTrue(goalOne.PlayerId == playerIdOne);
-            Assert.AreNotEqual(playerIdOne, Guid.Empty);
+            Assert.IsTrue(this.goalOne.MatchMinute.Value.Equals(25));
+            Assert.IsTrue(this.goalOne.PlayerId == this.playerIdOne);
+            Assert.AreNotEqual(this.playerIdOne, Guid.Empty);
         }
 
         [TestMethod]
         public void GoalIsComparableByValue()
         {
             Assert.IsTrue(this.goalOne == this.goalTwo);
-            Assert.IsTrue(this.goalOne != goalThree);
+            Assert.IsTrue(this.goalOne != this.goalThree);
             Assert.AreEqual(this.goalOne, this.goalTwo);
-            Assert.AreNotEqual(this.goalOne, goalThree);
+            Assert.AreNotEqual(this.goalOne, this.goalThree);
         }
 
         [TestMethod]

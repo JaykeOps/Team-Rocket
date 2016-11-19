@@ -19,7 +19,7 @@ namespace DomainTests.Entities
             var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16),"Allsvenskan");
             this.awayTeamId = Guid.NewGuid();
             this.homeTeamId = Guid.NewGuid();
-            this.match = new Match(arena, homeTeamId, awayTeamId, series, date);
+            this.match = new Match(arena, this.homeTeamId, this.awayTeamId, series, date);
         }
 
         [TestMethod]
@@ -27,8 +27,8 @@ namespace DomainTests.Entities
         {
             Assert.IsTrue(this.match.Id != Guid.Empty);
             Assert.IsTrue($"{this.match.MatchDate.Value:yyyy-MM-dd HH:mm}" == "2016-12-23 19:00");
-            Assert.IsTrue(this.match.AwayTeamId == awayTeamId);
-            Assert.IsTrue(this.match.HomeTeamId == homeTeamId);
+            Assert.IsTrue(this.match.AwayTeamId == this.awayTeamId);
+            Assert.IsTrue(this.match.HomeTeamId == this.homeTeamId);
             Assert.IsTrue(this.match.Location.Value == "Ullevi");
             Assert.IsTrue(this.match.MatchDuration.Equals(new MatchDuration(new TimeSpan(90 * 6000000000 / 10))));
         }

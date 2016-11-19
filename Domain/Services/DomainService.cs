@@ -1,10 +1,9 @@
 ﻿using Domain.Entities;
-using Domain.Value_Objects;
 using Domain.Helper_Classes;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Domain.Services
 {
@@ -39,6 +38,7 @@ namespace Domain.Services
             var seriesService = new SeriesService();
             return seriesService.FindById(id);
         }
+
         public static IEnumerable<Game> GetAllGames()
         {
             var gameService = new GameService();
@@ -60,6 +60,11 @@ namespace Domain.Services
             }
         }
 
+        public static void AddMatches(IEnumerable<Match> matches)
+        {
+            var matchService = new MatchService();
+            matchService.AddMatches(matches);
+        }
 
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
             Guid seriesId)
@@ -74,12 +79,10 @@ namespace Domain.Services
 
         public static IEnumerable<Goal> GetAllTeamsGoalsInSeries(Guid teamId, Guid seriesId)
         {
-            var allGames = DomainService.GetAllGames();
+            var allGames = GetAllGames();
             var allMatchinGames = allGames.Where(game => game.SeriesId == seriesId).ToList();
             return (from game in allMatchinGames from goal in game.Protocol.Goals where goal.TeamId == teamId select goal).ToList();
         }
-
-
 
         public static IEnumerable<Goal> GetPlayersGoalsInSeries(Guid playerId,
             Guid seriesId)
@@ -111,6 +114,7 @@ namespace Domain.Services
             playerCardsInGames.ForEach(x => playerCards.AddRange(x));
             return playerCards;
         }
+
         public static IEnumerable<Penalty> GetPlayerPenaltiesInSeries(Guid playerId, Guid seriesId)
         {
             var playerPenalties = new List<Penalty>();
@@ -131,10 +135,13 @@ namespace Domain.Services
                                                                  game.Protocol.HomeTeamSub.Contains(playerId));
         }
 
-        public static Dictionary<int, List<Match>> ScheduleGenerator(Guid seriesId)
+        public static void ScheduleGenerator(Guid seriesId)
         {
             var schedule = new Schedule();
-            return schedule.GenerateSchedule(FindSeriesById(seriesId));
+            var series = FindSeriesById(seriesId);
+            schedule.GenerateSchedule(series);
+            AddMatches(series.Schedule[0]);
+            AddMatches(series.Schedule[1]);
         }
 
         public static IEnumerable<Team> GetAllTeams()
@@ -163,7 +170,6 @@ namespace Domain.Services
 
         public static IEnumerable<Guid> GetTeamSeriesSchedule(Guid teamId)
         {
-
             return from match in GetAllMatches() where match.HomeTeamId == teamId || match.AwayTeamId == teamId select match.Id;
         }
 
@@ -183,7 +189,6 @@ namespace Domain.Services
                     {
                         awayTeamScore++;
                     }
-
                 }
                 return new GameResult(protocol.HomeTeamId, protocol.AwayTeamId, homeTeamScore, awayTeamScore);
             }

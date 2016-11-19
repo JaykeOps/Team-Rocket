@@ -17,20 +17,20 @@ namespace Domain.Entities.Tests
         [TestMethod]
         public void ConstructorInitiatesCorrectlyTest()
         {
-            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
 
             var game = new Game(matchOne);
 
-            Assert.AreEqual(matchDuration90Minutes, game.MatchDuration);
-            Assert.AreEqual(teamRed.Id, game.HomeTeamId);
-            Assert.AreEqual(teamGreen.Id, game.AwayTeamId);
+            Assert.AreEqual(this.matchDuration90Minutes, game.MatchDuration);
+            Assert.AreEqual(this.teamRed.Id, game.HomeTeamId);
+            Assert.AreEqual(this.teamGreen.Id, game.AwayTeamId);
         }
 
         [TestMethod]
         [ExpectedException(typeof(GameContainsSameTeamTwiceException))]
         public void ConstructorThrowsSameTeamException()
         {
-            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamRed.Id, series, date);
+            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamRed.Id, this.series, this.date);
             var game = new Game(matchOne);
         }
     }

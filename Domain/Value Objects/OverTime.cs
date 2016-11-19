@@ -9,7 +9,7 @@ namespace Domain.Value_Objects
 
         public OverTime(int value)
         {
-            if (IsOverTime(value))
+            if (this.IsOverTime(value))
             {
                 this.Value = value;
             }

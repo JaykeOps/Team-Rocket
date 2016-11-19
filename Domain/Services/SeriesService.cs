@@ -31,7 +31,7 @@ namespace Domain.Services
 
         public Series FindById(Guid seriesId)
         {
-            var allSeries = GetAll();
+            var allSeries = this.GetAll();
             return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
     }

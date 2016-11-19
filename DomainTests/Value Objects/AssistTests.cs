@@ -35,9 +35,9 @@ namespace DomainTests.Value_Objects
         public void AssistIsComparableByValue()
         {
             Assert.IsTrue(this.assistOne == this.assistTwo);
-            Assert.IsTrue(this.assistOne != assistThree);
+            Assert.IsTrue(this.assistOne != this.assistThree);
             Assert.AreEqual(this.assistOne, this.assistTwo);
-            Assert.AreNotEqual(this.assistTwo, assistThree);
+            Assert.AreNotEqual(this.assistTwo, this.assistThree);
         }
 
         [TestMethod]

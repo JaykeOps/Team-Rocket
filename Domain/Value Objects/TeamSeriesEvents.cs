@@ -16,7 +16,7 @@ namespace Domain.Value_Objects
             get
             {
                 TeamEvents teamEvents;
-                if (seriesEvents.TryGetValue(seriesId, out teamEvents))
+                if (this.seriesEvents.TryGetValue(seriesId, out teamEvents))
                 {
                     return teamEvents;
                 }

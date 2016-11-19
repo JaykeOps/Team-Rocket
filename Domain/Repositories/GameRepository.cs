@@ -1,14 +1,10 @@
-﻿using System;
-using Domain.CustomExceptions;
-using Domain.Entities;
-using Domain.Services;
-using Domain.Value_Objects;
+﻿using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Domain.CustomExceptions;
 
 namespace Domain.Repositories
 {
@@ -24,7 +20,7 @@ namespace Domain.Repositories
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//games.bin";
             this.games = new HashSet<Game>();
-            LoadData();
+            this.LoadData();
         }
 
         public void SaveData()
@@ -87,31 +83,21 @@ namespace Domain.Repositories
             }
         }
 
-        public void Add(Game game)
+        public void Add(Game newGame)
         {
-            if (this.IsAdded(game))
+            if (this.IsAlreadyExisting(newGame))
             {
-                throw new GameAlreadyAddedException();
+                throw new GameAlreadyAddedException("Game could not be added. " +
+                                                    $"A game with id {newGame.Id} already exists!");
             }
-            else
             {
-                this.games.Add(game);
+                this.games.Add(newGame);
             }
         }
 
-        public bool IsAdded(Game newGame)
+        public bool IsAlreadyExisting(Game newGame)
         {
-            var isAdded = false;
-
-            foreach (var game in this.games)
-            {
-                if (newGame.Id == game.Id)
-                {
-                    isAdded = true;
-                }
-            }
-
-            return isAdded;
+            return this.games.Select(x => x.Id).Contains(newGame.Id);
         }
 
         public IEnumerable<Game> GetAll()

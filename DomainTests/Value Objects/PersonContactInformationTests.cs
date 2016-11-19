@@ -12,18 +12,18 @@ namespace Domain.Value_Objects.Tests
 
         public PersonContactInformationTests()
         {
-            phoneString = "0734-668899";
-            emailString = "johnDoe@outlook.com";
-            var phone = new PhoneNumber(phoneString);
-            var email = new EmailAddress(emailString);
+            this.phoneString = "0734-668899";
+            this.emailString = "johnDoe@outlook.com";
+            var phone = new PhoneNumber(this.phoneString);
+            var email = new EmailAddress(this.emailString);
             this.contactInformation = new ContactInformation(phone, email);
         }
 
         [TestMethod]
         public void PersonContactInformationCanBeInitiatedWithValidArguments()
         {
-            Assert.IsTrue(contactInformation.Phone.Value == "0734-668899"
-                && contactInformation.Email.Value == "johnDoe@outlook.com");
+            Assert.IsTrue(this.contactInformation.Phone.Value == "0734-668899"
+                && this.contactInformation.Email.Value == "johnDoe@outlook.com");
         }
 
         [TestMethod]
@@ -44,10 +44,10 @@ namespace Domain.Value_Objects.Tests
         public void PersonContactInformationWorksWithHashSet()
         {
             var hashSet = new HashSet<ContactInformation>();
-            var phoneOne = new PhoneNumber(phoneString);
-            var emailOne = new EmailAddress(emailString);
-            var phoneTwo = new PhoneNumber(phoneString);
-            var emailTwo = new EmailAddress(emailString);
+            var phoneOne = new PhoneNumber(this.phoneString);
+            var emailOne = new EmailAddress(this.emailString);
+            var phoneTwo = new PhoneNumber(this.phoneString);
+            var emailTwo = new EmailAddress(this.emailString);
             var contatctOne = new ContactInformation(phoneOne, emailOne);
             var contactTwo = new ContactInformation(phoneTwo, emailTwo);
             hashSet.Add(contatctOne);

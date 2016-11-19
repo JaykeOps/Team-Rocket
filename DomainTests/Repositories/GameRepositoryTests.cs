@@ -31,22 +31,22 @@ namespace Domain.Repositories.Tests
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
         {
-            Assert.IsNotNull(gameRepository.GetAll());
+            Assert.IsNotNull(this.gameRepository.GetAll());
         }
 
         [TestMethod]
         public void AddGameToListTest()
         {
-            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
 
             var game = new Game(matchOne);
             var game2 = new Game(matchOne);
             var gameIsAdded = false;
             var game2IsAdded = false;
 
-            gameRepository.Add(game);
+            this.gameRepository.Add(game);
 
-            foreach (var gameItem in gameRepository.GetAll())
+            foreach (var gameItem in this.gameRepository.GetAll())
             {
                 if (game.Id == gameItem.Id)
                 {
@@ -66,17 +66,17 @@ namespace Domain.Repositories.Tests
         [ExpectedException(typeof(GameAlreadyAddedException))]
         public void AddThrowsGameAlreadyAddedException()
         {
-            Match matchOne = new Match(teamRed.ArenaName, teamRed.Id, teamGreen.Id, series, date);
+            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
             var game = new Game(matchOne);
 
-            gameRepository.Add(game);
-            gameRepository.Add(game);
+            this.gameRepository.Add(game);
+            this.gameRepository.Add(game);
         }
 
         [TestMethod]
         public void GetAllReturnsIEnumerable()
         {
-            Assert.IsInstanceOfType(gameRepository.GetAll(), typeof(IEnumerable<Game>));
+            Assert.IsInstanceOfType(this.gameRepository.GetAll(), typeof(IEnumerable<Game>));
         }
 
         [TestMethod]

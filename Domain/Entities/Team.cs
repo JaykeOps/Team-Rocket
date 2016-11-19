@@ -51,7 +51,7 @@ namespace Domain.Entities
             }
         }
 
-        public TeamMatchSchedule AllTeamMatchSchedules
+        public TeamMatchSchedule MatchSchedules
         {
             get
             {

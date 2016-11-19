@@ -43,11 +43,11 @@ namespace DomainTests.Entities.Tests
         [TestMethod]
         public void PlayerNameCanChange()
         {
-            Assert.IsFalse(testPlayer.Name.FirstName == "Marco"
-                && testPlayer.Name.LastName == "Polo");
+            Assert.IsFalse(this.testPlayer.Name.FirstName == "Marco"
+                && this.testPlayer.Name.LastName == "Polo");
             this.testPlayer.Name = new Name("Marco", "Polo");
-            Assert.IsTrue(testPlayer.Name.FirstName == "Marco"
-                && testPlayer.Name.LastName == "Polo");
+            Assert.IsTrue(this.testPlayer.Name.FirstName == "Marco"
+                && this.testPlayer.Name.LastName == "Polo");
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace DomainTests.Entities.Tests
         [TestMethod]
         public void PlayerPositionCanChange()
         {
-            Assert.IsFalse(testPlayer.Position == PlayerPosition.MidFielder);
+            Assert.IsFalse(this.testPlayer.Position == PlayerPosition.MidFielder);
             this.testPlayer.Position = PlayerPosition.MidFielder;
             Assert.IsTrue(this.testPlayer.Position == PlayerPosition.MidFielder);
         }

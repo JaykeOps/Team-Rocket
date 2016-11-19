@@ -21,7 +21,7 @@ namespace Domain.Repositories
             this.matches = new HashSet<Match>();;
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//matchs.bin";
-            Load();
+            this.Load();
             
         }
 
@@ -33,7 +33,7 @@ namespace Domain.Repositories
                 using (
                     var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    formatter.Serialize(streamWriter, this.matches);
+                    this.formatter.Serialize(streamWriter, this.matches);
                 }
             }
             catch (FileNotFoundException)
@@ -99,6 +99,14 @@ namespace Domain.Repositories
         public void AddMatch(Match newMatch)
         {
             this.matches.Add(newMatch);
+        }
+
+        public void AddMatches(IEnumerable<Match> matches)
+        {
+            foreach (var match in matches)
+            {
+                this.matches.Add(match);
+            }
         }
     }
 }

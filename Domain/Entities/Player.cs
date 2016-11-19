@@ -51,12 +51,12 @@ namespace Domain.Entities
 
         public PlayerSeriesEvents SeriesEvents //Will be internal
         {
-            get { return seriesEvents; }
+            get { return this.seriesEvents; }
         }
 
         public PlayerSeriesStats SeriesStats //Will be internal
         {
-            get { return seriesStats; }
+            get { return this.seriesStats; }
         }
 
         public ShirtNumber ShirtNumber

@@ -63,7 +63,7 @@ namespace DomainTests.Entities
         public void TeamsHashSetOFPlayersCanAdd()
         {
             this.team.AddPlayerId(Guid.NewGuid());
-            Assert.IsTrue(team.Players.Count() == 1);
+            Assert.IsTrue(this.team.Players.Count() == 1);
         }
     }
 }

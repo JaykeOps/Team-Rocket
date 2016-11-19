@@ -80,7 +80,7 @@ namespace Domain.Value_Objects
 
         private void UpdateIsAvailableShirtNumber()
         {
-            var players = DomainService.FindTeamById(teamId).Players;
+            var players = DomainService.FindTeamById(this.teamId).Players;
             foreach (var player in players)
             {
                 if (player.ShirtNumber.Value.HasValue)

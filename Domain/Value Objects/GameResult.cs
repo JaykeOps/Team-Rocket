@@ -17,7 +17,7 @@ namespace Domain.Value_Objects
             this.HomeTeamId = homeTeamId;
             this.AwayTeamId = awayTeamId;
 
-            if (IsScoreValid(homeTeam_Score))
+            if (this.IsScoreValid(homeTeam_Score))
             {
                 this.HomeTeam_Score = homeTeam_Score;
             }
@@ -26,7 +26,7 @@ namespace Domain.Value_Objects
                 throw new ArgumentException("Score can only be between 0-50.");
             }
 
-            if (IsScoreValid(awayTeam_Score))
+            if (this.IsScoreValid(awayTeam_Score))
             {
                 this.AwayTeam_Score = awayTeam_Score;
             }
@@ -50,7 +50,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{DomainService.FindTeamById(this.HomeTeamId)}  {HomeTeam_Score} : {AwayTeam_Score}  {DomainService.FindTeamById(this.AwayTeamId)}"; // E.g. "Hammarby  3 : 0  Malmö"
+            return $"{DomainService.FindTeamById(this.HomeTeamId)}  {this.HomeTeam_Score} : {this.AwayTeam_Score}  {DomainService.FindTeamById(this.AwayTeamId)}"; // E.g. "Hammarby  3 : 0  Malmö"
         }                                                                                                          // Format style can be discussed...
     }
 }

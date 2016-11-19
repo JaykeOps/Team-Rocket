@@ -38,49 +38,50 @@ namespace DomainTests.Helper_Classes
         [TestMethod]
         public void ScheduleCanGenerateMatchesWithRounds()
         {
-            var teams = teamService.GetAll();
+            var teams = this.teamService.GetAll();
             foreach (var team in teams)
             {
-                series.TeamIds.Add(team.Id);
+                this.series.TeamIds.Add(team.Id);
             }
-            var generatedMatchSchedule = schedule.GenerateSchedule(series);
-            Assert.IsNotNull(generatedMatchSchedule);
+            this.schedule.GenerateSchedule(this.series);
+            Assert.IsNotNull(this.series.Schedule);
         }
 
         [TestMethod]
         public void ScheduleCanGenerateMatchesForSixteenTeams()
         {
-            this.teamService.AddTeam(testTeamOne);
-            this.teamService.AddTeam(testTeamTwo);
-            this.teamService.AddTeam(testTeamThree);
-            this.teamService.AddTeam(testTeamFour);
-            this.teamService.AddTeam(testTeamFive);
-            this.teamService.AddTeam(testTeamSix);
-            this.teamService.AddTeam(testTeamSeven);
-            this.teamService.AddTeam(testTeamEight);
+            this.teamService.AddTeam(this.testTeamOne);
+            this.teamService.AddTeam(this.testTeamTwo);
+            this.teamService.AddTeam(this.testTeamThree);
+            this.teamService.AddTeam(this.testTeamFour);
+            this.teamService.AddTeam(this.testTeamFive);
+            this.teamService.AddTeam(this.testTeamSix);
+            this.teamService.AddTeam(this.testTeamSeven);
+            this.teamService.AddTeam(this.testTeamEight);
 
-            var teams = teamService.GetAll();
+            var teams = this.teamService.GetAll();
             foreach (var team in teams)
             {
-                series.TeamIds.Add(team.Id);
+                this.series.TeamIds.Add(team.Id);
             }
-            var generatedMatchSchedule = schedule.GenerateSchedule(series);
-            Assert.IsNotNull(generatedMatchSchedule);
+            this.schedule.GenerateSchedule(this.series);
+            Assert.IsNotNull(this.series.Schedule);
+            Assert.IsFalse(this.series.Schedule.Count == 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ScheduleCanHandleOddNumberOfTeams()
         {
-            this.teamService.AddTeam(testTeamOne);
+            this.teamService.AddTeam(this.testTeamOne);
 
-            var teams = teamService.GetAll();
+            var teams = this.teamService.GetAll();
             foreach (var team in teams)
             {
-                series.TeamIds.Add(team.Id);
+                this.series.TeamIds.Add(team.Id);
             }
 
-            schedule.GenerateSchedule(series);
+            this.schedule.GenerateSchedule(this.series);
         }
     }
 }

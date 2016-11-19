@@ -14,24 +14,24 @@ namespace DomainTests.Entities
         private NumberOfTeams numberOfTeams= new NumberOfTeams(16);
         public SeriesTest()
         {
-            this.series = new Series(new MatchDuration(duartion), numberOfTeams,"Allsvenskan");
+            this.series = new Series(new MatchDuration(this.duartion), this.numberOfTeams,"Allsvenskan");
         }
 
         [TestMethod]
         public void SeriesCanHoldValidEntries()
         {
             Assert.IsTrue(this.series.Id != Guid.Empty);
-            Assert.IsTrue(this.series.MatchDuration == new MatchDuration(duartion));
-            Assert.IsTrue(this.series.NumberOfTeams == numberOfTeams);
+            Assert.IsTrue(this.series.MatchDuration == new MatchDuration(this.duartion));
+            Assert.IsTrue(this.series.NumberOfTeams == this.numberOfTeams);
             Assert.IsTrue(this.series.Schedule != null);
         }
 
         [TestMethod]
         public void SeriesScheduleCanAddMatch()
         {
-            var match = new Match(new ArenaName("Ullevi"),Guid.NewGuid(), Guid.NewGuid(), series);
+            var match = new Match(new ArenaName("Ullevi"),Guid.NewGuid(), Guid.NewGuid(), this.series);
             this.series.Schedule.Add(1,new List<Match>{match});
-            Assert.IsTrue(series.Schedule.Count == 1);
+            Assert.IsTrue(this.series.Schedule.Count == 1);
         }
     }
 }

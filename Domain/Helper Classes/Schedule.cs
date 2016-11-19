@@ -20,7 +20,7 @@ namespace Domain.Helper_Classes
         private Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
 
 
-        public Dictionary<int, List<Match>> GenerateSchedule(Series series)
+        public void GenerateSchedule(Series series)
         {
             int numberOfTeams = series.TeamIds.Count;
 
@@ -31,20 +31,20 @@ namespace Domain.Helper_Classes
                     this.Teams.Add(DomainService.FindTeamById(teamId));
                 }
 
-                int[,] results = GenerateRoundRobin(numberOfTeams);
+                int[,] results = this.GenerateRoundRobin(numberOfTeams);
 
                 //Generates the schedule for descending matches
-                GenerateDescendingMatches(numberOfTeams, results, series);
+                this.GenerateDescendingMatches(numberOfTeams, results, series);
 
                 //Generates the schedule for ascending matches
-                GenerateAscendingMatches(numberOfTeams, results, series);
+                this.GenerateAscendingMatches(numberOfTeams, results, series);
 
                 this.AllMatchesAscending.Reverse();
                 this.AllMatches.AddRange(this.AllMatchesDescending);
                 this.AllMatches.AddRange(this.AllMatchesAscending);
 
                 //Generate dictionary with roundnumber as key(int) and matches for each round as value(List<Match>)
-                return GenerateRoundsWithMatches(numberOfTeams);
+                series.Schedule = this.GenerateRoundsWithMatches(numberOfTeams);
             }
             else
             {
@@ -125,11 +125,11 @@ namespace Domain.Helper_Classes
                 {
                     upperCounter = upperCounter + numberOfTeams / 2;
                     int lowerCounter = upperCounter - numberOfTeams / 2;
-                    this.AllMatchesWithRounds.Add(i, AllMatches.GetRange(lowerCounter, numberOfTeams / 2));
+                    this.AllMatchesWithRounds.Add(i, this.AllMatches.GetRange(lowerCounter, numberOfTeams / 2));
                 }
                 else
                 {
-                    this.AllMatchesWithRounds.Add(i, AllMatches.GetRange(i, upperCounter));
+                    this.AllMatchesWithRounds.Add(i, this.AllMatches.GetRange(i, upperCounter));
                 }
             }
 
@@ -140,11 +140,11 @@ namespace Domain.Helper_Classes
         {
             if (numberOfTeams % 2 == 0)
             {
-                return GenerateRoundRobinEvenTeams(numberOfTeams);
+                return this.GenerateRoundRobinEvenTeams(numberOfTeams);
             }
             else
             {
-                return RotateRounds(numberOfTeams);
+                return this.RotateRounds(numberOfTeams);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Domain.Helper_Classes
 
                 results[teams[0], round] = BYE;
 
-                RotateArray(teams);
+                this.RotateArray(teams);
             }
 
             return results;
@@ -189,7 +189,7 @@ namespace Domain.Helper_Classes
         private int[,] GenerateRoundRobinEvenTeams(int numberOfTeams)
         {
 
-            int[,] results = RotateRounds(numberOfTeams - 1);
+            int[,] results = this.RotateRounds(numberOfTeams - 1);
 
 
             int[,] results2 = new int[numberOfTeams, numberOfTeams - 1];

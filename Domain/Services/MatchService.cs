@@ -18,6 +18,11 @@ namespace Domain.Services
             this.repository.AddMatch(match);
         }
 
+        public void AddMatches(IEnumerable<Match> matches)
+        {
+            this.repository.AddMatches(matches);
+        }
+
         public IEnumerable<Match> GetAll()
         {
             return this.repository.GetAll();
@@ -30,7 +35,7 @@ namespace Domain.Services
 
         public IEnumerable<Match> SearchMatch(string searchText, StringComparison comp)
         {
-            return GetAll().Where(m => m.ToString().Contains(searchText, comp));
+            return this.GetAll().Where(m => m.ToString().Contains(searchText, comp));
         }
        
     }

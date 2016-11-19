@@ -17,15 +17,15 @@ namespace Domain.Services.Tests
         [TestInitialize]
         public void Init()
         {
-            playerService = new PlayerService();
-            allPlayers = playerService.GetAll();
-            zlatanPlayerId = allPlayers.ElementAt(0).Id;
+            this.playerService = new PlayerService();
+            this.allPlayers = this.playerService.GetAll();
+            this.zlatanPlayerId = this.allPlayers.ElementAt(0).Id;
         }
 
         [TestMethod]
         public void GetAllPlayersNotNull()
         {
-            var getAllPlayers = playerService.GetAll();
+            var getAllPlayers = this.playerService.GetAll();
 
             Assert.IsNotNull(getAllPlayers);
         }
@@ -34,18 +34,18 @@ namespace Domain.Services.Tests
         public void FindPlayerByIdIsWorking()
         {
             var player = new Player(new Name("John","Doe"),new DateOfBirth("1985-05-20"),PlayerPosition.Forward,PlayerStatus.Absent);
-            Assert.IsFalse(playerService.FindById(player.Id)==player);
-            playerService.Add(player);
-            Assert.IsTrue(playerService.FindById(player.Id)==player);
+            Assert.IsFalse(this.playerService.FindById(player.Id)==player);
+            this.playerService.Add(player);
+            Assert.IsTrue(this.playerService.FindById(player.Id)==player);
         }
 
         #region PlayerService, FindPlayer metod tests
         [TestMethod]
         public void FindPlayerFullName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayerId = this.playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
+            var actualPlayerId = this.allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -53,9 +53,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerCaseSensitive()
         {
-            var expectedPlayerId = playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayerId = this.playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
+            var actualPlayerId = this.allPlayers.Where(x => x.Name.ToString() == "Sergio Ramos").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -63,9 +63,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerPartOfFirstName()
         {
-            var expectedPlayerId = playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayerId = this.playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
+            var actualPlayerId = this.allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -73,9 +73,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerPartOfLastName()
         {
-            var expectedPlayerId = playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
+            var expectedPlayerId = this.playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).Select(x => x.Id).First();
 
-            var actualPlayerId = allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
+            var actualPlayerId = this.allPlayers.Where(x => x.Name.ToString() == "Zlatan Ibrahimovic").First().Id;
 
             Assert.AreEqual(expectedPlayerId, actualPlayerId);
         }
@@ -83,7 +83,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerSpecialCharactersNotAllowed()
         {
-            var expectedPlayerObj = playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
+            var expectedPlayerObj = this.playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
         }
@@ -92,7 +92,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerNameNotNull()
         {
-            var expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
+            var expectedPlayerName = this.playerService.GetPlayerName(this.zlatanPlayerId);
 
             Assert.IsNotNull(expectedPlayerName);
         }
@@ -100,7 +100,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerNameNotEmpty()
         {
-            var expectedPlayerName = playerService.GetPlayerName(zlatanPlayerId);
+            var expectedPlayerName = this.playerService.GetPlayerName(this.zlatanPlayerId);
 
             Assert.AreNotEqual("", expectedPlayerName);
         }
@@ -108,7 +108,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetPlayerTeamIdNotNull()
         {
-            var expectedTeamId = playerService.GetPlayerTeamId(zlatanPlayerId);
+            var expectedTeamId = this.playerService.GetPlayerTeamId(this.zlatanPlayerId);
 
             Assert.IsNotNull(expectedTeamId);
         }
