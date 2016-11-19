@@ -25,6 +25,7 @@ namespace Domain.Repositories
             this.filePath = @"..//..//games.bin";
             this.games = new HashSet<Game>();
             LoadData();
+            SaveData();
         }
 
         public void SaveData()
@@ -60,7 +61,7 @@ namespace Domain.Repositories
         {
             var matches = DomainService.GetAllMatches();
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
                 this.games.Add(new Game(matches.ElementAt(i)));
             }
