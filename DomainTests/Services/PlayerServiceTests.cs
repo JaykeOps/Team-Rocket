@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 
 namespace Domain.Services.Tests
 {
@@ -33,10 +34,10 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void FindPlayerByIdIsWorking()
         {
-            var player = new Player(new Name("John","Doe"),new DateOfBirth("1985-05-20"),PlayerPosition.Forward,PlayerStatus.Absent);
-            Assert.IsFalse(playerService.FindById(player.Id)==player);
+            var player = new Player(new Name("John", "Doe"), new DateOfBirth("1985-05-20"), PlayerPosition.Forward, PlayerStatus.Absent);
+            Assert.IsFalse(playerService.FindById(player.Id) == player);
             playerService.Add(player);
-            Assert.IsTrue(playerService.FindById(player.Id)==player);
+            Assert.IsTrue(playerService.FindById(player.Id) == player);
         }
 
         #region PlayerService, FindPlayer metod tests
@@ -113,54 +114,12 @@ namespace Domain.Services.Tests
             Assert.IsNotNull(expectedTeamId);
         }
 
-        #region PlayerService, Different Stats on Player 
-        //[TestMethod]
-        //public void GamesPlayedIdsNotNull()
-        //{
-        //    var expectedGamesPlayedIds = playerService.GetPlayerGamesPlayedIds(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedGamesPlayedIds);
-        //}
-
-        //[TestMethod]
-        //public void TotalYellowCardsNotNull()
-        //{
-        //    var expectedTotalYellowCards = playerService.GetPlayerTotalYellowCards(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalYellowCards);
-        //}
-
-        //[TestMethod]
-        //public void TotalRedCardsNotNull()
-        //{
-        //    var expectedTotalRedCards = playerService.GetPlayerTotalRedCards(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalRedCards);
-        //}
-
-        //[TestMethod]
-        //public void TotalGoalsNotNull()
-        //{
-        //    var expectedTotalGoals = playerService.GetPlayerTotalGoals(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalGoals);
-        //}
-
-        //[TestMethod]
-        //public void TotalAssistsNotNull()
-        //{
-        //    var expectedTotalAssists = playerService.GetPlayerTotalAssists(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalAssists);
-        //}
-
-        //[TestMethod]
-        //public void TotalPenaltiesNotNull()
-        //{
-        //    var expectedTotalPenalties = playerService.GetPlayerTotalPenalties(zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTotalPenalties);
-        //}
-        #endregion
+        [TestMethod]
+        public void testfordommy()
+        {
+            var dummySeries = new DummySeries();
+            dummySeries.GeneratDummySeriesSchedual();
+            var meatces = dummySeries.SeriesDummy.Schedule;
+        }
     }
 }
