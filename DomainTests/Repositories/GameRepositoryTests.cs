@@ -83,7 +83,6 @@ namespace Domain.Repositories.Tests
         public void GameLoadTest()
         {
             var games = GameRepository.instance.GetAll();
-            
             Assert.IsTrue(games.Count() != 0);
         }
     }
