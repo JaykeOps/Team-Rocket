@@ -6,7 +6,7 @@ using System.Linq;
 namespace Domain.Value_Objects.Tests
 {
     [TestClass]
-    public class TeamSeriesEventsTests
+    public class TeamSeriesEventsAndStatsTests
     {
         private DummySeries dummySeries;
         private Team teamTwo;
