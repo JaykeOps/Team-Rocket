@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -116,6 +117,25 @@ namespace Domain.Value_Objects.Tests
             var teamLosses = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].Losses;
             var teamScore = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].Points;
             Assert.IsTrue(teamScore == (3 * teamWins) + (1 * teamDraws) + (0 * teamLosses));
+        }
+
+
+        [TestMethod]
+        public void TeamSeriesStatsGoalsForReflectsChangesInEvents()
+        {
+            var teamGoalsForStat = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
+
+            var goalsFor = DomainService.GetAllGames().Where(x => (x.SeriesId == this.dummySeries.SeriesDummy.Id)
+            && x.Protocol.HomeTeamId == this.teamTwo.Id
+            || x.Protocol.AwayTeamId == this.teamTwo.Id)
+            .SelectMany(y => y.Protocol.Goals.Where(z => z.TeamId == this.teamTwo.Id));
+
+            var preAddGoalsForCount = goalsFor.Count();
+            Assert.IsTrue(teamGoalsForStat.GoalsFor == goalsFor.Count());
+            this.dummySeries.DummyGames.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
+                this.teamTwo.Players.ElementAt(0).Id));
+            var postAddGoalsForCount = teamGoalsForStat.GoalsFor;
+            Assert.IsTrue(postAddGoalsForCount - preAddGoalsForCount == 1);
         }
     }
 }
