@@ -48,12 +48,12 @@
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
-    <Compile Include="Interfaces\IPresentablePlayer.cs" />
-    <Compile Include="Interfaces\IPresentablePlayerSeriesEvents.cs" />
-    <Compile Include="Interfaces\IPresentablePlayerSeriesStats.cs" />
-    <Compile Include="Interfaces\IPresentableTeam.cs" />
-    <Compile Include="Interfaces\IPresentableTeamSeriesEvents.cs" />
-    <Compile Include="Interfaces\IPresentableTeamSeriesStats.cs" />
+    <Compile Include="Helper Classes\Interfaces\IPresentablePlayer.cs" />
+    <Compile Include="Helper Classes\Interfaces\IPresentablePlayerSeriesEvents.cs" />
+    <Compile Include="Helper Classes\Interfaces\IPresentablePlayerSeriesStats.cs" />
+    <Compile Include="Helper Classes\Interfaces\IPresentableTeam.cs" />
+    <Compile Include="Helper Classes\Interfaces\IPresentableTeamSeriesEvents.cs" />
+    <Compile Include="Helper Classes\Interfaces\IPresentableTeamSeriesStats.cs" />
     <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Value Objects\PlayerStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />
-    <Compile Include="Interfaces\IGameEvent.cs" />
+    <Compile Include="Helper Classes\Interfaces\IGameEvent.cs" />
     <Compile Include="Value Objects\Assist.cs" />
     <Compile Include="Value Objects\Card.cs" />
     <Compile Include="Value Objects\GameProtocol.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\Match.cs" />
     <Compile Include="Entities\Team.cs" />
-    <Compile Include="Interfaces\IGameDuration.cs" />
+    <Compile Include="Helper Classes\Interfaces\IGameDuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Value Objects\ArenaName.cs" />
     <Compile Include="Value Objects\MatchDateAndTime.cs" />
