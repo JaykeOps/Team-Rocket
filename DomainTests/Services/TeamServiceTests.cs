@@ -30,7 +30,7 @@ namespace DomainTests.Services
         public void AddTeamIsWorking()
         {
             this.service.AddTeam(this.team);
-            IEnumerable<Team> teams = this.service.GetAll();
+            var teams = this.service.GetAll();
             Assert.IsTrue(teams.Contains(this.team));
             Assert.IsFalse(teams.Contains(this.team2));
         }
@@ -38,10 +38,10 @@ namespace DomainTests.Services
         [TestMethod]
         public void ServiceRepoInstanceIsTheSame()
         {
-            TeamService service1 = new TeamService();
-            TeamService service2 = new TeamService();
+            var service1 = new TeamService();
+            var service2 = new TeamService();
             service1.AddTeam(this.team);
-            IEnumerable<Team> teams = service2.GetAll();
+            var teams = service2.GetAll();
             Assert.IsTrue(teams.Contains(this.team));
         }
 

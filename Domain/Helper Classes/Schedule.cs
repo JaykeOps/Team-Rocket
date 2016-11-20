@@ -20,7 +20,7 @@ namespace Domain.Helper_Classes
         private Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
 
 
-        public Dictionary<int, List<Match>> GenerateSchedule(Series series)
+        public void GenerateSchedule(Series series)
         {
             int numberOfTeams = series.TeamIds.Count;
 
@@ -44,7 +44,7 @@ namespace Domain.Helper_Classes
                 this.AllMatches.AddRange(this.AllMatchesAscending);
 
                 //Generate dictionary with roundnumber as key(int) and matches for each round as value(List<Match>)
-                return this.GenerateRoundsWithMatches(numberOfTeams);
+                series.Schedule = this.GenerateRoundsWithMatches(numberOfTeams);
             }
             else
             {

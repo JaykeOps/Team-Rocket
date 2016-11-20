@@ -9,29 +9,21 @@ namespace Domain.Value_Objects
     [Serializable]
     public class TeamMatchSchedule
     {
-        private Dictionary<Guid, List<Guid>> matchSchedule;
         private Guid teamId;
 
         public IEnumerable<Match> this[Guid seriesId]
         {
             get
             {
-                List<Match> schedule = new List<Match>();
-                List<Guid> matchIds;
-                if (this.matchSchedule.TryGetValue(seriesId, out matchIds))
+                
+                var seriesSchedule = DomainService.GetTeamScheduleForSeries(seriesId, this.teamId).ToList();
+                var matches = new List<Match>();
+
+                foreach (var matchId in seriesSchedule)
                 {
-                    foreach (var id in matchIds)
-                    {
-                        var match = DomainService.FindMatchById(id);
-                        schedule.Add(match);
-                    }
-                    return schedule;
+                    matches.Add(DomainService.FindMatchById(matchId));
                 }
-                else
-                {
-                    throw new SeriesMissingException($"Could not find any match schedule " +
-                        $"with the ID '{seriesId}'");
-                }
+                return matches;
             }
         }
 
@@ -56,16 +48,15 @@ namespace Domain.Value_Objects
         public TeamMatchSchedule(Guid teamId)
         {
             this.teamId = teamId;
-            this.matchSchedule = new Dictionary<Guid, List<Guid>>();
+            //this.teamsSeries = new List<Guid>();
         }
 
-        public void AddSeries(Series series)
-        {
-            var teamsMatchSchedule = this.GetMatchScheduleForSeries(series.Id);
-            this.matchSchedule.Add(series.Id, teamsMatchSchedule.ToList());
-        }
+        //public void AddSeries(Series series)
+        //{
+        //    this.teamsSeries.Add(series.Id);
+        //}
 
-        private IEnumerable<Guid> GetMatchScheduleForSeries(Guid seriesId)
+        private IEnumerable<Match> GetMatchScheduleForSeries(Guid seriesId)
         {
             var series = DomainService.FindSeriesById(seriesId);
             var allSeriesMatches = new List<Match>();
@@ -74,22 +65,7 @@ namespace Domain.Value_Objects
                 allSeriesMatches.AddRange(pair.Value);
             }
 
-            return allSeriesMatches.Where(x => x.HomeTeamId == this.teamId || x.AwayTeamId == this.teamId)
-                .Select(y => y.Id);
-        }
-
-        public void UpdateSchedule(Series series, List<Guid> newSchedule)
-        {
-            List<Guid> currentSchedule;
-            if (this.matchSchedule.TryGetValue(series.Id, out currentSchedule))
-            {
-                currentSchedule = newSchedule;
-            }
-            else
-            {
-                throw new SeriesMissingException($"Could not find any match schedule " +
-                        $"with the ID '{series.Id}'");
-            }
+            return allSeriesMatches.Where(x => x.HomeTeamId == this.teamId || x.AwayTeamId == this.teamId);
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Domain.Repositories
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
             this.LoadData();
-            this.SaveData();
         }
 
         public void Add(Player player)

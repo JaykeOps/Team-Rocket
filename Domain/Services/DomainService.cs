@@ -1,10 +1,9 @@
 ﻿using Domain.Entities;
-using Domain.Value_Objects;
 using Domain.Helper_Classes;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Domain.Services
 {
@@ -39,27 +38,43 @@ namespace Domain.Services
             var seriesService = new SeriesService();
             return seriesService.FindById(id);
         }
+
         public static IEnumerable<Game> GetAllGames()
         {
             var gameService = new GameService();
             return gameService.GetAll();
         }
 
-        public static void AddSeriesToTeam(Guid seriesId, Guid teamId)
+        public static void AddSeriesToTeam(Series series)
         {
-            var team = FindTeamById(teamId);
-            team.AddSeries(FindSeriesById(seriesId));
+            foreach (var teamId in series.TeamIds)
+            {
+                var team = FindTeamById(teamId);
+                team.AddSeries(series);
+                AddSeriesToPlayers(series, team);
+            }
         }
 
         public static void AddSeriesToPlayers(Series series,
-            IEnumerable<Player> players)
+            Team team)
         {
-            foreach (var player in players)
+            foreach (var player in team.Players)
             {
                 player.AddSeries(series);
             }
         }
 
+        public static void AddTeamToPlayer(Team team, Guid playerId)
+        {
+            var player = FindPlayerById(playerId);
+            player.TeamId = team.Id;
+        }
+
+        public static void AddMatches(IEnumerable<Match> matches)
+        {
+            var matchService = new MatchService();
+            matchService.AddMatches(matches);
+        }
 
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
             Guid seriesId)
@@ -78,8 +93,6 @@ namespace Domain.Services
             var allMatchinGames = allGames.Where(game => game.SeriesId == seriesId).ToList();
             return (from game in allMatchinGames from goal in game.Protocol.Goals where goal.TeamId == teamId select goal).ToList();
         }
-
-
 
         public static IEnumerable<Goal> GetPlayersGoalsInSeries(Guid playerId,
             Guid seriesId)
@@ -111,6 +124,7 @@ namespace Domain.Services
             playerCardsInGames.ForEach(x => playerCards.AddRange(x));
             return playerCards;
         }
+
         public static IEnumerable<Penalty> GetPlayerPenaltiesInSeries(Guid playerId, Guid seriesId)
         {
             var playerPenalties = new List<Penalty>();
@@ -131,10 +145,13 @@ namespace Domain.Services
                                                                  game.Protocol.HomeTeamSub.Contains(playerId));
         }
 
-        public static Dictionary<int, List<Match>> ScheduleGenerator(Guid seriesId)
+        public static void ScheduleGenerator(Guid seriesId)
         {
             var schedule = new Schedule();
-            return schedule.GenerateSchedule(FindSeriesById(seriesId));
+            var series = FindSeriesById(seriesId);
+            schedule.GenerateSchedule(series);
+            AddMatches(series.Schedule[0]);
+            AddMatches(series.Schedule[1]);
         }
 
         public static IEnumerable<Team> GetAllTeams()
@@ -161,10 +178,19 @@ namespace Domain.Services
             return playerService.GetAll();
         }
 
-        public static IEnumerable<Guid> GetTeamSeriesSchedule(Guid teamId)
+        public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)
         {
+            return from match in GetAllMatches()
+                where match.HomeTeamId == teamId || match.AwayTeamId == teamId
+                select match.Id;
+        }
 
-            return from match in GetAllMatches() where match.HomeTeamId == teamId || match.AwayTeamId == teamId select match.Id;
+        public static IEnumerable<Guid> GetTeamScheduleForSeries(Guid seriesId, Guid teamId)
+        {
+            return from match in GetAllMatches()
+                   where (match.HomeTeamId == teamId || match.AwayTeamId == teamId)
+                   && match.SeriesId == seriesId
+                   select match.Id;
         }
 
         public static GameResult GetGameResult(GameProtocol protocol)
@@ -183,7 +209,6 @@ namespace Domain.Services
                     {
                         awayTeamScore++;
                     }
-
                 }
                 return new GameResult(protocol.HomeTeamId, protocol.AwayTeamId, homeTeamScore, awayTeamScore);
             }

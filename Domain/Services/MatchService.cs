@@ -18,6 +18,11 @@ namespace Domain.Services
             this.repository.AddMatch(match);
         }
 
+        public void AddMatches(IEnumerable<Match> matches)
+        {
+            this.repository.AddMatches(matches);
+        }
+
         public IEnumerable<Match> GetAll()
         {
             return this.repository.GetAll();

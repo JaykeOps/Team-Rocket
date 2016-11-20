@@ -33,7 +33,7 @@ namespace DomainTests.Services
         public void AddMatchIsWorking()
         {
             this.service.AddMatch(this.match);
-            IEnumerable<Match> matchs = this.service.GetAll();
+            var matchs = this.service.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
             Assert.IsFalse(matchs.Contains(this.match2));
         }
@@ -41,10 +41,10 @@ namespace DomainTests.Services
         [TestMethod]
         public void ServiceRepoInstanceIsTheSame()
         {
-            MatchService service1 = new MatchService();
-            MatchService service2 = new MatchService();
+            var service1 = new MatchService();
+            var service2 = new MatchService();
             service1.AddMatch(this.match);
-            IEnumerable<Match> matchs = service2.GetAll();
+            var matchs = service2.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
         }
 

@@ -34,6 +34,7 @@ namespace Domain.Entities
             this.MatchDuration = series.MatchDuration;
             this.HomeTeamId = homeTeam;
             this.AwayTeamId = awayTeam;
+            this.SeriesId = series.Id;
         }
 
         public override string ToString()
