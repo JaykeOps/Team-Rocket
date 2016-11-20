@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Helper_Classes;
+using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -35,5 +36,36 @@ namespace Domain.Services
         {
             return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
         }
+
+        public void AddGoalToGame(Guid gameId, Guid teamId, Guid playerId,int matchMinute)
+        {
+            var match = DomainService.FindGameById(gameId);
+            var goal = new Goal(new MatchMinute(matchMinute), teamId, playerId);
+            match.Protocol.Goals.Add(goal);
+
+        }
+
+        public void AddAssistToGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var match = DomainService.FindGameById(gameId);
+            var assist = new Assist(new MatchMinute(matchMinute),playerId);
+            match.Protocol.Assists.Add(assist);
+        }
+
+        public void AddRedCard(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var match = DomainService.FindGameById(gameId);
+            var card = new Card(new MatchMinute(matchMinute),playerId,CardType.Red);
+            match.Protocol.Cards.Add(card);
+        }
+
+        public void AddYellow(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var match = DomainService.FindGameById(gameId);
+            var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Yellow);
+            match.Protocol.Cards.Add(card);
+        }
+
+
     }
 }
