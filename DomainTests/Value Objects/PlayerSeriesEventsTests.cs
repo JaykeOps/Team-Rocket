@@ -81,8 +81,46 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void PlayerSeriesStatsReflectsGoalsAddedToEvents()
         {
-            var goals = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].GoalCount;
+            var goalsPreAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].GoalCount;
             this.PlayerSeriesEventsIsUpdateWhenNewGoalIsAdded();
+            var goalsPostAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].GoalCount;
+            Assert.IsTrue(goalsPostAdd - goalsPreAdd == 1);
+        }
+
+        [TestMethod]
+        public void PlayerSeriesStatsReflectsAssistsAddedToEvents()
+        {
+            var assistsPreAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].AssistCount;
+            this.PlayerSeriesEventsIsUpdatedWhenAssistIsAdded();
+            var assistsPostAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].AssistCount;
+            Assert.IsTrue(assistsPostAdd - assistsPreAdd == 1);
+        }
+
+        [TestMethod]
+        public void PlayerSeriesStatsReflectsYellowCardsAddedToEvents()
+        {
+            var yellowCardsPreAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].YellowCardCount;
+            this.PlayerSeriesEventsIsUpdatedWhenYellowCardIsAdded();
+            var yellowCardsPostAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].YellowCardCount;
+            Assert.IsTrue(yellowCardsPostAdd - yellowCardsPreAdd == 1);
+        }
+
+        [TestMethod]
+        public void PlayerSeriesStatsReflectsRedCardsAddedToEvents()
+        {
+            var redCardsPreAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].RedCardCount;
+            this.PlayerSeriesEventsIsUpdatedWhenRedCardIsAdded();
+            var redCardsPostAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].RedCardCount;
+            Assert.IsTrue(redCardsPostAdd - redCardsPreAdd == 1);
+        }
+
+        [TestMethod]
+        public void PlayerSeriesStatsReflectsPenaltiesAddedToEvents()
+        {
+            var penaltiesPreAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].PenaltyCount;
+            this.PlayerSeriesEventsIsUpdatedWhenPenaltyIsAdded();
+            var penaltiesPostAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].PenaltyCount;
+            Assert.IsTrue(penaltiesPostAdd - penaltiesPreAdd == 1);
         }
     }
 }
