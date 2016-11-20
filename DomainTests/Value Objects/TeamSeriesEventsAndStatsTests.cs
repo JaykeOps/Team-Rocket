@@ -133,7 +133,6 @@ namespace Domain.Value_Objects.Tests
 
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
                 this.teamTwo.Players.ElementAt(0).Id));
-
             var postAddGoalsForCount = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].GoalsFor;
             Assert.IsTrue(postAddGoalsForCount - preAddGoalsForCount == 1);
         }
@@ -142,7 +141,6 @@ namespace Domain.Value_Objects.Tests
         public void TeamSeriesStatsGoalsAgainstReflectsChangesInEvents()
         {
             var teamStats = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
-
             var goalsAgainst = DomainService.GetAllGames().Where(x => (x.SeriesId == this.dummySeries.SeriesDummy.Id)
             && x.Protocol.HomeTeamId == this.teamTwo.Id
             || x.Protocol.AwayTeamId == this.teamTwo.Id)
@@ -150,12 +148,21 @@ namespace Domain.Value_Objects.Tests
 
             var preAddGoalsAgainstCount = goalsAgainst.Count();
             Assert.IsTrue(teamStats.GoalsAgainst == preAddGoalsAgainstCount);
-
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
                 this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
-
             var postAddGoalAgainstCount = teamStats.GoalsAgainst;
             Assert.IsTrue(postAddGoalAgainstCount - preAddGoalsAgainstCount == 1);
+        }
+
+        [TestMethod]
+        public void TeamSeriesStatsGoalDifferenceReflectsChangesInEvents()
+        {
+            var teamStats = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
+            var preAddGoalDiffernce = teamStats.GoalDifference;
+            this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
+                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
+            var postAddGoalDifference = teamStats.GoalDifference;
+            Assert.IsTrue(postAddGoalDifference - preAddGoalDiffernce == -1);
         }
     }
 }
