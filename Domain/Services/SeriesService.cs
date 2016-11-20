@@ -34,5 +34,21 @@ namespace Domain.Services
             var allSeries = this.GetAll();
             return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
+
+        public IOrderedEnumerable<Team> GetLeagueTablePlacement(Guid seriesId)
+        {
+            Series series = FindById(seriesId);
+            HashSet<Guid> teamIdsOfSerie = series.TeamIds;
+            HashSet<Team> teamsOfSerie = new HashSet<Team>();
+
+            foreach (var teamId in teamIdsOfSerie)
+            {
+                teamsOfSerie.Add(DomainService.FindTeamById(teamId));
+            }
+            return teamsOfSerie.OrderByDescending(x => x.PresentableSeriesStats[series.Id].Points)
+                    .ThenByDescending(x => x.PresentableSeriesStats[series.Id].GoalDifference)
+                    .ThenByDescending(x => x.PresentableSeriesStats[series.Id].GoalsFor);
+
+        }
     }
 }

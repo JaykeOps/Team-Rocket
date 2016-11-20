@@ -54,5 +54,12 @@ namespace DomainTests.Services
             this.testSerieOne.TeamIds.Add(Guid.NewGuid());
             this.seriesService.AddSeries(this.testSerieOne);
         }
+
+        [TestMethod]
+        public void GetLeagueTablePlacementIsWorking()
+        {
+            var seriesId = seriesService.GetAll().ElementAt(0).Id;
+            var leagueTable = seriesService.GetLeagueTablePlacement(seriesId);
+        }
     }
 }
