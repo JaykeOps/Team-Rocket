@@ -122,5 +122,13 @@ namespace DomainTests.Value_Objects
             var penaltiesPostAdd = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].PenaltyCount;
             Assert.IsTrue(penaltiesPostAdd - penaltiesPreAdd == 1);
         }
+
+        [TestMethod]
+        public void PlayerSeriesStatsGamesReflectsGameEvents()
+        {
+            var gameEvents = this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games.Count();
+            var gameStat = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].GamesPlayedCount;
+            Assert.AreEqual(gameEvents, gameStat);
+        }
     }
 }
