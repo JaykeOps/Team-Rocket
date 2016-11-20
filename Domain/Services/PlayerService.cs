@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Interfaces;
+using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -23,26 +24,82 @@ namespace Domain.Services
             this.repository.Add(player);
         }
 
-        public IEnumerable<IPresentablePlayer> GetTopScorers(Guid seriesId)
+        public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
         {
-            return this.allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId]).Take(15);
+            var allPlayers = GetAll();
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                try
+                {
+                    var p = player.PresentableSeriesStats[seriesId];
+                    playerStats.Add(p);
+                }
+                catch(SeriesMissingException)
+                {
+                }
+                
+            }
+           return playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
         }
 
-        public IEnumerable<IPresentablePlayer> GetTopAssists(Guid seriesId)
+        public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
         {
-            return this.GetAll().OrderByDescending(p => p.SeriesStats[seriesId].AssistCount).Take(15);
+            var allPlayers = GetAll();
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                try
+                {
+                    var p = player.PresentableSeriesStats[seriesId];
+                    playerStats.Add(p);
+                }
+                catch (SeriesMissingException)
+                {
+                }
+
+            }
+            return playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
         }
 
-        public IEnumerable<IPresentablePlayer> GetTopYellowCards(Guid seriesId)
+        public IEnumerable<PlayerStats> GetTopYellowCardsForSeries(Guid seriesId)
         {
-            return this.GetAll().OrderByDescending(p => p.SeriesStats[seriesId].YellowCardCount).Take(5);
+            var allPlayers = GetAll();
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                try
+                {
+                    var p = player.PresentableSeriesStats[seriesId];
+                    playerStats.Add(p);
+                }
+                catch (SeriesMissingException)
+                {
+                }
+
+            }
+            return playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
         }
 
-        public IEnumerable<IPresentablePlayer> GetTopRedCards(Guid seriesId)
+        public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
         {
-            return this.allPlayers.ToList().OrderByDescending(p => p.SeriesStats[seriesId].RedCardCount).Take(5);
+            var allPlayers = GetAll();
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                try
+                {
+                    var p = player.PresentableSeriesStats[seriesId];
+                    playerStats.Add(p);
+                }
+                catch (SeriesMissingException)
+                {
+                }
+
+            }
+            return playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
         }
-        
+
         public IEnumerable<Player> GetAll()
         {
             return this.repository.GetAll();

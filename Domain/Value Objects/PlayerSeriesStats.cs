@@ -22,6 +22,7 @@ namespace Domain.Value_Objects
                 }
                 else
                 {
+                    
                     throw new SeriesMissingException("A player specific statistic record for " +
                         $"a series with id '{seriesId}' could not be found!");
                 }
