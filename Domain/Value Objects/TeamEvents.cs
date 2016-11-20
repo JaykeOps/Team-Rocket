@@ -33,7 +33,7 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return DomainService.GetAllTeamsGoalsInSeries(this.teamId,this.seriesId); 
+                return DomainService.GetAllTeamsGoalsForAndAgainstInSeries(this.teamId, this.seriesId); 
                 
             }
         }

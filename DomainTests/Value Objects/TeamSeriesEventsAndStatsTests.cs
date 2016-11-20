@@ -119,23 +119,43 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(teamScore == (3 * teamWins) + (1 * teamDraws) + (0 * teamLosses));
         }
 
-
         [TestMethod]
         public void TeamSeriesStatsGoalsForReflectsChangesInEvents()
         {
-            var teamGoalsForStat = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
-
             var goalsFor = DomainService.GetAllGames().Where(x => (x.SeriesId == this.dummySeries.SeriesDummy.Id)
             && x.Protocol.HomeTeamId == this.teamTwo.Id
             || x.Protocol.AwayTeamId == this.teamTwo.Id)
             .SelectMany(y => y.Protocol.Goals.Where(z => z.TeamId == this.teamTwo.Id));
 
             var preAddGoalsForCount = goalsFor.Count();
-            Assert.IsTrue(teamGoalsForStat.GoalsFor == goalsFor.Count());
-            this.dummySeries.DummyGames.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
+            Assert.IsTrue(this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].GoalsFor
+                == preAddGoalsForCount);
+
+            this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
                 this.teamTwo.Players.ElementAt(0).Id));
-            var postAddGoalsForCount = teamGoalsForStat.GoalsFor;
+
+            var postAddGoalsForCount = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].GoalsFor;
             Assert.IsTrue(postAddGoalsForCount - preAddGoalsForCount == 1);
+        }
+
+        [TestMethod]
+        public void TeamSeriesStatsGoalsAgainstReflectsChangesInEvents()
+        {
+            var teamStats = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
+
+            var goalsAgainst = DomainService.GetAllGames().Where(x => (x.SeriesId == this.dummySeries.SeriesDummy.Id)
+            && x.Protocol.HomeTeamId == this.teamTwo.Id
+            || x.Protocol.AwayTeamId == this.teamTwo.Id)
+            .SelectMany(y => y.Protocol.Goals.Where(z => z.TeamId != this.teamTwo.Id));
+
+            var preAddGoalsAgainstCount = goalsAgainst.Count();
+            Assert.IsTrue(teamStats.GoalsAgainst == preAddGoalsAgainstCount);
+
+            this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
+                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
+
+            var postAddGoalAgainstCount = teamStats.GoalsAgainst;
+            Assert.IsTrue(postAddGoalAgainstCount - preAddGoalsAgainstCount == 1);
         }
     }
 }
