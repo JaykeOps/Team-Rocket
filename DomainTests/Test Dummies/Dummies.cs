@@ -214,7 +214,7 @@ namespace DomainTests.Test_Dummies
             teamService.AddTeam(this.teams.DummyTeamTwo);
             teamService.AddTeam(this.teams.DummyTeamThree);
             teamService.AddTeam(this.teams.DummyTeamFour);
-            this.SeriesDummy.Schedule = DomainService.ScheduleGenerator(this.SeriesDummy.Id);
+            DomainService.ScheduleGenerator(this.SeriesDummy.Id);
         }
     }
 
