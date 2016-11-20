@@ -45,16 +45,20 @@ namespace Domain.Services
             return gameService.GetAll();
         }
 
-        public static void AddSeriesToTeam(Guid seriesId, Guid teamId)
+        public static void AddSeriesToTeam(Series series)
         {
-            var team = FindTeamById(teamId);
-            team.AddSeries(FindSeriesById(seriesId));
+            foreach (var teamId in series.TeamIds)
+            {
+                var team = FindTeamById(teamId);
+                team.AddSeries(series);
+                AddSeriesToPlayers(series, team);
+            }
         }
 
         public static void AddSeriesToPlayers(Series series,
-            IEnumerable<Player> players)
+            Team team)
         {
-            foreach (var player in players)
+            foreach (var player in team.Players)
             {
                 player.AddSeries(series);
             }

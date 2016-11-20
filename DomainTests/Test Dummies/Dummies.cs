@@ -209,6 +209,7 @@ namespace DomainTests.Test_Dummies
             seriesService.AddSeries(this.SeriesDummy);
             this.GeneratDummySeriesSchedual();
             this.DummyGames = new DummyGames(this);
+            DomainService.AddSeriesToTeam(this.SeriesDummy);
         }
 
         private void GeneratDummySeriesSchedual()
@@ -271,13 +272,13 @@ namespace DomainTests.Test_Dummies
             this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(45), this.GameFive.HomeTeamId,
                 DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(0).Id));
             this.GameFive.Protocol.Cards.Add(new Card(new MatchMinute(70),
-                DomainService.FindTeamById(this.GameFive.AwayTeamId).Players.ElementAt(2).Id, CardType.Red));
+                DomainService.FindTeamById(this.GameFive.AwayTeamId).Players.ElementAt(1).Id, CardType.Red));
             this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(74), this.GameFive.AwayTeamId,
                 DomainService.FindTeamById(this.GameOne.AwayTeamId).Players.ElementAt(1).Id));
             this.GameFive.Protocol.Goals.Add(new Goal(new MatchMinute(80), this.GameFive.HomeTeamId,
                 DomainService.FindTeamById(this.GameOne.HomeTeamId).Players.ElementAt(1).Id));
             this.GameFive.Protocol.Cards.Add(new Card(new MatchMinute(89),
-                DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(2).Id, CardType.Yellow));
+                DomainService.FindTeamById(this.GameFive.HomeTeamId).Players.ElementAt(0).Id, CardType.Yellow));
 
             this.GameSeven.Protocol.Goals.Add(new Goal(new MatchMinute(11),
                 this.GameSeven.HomeTeamId,
