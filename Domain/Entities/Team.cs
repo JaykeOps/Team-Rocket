@@ -91,6 +91,7 @@ namespace Domain.Entities
         public void AddPlayerId(Guid playerId)
         {
             this.playerIds.Add(playerId);
+            DomainService.AddTeamToPlayer(this, playerId);
         }
 
         public void AddPlayerId(Player player)
@@ -111,7 +112,7 @@ namespace Domain.Entities
         public void AddSeries(Series series)
         {
             
-            this.matchSchedules.AddSeries(series);
+            //this.matchSchedules.AddSeries(series);
             this.seriesEvents.AddSeries(series);
             this.seriesStats.AddSeries(series);
         }

@@ -64,6 +64,12 @@ namespace Domain.Services
             }
         }
 
+        public static void AddTeamToPlayer(Team team, Guid playerId)
+        {
+            var player = FindPlayerById(playerId);
+            player.TeamId = team.Id;
+        }
+
         public static void AddMatches(IEnumerable<Match> matches)
         {
             var matchService = new MatchService();
@@ -172,9 +178,19 @@ namespace Domain.Services
             return playerService.GetAll();
         }
 
-        public static IEnumerable<Guid> GetTeamSeriesSchedule(Guid teamId)
+        public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)
         {
-            return from match in GetAllMatches() where match.HomeTeamId == teamId || match.AwayTeamId == teamId select match.Id;
+            return from match in GetAllMatches()
+                where match.HomeTeamId == teamId || match.AwayTeamId == teamId
+                select match.Id;
+        }
+
+        public static IEnumerable<Guid> GetTeamScheduleForSeries(Guid seriesId, Guid teamId)
+        {
+            return from match in GetAllMatches()
+                   where (match.HomeTeamId == teamId || match.AwayTeamId == teamId)
+                   && match.SeriesId == seriesId
+                   select match.Id;
         }
 
         public static GameResult GetGameResult(GameProtocol protocol)

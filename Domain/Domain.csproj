@@ -66,8 +66,8 @@
     <Compile Include="Value Objects\PlayerEvents.cs" />
     <Compile Include="Value Objects\PlayerSeriesEvents.cs" />
     <Compile Include="Value Objects\NumberOfTeams.cs" />
-    <Compile Include="Value Objects\PlayerStats.cs" />
     <Compile Include="Value Objects\PlayerSeriesStats.cs" />
+    <Compile Include="Value Objects\PlayerStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />
     <Compile Include="Interfaces\IGameEvent.cs" />

@@ -9,22 +9,21 @@ namespace Domain.Value_Objects
     [Serializable]
     public class TeamMatchSchedule
     {
-        private Dictionary<Guid, List<Guid>> matchSchedule; //Redundant remove later
         private Guid teamId;
 
         public IEnumerable<Match> this[Guid seriesId]
         {
             get
             {
-                List<Match> schedule = new List<Match>();
-                List<Guid> matchIds;
-                var matches = this.GetMatchScheduleForSeries(seriesId);
+                
+                var seriesSchedule = DomainService.GetTeamScheduleForSeries(seriesId, this.teamId).ToList();
+                var matches = new List<Match>();
 
-                foreach (var match in matches)
+                foreach (var matchId in seriesSchedule)
                 {
-                    schedule.Add(match);
+                    matches.Add(DomainService.FindMatchById(matchId));
                 }
-                return schedule;
+                return matches;
             }
         }
 
@@ -49,14 +48,13 @@ namespace Domain.Value_Objects
         public TeamMatchSchedule(Guid teamId)
         {
             this.teamId = teamId;
-            this.matchSchedule = new Dictionary<Guid, List<Guid>>();
+            //this.teamsSeries = new List<Guid>();
         }
 
-        public void AddSeries(Series series)
-        {
-            var teamsMatchSchedule = this.GetMatchScheduleForSeries(series.Id);
-            this.matchSchedule.Add(series.Id, new List<Guid>());
-        }
+        //public void AddSeries(Series series)
+        //{
+        //    this.teamsSeries.Add(series.Id);
+        //}
 
         private IEnumerable<Match> GetMatchScheduleForSeries(Guid seriesId)
         {

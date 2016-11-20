@@ -77,5 +77,12 @@ namespace DomainTests.Value_Objects
                 this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
             Assert.IsTrue(playerOnePenaltiesPostAdd - playerOnePenaltiesPreAdd == 1);
         }
+
+        [TestMethod]
+        public void PlayerSeriesStatsReflectsGoalsAddedToEvents()
+        {
+            var goals = this.playerOne.SeriesStats[this.dummySeries.SeriesDummy.Id].GoalCount;
+            this.PlayerSeriesEventsIsUpdateWhenNewGoalIsAdded();
+        }
     }
 }
