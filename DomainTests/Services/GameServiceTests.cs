@@ -121,6 +121,21 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameRedCardsPriorGame == gameRedCardsAfterGame - 1);
             Assert.IsTrue(playerRedCardsPriorGame == playerRedCardsAfterGame - 1);
         }
+        [TestMethod]
+        public void AddPenaltyToGame()
+        {
+            var series = new DummySeries();
+            var game = series.DummyGames.GameTwo;
+            var team = DomainService.FindTeamById(game.HomeTeamId);
+            var player = team.Players.First();
+            var gamePenatliesPriorGame = game.Protocol.Penalties.Count;
+            var playerPenatliesPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].PenaltyCount;
+            gameService.AddPenaltyToGame(game.Id, player.Id, 78);
+            var gamePenatliesAfterGame = game.Protocol.Penalties.Count;
+            var playerPenatliesAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].PenaltyCount;
+            Assert.IsTrue(gamePenatliesPriorGame == gamePenatliesAfterGame - 1);
+            Assert.IsTrue(playerPenatliesPriorGame == playerPenatliesAfterGame - 1);
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

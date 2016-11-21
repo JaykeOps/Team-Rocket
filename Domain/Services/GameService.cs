@@ -81,7 +81,12 @@ namespace Domain.Services
             var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Yellow);
             match.Protocol.Cards.Add(card);
         }
-
+        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var match = this.FindById(gameId);
+            var penalty = new Penalty(new MatchMinute(matchMinute), playerId);
+            match.Protocol.Penalties.Add(penalty);
+        }
 
     }
 }
