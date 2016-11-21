@@ -33,11 +33,9 @@ namespace Domain.Services.Tests
                 {
                     gameIsAdded = true;
                 }
-                
             }
 
             Assert.IsTrue(gameIsAdded);
-            
         }
 
         [TestMethod]
