@@ -55,10 +55,10 @@ namespace Domain.Services
             return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
         }
 
-        public void AddGoalToGame(Guid gameId, Guid teamId, Guid playerId, int matchMinute)
+        public void AddGoalToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var goal = new Goal(new MatchMinute(matchMinute), teamId, playerId);
+            var goal = new Goal(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId);
             game.Protocol.Goals.Add(goal);
         }
 

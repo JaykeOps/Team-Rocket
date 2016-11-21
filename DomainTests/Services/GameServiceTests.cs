@@ -60,7 +60,7 @@ namespace Domain.Services.Tests
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
             var teamGoalsPriorGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddGoalToGame(game.Id, game.HomeTeamId, player.Id, 78);
+            gameService.AddGoalToGame(game.Id, player.Id, 78);
             var gameGoalsAfterGame = game.Protocol.Goals.Count;
             var teamGoalsAfterGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
