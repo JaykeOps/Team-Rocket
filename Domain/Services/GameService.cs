@@ -22,6 +22,22 @@ namespace Domain.Services
             this.repository.Add(game);
         }
 
+        public void Add(Guid matchId)
+        {
+            var match = DomainService.FindMatchById(matchId);
+            Game game;
+            if (match != null)
+            {
+                game = new Game(match);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid matchId");
+            }
+
+            this.repository.Add(game);
+        }
+
         public IEnumerable<Game> GetAll()
         {
             return this.repository.GetAll();
@@ -37,9 +53,9 @@ namespace Domain.Services
             return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
         }
 
-        public void AddGoalToGame(Guid gameId, Guid teamId, Guid playerId,int matchMinute)
+        public void AddGoalToGame(Guid gameId, Guid teamId, Guid playerId, int matchMinute)
         {
-            var match = DomainService.FindGameById(gameId);
+            var match = this.FindById(gameId);
             var goal = new Goal(new MatchMinute(matchMinute), teamId, playerId);
             match.Protocol.Goals.Add(goal);
 
@@ -47,21 +63,21 @@ namespace Domain.Services
 
         public void AddAssistToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = DomainService.FindGameById(gameId);
-            var assist = new Assist(new MatchMinute(matchMinute),playerId);
+            var match = this.FindById(gameId);
+            var assist = new Assist(new MatchMinute(matchMinute), playerId);
             match.Protocol.Assists.Add(assist);
         }
 
-        public void AddRedCard(Guid gameId, Guid playerId, int matchMinute)
+        public void AddRedCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = DomainService.FindGameById(gameId);
-            var card = new Card(new MatchMinute(matchMinute),playerId,CardType.Red);
+            var match = this.FindById(gameId);
+            var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Red);
             match.Protocol.Cards.Add(card);
         }
 
-        public void AddYellow(Guid gameId, Guid playerId, int matchMinute)
+        public void AddYellowCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = DomainService.FindGameById(gameId);
+            var match = this.FindById(gameId);
             var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Yellow);
             match.Protocol.Cards.Add(card);
         }
