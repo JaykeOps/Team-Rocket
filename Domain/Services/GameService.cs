@@ -37,7 +37,7 @@ namespace Domain.Services
                 throw new ArgumentException("Invalid matchId");
             }
 
-            
+
         }
 
         public IEnumerable<Game> GetAll()
@@ -57,37 +57,38 @@ namespace Domain.Services
 
         public void AddGoalToGame(Guid gameId, Guid teamId, Guid playerId, int matchMinute)
         {
-            var match = this.FindById(gameId);
+            var game = this.FindById(gameId);
             var goal = new Goal(new MatchMinute(matchMinute), teamId, playerId);
-            match.Protocol.Goals.Add(goal);
+            game.Protocol.Goals.Add(goal);
         }
 
         public void AddAssistToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = this.FindById(gameId);
+            var game = this.FindById(gameId);
             var assist = new Assist(new MatchMinute(matchMinute), playerId);
-            match.Protocol.Assists.Add(assist);
+            game.Protocol.Assists.Add(assist);
         }
 
         public void AddRedCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = this.FindById(gameId);
+            var game = this.FindById(gameId);
             var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Red);
-            match.Protocol.Cards.Add(card);
+            game.Protocol.Cards.Add(card);
         }
 
         public void AddYellowCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = this.FindById(gameId);
+            var game = this.FindById(gameId);
             var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Yellow);
-            match.Protocol.Cards.Add(card);
+            game.Protocol.Cards.Add(card);
         }
 
         public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute)
         {
-            var match = this.FindById(gameId);
-            var penalty = new Penalty(new MatchMinute(matchMinute), playerId);
-            match.Protocol.Penalties.Add(penalty);
+            var game = this.FindById(gameId);
+
+            var penalty = new Penalty(new MatchMinute(matchMinute), playerId, true, game, DomainService.FindPlayerById(playerId).TeamId);
+            game.Protocol.Penalties.Add(penalty);
         }
     }
 }

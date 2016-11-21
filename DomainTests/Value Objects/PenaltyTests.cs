@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using DomainTests.Test_Dummies;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -17,8 +18,9 @@ namespace Domain.Value_Objects.Tests
                 new EmailAddress("johnDoe_48@hotmail.com"));
             var player = new Player(new Name("John", "Doe"), new DateOfBirth("1988-05-22"),
                 PlayerPosition.GoalKeeper, PlayerStatus.Available);
-            this.penaltyOne = new Penalty(new MatchMinute(36), player.Id);
-            this.penaltyTwo = new Penalty(new MatchMinute(36), player.Id);
+            var series = new DummySeries();
+            this.penaltyOne = new Penalty(new MatchMinute(36), player.Id, true, series.DummyGames.GameTwo, series.DummyGames.GameTwo.AwayTeamId);
+            this.penaltyTwo = new Penalty(new MatchMinute(36), player.Id, true, series.DummyGames.GameTwo, series.DummyGames.GameTwo.AwayTeamId);
         }
 
         [TestMethod]
