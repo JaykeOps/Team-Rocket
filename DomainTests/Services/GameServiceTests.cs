@@ -22,27 +22,22 @@ namespace Domain.Services.Tests
         public void AddGameToListTest()
         {
             Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
-            var game = new Game(matchOne);
-            var game2 = new Game(matchOne);
             var gameIsAdded = false;
-            var game2IsAdded = false;
-            var matchId = DomainService.GetAllMatches().First().Id;
-            this.gameService.Add(matchId);
+            var matchService = new MatchService();
+            matchService.AddMatch(matchOne);
+            var gameId = this.gameService.Add(matchOne.Id);
 
             foreach (var gameItem in this.gameService.GetAll())
             {
-                if (game.Id == gameItem.Id)
+                if (gameId == gameItem.Id)
                 {
                     gameIsAdded = true;
                 }
-                if (game2.Id == gameItem.Id)
-                {
-                    game2IsAdded = true;
-                }
+                
             }
 
-            Assert.IsTrue(gameIsAdded == true);
-            Assert.IsTrue(game2IsAdded == false);
+            Assert.IsTrue(gameIsAdded);
+            
         }
 
         [TestMethod]

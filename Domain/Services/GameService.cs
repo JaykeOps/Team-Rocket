@@ -22,20 +22,22 @@ namespace Domain.Services
             this.repository.Add(game);
         }
 
-        public void Add(Guid matchId)
+        public Guid Add(Guid matchId)
         {
             var match = DomainService.FindMatchById(matchId);
             Game game;
             if (match != null)
             {
                 game = new Game(match);
+                this.repository.Add(game);
+                return game.Id;
             }
             else
             {
                 throw new ArgumentException("Invalid matchId");
             }
 
-            this.repository.Add(game);
+            
         }
 
         public IEnumerable<Game> GetAll()
