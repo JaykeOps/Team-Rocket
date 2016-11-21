@@ -1,17 +1,15 @@
 ﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Helper_Classes;
 
 namespace Domain.Services
 {
     public class MatchService
     {
-
         private readonly MatchRepository repository = MatchRepository.instance;
-
 
         public void AddMatch(Match match)
         {
@@ -37,6 +35,5 @@ namespace Domain.Services
         {
             return this.GetAll().Where(m => m.ToString().Contains(searchText, comp));
         }
-       
     }
 }

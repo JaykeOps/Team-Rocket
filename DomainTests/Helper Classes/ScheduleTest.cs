@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Entities;
 using Domain.Helper_Classes;
-using Domain.Entities;
-using Domain.Value_Objects;
 using Domain.Services;
+using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace DomainTests.Helper_Classes
 {
@@ -27,13 +23,11 @@ namespace DomainTests.Helper_Classes
         private Team testTeamSeven = new Team(new TeamName("Test Seven"), new ArenaName("Test Seven Arena"), new EmailAddress("test7@test.com"));
         private Team testTeamEight = new Team(new TeamName("Test Eight"), new ArenaName("Test Eight Arena"), new EmailAddress("test8@test.com"));
 
-
         public ScheduleTest()
         {
             this.schedule = new Schedule();
             this.teamService = new TeamService();
         }
-
 
         [TestMethod]
         public void ScheduleCanGenerateMatchesWithRounds()

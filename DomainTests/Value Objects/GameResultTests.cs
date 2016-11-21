@@ -1,9 +1,9 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Services;
 
 namespace Domain.Value_Objects.Tests
 {
@@ -81,7 +81,6 @@ namespace Domain.Value_Objects.Tests
             var games = DomainService.GetAllGames();
             foreach (var game in games)
             {
-                
                 var result = game.Protocol.GameResult;
                 var awayScore = 0;
                 var homeScore = 0;
@@ -90,9 +89,7 @@ namespace Domain.Value_Objects.Tests
 
                 Assert.IsTrue(awayScore == result.AwayTeam_Score);
                 Assert.IsTrue(homeScore == result.HomeTeam_Score);
-
             }
-            
         }
     }
 }

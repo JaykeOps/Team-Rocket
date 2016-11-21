@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Helper_Classes;
+using Domain.Interfaces;
 using Domain.Repositories;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Interfaces;
-using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -35,12 +35,11 @@ namespace Domain.Services
                     var p = player.PresentableSeriesStats[seriesId];
                     playerStats.Add(p);
                 }
-                catch(SeriesMissingException)
+                catch (SeriesMissingException)
                 {
                 }
-                
             }
-           return playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            return playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
         }
 
         public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
@@ -57,7 +56,6 @@ namespace Domain.Services
                 catch (SeriesMissingException)
                 {
                 }
-
             }
             return playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
         }
@@ -76,7 +74,6 @@ namespace Domain.Services
                 catch (SeriesMissingException)
                 {
                 }
-
             }
             return playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
         }
@@ -95,7 +92,6 @@ namespace Domain.Services
                 catch (SeriesMissingException)
                 {
                 }
-
             }
             return playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
         }

@@ -77,7 +77,6 @@ namespace Domain.Value_Objects
                     booleans.Add(inputValue.Equals(thisValue));
                 }
                 return !booleans.Contains(false) && !booleans.Contains(null);
-
             }
         }
 

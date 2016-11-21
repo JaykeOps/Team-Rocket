@@ -19,7 +19,6 @@ namespace Domain.Helper_Classes
         private List<Team> Teams = new List<Team>();
         private Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
 
-
         public void GenerateSchedule(Series series)
         {
             int numberOfTeams = series.TeamIds.Count;
@@ -60,7 +59,6 @@ namespace Domain.Helper_Classes
                 {
                     if (team < results[team, round] && round % 2 == 0)
                     {
-
                         Match match = new Match(this.Teams.ElementAt(team).ArenaName,
                             this.Teams.ElementAt(team).Id,
                             this.Teams.ElementAt(results[team, round]).Id,
@@ -68,7 +66,6 @@ namespace Domain.Helper_Classes
 
                         this.AllMatchesDescending.Add(match);
                     }
-
                     else if (team < results[team, round] && round % 2 == 1)
                     {
                         Match match = new Match(this.Teams.ElementAt(results[team, round]).ArenaName,
@@ -97,7 +94,6 @@ namespace Domain.Helper_Classes
 
                         this.AllMatchesAscending.Add(match);
                     }
-
                     else if (team < results[team, round] && round % 2 == 0)
                     {
                         Match match = new Match(this.Teams.ElementAt(results[team, round]).ArenaName,
@@ -120,7 +116,6 @@ namespace Domain.Helper_Classes
 
             for (int i = 0; i < numberOfRounds; i++)
             {
-
                 if (i >= 1)
                 {
                     upperCounter = upperCounter + numberOfTeams / 2;
@@ -153,13 +148,11 @@ namespace Domain.Helper_Classes
             int n2 = (int)((numberOfTeams - 1) / 2);
             int[,] results = new int[numberOfTeams, numberOfTeams];
 
-
             int[] teams = new int[numberOfTeams];
             for (int i = 0; i < numberOfTeams; i++)
             {
                 teams[i] = i;
             }
-
 
             for (int round = 0; round < numberOfTeams; round++)
             {
@@ -188,9 +181,7 @@ namespace Domain.Helper_Classes
 
         private int[,] GenerateRoundRobinEvenTeams(int numberOfTeams)
         {
-
             int[,] results = this.RotateRounds(numberOfTeams - 1);
-
 
             int[,] results2 = new int[numberOfTeams, numberOfTeams - 1];
             for (int team = 0; team < numberOfTeams - 1; team++)

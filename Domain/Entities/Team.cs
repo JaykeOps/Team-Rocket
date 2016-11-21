@@ -111,7 +111,6 @@ namespace Domain.Entities
 
         public void AddSeries(Series series)
         {
-            
             //this.matchSchedules.AddSeries(series);
             this.seriesEvents.AddSeries(series);
             this.seriesStats.AddSeries(series);

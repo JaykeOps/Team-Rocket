@@ -38,7 +38,6 @@ namespace DomainTests.Services
             Assert.IsInstanceOfType(this.seriesService.GetAll(), typeof(IEnumerable<Series>));
         }
 
-
         [TestMethod]
         public void FindSeriesByIdIsWorking()
         {

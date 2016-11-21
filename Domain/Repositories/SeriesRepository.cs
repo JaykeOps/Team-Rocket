@@ -1,12 +1,8 @@
 ﻿using Domain.Entities;
-using Domain.Value_Objects;
-using System;
 using System.Collections.Generic;
-using Domain.Services;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.Linq;
 
 namespace Domain.Repositories
 {
@@ -16,22 +12,14 @@ namespace Domain.Repositories
         public static readonly SeriesRepository instance = new SeriesRepository();
         private IFormatter formatter;
         private string filePath;
-       
 
         private SeriesRepository()
         {
-
-            this.series= new HashSet<Series>();
+            this.series = new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
             this.LoadData();
-            
-           
-
         }
-
-        
-
 
         public void SaveData()
         {
@@ -103,7 +91,6 @@ namespace Domain.Repositories
         public void AddSeries(Series newSeries)
         {
             this.series.Add(newSeries);
-            
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,9 +18,8 @@ namespace Domain.Services
             }
             else
             {
-                    throw new ArgumentException($"Invalid numbers of teams. Number of teamIds in HashSet TeamIds must be {series.NumberOfTeams}");
+                throw new ArgumentException($"Invalid numbers of teams. Number of teamIds in HashSet TeamIds must be {series.NumberOfTeams}");
             }
-            
         }
 
         public IEnumerable<Series> GetAll()
@@ -48,7 +46,6 @@ namespace Domain.Services
             return teamsOfSerie.OrderByDescending(x => x.PresentableSeriesStats[series.Id].Points)
                     .ThenByDescending(x => x.PresentableSeriesStats[series.Id].GoalDifference)
                     .ThenByDescending(x => x.PresentableSeriesStats[series.Id].GoalsFor);
-
         }
     }
 }

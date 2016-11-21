@@ -11,10 +11,11 @@ namespace DomainTests.Entities
     {
         private Series series;
         private TimeSpan duartion = new TimeSpan(90 * 6000000000 / 10);
-        private NumberOfTeams numberOfTeams= new NumberOfTeams(16);
+        private NumberOfTeams numberOfTeams = new NumberOfTeams(16);
+
         public SeriesTest()
         {
-            this.series = new Series(new MatchDuration(this.duartion), this.numberOfTeams,"Allsvenskan");
+            this.series = new Series(new MatchDuration(this.duartion), this.numberOfTeams, "Allsvenskan");
         }
 
         [TestMethod]
@@ -29,8 +30,8 @@ namespace DomainTests.Entities
         [TestMethod]
         public void SeriesScheduleCanAddMatch()
         {
-            var match = new Match(new ArenaName("Ullevi"),Guid.NewGuid(), Guid.NewGuid(), this.series);
-            this.series.Schedule.Add(1,new List<Match>{match});
+            var match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), this.series);
+            this.series.Schedule.Add(1, new List<Match> { match });
             Assert.IsTrue(this.series.Schedule.Count == 1);
         }
     }

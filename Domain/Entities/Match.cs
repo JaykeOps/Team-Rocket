@@ -1,7 +1,7 @@
 ﻿using Domain.Interfaces;
+using Domain.Services;
 using Domain.Value_Objects;
 using System;
-using Domain.Services;
 
 namespace Domain.Entities
 {

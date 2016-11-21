@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Domain.Value_Objects;
+﻿using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace DomainTests.Value_Objects
 {
@@ -15,7 +15,6 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void NumberOfTeamsIsEqualToEntry()
         {
-
             var numberOfTeams = new NumberOfTeams(24);
             Assert.IsTrue(numberOfTeams.Value == 24);
         }
@@ -23,7 +22,6 @@ namespace DomainTests.Value_Objects
         [TestMethod]
         public void NumberOfTeamsIsNotNull()
         {
-
             var numberOfTeams = new NumberOfTeams(4);
             Assert.IsNotNull(numberOfTeams);
         }
@@ -39,7 +37,6 @@ namespace DomainTests.Value_Objects
         [ExpectedException(typeof(ArgumentException))]
         public void NumberOfTeamsInputIsUnevenThrowsArgumentExeption()
         {
-
             var matchDuartion = new NumberOfTeams(7);
         }
 

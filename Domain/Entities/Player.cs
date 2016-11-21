@@ -2,7 +2,6 @@
 using Domain.Services;
 using Domain.Value_Objects;
 using System;
-using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -20,7 +19,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.teamId==Guid.Empty ? "No Team" : DomainService.FindTeamById(this.teamId).Name.ToString();
+                return this.teamId == Guid.Empty ? "No Team" : DomainService.FindTeamById(this.teamId).Name.ToString();
             }
         }
 
@@ -34,11 +33,9 @@ namespace Domain.Entities
             {
                 this.shirtNumber = new ShirtNumber(value, null);
                 this.teamId = value;
-                
             }
         }
 
-        
         public IPresentablePlayerSeriesEvents PresentableSeriesEvents
         {
             get { return this.seriesEvents; }
@@ -96,7 +93,6 @@ namespace Domain.Entities
             this.TeamId = Guid.Empty;
             this.seriesEvents = new PlayerSeriesEvents();
             this.seriesStats = new PlayerSeriesStats();
-            
         }
 
         public void AddSeries(Series series)

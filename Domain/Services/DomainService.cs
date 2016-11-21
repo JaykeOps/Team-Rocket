@@ -180,8 +180,8 @@ namespace Domain.Services
         public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)
         {
             return from match in GetAllMatches()
-                where match.HomeTeamId == teamId || match.AwayTeamId == teamId
-                select match.Id;
+                   where match.HomeTeamId == teamId || match.AwayTeamId == teamId
+                   select match.Id;
         }
 
         public static IEnumerable<Guid> GetTeamScheduleForSeries(Guid seriesId, Guid teamId)

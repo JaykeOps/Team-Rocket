@@ -1,11 +1,8 @@
 ﻿using Domain.Entities;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-
 
 namespace Domain.Repositories
 {
@@ -18,14 +15,12 @@ namespace Domain.Repositories
 
         private MatchRepository()
         {
-            this.matches = new HashSet<Match>();;
+            this.matches = new HashSet<Match>(); ;
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//matchs.bin";
             this.Load();
-            
         }
 
-        
         public void SaveData()
         {
             try
@@ -38,7 +33,6 @@ namespace Domain.Repositories
             }
             catch (FileNotFoundException)
             {
-
                 throw new FileNotFoundException($"File missing at {this.filePath}." +
                                                 "Failed to save data to file!");
             }
@@ -58,7 +52,7 @@ namespace Domain.Repositories
 
         private void Load()
         {
-           var matches = new HashSet<Match>();
+            var matches = new HashSet<Match>();
 
             try
             {
@@ -88,8 +82,6 @@ namespace Domain.Repositories
                 throw ex;
             }
         }
-
-
 
         public IEnumerable<Match> GetAll()
         {

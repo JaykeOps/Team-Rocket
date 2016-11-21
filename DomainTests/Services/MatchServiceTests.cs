@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DomainTests.Services
 {
@@ -55,7 +53,6 @@ namespace DomainTests.Services
             this.service.AddMatch(this.match);
             Assert.IsTrue(this.service.FindById(this.match.Id) == this.match);
         }
-
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
         //MatchDateAndTime date = new MatchDateAndTime(new DateTime(2016, 12, 24));

@@ -1,12 +1,10 @@
-﻿using Domain.Repositories;
+﻿using Domain.Entities;
+using Domain.Repositories;
+using Domain.Value_Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Value_Objects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DomainTests.Repositories
 {
@@ -31,10 +29,10 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void RepoAddIsWorking()
         {
-            var match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16),"Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
-            var match2 = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16),"Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
+            var match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
+            var match2 = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
             MatchRepository.instance.AddMatch(match);
-            
+
             var matchs = MatchRepository.instance.GetAll();
             Assert.IsTrue(matchs.Contains(match));
             Assert.IsFalse(matchs.Contains(match2));
@@ -46,6 +44,5 @@ namespace DomainTests.Repositories
             var teset = MatchRepository.instance.GetAll();
             Assert.IsNotNull(MatchRepository.instance.GetAll());
         }
-
     }
 }

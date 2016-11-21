@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace DomainTests.Entities
@@ -11,14 +11,12 @@ namespace DomainTests.Entities
     {
         private Team team;
 
-
         public TeamTest()
         {
             var teamName = new TeamName("Ifk Göteborg");
             var arena = new ArenaName("Ullevi");
             var email = new EmailAddress("Ifk@gmail.com");
             this.team = new Team(teamName, arena, email);
-
         }
 
         [TestMethod]
@@ -29,7 +27,6 @@ namespace DomainTests.Entities
             Assert.IsTrue(this.team.ArenaName == new ArenaName("Ullevi"));
             Assert.IsTrue(this.team.Email == new EmailAddress("Ifk@gmail.com"));
             Assert.IsTrue(this.team.Players != null);
-
         }
 
         [TestMethod]

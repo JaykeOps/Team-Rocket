@@ -1,5 +1,4 @@
-﻿using Domain.Interfaces;
-using Domain.Services;
+﻿using Domain.Services;
 using System;
 using System.Linq;
 
@@ -50,6 +49,7 @@ namespace Domain.Value_Objects
                 return this.CalculateAllMatchOutComes(MatchOutcome.Loss);
             }
         }
+
         public int Draws
         {
             get

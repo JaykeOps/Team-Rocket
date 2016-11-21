@@ -1,10 +1,10 @@
 ﻿using Domain.Entities;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainTests.Test_Dummies;
 
 namespace Domain.Services.Tests
 {
@@ -91,6 +91,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameAssistsPriorGame == gameAssistsAfterGame - 1);
             Assert.IsTrue(playerAssistsPriorGame == playerAssistsAfterGame - 1);
         }
+
         [TestMethod]
         public void AddYellowCardToGame()
         {
@@ -106,6 +107,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameYellowCardsPriorGame == gameYellowCardsAfterGame - 1);
             Assert.IsTrue(playerYellowCardsPriorGame == playerYellowCardsAfterGame - 1);
         }
+
         [TestMethod]
         public void AddRedCardToGame()
         {
@@ -121,6 +123,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameRedCardsPriorGame == gameRedCardsAfterGame - 1);
             Assert.IsTrue(playerRedCardsPriorGame == playerRedCardsAfterGame - 1);
         }
+
         [TestMethod]
         public void AddPenaltyToGame()
         {
@@ -143,6 +146,5 @@ namespace Domain.Services.Tests
         {
             gameService.Add(new Guid());
         }
-
     }
 }

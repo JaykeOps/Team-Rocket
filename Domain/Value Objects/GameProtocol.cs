@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Domain.Services;
+using System;
 using System.Collections.Generic;
-using Domain.Services;
 
 namespace Domain.Value_Objects
 {
@@ -18,6 +18,7 @@ namespace Domain.Value_Objects
         public List<Assist> Assists { get; }
         public List<Penalty> Penalties { get; }
         public List<Card> Cards { get; }
+
         public GameResult GameResult
         {
             get { return DomainService.GetGameResult(this); }

@@ -15,7 +15,6 @@ namespace Domain.Value_Objects
         {
             get
             {
-                
                 var seriesSchedule = DomainService.GetTeamScheduleForSeries(seriesId, this.teamId).ToList();
                 var matches = new List<Match>();
 

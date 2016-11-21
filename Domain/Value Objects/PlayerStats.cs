@@ -1,5 +1,4 @@
-﻿using Domain.Interfaces;
-using Domain.Services;
+﻿using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Linq;
@@ -34,9 +33,10 @@ namespace Domain.Entities
         {
             get
             {
-                 return DomainService.FindTeamById(this.teamId).Name.ToString();
+                return DomainService.FindTeamById(this.teamId).Name.ToString();
             }
         }
+
         public int GoalCount
         {
             get

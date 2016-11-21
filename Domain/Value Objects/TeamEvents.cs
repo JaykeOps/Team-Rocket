@@ -1,9 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using Domain.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Domain.Value_Objects
 {
@@ -25,7 +23,6 @@ namespace Domain.Value_Objects
             get
             {
                 return DomainService.GetTeamsGamesInSeries(this.teamId, this.seriesId);
-
             }
         }
 
@@ -33,8 +30,7 @@ namespace Domain.Value_Objects
         {
             get
             {
-                return DomainService.GetAllTeamsGoalsForAndAgainstInSeries(this.teamId, this.seriesId); 
-                
+                return DomainService.GetAllTeamsGoalsForAndAgainstInSeries(this.teamId, this.seriesId);
             }
         }
 

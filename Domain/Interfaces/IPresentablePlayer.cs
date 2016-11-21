@@ -1,7 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Value_Objects;
-using System;
-using System.Collections.Generic;
 
 namespace Domain.Interfaces
 {

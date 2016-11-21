@@ -1,10 +1,10 @@
-﻿using Domain.Entities;
+﻿using Domain.CustomExceptions;
+using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Domain.CustomExceptions;
 
 namespace Domain.Repositories
 {
@@ -54,33 +54,33 @@ namespace Domain.Repositories
 
         public void LoadData()
         {
-             try
-             {
-                 var games = new HashSet<Game>();
-                 using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate,
-                     FileAccess.Read, FileShare.Read))
-                 {
-                     games = (HashSet<Game>)this.formatter.Deserialize(streamReader);
-                     this.games = games;
-                 }
-             }
-             catch (FileNotFoundException)
-             {
-                 throw new FileNotFoundException($"File missing at {this.filePath}." +
-                                                 "Load failed!");
-             }
-             catch (DirectoryNotFoundException ex)
-             {
-                 throw ex;
-             }
-             catch (SerializationException ex)
-             {
-                 throw ex;
-             }
-             catch (IOException ex)
-             {
-                 throw ex;
-             }
+            try
+            {
+                var games = new HashSet<Game>();
+                using (var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate,
+                    FileAccess.Read, FileShare.Read))
+                {
+                    games = (HashSet<Game>)this.formatter.Deserialize(streamReader);
+                    this.games = games;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException($"File missing at {this.filePath}." +
+                                                "Load failed!");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (SerializationException ex)
+            {
+                throw ex;
+            }
+            catch (IOException ex)
+            {
+                throw ex;
+            }
         }
 
         public void Add(Game newGame)

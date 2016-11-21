@@ -1,12 +1,11 @@
 ﻿using Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Domain.Interfaces;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Services.Tests
 {
@@ -55,7 +54,7 @@ namespace Domain.Services.Tests
         public void FindPlayerFullName()
         {
             var expectedPlayer =
-                (Player) playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).First();
+                (Player)playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).First();
             var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
 
             Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
@@ -65,8 +64,7 @@ namespace Domain.Services.Tests
         public void FindPlayerCaseSensitive()
         {
             var expectedPlayer =
-                (Player) playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
-
+                (Player)playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
 
             var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
 
@@ -77,7 +75,7 @@ namespace Domain.Services.Tests
         public void FindPlayerPartOfFirstName()
         {
             var expectedPlayer =
-                (Player) playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
+                (Player)playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
 
             var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
 
@@ -88,7 +86,7 @@ namespace Domain.Services.Tests
         public void FindPlayerPartOfLastName()
         {
             var expectedPlayer =
-                (Player) playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
+                (Player)playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
 
             var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
 
@@ -104,7 +102,7 @@ namespace Domain.Services.Tests
             Assert.IsNull(expectedPlayerObj);
         }
 
-        #endregion
+        #endregion PlayerService, FindPlayer metod tests
 
         [TestMethod]
         public void GetPlayerNameNotNull()
@@ -137,14 +135,15 @@ namespace Domain.Services.Tests
             var topScorers = playerService.GetTopScorersForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
-            var allPlayerInSeries= allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats= allPlayerInSeries.Select(player => player.PresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
+            var allPlayerStats = allPlayerInSeries.Select(player => player.PresentableSeriesStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             for (int i = 0; i < topScorers.Count(); i++)
             {
                 Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).GoalCount == topScorers.ElementAt(i).GoalCount);
             }
         }
+
         [TestMethod]
         public void GetTopAssistTest()
         {
@@ -160,6 +159,7 @@ namespace Domain.Services.Tests
                 Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).AssistCount == topAssists.ElementAt(i).AssistCount);
             }
         }
+
         [TestMethod]
         public void GetTopRedCardsTest()
         {
@@ -175,6 +175,7 @@ namespace Domain.Services.Tests
                 Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).RedCardCount == topReds.ElementAt(i).RedCardCount);
             }
         }
+
         [TestMethod]
         public void GetTopYellowCardsTest()
         {

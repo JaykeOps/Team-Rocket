@@ -10,8 +10,6 @@ namespace DomainTests.Repositories
     [TestClass]
     public class TeamRepositoryTests
     {
-
-
         [TestMethod]
         public void RepoStateIsTheSame()
         {

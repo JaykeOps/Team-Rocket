@@ -61,7 +61,7 @@ namespace Domain.Value_Objects
 
         public void AddSeries(Series series)
         {
-            this.seriesEvents.Add(series.Id, 
+            this.seriesEvents.Add(series.Id,
                 new TeamEvents(series.Id, this.teamId));
         }
 

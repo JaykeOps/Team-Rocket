@@ -1,7 +1,6 @@
 ﻿using Domain.CustomExceptions;
 using Domain.Entities;
 using Domain.Value_Objects;
-using Domain.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -16,9 +15,9 @@ namespace Domain.Repositories.Tests
         private MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
         private GameRepository gameRepository = GameRepository.instance;
 
-
         private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
         private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+
         [TestMethod]
         public void RepoInstancesAreTheSameObject()
         {

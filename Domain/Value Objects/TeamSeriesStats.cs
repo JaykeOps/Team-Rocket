@@ -53,7 +53,7 @@ namespace Domain.Value_Objects
 
         public void AddSeries(Series series)
         {
-            this.seriesStats.Add(series.Id, 
+            this.seriesStats.Add(series.Id,
                 new TeamStats(series.Id, this.teamId));
         }
 
