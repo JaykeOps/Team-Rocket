@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{FA32C73D-51AB-4EBF-96CB-F46429D3A87B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballManager.Admin", "..\..\..\Downloads\Team-Rocket\FootballManager.Admin\FootballManager.Admin.csproj", "{2B595B1A-4EA6-416B-8D5A-DD28228822DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballManager.Admin", "FootballManager.Admin\FootballManager.Admin.csproj", "{2B595B1A-4EA6-416B-8D5A-DD28228822DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
