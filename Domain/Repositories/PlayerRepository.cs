@@ -1,10 +1,8 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -14,13 +12,13 @@ namespace Domain.Repositories
         public static readonly PlayerRepository instance = new PlayerRepository();
         private IFormatter formatter;
         private string filePath;
-     
+
         private PlayerRepository()
         {
             this.players = new HashSet<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
-            this.LoadData();           
+            this.LoadData();
         }
 
         public void Add(Player player)
@@ -92,7 +90,7 @@ namespace Domain.Repositories
             catch (IOException ex)
             {
                 throw ex;
-            }            
+            }
         }
     }
 }

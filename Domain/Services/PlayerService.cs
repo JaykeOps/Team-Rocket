@@ -127,16 +127,6 @@ namespace Domain.Services
             return result;
         }
 
-        public IEnumerable<PlayerPosition> PlayerPositions()
-        {
-            var result = this.allPlayers.Select(x => x.Position);
-            return result;
-        }
-        public IEnumerable<PlayerStatus> PlayerStatuses()
-        {
-            var result = this.allPlayers.Select(x => x.Status);
-            return result;
-        }
-
+       
     }
 }
