@@ -16,18 +16,6 @@
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PlayerViewModel}">
 
     <Grid>
-        <Grid.Resources>
-            <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
-            <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
-
-
-            <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
-            <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
-            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
-            <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
-        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -35,10 +23,23 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+
         <dragablz:TabablzControl>
             <TabItem Header="Player">
 
                 <Grid>
+                    <Grid.Resources>
+                        <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
+                        <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+
+
+                        <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
+                        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
+                        <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
+                        <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
+                        <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+                        <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -149,6 +150,18 @@
 
             <TabItem Header="Tomt">
                 <Grid>
+                    <Grid.Resources>
+                        <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
+                        <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+
+
+                        <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
+                        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
+                        <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
+                        <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
+                        <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+                        <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
