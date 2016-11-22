@@ -126,5 +126,17 @@ namespace Domain.Services
             var result = this.allPlayers.Where(x => x.Id == playerId).Select(x => x.TeamId).First();
             return result;
         }
+
+        public IEnumerable<PlayerPosition> PlayerPositions()
+        {
+            var result = Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>();
+            return result;
+        }
+        public IEnumerable<PlayerStatus> PlayerStatuses()
+        {
+            var result = Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>();
+            return result;
+        }
+
     }
 }
