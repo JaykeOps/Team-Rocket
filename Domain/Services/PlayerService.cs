@@ -127,6 +127,16 @@ namespace Domain.Services
             return result;
         }
 
-       
+        public IEnumerable<PlayerPosition> PlayerPositions()
+        {
+            var result = Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>();
+            return result;
+        }
+        public IEnumerable<PlayerStatus> PlayerStatuses()
+        {
+            var result = Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>();
+            return result;
+        }
+
     }
 }

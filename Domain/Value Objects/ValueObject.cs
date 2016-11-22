@@ -121,23 +121,23 @@ namespace Domain.Value_Objects
             return !(objOne == objTwo);
         }
 
-        public override int GetHashCode()
-        {
-            var properties = this.GetType().GetProperties();
-            int hashCode = 0;
-            foreach (var property in properties)
-            {
-                if (property.PropertyType.Namespace != "System.Collections.Generic")
-                {
-                    hashCode += property.GetValue(this, null).GetHashCode();
-                }
-                else
-                {
-                    hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
-                }
-            }
-            return hashCode;
-        }
+        //public override int GetHashCode()
+        //{
+        //    var properties = this.GetType().GetProperties();
+        //    int hashCode = 0;
+        //    foreach (var property in properties)
+        //    {
+        //        if (property.PropertyType.Namespace != "System.Collections.Generic")
+        //        {
+        //            hashCode += property.GetValue(this, null).GetHashCode();
+        //        }
+        //        else
+        //        {
+        //            hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
+        //        }
+        //    }
+        //    return hashCode;
+        //}
 
         private int GetHashCodeFromAllListItems(ICollection collectionProperty)
         {
