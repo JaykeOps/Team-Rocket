@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
+using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Messages;
 using FootballManager.Admin.Utility;
@@ -115,9 +116,9 @@ namespace FootballManager.Admin.ViewModel
             get { return playerService.PlayerStatuses(); }
         }
 
-        public IEnumerable<Team> PlayerTeams
+        public IEnumerable<string> Teams
         {
-            get { return teamService.GetAll(); }
+            get { return teamService.TeamNames(); }
         }
         #endregion
     }
