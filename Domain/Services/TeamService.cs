@@ -8,12 +8,11 @@ namespace Domain.Services
 {
     public class TeamService
     {
-        private readonly TeamRepository repository = TeamRepository.instance;
-        private readonly IEnumerable<Team> allTeams;
+        private readonly TeamRepository repository;
 
         public TeamService()
         {
-            this.allTeams = repository.GetAll();
+            this.repository = TeamRepository.instance;
         }
 
         public void AddTeam(Team team)
@@ -29,11 +28,6 @@ namespace Domain.Services
         public Team FindById(Guid teamId)
         {
             return this.GetAll().ToList().Find(t => t.Id.Equals(teamId));
-        }
-
-        public IEnumerable<string> TeamNames()
-        {
-            return allTeams.Select(x => x.Name.Value);
         }
     }
 }

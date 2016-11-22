@@ -112,7 +112,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
+                                        <ComboBox ItemsSource="{Binding DataContext.PlayerTeams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
                                                   SelectedItem="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
@@ -148,10 +148,7 @@
             </TabItem>
 
             <TabItem Header="Tomt">
-                <StackPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50">Reserverat</TextBlock>
-                <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" Width="100" />
-                </StackPanel>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>
