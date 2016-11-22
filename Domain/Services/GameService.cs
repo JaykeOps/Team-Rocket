@@ -83,11 +83,11 @@ namespace Domain.Services
             game.Protocol.Cards.Add(card);
         }
 
-        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute)
+        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute,bool isGoal)
         {
             var game = this.FindById(gameId);
 
-            var penalty = new Penalty(new MatchMinute(matchMinute), playerId, true, game, DomainService.FindPlayerById(playerId).TeamId);
+            var penalty = new Penalty(new MatchMinute(matchMinute), playerId, isGoal, game, DomainService.FindPlayerById(playerId).TeamId);
             game.Protocol.Penalties.Add(penalty);
         }
 
@@ -100,6 +100,7 @@ namespace Domain.Services
                 if (goal.PlayerId == playerId && goal.MatchMinute == matchMin)
                 {
                     game.Protocol.Goals.Remove(goal);
+                    break;
                 }
             }
         }
@@ -113,6 +114,7 @@ namespace Domain.Services
                 if (assist.PlayerId == playerId && assist.MatchMinute == matchMin)
                 {
                     game.Protocol.Assists.Remove(assist);
+                    break;
                 }
             }
         }
@@ -126,6 +128,7 @@ namespace Domain.Services
                 if (card.PlayerId == playerId && card.MatchMinute == matchMin && card.CardType == CardType.Red)
                 {
                     game.Protocol.Cards.Remove(card);
+                    break;
                 }
             }
         }
@@ -138,6 +141,7 @@ namespace Domain.Services
                 if (card.PlayerId == playerId && card.MatchMinute == matchMin && card.CardType == CardType.Yellow)
                 {
                     game.Protocol.Cards.Remove(card);
+                    break;
                 }
             }
         }
@@ -154,7 +158,9 @@ namespace Domain.Services
                     if (penalty.IsGoal)
                     {
                         this.RemoveGoalFromGame(gameId,playerId,matchMinute);
+                        
                     }
+                    break;
                 }
             }
         }
