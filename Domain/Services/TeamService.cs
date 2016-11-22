@@ -30,10 +30,5 @@ namespace Domain.Services
         {
             return this.GetAll().ToList().Find(t => t.Id.Equals(teamId));
         }
-
-        public IEnumerable<string> TeamNames()
-        {
-            return allTeams.Select(x => x.Name.Value);
-        }
     }
 }
