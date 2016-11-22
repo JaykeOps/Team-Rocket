@@ -106,21 +106,20 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
         #region Combobox population
-        public IEnumerable<PlayerPosition> PlayerPositions()
+        public IEnumerable<PlayerPosition> PlayerPositions
         {
-            var result = Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>();
-            return result;
+            get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
         }
 
-        public IEnumerable<PlayerStatus> PlayerStatuses()
+        public IEnumerable<PlayerStatus> PlayerStatuses
         {
-            var result = Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>();
-            return result;
+            get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
+
         }
 
-        public IEnumerable<string> TeamNames()
+        public IEnumerable<string> TeamNames
         {
-            return teamService.GetAll().Select(x => x.Name.Value);
+            get { return teamService.GetAll().Select(x => x.Name.Value); } 
         }
         #endregion
     }

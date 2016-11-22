@@ -37,7 +37,6 @@
 
         <dragablz:TabablzControl>
             <TabItem Header="Player">
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -46,7 +45,6 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for player:" />
@@ -71,10 +69,7 @@
                             <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
-
-                            
-                            
-                            
+                                                                                    
                             <DataGridTemplateColumn Header="Position">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -150,7 +145,7 @@
             <TabItem Header="Tomt">
                 <StackPanel>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50">Reserverat</TextBlock>
-                <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" Width="100" />
+                <ComboBox ItemsSource="{Binding DataContext.TeamNames, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" Width="100" />
                 </StackPanel>
             </TabItem>
         </dragablz:TabablzControl>
