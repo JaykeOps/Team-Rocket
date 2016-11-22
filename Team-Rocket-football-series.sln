@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{FA32C73D-51AB-4EBF-96CB-F46429D3A87B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballManager.Admin", "..\..\..\Downloads\Team-Rocket\FootballManager.Admin\FootballManager.Admin.csproj", "{2B595B1A-4EA6-416B-8D5A-DD28228822DB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{FA32C73D-51AB-4EBF-96CB-F46429D3A87B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA32C73D-51AB-4EBF-96CB-F46429D3A87B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA32C73D-51AB-4EBF-96CB-F46429D3A87B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B595B1A-4EA6-416B-8D5A-DD28228822DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B595B1A-4EA6-416B-8D5A-DD28228822DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B595B1A-4EA6-416B-8D5A-DD28228822DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B595B1A-4EA6-416B-8D5A-DD28228822DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
