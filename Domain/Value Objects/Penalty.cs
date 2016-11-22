@@ -16,6 +16,7 @@ namespace Domain.Value_Objects
             this.MatchMinute = matchMinute;
             this.PlayerId = playerId;
             this.IsGoal = isGoal;
+
             if (isGoal)
             {
                 game.Protocol.Goals.Add(new Goal(matchMinute,teamId,playerId));

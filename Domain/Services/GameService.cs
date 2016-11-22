@@ -90,5 +90,6 @@ namespace Domain.Services
             var penalty = new Penalty(new MatchMinute(matchMinute), playerId, true, game, DomainService.FindPlayerById(playerId).TeamId);
             game.Protocol.Penalties.Add(penalty);
         }
+        
     }
 }
