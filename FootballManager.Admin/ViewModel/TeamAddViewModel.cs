@@ -28,7 +28,9 @@ namespace FootballManager.Admin.ViewModel
 
         private void Add(object obj)
         {
-            this.team = new Team(new TeamName(teamName), new ArenaName(arenaName), new EmailAddress(email));
+            team.Name = new TeamName(teamName);
+            team.ArenaName = new ArenaName(arenaName);
+            team.Email = new EmailAddress(email);
 
             Messenger.Default.Send<Team>(team);
         }
