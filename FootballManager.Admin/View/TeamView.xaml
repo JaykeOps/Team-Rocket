@@ -68,11 +68,11 @@
                             <DataGridTextColumn Header="Name" Binding="{Binding Name.Value, Mode=OneWay}" />
                             <DataGridTextColumn Header="Arena" Binding="{Binding ArenaName.Value, Mode=OneWay}" />
                             <DataGridTextColumn Header="Email" Binding="{Binding Email.Value, Mode=OneWay}" />
-                            <DataGridTemplateColumn Header="Save">
+                            <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button>
-                                            <materialDesign:PackIcon Kind="ContentSave" />
+                                            <materialDesign:PackIcon Kind="Pen" />
                                         </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
