@@ -161,6 +161,24 @@ namespace FootballManager.Admin.ViewModel
 
             Messenger.Default.Send<Player>(player);
         }
+
+        public IEnumerable<PlayerPosition> PlayerPositions()
+        {
+            var result = Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>();
+            return result;
+        }
+
+        public IEnumerable<PlayerStatus> PlayerStatuses()
+        {
+            var result = Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>();
+            return result;
+        }
+
+        public IEnumerable<string> TeamNames()
+        {
+            return teamService.GetAll().Select(x => x.Name.Value);
+        }
+
         #endregion
     }
 }
