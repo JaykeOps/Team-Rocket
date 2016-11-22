@@ -148,6 +148,22 @@
             </TabItem>
 
             <TabItem Header="Tomt">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Margin="20">Reserverat</TextBlock>
+                    <ComboBox Grid.Row="1" ItemsSource="{Binding PlayerPositions}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200"/>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tomt">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
             </TabItem>
         </dragablz:TabablzControl>
