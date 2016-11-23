@@ -8,10 +8,10 @@ namespace Domain.Interfaces
         string TeamName { get; }
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
-        ContactInformation ContactInformation { get; set; }
+        ContactInformation ContactInformation { get; }
 
-        PlayerPosition Position { get; set; }
-        PlayerStatus Status { get; set; }
+        PlayerPosition Position { set; }
+        PlayerStatus Status { get; }
         IPresentablePlayerSeriesEvents PresentableSeriesEvents { get; }
         IPresentablePlayerSeriesStats PresentableSeriesStats { get; }
 

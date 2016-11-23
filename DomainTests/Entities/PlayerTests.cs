@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -11,8 +12,12 @@ namespace DomainTests.Entities.Tests
     public class PlayerTests
     {
         private Player testPlayer;
+        private DummySeries dummySeries;
+        private Team dummyTeam;
+        private Player dummyPlayer;
 
-        public PlayerTests()
+        [TestInitialize]
+        public void Init()
         {
             var name = new Name("John", "Doe");
             var dateOfBirth = new DateOfBirth("1974-08-24");
@@ -20,6 +25,10 @@ namespace DomainTests.Entities.Tests
                 new EmailAddress("johnDoe_84@hotmail.com"));
             this.testPlayer = new Player(name, dateOfBirth, PlayerPosition.Forward,
                 PlayerStatus.Available);
+
+            this.dummySeries = new DummySeries();
+            this.dummyTeam = this.dummySeries.DummyTeams.DummyTeamOne;
+            this.dummyPlayer = this.dummyTeam.Players.ElementAt(1);
         }
 
         [TestMethod]
@@ -43,44 +52,86 @@ namespace DomainTests.Entities.Tests
         [TestMethod]
         public void PlayerNameCanChange()
         {
-            Assert.IsFalse(this.testPlayer.Name.FirstName == "Marco"
-                && this.testPlayer.Name.LastName == "Polo");
-            this.testPlayer.Name = new Name("Marco", "Polo");
-            Assert.IsTrue(this.testPlayer.Name.FirstName == "Marco"
-                && this.testPlayer.Name.LastName == "Polo");
+            var newName = new Name("Stefan", "Schwartz");
+            Assert.IsNotNull(newName);
+            Assert.IsNotNull(this.dummyPlayer.Name);
+            Assert.AreNotEqual(this.dummyPlayer.Name, newName);
+            this.dummyPlayer.Name = newName;
+            Assert.AreEqual(this.dummyPlayer.Name, newName);
+            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).Name, this.dummyPlayer.Name);
         }
 
         [TestMethod]
         public void PlayerDateOfBirthCanChange()
         {
-            Assert.IsFalse($"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1994-07-24");
-            this.testPlayer.DateOfBirth = new DateOfBirth("1994-07-24");
-            Assert.IsTrue($"{this.testPlayer.DateOfBirth.Value:yyyy-MM-dd}" == "1994-07-24");
+            var newDateOfBirth = new DateOfBirth("1979-12-24");
+            Assert.IsNotNull(newDateOfBirth);
+            Assert.IsNotNull(this.dummyPlayer.DateOfBirth);
+            Assert.AreNotEqual(this.dummyPlayer.DateOfBirth, newDateOfBirth);
+            this.dummyPlayer.DateOfBirth = newDateOfBirth;
+            Assert.AreEqual(this.dummyPlayer.DateOfBirth, newDateOfBirth);
+            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).DateOfBirth, newDateOfBirth);
         }
 
         [TestMethod]
         public void PlayerPositionCanChange()
         {
-            Assert.IsFalse(this.testPlayer.Position == PlayerPosition.MidFielder);
-            this.testPlayer.Position = PlayerPosition.MidFielder;
-            Assert.IsTrue(this.testPlayer.Position == PlayerPosition.MidFielder);
+            var newPosition = PlayerPosition.Defender;
+            Assert.IsNotNull(newPosition);
+            Assert.IsNotNull(this.dummyPlayer.Position);
+            Assert.AreNotEqual(this.dummyPlayer.Position, newPosition);
+            this.dummyPlayer.Position = newPosition;
+            Assert.AreEqual(this.dummyPlayer.Position, newPosition);
+            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).Position, newPosition);
         }
 
         [TestMethod]
         public void PlayerStatusCanChange()
         {
-            Assert.IsFalse(this.testPlayer.Status == PlayerStatus.Injured);
-            this.testPlayer.Status = PlayerStatus.Injured;
-            Assert.IsTrue(this.testPlayer.Status == PlayerStatus.Injured);
+            var newStatus = PlayerStatus.Suspended;
+            Assert.IsNotNull(newStatus);
+            Assert.IsNotNull(this.dummyPlayer.Status);
+            Assert.AreNotEqual(this.dummyPlayer.Status, newStatus);
+            this.dummyPlayer.Status = newStatus;
+            Assert.AreEqual(this.dummyPlayer.Status, newStatus);
+            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).Status, newStatus);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void PlayerTeamIdCanChange()
         {
-            var newTeamId = Guid.NewGuid();
-            Assert.IsFalse(this.testPlayer.TeamId == newTeamId);
-            this.testPlayer.TeamId = newTeamId;
-            Assert.IsTrue(this.testPlayer.TeamId == newTeamId);
+            var newTeamId = this.dummySeries.DummyTeams.DummyTeamTwo.Id;
+            Assert.IsNotNull(newTeamId);
+            Assert.AreNotEqual(newTeamId, Guid.Empty);
+            Assert.IsNotNull(this.dummyPlayer.TeamId);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, Guid.Empty);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, newTeamId);
+            this.dummyPlayer.TeamId = newTeamId;
+            Assert.AreEqual(this.dummyPlayer.TeamId, newTeamId);
+        }
+
+        [TestMethod]
+        public void PlayerTeamIdBecomesEmptyGuidWhenPlayerIdGetsRemovedFromTeam()
+        {
+            Assert.IsNotNull(this.dummyPlayer.TeamId);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, Guid.Empty);
+            Assert.AreEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
+            this.dummyTeam.RemovePlayerId(this.dummyPlayer.Id);
+            Assert.AreEqual(this.dummyPlayer.TeamId, Guid.Empty);
+        }
+
+        [TestMethod]
+        public void PlayerTeamIdBecomesIdOfTeamWhenPlayerIdIsAddedToTeam()
+        {
+            var newTeam = this.dummySeries.DummyTeams.DummyTeamTwo;
+            Assert.IsNotNull(newTeam.Id);
+            Assert.AreNotEqual(newTeam.Id, Guid.Empty);
+            Assert.IsNotNull(this.dummyPlayer.TeamId);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, Guid.Empty);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummySeries.DummyTeams.DummyTeamTwo.Id);
+            newTeam.AddPlayerId(this.dummyPlayer.Id);
+            Assert.AreEqual(this.dummyPlayer.TeamId, newTeam.Id);
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.Entities
         public Guid Id { get; }
         public Name Name { get; set; }
         public DateOfBirth DateOfBirth { get; set; }
-        public ContactInformation ContactInformation { get; set; }
+        public ContactInformation ContactInformation { get; }
 
         public Person(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation)
         {

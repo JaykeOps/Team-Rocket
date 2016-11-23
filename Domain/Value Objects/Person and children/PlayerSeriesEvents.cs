@@ -8,14 +8,14 @@ namespace Domain.Value_Objects
     [Serializable]
     public class PlayerSeriesEvents : IPresentablePlayerSeriesEvents
     {
-        private Dictionary<Guid, PlayerEvents> seriesEvents;
+        private readonly Dictionary<Guid, PlayerEvents> allSeriesEvents;
 
         public PlayerEvents this[Guid seriesId]
         {
             get
             {
                 PlayerEvents playerEvents;
-                if (this.seriesEvents.TryGetValue(seriesId, out playerEvents))
+                if (this.allSeriesEvents.TryGetValue(seriesId, out playerEvents))
                 {
                     return playerEvents;
                 }
@@ -35,7 +35,7 @@ namespace Domain.Value_Objects
                 PlayerEvents playerEvents;
                 foreach (var seriesId in seriesIds)
                 {
-                    if (this.seriesEvents.TryGetValue(seriesId, out playerEvents))
+                    if (this.allSeriesEvents.TryGetValue(seriesId, out playerEvents))
                     {
                         seriesEvents.Add(playerEvents);
                     }
@@ -46,17 +46,17 @@ namespace Domain.Value_Objects
 
         public PlayerSeriesEvents()
         {
-            this.seriesEvents = new Dictionary<Guid, PlayerEvents>();
+            this.allSeriesEvents = new Dictionary<Guid, PlayerEvents>();
         }
 
         public void AddSeries(Series series, Guid teamId, Guid playerId) //Will be internal
         {
-            this.seriesEvents.Add(series.Id, new PlayerEvents(series.Id, teamId, playerId));
+            this.allSeriesEvents.Add(series.Id, new PlayerEvents(series.Id, teamId, playerId));
         }
 
         public void RemoveSeries(Series series) //Will be internal
         {
-            this.seriesEvents.Remove(series.Id);
+            this.allSeriesEvents.Remove(series.Id);
         }
     }
 }

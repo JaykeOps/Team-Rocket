@@ -3,6 +3,7 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Entities
 {
@@ -14,7 +15,7 @@ namespace Domain.Entities
         private TeamSeriesEvents seriesEvents;
         private TeamSeriesStats seriesStats;
 
-        public Guid Id { get; set; }
+        public Guid Id { get; }
 
         public TeamName Name { get; set; }
 
@@ -90,23 +91,26 @@ namespace Domain.Entities
 
         public void AddPlayerId(Guid playerId)
         {
+            this.RemovePlayerIdFromOldTeam(playerId);
             this.playerIds.Add(playerId);
             DomainService.AddTeamToPlayer(this, playerId);
         }
 
-        public void AddPlayerId(Player player)
+        private void RemovePlayerIdFromOldTeam(Guid playerId)
         {
-            this.playerIds.Add(player.Id);
-        }
-
-        public void RemovePlayerId(Player player)
-        {
-            this.playerIds.Remove(player.Id);
+            var player = DomainService.FindPlayerById(playerId);;
         }
 
         public void RemovePlayerId(Guid playerId)
         {
             this.playerIds.Remove(playerId);
+            this.RemoveTeamIdFromPlayerToBeRemoved(playerId);
+        }
+
+        private void RemoveTeamIdFromPlayerToBeRemoved(Guid playerId)
+        {
+            var player = DomainService.FindPlayerById(playerId);
+            player.TeamId = Guid.Empty;
         }
 
         public void AddSeries(Series series)
