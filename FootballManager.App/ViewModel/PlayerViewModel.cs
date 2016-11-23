@@ -6,11 +6,11 @@ using System.Linq;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
-using FootballManager.Admin.Extensions;
-using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
+using FootballManager.App.Extensions;
+using FootballManager.App.Utility;
+using FootballManager.App.View;
 
-namespace FootballManager.Admin.ViewModel
+namespace FootballManager.App.ViewModel
 {
     public class PlayerViewModel : ViewModelBase
     {
