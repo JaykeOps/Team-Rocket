@@ -132,6 +132,7 @@ namespace Domain.Services
                 }
             }
         }
+
         public void RemoveYellowCardFromGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var matchMin = new MatchMinute(matchMinute);
