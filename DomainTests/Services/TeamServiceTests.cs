@@ -4,6 +4,7 @@ using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -51,6 +52,18 @@ namespace DomainTests.Services
             Assert.IsFalse(this.service.FindById(this.team.Id) == this.team);
             this.service.AddTeam(this.team);
             Assert.IsTrue(this.service.FindById(this.team.Id) == this.team);
+        }
+
+        [TestMethod]
+        public void GetTeamStatsInSeriesIsWorking()
+        {
+            var series = new DummySeries();
+            var team = series.DummyTeams.DummyTeamOne;
+            var teamStats = service.GetTeamStatsInSeries(series.SeriesDummy.Id, team.Id);
+            var games = DomainService.GetAllGames();
+            var teamGoals = games.Where(game => game.SeriesId == series.SeriesDummy.Id).SelectMany(game => game.Protocol.Goals).Count(goal => goal.TeamId == team.Id);
+
+            Assert.IsTrue(teamGoals == teamStats.GoalsFor);
         }
     }
 }

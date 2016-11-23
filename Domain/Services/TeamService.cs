@@ -3,6 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -28,6 +29,10 @@ namespace Domain.Services
         public Team FindById(Guid teamId)
         {
             return this.GetAll().ToList().Find(t => t.Id.Equals(teamId));
+        }
+        public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
+        {
+            return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
         }
     }
 }
