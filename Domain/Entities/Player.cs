@@ -9,8 +9,8 @@ namespace Domain.Entities
     public class Player : Person, IPresentablePlayer
     {
         private Guid teamId;
-        private PlayerSeriesEvents seriesEvents;
-        private PlayerSeriesStats seriesStats;
+        private readonly PlayerSeriesEvents seriesEvents;
+        private readonly PlayerSeriesStats seriesStats;
         private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
@@ -74,14 +74,7 @@ namespace Domain.Entities
                     this.shirtNumber = new ShirtNumber(this.TeamId, null);
                     throw ex;
                 }
-                if (value == null)
-                {
-                    this.shirtNumber = new ShirtNumber(this.TeamId, null);
-                }
-                else
-                {
-                    this.shirtNumber = value;
-                }
+                this.shirtNumber = value ?? new ShirtNumber(this.teamId, null);
             }
         }
 

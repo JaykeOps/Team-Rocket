@@ -8,9 +8,9 @@ namespace Domain.Entities
     [Serializable]
     public class PlayerStats : ValueObject<PlayerStats>
     {
-        private Guid seriesId;
-        private Guid playerId;
-        private Guid teamId;
+        private readonly Guid seriesId;
+        private readonly Guid playerId;
+        private readonly Guid teamId;
 
         private PlayerEvents SeriesEvents
         {
@@ -58,7 +58,7 @@ namespace Domain.Entities
             get
             {
                 var cards = this.SeriesEvents.Cards;
-                return cards.Where(x => x.CardType.Equals(CardType.Yellow)).Count();
+                return cards.Count(x => x.CardType.Equals(CardType.Yellow));
             }
         }
 
@@ -67,7 +67,7 @@ namespace Domain.Entities
             get
             {
                 var cards = this.SeriesEvents.Cards;
-                return cards.Where(x => x.CardType.Equals(CardType.Red)).Count();
+                return cards.Count(x => x.CardType.Equals(CardType.Red));
             }
         }
 
