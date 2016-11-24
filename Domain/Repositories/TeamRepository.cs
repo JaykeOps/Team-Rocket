@@ -1,8 +1,11 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -91,6 +94,14 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
+        }
+
+        public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
+        {
+            var series = DomainService.FindSeriesById(sereisId);
+            var teamsOfSerie = series.TeamIds;
+
+            return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
         }
     }
 }

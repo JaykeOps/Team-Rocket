@@ -34,5 +34,10 @@ namespace Domain.Services
         {
             return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
         }
+
+        public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
+        {
+            return repository.GetTeamsOfSerie(sereisId);
+        }
     }
 }

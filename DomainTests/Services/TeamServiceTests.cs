@@ -64,5 +64,17 @@ namespace DomainTests.Services
             var teamGoals = games.Where(game => game.SeriesId == series.SeriesDummy.Id).SelectMany(game => game.Protocol.Goals).Count(goal => goal.TeamId == team.Id);
             Assert.IsTrue(teamGoals == teamStats.GoalsFor);
         }
+
+        [TestMethod]
+        public void GetAllTeamsOfSeriesIsWorking()
+        {
+            var series = new DummySeries();
+            var teamsOfSerie = service.GetTeamsOfSerie(series.SeriesDummy.Id);
+            Assert.IsTrue(teamsOfSerie != null
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamOne)
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamTwo)
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamThree)
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamFour));
+        }
     }
 }
