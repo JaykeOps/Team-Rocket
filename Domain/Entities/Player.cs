@@ -8,19 +8,17 @@ namespace Domain.Entities
     [Serializable]
     public class Player : Person, IPresentablePlayer
     {
+        private readonly AggregatedPlayerEvents aggregatedEvents;
+        private readonly AggregatedPlayerStats aggregatedStats;
         private Guid teamId;
-        private readonly PlayerSeriesEvents seriesEvents;
-        private readonly PlayerSeriesStats seriesStats;
+        private TeamName affiliatedTeamName;
         private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
-        public string TeamName
+        public TeamName AffiliatedTeamName
         {
-            get
-            {
-                return this.teamId == Guid.Empty ? "No Team" : DomainService.FindTeamById(this.teamId).Name.ToString();
-            }
+            get { return this.teamId == Guid.Empty ? new TeamName("Unaffiliated") : this.affiliatedTeamName; }
         }
 
         public Guid TeamId
@@ -36,24 +34,14 @@ namespace Domain.Entities
             }
         }
 
-        public IPresentablePlayerSeriesEvents AllPresentableSeriesEvents
+        public AggregatedPlayerEvents AggregatedEvents //Will be internal
         {
-            get { return this.seriesEvents; }
+            get { return this.aggregatedEvents; }
         }
 
-        public IPresentablePlayerSeriesStats AllPresentableSeriesStats
+        public AggregatedPlayerStats AggregatedStats //Will be internal
         {
-            get { return this.seriesStats; }
-        }
-
-        public PlayerSeriesEvents SeriesEvents //Will be internal
-        {
-            get { return this.seriesEvents; }
-        }
-
-        public PlayerSeriesStats SeriesStats //Will be internal
-        {
-            get { return this.seriesStats; }
+            get { return this.aggregatedStats; }
         }
 
         public ShirtNumber ShirtNumber
@@ -84,14 +72,21 @@ namespace Domain.Entities
             this.Position = position;
             this.Status = status;
             this.TeamId = Guid.Empty;
-            this.seriesEvents = new PlayerSeriesEvents();
-            this.seriesStats = new PlayerSeriesStats();
+            this.affiliatedTeamName = new TeamName("Unaffiliated");
+            this.aggregatedEvents = new AggregatedPlayerEvents();
+            this.aggregatedStats = new AggregatedPlayerStats();
         }
 
         public void AddSeries(Series series)
         {
-            this.seriesEvents.AddSeries(series, this.teamId, this.Id);
-            this.seriesStats.AddSeries(series, this.teamId, this);
+            this.aggregatedEvents.AddSeries(series, this.teamId, this.Id);
+            this.aggregatedStats.AddSeries(series, this.teamId, this);
+        }
+
+        public void UpdateTeamAffiliation(Team newTeam)
+        {
+            this.TeamId = newTeam.Id;
+            this.affiliatedTeamName = newTeam.Name;
         }
     }
 }

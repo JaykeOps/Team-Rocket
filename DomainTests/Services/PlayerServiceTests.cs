@@ -128,7 +128,7 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = dummySeries.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AllPresentableSeriesStats[dummySeries.SeriesDummy.Id]).ToList();
+            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[dummySeries.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             for (int i = 0; i < topScorers.Count(); i++)
             {
@@ -144,7 +144,7 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AllPresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
             for (int i = 0; i < topAssists.Count(); i++)
             {
@@ -160,7 +160,7 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AllPresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
             for (int i = 0; i < topReds.Count(); i++)
             {
@@ -176,7 +176,7 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AllPresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
             for (int i = 0; i < topYellow.Count(); i++)
             {

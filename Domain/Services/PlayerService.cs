@@ -11,13 +11,7 @@ namespace Domain.Services
 {
     public class PlayerService
     {
-        private readonly PlayerRepository repository = PlayerRepository.instance;
-        private readonly IEnumerable<Player> allPlayers;
-
-        public PlayerService()
-        {
-            this.allPlayers = this.repository.GetAll();
-        }
+        private PlayerRepository repository => PlayerRepository.instance;
 
         public void Add(Player player)
         {
@@ -32,7 +26,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.AllPresentableSeriesStats[seriesId];
+                    var p = player.AggregatedStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -50,7 +44,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.AllPresentableSeriesStats[seriesId];
+                    var p = player.AggregatedStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -68,7 +62,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.AllPresentableSeriesStats[seriesId];
+                    var p = player.AggregatedStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -86,7 +80,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.AllPresentableSeriesStats[seriesId];
+                    var p = player.AggregatedStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -100,37 +94,31 @@ namespace Domain.Services
         {
             return this.repository.GetAll();
         }
-        public IEnumerable<IPresentablePlayer> GetAllPresentablePlayers()
+
+        public IEnumerable<Player> GetAllPresentablePlayers()
         {
             return this.repository.GetAll();
         }
 
         public Player FindById(Guid playerId)
         {
-            return this.allPlayers.ToList().Find(p => p.Id.Equals(playerId));
+            return this.repository.GetAll().ToList().Find(p => p.Id.Equals(playerId));
         }
 
         public IEnumerable<IPresentablePlayer> FindPlayer(string searchText, StringComparison comp)
         {
-            var result = this.allPlayers.Where(x =>
+            var result = this.repository.GetAll().Where(x =>
                 x.Name.ToString().Contains(searchText, comp) ||
                 x.DateOfBirth.Value.ToString().Contains(searchText, comp));
 
             return result;
         }
 
-        public string GetPlayerName(Guid playerId)
+        public IPresentablePlayer SavePlayerName(IPresentablePlayer player, Name newName)
         {
-            var result = this.allPlayers.Where(x => x.Id == playerId).Select(x => x.Name.ToString()).First();
-            return result;
+            var p = (Player) player;
+            p.Name = newName;
+            return p;
         }
-
-        public Guid GetPlayerTeamId(Guid playerId)
-        {
-            var result = this.allPlayers.Where(x => x.Id == playerId).Select(x => x.TeamId).First();
-            return result;
-        }
-
-       
     }
 }

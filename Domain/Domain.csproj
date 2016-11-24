@@ -49,8 +49,6 @@
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
     <Compile Include="Interfaces\IPresentablePlayer.cs" />
-    <Compile Include="Interfaces\IPresentablePlayerSeriesEvents.cs" />
-    <Compile Include="Interfaces\IPresentablePlayerSeriesStats.cs" />
     <Compile Include="Interfaces\IPresentableTeam.cs" />
     <Compile Include="Interfaces\IPresentableTeamSeriesEvents.cs" />
     <Compile Include="Interfaces\IPresentableTeamSeriesStats.cs" />
@@ -64,9 +62,9 @@
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Services\GameService.cs" />
     <Compile Include="Value Objects\Person and children\PlayerEvents.cs" />
-    <Compile Include="Value Objects\Person and children\PlayerSeriesEvents.cs" />
+    <Compile Include="Value Objects\Person and children\AggregatedPlayerEvents.cs" />
     <Compile Include="Value Objects\Series and match\NumberOfTeams.cs" />
-    <Compile Include="Value Objects\Person and children\PlayerSeriesStats.cs" />
+    <Compile Include="Value Objects\Person and children\AggregatedPlayerStats.cs" />
     <Compile Include="Value Objects\Person and children\PlayerStats.cs" />
     <Compile Include="Entities\Series.cs" />
     <Compile Include="Enums\CardType.cs" />

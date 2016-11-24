@@ -42,7 +42,7 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                
+                throw ex;
             }
             catch (IOException ex)
             {

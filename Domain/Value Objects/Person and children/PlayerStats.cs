@@ -82,7 +82,7 @@ namespace Domain.Entities
         public void UpdateSeriesEvents()
         {
             var player = DomainService.FindPlayerById(this.playerId);
-            this.seriesEvents = player.AllPresentableSeriesEvents[this.seriesId];
+            this.seriesEvents = player.AggregatedEvents[this.seriesId];
         }
 
         public PlayerStats(Guid seriesId, Guid teamId, Player player)
@@ -90,7 +90,7 @@ namespace Domain.Entities
             this.seriesId = seriesId;
             this.playerId = player.Id;
             this.teamId = teamId;
-            this.seriesEvents = player.AllPresentableSeriesEvents[this.seriesId];
+            this.seriesEvents = player.AggregatedEvents[this.seriesId];
         }
     }
 }
