@@ -8,9 +8,9 @@ namespace Domain.Value_Objects
     [Serializable]
     public class PlayerEvents
     {
-        private Guid playerId;
+        private readonly Guid playerId;
         private readonly Guid teamId;
-        private Guid seriesId;
+        private readonly Guid seriesId;
         private string playerName;
         private string teamName;
         private IEnumerable<Game> games;

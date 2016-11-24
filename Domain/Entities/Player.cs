@@ -36,12 +36,12 @@ namespace Domain.Entities
             }
         }
 
-        public IPresentablePlayerSeriesEvents PresentableSeriesEvents
+        public IPresentablePlayerSeriesEvents AllPresentableSeriesEvents
         {
             get { return this.seriesEvents; }
         }
 
-        public IPresentablePlayerSeriesStats PresentableSeriesStats
+        public IPresentablePlayerSeriesStats AllPresentableSeriesStats
         {
             get { return this.seriesStats; }
         }
@@ -91,7 +91,7 @@ namespace Domain.Entities
         public void AddSeries(Series series)
         {
             this.seriesEvents.AddSeries(series, this.teamId, this.Id);
-            this.seriesStats.AddSeries(series, this.teamId, this.Id);
+            this.seriesStats.AddSeries(series, this.teamId, this);
         }
     }
 }

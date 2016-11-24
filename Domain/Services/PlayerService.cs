@@ -32,7 +32,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.PresentableSeriesStats[seriesId];
+                    var p = player.AllPresentableSeriesStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -50,7 +50,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.PresentableSeriesStats[seriesId];
+                    var p = player.AllPresentableSeriesStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -68,7 +68,7 @@ namespace Domain.Services
             {
                 try
                 {
-                    var p = player.PresentableSeriesStats[seriesId];
+                    var p = player.AllPresentableSeriesStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)
@@ -80,13 +80,13 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllPlayers();
+            var allPlayers = this.GetAllPresentablePlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
                 try
                 {
-                    var p = player.PresentableSeriesStats[seriesId];
+                    var p = player.AllPresentableSeriesStats[seriesId];
                     playerStats.Add(p);
                 }
                 catch (SeriesMissingException)

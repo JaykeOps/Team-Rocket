@@ -17,6 +17,7 @@ namespace Domain.Value_Objects
                 PlayerStats playerStats;
                 if (this.allSeriesStats.TryGetValue(seriesId, out playerStats))
                 {
+                    playerStats.UpdateSeriesEvents();
                     return playerStats;
                 }
                 else
@@ -37,6 +38,7 @@ namespace Domain.Value_Objects
                     PlayerStats playerStats;
                     if (this.allSeriesStats.TryGetValue(seriesId, out playerStats))
                     {
+                        playerStats.UpdateSeriesEvents();
                         seriesStats.Add(playerStats);
                     }
                 }
@@ -49,9 +51,9 @@ namespace Domain.Value_Objects
             this.allSeriesStats = new Dictionary<Guid, PlayerStats>();
         }
 
-        public void AddSeries(Series series, Guid teamId, Guid playerId)
+        public void AddSeries(Series series, Guid teamId, Player player)
         {
-            this.allSeriesStats.Add(series.Id, new PlayerStats(series.Id, teamId, playerId));
+            this.allSeriesStats.Add(series.Id, new PlayerStats(series.Id, teamId, player));
         }
 
         public void RemoveSeries(Series series)

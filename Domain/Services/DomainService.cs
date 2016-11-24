@@ -4,6 +4,7 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Interfaces;
 
 namespace Domain.Services
 {
@@ -171,7 +172,7 @@ namespace Domain.Services
             return seriesService.GetAll();
         }
 
-        public static IEnumerable<Player> GetAllPlayers()
+        public static IEnumerable<IPresentablePlayer> GetAllPlayers()
         {
             var playerService = new PlayerService();
             return playerService.GetAllPresentablePlayers();

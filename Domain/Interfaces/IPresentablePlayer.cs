@@ -9,6 +9,8 @@ namespace Domain.Interfaces
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
         ContactInformation ContactInformation { get; }
+        IPresentablePlayerSeriesEvents AllPresentableSeriesEvents { get; }
+        IPresentablePlayerSeriesStats AllPresentableSeriesStats { get; }
 
         PlayerPosition Position { get; }
         PlayerStatus Status { get; }

@@ -26,7 +26,7 @@ namespace DomainTests.Value_Objects
         {
             Assert.IsNotNull(this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneGoalsPreAdd =
-                this.playerOne.PresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Goals.Count();
+                this.playerOne.AllPresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Goals.Count();
             this.dummySeries.DummyGames.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(14), this.playerOne.TeamId,
                 this.playerOne.Id));
             var playerOneGoalsPostAdd = this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Goals.Count();
@@ -38,7 +38,7 @@ namespace DomainTests.Value_Objects
         {
             Assert.IsNotNull(this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneAssistsPreAdd =
-                this.playerOne.PresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Assists.Count();
+                this.playerOne.AllPresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Assists.Count();
             this.dummySeries.DummyGames.GameThree.Protocol.Assists.Add(new Assist(new MatchMinute(57), this.playerOne.Id));
             var playerOneAssistsPostAdd = this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Assists.Count();
             Assert.IsTrue(playerOneAssistsPostAdd - playerOneAssistsPreAdd == 1);
@@ -49,7 +49,7 @@ namespace DomainTests.Value_Objects
         {
             Assert.IsNotNull(this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneCardsPreAdd =
-                this.playerOne.PresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
+                this.playerOne.AllPresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
             this.dummySeries.DummyGames.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(82), this.playerOne.Id, CardType.Yellow));
             var playerOneCardsPostAdd = this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
             Assert.IsTrue(playerOneCardsPostAdd - playerOneCardsPreAdd == 1);
@@ -60,7 +60,7 @@ namespace DomainTests.Value_Objects
         {
             Assert.IsNotNull(this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneCardsPreAdd =
-                this.playerOne.PresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
+                this.playerOne.AllPresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
             this.dummySeries.DummyGames.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(82), this.playerOne.Id, CardType.Red));
             var playerOneCardsPostAdd = this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
             Assert.IsTrue(playerOneCardsPostAdd - playerOneCardsPreAdd == 1);
@@ -71,7 +71,7 @@ namespace DomainTests.Value_Objects
         {
             Assert.IsNotNull(this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOnePenaltiesPreAdd =
-                this.playerOne.PresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
+                this.playerOne.AllPresentableSeriesEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
             this.dummySeries.DummyGames.GameThree.Protocol.Penalties.Add(new Penalty(new MatchMinute(89), this.playerOne.Id,true,dummySeries.DummyGames.GameThree,playerOne.TeamId));
             var playerOnePenaltiesPostAdd =
                 this.playerOne.SeriesEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
