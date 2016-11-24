@@ -3,6 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Helper_Classes;
 using Domain.Value_Objects;
 
 namespace Domain.Services
@@ -18,7 +19,14 @@ namespace Domain.Services
 
         public void AddTeam(Team team)
         {
-            TeamRepository.instance.Add(team);
+            if (team.IsTeamValid())
+            {
+                this.repository.Add(team);
+            }
+            else
+            {
+                throw new FormatException("Match cannot be added. Invalid matchdata");
+            }
         }
 
         public IEnumerable<Team> GetAll()

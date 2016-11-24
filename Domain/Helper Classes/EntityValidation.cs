@@ -34,19 +34,6 @@ namespace Domain.Helper_Classes
 
         }
 
-        private static bool IsGameProtocolValid(GameProtocol protocol)
-        {
-            return protocol.Goals != null &&
-                   protocol.Assists != null &&
-                   protocol.Penalties != null &&
-                   protocol.Cards != null &&
-                   protocol.AwayTeamActivePlayers != null &&
-                   protocol.HomeTeamActivePlayers != null &&
-                   protocol.AwayTeamId != Guid.Empty &&
-                   protocol.HomeTeamId != Guid.Empty;
-
-        }
-
         public static bool IsMatchValid(this Match match)
         {
             try
@@ -121,6 +108,18 @@ namespace Domain.Helper_Classes
 
                 return false;
             }
+        }
+        private static bool IsGameProtocolValid(GameProtocol protocol)
+        {
+            return protocol.Goals != null &&
+                   protocol.Assists != null &&
+                   protocol.Penalties != null &&
+                   protocol.Cards != null &&
+                   protocol.AwayTeamActivePlayers != null &&
+                   protocol.HomeTeamActivePlayers != null &&
+                   protocol.AwayTeamId != Guid.Empty &&
+                   protocol.HomeTeamId != Guid.Empty;
+
         }
     }
 }

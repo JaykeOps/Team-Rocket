@@ -19,17 +19,15 @@ namespace Domain.Services
 
         public void Add(Game game)
         {
-            if (game.Id != Guid.Empty &&
-                game.AwayTeamId != Guid.Empty &&
-                game.HomeTeamId != Guid.Empty &&
-                game.SeriesId != Guid.Empty &&
-                game.MatchDuration.Value.IsValidMatchDuration() 
-              
-                )
+            if (game.IsValidGame())
             {
-
+                this.repository.Add(game);
             }
-            this.repository.Add(game);
+            else
+            {
+                throw new FormatException("Game cannot be added. Invalid gamedata");
+            }
+            
         }
 
         public Guid Add(Guid matchId)

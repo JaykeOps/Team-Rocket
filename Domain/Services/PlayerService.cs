@@ -21,7 +21,14 @@ namespace Domain.Services
 
         public void Add(Player player)
         {
-            this.repository.Add(player);
+            if (player.IsPlayerValid())
+            {
+                this.repository.Add(player);
+            }
+            else
+            {
+                throw new FormatException("Player cannot be added. Invalid playerdata");
+            }
         }
 
         public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
