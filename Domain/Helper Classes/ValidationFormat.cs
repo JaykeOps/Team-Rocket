@@ -107,6 +107,14 @@ namespace Domain.Helper_Classes
                 return false;
             }
         }
-        
+        public static bool IsMatchMinute(this int value)
+        {
+            return value >= 1 && value <= 90 + 30;
+        }
+        public static bool IsScoreValid(this int score)
+        {
+            return score >= 0 && score <= 50;
+        }
     }
+
 }
