@@ -76,5 +76,21 @@ namespace DomainTests.Services
                 Assert.IsTrue(orderedTeamList.ElementAt(i).Name.Value == leagueTable.ElementAt(i).TeamName);
             }
         }
+
+        [TestMethod]
+        public void AddTeamToSeriesIsWorking()
+        {
+            var series = new DummySeries();
+            var idOfTeamToRemove = series.SeriesDummy.TeamIds.ElementAt(0);
+            DomainService.FindTeamById(idOfTeamToRemove);
+            series.SeriesDummy.TeamIds.Remove(idOfTeamToRemove);
+
+            Assert.IsFalse(series.SeriesDummy.TeamIds.Contains(idOfTeamToRemove));
+
+            var teamToAdd = series.DummyTeams.DummyTeamOne;
+            seriesService.AddTeamToSeries(series.SeriesDummy.Id, teamToAdd.Id);
+
+            Assert.IsTrue(series.SeriesDummy.TeamIds.Contains(teamToAdd.Id));
+        }
     }
 }

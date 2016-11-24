@@ -47,5 +47,11 @@ namespace Domain.Services
                 .ThenByDescending(x => x.GoalsFor);
 
         }
+
+        public void AddTeamToSeries(Guid seriesId, Guid teamId)
+        {
+            var series = DomainService.FindSeriesById(seriesId);
+            series.TeamIds.Add(teamId);
+        }
     }
 }
