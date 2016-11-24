@@ -22,7 +22,7 @@ namespace Domain.Helper_Classes
                        game.HomeTeamId != Guid.Empty &&
                        game.SeriesId != Guid.Empty &&
                        game.MatchDuration.Value.IsValidMatchDuration() &&
-                       game.MatchDate.Value.IsValidMatchDateAndTime() &&
+                       //game.MatchDate.Value.IsValidMatchDateAndTime() &&
                        game.Location.Value.IsValidArenaName(true) &&
                        IsGameProtocolValid(game.Protocol);
             }
@@ -43,7 +43,7 @@ namespace Domain.Helper_Classes
                        match.HomeTeamId != Guid.Empty &&
                        match.SeriesId != Guid.Empty &&
                        match.Location.Value.IsValidArenaName(true) &&
-                       match.MatchDate.Value.IsValidMatchDateAndTime() &&
+                       //match.MatchDate.Value.IsValidMatchDateAndTime() &&
                        match.MatchDuration.Value.IsValidMatchDuration();
 
             }
@@ -82,8 +82,8 @@ namespace Domain.Helper_Classes
                        player.SeriesEvents != null &&
                        player.SeriesStats != null &&
                        player.Name.FirstName.IsValidName(true) &&
-                       player.Name.LastName.IsValidName(true) &&
-                       player.DateOfBirth.Value.ToString().IsValidBirthOfDate();
+                       player.Name.LastName.IsValidName(true);
+                       //player.DateOfBirth.Value.ToString().IsValidBirthOfDate();
             }
             catch (NullReferenceException)
             {
