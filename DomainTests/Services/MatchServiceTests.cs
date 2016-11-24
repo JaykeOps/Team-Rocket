@@ -54,6 +54,31 @@ namespace DomainTests.Services
             Assert.IsTrue(this.service.FindById(this.match.Id) == this.match);
         }
 
+        [TestMethod]
+        public void EditMatchTimeIsWorking()
+        {
+            var matchToEdit = this.service.GetAll().ElementAt(0);
+            var unEditedMatch = new Match(matchToEdit.Location, matchToEdit.HomeTeamId,
+                matchToEdit.AwayTeamId, DomainService.FindSeriesById(matchToEdit.SeriesId),
+                matchToEdit.MatchDate);
+
+            this.service.EditMatchTime(new DateTime(2016, 12, 20, 10, 30, 00), matchToEdit.Id);
+            Assert.IsTrue(matchToEdit.MatchDate != unEditedMatch.MatchDate);
+        }
+
+        [TestMethod]
+        public void EditMatchLocationIsWorking()
+        {
+            var matchToEdit = this.service.GetAll().ElementAt(0);
+
+            var unEditedMatch = new Match(matchToEdit.Location, matchToEdit.HomeTeamId,
+                matchToEdit.AwayTeamId, DomainService.FindSeriesById(matchToEdit.SeriesId),
+                matchToEdit.MatchDate);
+
+            this.service.EditMatchLocation("Svennes arena", matchToEdit.Id);
+            Assert.IsTrue(matchToEdit.Location != unEditedMatch.Location);
+        }
+
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
         //MatchDateAndTime date = new MatchDateAndTime(new DateTime(2016, 12, 24));
         //Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
