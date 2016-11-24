@@ -131,12 +131,12 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetTopScorersTest()
         {
-            var series = new DummySeries();
-            var topScorers = playerService.GetTopScorersForSeries(series.SeriesDummy.Id);
+            var dummySeries = new DummySeries();
+            var topScorers = this.playerService.GetTopScorersForSeries(dummySeries.SeriesDummy.Id);
 
-            var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
+            var allTeamsInSeries = dummySeries.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AllPresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats = allPlayerInSeries.Select(player => player.AllPresentableSeriesStats[dummySeries.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             for (int i = 0; i < topScorers.Count(); i++)
             {
