@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,12 +19,25 @@ namespace Domain.Repositories
             this.players = new HashSet<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
-            
         }
 
         public void Add(Player player)
         {
             this.players.Add(player);
+        }
+
+        private bool TryGetDuplicate(Player player, out Player duplicate)
+        {
+            if (this.players.Count != 0 && this.players != null)
+            {
+                duplicate = this.players.First(x => x.Id.Equals(player.Id));
+                return true;
+            }
+            else
+            {
+                duplicate = null;
+                return false;
+            }
         }
 
         public IEnumerable<Player> GetAll()
