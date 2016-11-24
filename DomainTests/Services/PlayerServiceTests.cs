@@ -25,7 +25,7 @@ namespace Domain.Services.Tests
         public void Init()
         {
             this.playerService = new PlayerService();
-            this.allPlayers = playerService.GetAll();
+            this.allPlayers = playerService.GetAllPresentablePlayers();
             this.zlatanPlayerId = allPlayers.ElementAt(0).Id;
             this.series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "TestSerie");
         }
@@ -33,7 +33,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetAllPlayersNotNull()
         {
-            var getAllPlayers = this.playerService.GetAll();
+            var getAllPlayers = this.playerService.GetAllPresentablePlayers();
 
             Assert.IsNotNull(getAllPlayers);
         }

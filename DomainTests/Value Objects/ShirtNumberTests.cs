@@ -24,7 +24,7 @@ namespace DomainTests.Entities.Tests
         {
             this.playerService = new PlayerService();
             this.teamService = new TeamService();
-            this.players = this.playerService.GetAll();
+            this.players = this.playerService.GetAllPresentablePlayers();
             this.teams = this.teamService.GetAll();
             this.playerOne = this.players.FirstOrDefault();
             this.playerTwo = this.players.ElementAt(1);

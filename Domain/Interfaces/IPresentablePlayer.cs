@@ -10,10 +10,8 @@ namespace Domain.Interfaces
         DateOfBirth DateOfBirth { get; set; }
         ContactInformation ContactInformation { get; }
 
-        PlayerPosition Position { set; }
+        PlayerPosition Position { get; }
         PlayerStatus Status { get; }
-        IPresentablePlayerSeriesEvents PresentableSeriesEvents { get; }
-        IPresentablePlayerSeriesStats PresentableSeriesStats { get; }
 
         ShirtNumber ShirtNumber { get; }
     }

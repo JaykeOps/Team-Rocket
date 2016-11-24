@@ -9,63 +9,95 @@ namespace Domain.Value_Objects
     public class PlayerEvents
     {
         private Guid playerId;
-        private Guid teamId;
+        private readonly Guid teamId;
         private Guid seriesId;
-
+        private string playerName;
+        private string teamName;
+        private IEnumerable<Game> games;
+        private IEnumerable<Goal> goals;
+        private IEnumerable<Assist> assists;
+        private IEnumerable<Card> cards;
+        private IEnumerable<Penalty> penalties;
         public string PlayerName
         {
-            get
-            {
-                return DomainService.FindPlayerById(this.playerId).Name.ToString();
-            }
+            get { return this.playerName; }
         }
 
         public string TeamName
         {
-            get
-            {
-                return DomainService.FindTeamById(this.teamId).Name.ToString();
-            }
+            get { return this.teamName; }
         }
 
         public IEnumerable<Game> Games
         {
-            get
-            {
-                return DomainService.GetPlayerPlayedGamesInSeries(this.playerId, this.seriesId);
-            }
+            get { return this.games; }
         }
 
         public IEnumerable<Goal> Goals
         {
-            get
-            {
-                return DomainService.GetPlayersGoalsInSeries(this.playerId, this.seriesId);
-            }
+            get { return this.goals; }
         }
 
         public IEnumerable<Assist> Assists
         {
-            get
-            {
-                return DomainService.GetPlayerAssistInSeries(this.playerId, this.seriesId);
-            }
+            get { return this.assists; }
         }
 
         public IEnumerable<Card> Cards
         {
-            get
-            {
-                return DomainService.GetPlayerCardsInSeries(this.playerId, this.seriesId);
-            }
+            get { return this.cards; }
         }
 
         public IEnumerable<Penalty> Penalties
         {
-            get
-            {
-                return DomainService.GetPlayerPenaltiesInSeries(this.playerId, this.seriesId);
-            }
+            get { return this.penalties; }
+        }
+
+        
+        private void UpdatePlayerName()
+        {
+            this.playerName = DomainService.FindPlayerById(this.playerId).Name.ToString();
+        }
+
+        private void UpdateTeamName()
+        {
+            this.teamName = DomainService.FindTeamById(this.teamId).Name.ToString();
+        }
+
+        private void UpdateGames()
+        {
+            this.games = DomainService.GetPlayerPlayedGamesInSeries(this.playerId, this.seriesId);
+        }
+
+        private void UpdateGoals()
+        {
+            this.goals = DomainService.GetPlayersGoalsInSeries(this.playerId, this.seriesId);
+        }
+
+        private void UpdateAssists()
+        {
+            this.assists = DomainService.GetPlayerAssistInSeries(this.playerId, this.seriesId);
+        }
+
+        private void UpdateCards()
+        {
+            this.cards = DomainService.GetPlayerCardsInSeries(this.playerId, this.seriesId);
+        }
+
+        private void UpdatePenalties()
+        {
+            this.penalties = DomainService.GetPlayerPenaltiesInSeries(this.playerId, this.seriesId);
+        }
+
+        public void UpdateAllEvents()
+        {
+            this.UpdatePlayerName();
+            this.UpdateTeamName();
+            this.UpdateGames();
+            this.UpdateGoals();
+            this.UpdateAssists();
+            this.UpdateCards();
+            this.UpdatePenalties();
         }
 
         public PlayerEvents(Guid seriesId, Guid teamId, Guid playerId)
@@ -73,6 +105,13 @@ namespace Domain.Value_Objects
             this.playerId = playerId;
             this.teamId = teamId;
             this.seriesId = seriesId;
+            this.playerName = string.Empty;
+            this.teamName = string.Empty;
+            this.games = new List<Game>();
+            this.goals = new List<Goal>();
+            this.assists = new List<Assist>();
+            this.cards = new List<Card>();
+            this.penalties = new List<Penalty>();
         }
     }
 }

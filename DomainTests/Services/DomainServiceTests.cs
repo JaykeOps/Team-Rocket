@@ -32,7 +32,7 @@ namespace Domain.Services.Tests
             this.teamService = new TeamService();
             this.gameService = new GameService();
             this.matchService = new MatchService();
-            this.playerOne = this.playerService.GetAll().ToList().First();
+            this.playerOne = this.playerService.GetAllPresentablePlayers().ToList().First();
             this.teamOne = this.teamService.GetAll().ToList().First();
             this.gameOne = this.gameService.GetAll().ToList().First();
             //this.matchOne = this.matchService.GetAll().ToList().First();

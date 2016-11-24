@@ -17,6 +17,7 @@ namespace Domain.Value_Objects
                 PlayerEvents playerEvents;
                 if (this.allSeriesEvents.TryGetValue(seriesId, out playerEvents))
                 {
+                    playerEvents.UpdateAllEvents();
                     return playerEvents;
                 }
                 else
