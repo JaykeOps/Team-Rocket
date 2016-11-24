@@ -18,7 +18,7 @@ namespace Domain.Repositories
             this.players = new HashSet<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
-            this.LoadData();
+            
         }
 
         public void Add(Player player)
