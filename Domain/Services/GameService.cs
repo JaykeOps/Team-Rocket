@@ -19,6 +19,16 @@ namespace Domain.Services
 
         public void Add(Game game)
         {
+            if (game.Id != Guid.Empty &&
+                game.AwayTeamId != Guid.Empty &&
+                game.HomeTeamId != Guid.Empty &&
+                game.SeriesId != Guid.Empty &&
+                game.MatchDuration.Value.IsValidMatchDuration() 
+              
+                )
+            {
+
+            }
             this.repository.Add(game);
         }
 
@@ -83,7 +93,7 @@ namespace Domain.Services
             game.Protocol.Cards.Add(card);
         }
 
-        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute,bool isGoal)
+        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute, bool isGoal)
         {
             var game = this.FindById(gameId);
 
@@ -158,8 +168,8 @@ namespace Domain.Services
                     game.Protocol.Penalties.Remove(penalty);
                     if (penalty.IsGoal)
                     {
-                        this.RemoveGoalFromGame(gameId,playerId,matchMinute);
-                        
+                        this.RemoveGoalFromGame(gameId, playerId, matchMinute);
+
                     }
                     break;
                 }

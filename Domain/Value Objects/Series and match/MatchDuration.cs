@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Helper_Classes;
 
 namespace Domain.Value_Objects
 {
@@ -9,7 +10,7 @@ namespace Domain.Value_Objects
 
         public MatchDuration(TimeSpan duration)
         {
-            if (IsMatchDuration(duration))
+            if (duration.IsValidMatchDuration())
             {
                 this.Value = duration;
             }
@@ -19,10 +20,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        private static bool IsMatchDuration(TimeSpan duration)
-        {
-            return duration.TotalMinutes <= 90 && duration.TotalMinutes >= 10;
-        }
+        
 
         public static bool TryParse(string value, out MatchDuration result)
         {

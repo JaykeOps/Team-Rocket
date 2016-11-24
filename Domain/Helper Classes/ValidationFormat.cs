@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Domain.Helper_Classes
 {
@@ -79,5 +81,32 @@ namespace Domain.Helper_Classes
                 return Regex.IsMatch(value, ARENANAME_REGEX);
             }
         }
+
+        public static bool IsValidMatchDuration(this TimeSpan value)
+        {
+            return value.TotalMinutes <= 90 && value.TotalMinutes >= 10;
+        }
+        public static bool IsValidNumberOfTeams(this int value)
+        {
+            return value % 2 == 0 && value > 2;
+        }
+        public static bool IsValidMatchDateAndTime(this DateTime value)
+        {
+            return value > DateTime.Now && value < DateTime.Now + TimeSpan.FromDays(365 * 2);
+        }
+        public static bool IsValidBirthOfDate(this string value)
+        {
+            DateTime result;
+            if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out result))
+            {
+                return result.Year > 1936 && result.Year < DateTime.Now.Year - 3;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
     }
 }

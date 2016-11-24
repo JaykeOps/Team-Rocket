@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Domain.Helper_Classes;
 
 namespace Domain.Value_Objects
 {
@@ -10,7 +11,7 @@ namespace Domain.Value_Objects
 
         public DateOfBirth(string dateOfbirth)
         {
-            if (this.IsValid(dateOfbirth))
+            if (dateOfbirth.IsValidBirthOfDate())
             {
                 this.Value = Convert.ToDateTime(dateOfbirth);
             }
@@ -22,19 +23,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public bool IsValid(string value)
-        {
-            DateTime result;
-            if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out result))
-            {
-                return !this.IsFuture(result) && !this.IsMoreThanAHundredYearsOld(result);
-            }
-            else
-            {
-                return false;
-            }
-        }
+        
 
         public static bool TryParse(string value, out DateOfBirth result)
         {
@@ -48,16 +37,6 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
-        }
-
-        private bool IsFuture(DateTime dateTime)
-        {
-            return dateTime.Year > DateTime.Now.Year - 3 ? true : false;
-        }
-
-        private bool IsMoreThanAHundredYearsOld(DateTime dateTime)
-        {
-            return dateTime.Year < 1936 ? true : false;
         }
 
         public override string ToString()

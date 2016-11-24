@@ -46,6 +46,7 @@
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Enums\MatchOutcome.cs" />
+    <Compile Include="Helper Classes\EntityValidation.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtils.cs" />
     <Compile Include="Interfaces\IPresentablePlayer.cs" />
