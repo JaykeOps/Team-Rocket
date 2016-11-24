@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -57,8 +58,23 @@ namespace DomainTests.Services
         [TestMethod]
         public void GetLeagueTablePlacementIsWorking()
         {
-            var seriesId = seriesService.GetAll().ElementAt(0).Id;
-            var leagueTable = seriesService.GetLeagueTablePlacement(seriesId);
+            var series = new DummySeries();
+            var teamIds = series.SeriesDummy.TeamIds;
+            var teamsOfSerie = new List<Team>();
+            foreach (var teamId in teamIds)
+            {
+                teamsOfSerie.Add(DomainService.FindTeamById(teamId));
+            }
+            var orderedTeamList = teamsOfSerie.OrderByDescending(x => x.PresentableSeriesStats[series.SeriesDummy.Id].Points)
+                    .ThenByDescending(x => x.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference)
+                    .ThenByDescending(x => x.PresentableSeriesStats[series.SeriesDummy.Id].GoalsFor);
+
+            var leagueTable = seriesService.GetLeagueTablePlacement(series.SeriesDummy.Id);
+
+            for (int i = 0; i < orderedTeamList.Count(); i++)
+            {
+                Assert.IsTrue(orderedTeamList.ElementAt(i).Name.Value == leagueTable.ElementAt(i).TeamName);
+            }
         }
     }
 }

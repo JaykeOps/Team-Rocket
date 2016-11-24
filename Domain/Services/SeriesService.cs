@@ -3,6 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -33,19 +34,18 @@ namespace Domain.Services
             return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
 
-        public IOrderedEnumerable<Team> GetLeagueTablePlacement(Guid seriesId)
+        public IOrderedEnumerable<TeamStats> GetLeagueTablePlacement(Guid seriesId)
         {
-            Series series = FindById(seriesId);
-            HashSet<Guid> teamIdsOfSerie = series.TeamIds;
-            HashSet<Team> teamsOfSerie = new HashSet<Team>();
+            var series = FindById(seriesId);
+            var teamIdsOfSerie = series.TeamIds;
 
-            foreach (var teamId in teamIdsOfSerie)
-            {
-                teamsOfSerie.Add(DomainService.FindTeamById(teamId));
-            }
-            return teamsOfSerie.OrderByDescending(x => x.PresentableSeriesStats[series.Id].Points)
-                    .ThenByDescending(x => x.PresentableSeriesStats[series.Id].GoalDifference)
-                    .ThenByDescending(x => x.PresentableSeriesStats[series.Id].GoalsFor);
+            var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
+            var teamStats = teamsOfSerie.Select(team => team.PresentableSeriesStats[series.Id]).ToList();
+
+            return teamStats.OrderByDescending(x => x.Points)
+                .ThenByDescending(x => x.GoalDifference)
+                .ThenByDescending(x => x.GoalsFor);
+
         }
     }
 }
