@@ -138,10 +138,8 @@ namespace Domain.Services
         {
             var allGames = GetAllGames();
             var gamesMatchingSeries = allGames.Where(game => game.SeriesId == seriesId).ToList();
-            return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamStartingPlayers.Contains(playerId) ||
-                                                                 game.Protocol.AwayTeamSub.Contains(playerId) ||
-                                                     game.Protocol.HomeTeamStartingPlayers.Contains(playerId) ||
-                                                                 game.Protocol.HomeTeamSub.Contains(playerId));
+            return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamActivePlayers.Contains(playerId) ||
+                                                     game.Protocol.HomeTeamActivePlayers.Contains(playerId));
         }
 
         public static void ScheduleGenerator(Guid seriesId)
