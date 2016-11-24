@@ -95,13 +95,5 @@ namespace Domain.Repositories
                 throw ex;
             }
         }
-
-        public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
-        {
-            var series = DomainService.FindSeriesById(sereisId);
-            var teamsOfSerie = series.TeamIds;
-
-            return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-        }
     }
 }

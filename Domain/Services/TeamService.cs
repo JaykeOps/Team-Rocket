@@ -37,7 +37,10 @@ namespace Domain.Services
 
         public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
         {
-            return repository.GetTeamsOfSerie(sereisId);
+            var series = DomainService.FindSeriesById(sereisId);
+            var teamsOfSerie = series.TeamIds;
+
+            return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
         }
     }
 }
