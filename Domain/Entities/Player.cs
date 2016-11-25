@@ -59,7 +59,6 @@ namespace Domain.Entities
                 }
                 catch (ShirtNumberAlreadyInUseException ex)
                 {
-                    this.shirtNumber = new ShirtNumber(this.TeamId, null);
                     throw ex;
                 }
                 this.shirtNumber = value ?? new ShirtNumber(this.teamId, null);

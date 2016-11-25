@@ -114,18 +114,35 @@ namespace Domain.Services
             return result;
         }
 
-        public IPresentablePlayer RenamePlayer(IPresentablePlayer presentablePlayer, Name newName)
+        public void RenamePlayer(IPresentablePlayer presentablePlayer, Name newName)
         {
+            //TODO: Add validation when merged to master!
             var player = (Player) presentablePlayer;
             player.Name = newName;
             this.Add(player);
-            return player;
         }
 
         public void RenamePlayer(Guid playerId, Name newName)
         {
+            //TODO: Add validation when merged to master!
             var player = this.FindById(playerId);
             player.Name = newName;
+        }
+
+        public void SetShirtNumber(IPresentablePlayer presentablePlayer, ShirtNumber newShirtNumber)
+        {
+            try
+            {
+                var player = (Player)presentablePlayer;
+                player.ShirtNumber = newShirtNumber;
+                
+            }
+            catch (ShirtNumberAlreadyInUseException ex)
+            {
+                //this.Add(player);
+                //throw ex;
+            }
+            
         }
     }
 }

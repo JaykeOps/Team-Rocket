@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 
 namespace DomainTests.Entities.Tests
@@ -89,6 +90,43 @@ namespace DomainTests.Entities.Tests
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == null);
             this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(9);
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == 9);
+        }
+
+        [TestMethod]
+        public void ShirtNumberRemainsUnchangedWhenShirtNumberAlreadyInUseExceptionIsThrown()
+        {
+            try
+            {
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(3);
+                this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(7);
+                Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 3);
+                Assert.AreEqual(this.dummyPlayerTwo.ShirtNumber.Value, 7);
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(7);
+            }
+            catch (ShirtNumberAlreadyInUseException)
+            {
+
+
+            }
+            Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 3);
+        }
+
+        [TestMethod]
+        public void ShirtNumberRemainsUnchangedWhenIndexOutOfRangeExceptionIsThrown()
+        {
+            try
+            {
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(5);
+                Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 5);
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(100);
+
+            }
+            catch (IndexOutOfRangeException)
+            {
+                
+                
+            }
+            Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 5);
         }
     }
 }
