@@ -67,15 +67,24 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
+                            
+                            <DataGridTextColumn Header="Rank" Binding="{Binding Name.FirstName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding Name.LastName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Matches" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
+                            <DataGridTextColumn Header="Wins" Binding="{Binding Name.Wins , Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Draws" Binding="{Binding Name.Draws , Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Losses" Binding="{Binding Name.Losses , Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Goals Scored" Binding="{Binding Name.GoalsScored , Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Admitted Goals" Binding="{Binding Name.AdmittedGoals , Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding Name.GoalDifference , Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Points" Binding="{Binding Name.Points , Mode=OneWay}"/>
 
-                            <DataGridTemplateColumn Header="Position">
+
+
+                            <DataGridTemplateColumn Header="Wins">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Position}" />
+                                        <TextBlock Text="{Binding Wins}" />
                                         <!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players -->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -87,10 +96,10 @@
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="Status">
+                            <DataGridTemplateColumn Header="Draws">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Status}" />
+                                        <TextBlock Text="{Binding Draws}" />
                                         <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
