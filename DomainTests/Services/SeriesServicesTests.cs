@@ -80,17 +80,29 @@ namespace DomainTests.Services
         [TestMethod]
         public void AddTeamToSeriesIsWorking()
         {
-            var series = new DummySeries();
-            var idOfTeamToRemove = series.SeriesDummy.TeamIds.ElementAt(0);
-            DomainService.FindTeamById(idOfTeamToRemove);
-            series.SeriesDummy.TeamIds.Remove(idOfTeamToRemove);
+            var series = seriesService.GetAll().ElementAt(0);
 
-            Assert.IsFalse(series.SeriesDummy.TeamIds.Contains(idOfTeamToRemove));
+            var teamOne = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(0);
+            var teamTwo = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(1);
+            var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
+            var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
 
-            var teamToAdd = series.DummyTeams.DummyTeamOne;
-            seriesService.AddTeamToSeries(series.SeriesDummy.Id, teamToAdd.Id);
+            for (int i = 11; i >= 0; i--)
+            {
+                series.TeamIds.Remove(series.TeamIds.ElementAt(i));
+            }
 
-            Assert.IsTrue(series.SeriesDummy.TeamIds.Contains(teamToAdd.Id));
+            seriesService.AddTeamToSeries(series.Id, teamOne);
+            seriesService.AddTeamToSeries(series.Id, teamTwo);
+            seriesService.AddTeamToSeries(series.Id, teamThree);
+            seriesService.AddTeamToSeries(series.Id, teamFour);
+
+            Assert.IsTrue(series.TeamIds.Contains(teamOne)
+                && series.TeamIds.Contains(teamTwo)
+                && series.TeamIds.Contains(teamThree)
+                && series.TeamIds.Contains(teamFour));
+
+
         }
     }
 }

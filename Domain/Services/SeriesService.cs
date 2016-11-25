@@ -50,8 +50,11 @@ namespace Domain.Services
 
         public void AddTeamToSeries(Guid seriesId, Guid teamId)
         {
-            var series = DomainService.FindSeriesById(seriesId);
+            var series = FindById(seriesId);
             series.TeamIds.Add(teamId);
+            var team = DomainService.FindTeamById(teamId);
+            team.AddSeries(series);
+            DomainService.AddSeriesToPlayers(series, team);
         }
     }
 }
