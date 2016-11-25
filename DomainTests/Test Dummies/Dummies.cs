@@ -206,7 +206,7 @@ namespace DomainTests.Test_Dummies
             this.SeriesDummy.TeamIds.Add(this.DummyTeams.DummyTeamThree.Id);
             this.SeriesDummy.TeamIds.Add(this.DummyTeams.DummyTeamFour.Id);
             var seriesService = new SeriesService();
-            seriesService.AddSeries(this.SeriesDummy);
+            seriesService.Add(this.SeriesDummy);
             this.GeneratDummySeriesSchedual();
             this.DummyGames = new DummyGames(this);
             DomainService.AddSeriesToTeam(this.SeriesDummy);

@@ -25,7 +25,7 @@ namespace Domain.Services.Tests
             Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
             var gameIsAdded = false;
             var matchService = new MatchService();
-            matchService.AddMatch(matchOne);
+            matchService.Add(matchOne);
             var gameId = this.gameService.Add(matchOne.Id);
 
             foreach (var gameItem in this.gameService.GetAll())
@@ -52,7 +52,7 @@ namespace Domain.Services.Tests
                 game1,
                 game2
             };
-            gameService.AddList(games);
+            gameService.Add(games);
             var allGames = DomainService.GetAllGames();
             Assert.IsTrue(allGames.Contains(game1));
             Assert.IsTrue(allGames.Contains(game2));

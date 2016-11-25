@@ -22,12 +22,20 @@ namespace Domain.Services
             this.repository.Add(game);
         }
 
-        public void AddList(IEnumerable<Game> games)
+        public void Add(IEnumerable<Game> games)
         {
-            foreach (var game in games)
+            if (games != null)
             {
-                Add(game);
+                foreach (var game in games)
+                {
+                    Add(game);
+                }
             }
+            else
+            {
+                throw new NullReferenceException("List of games is null");
+            }
+
         }
 
         public Guid Add(Guid matchId)
@@ -184,7 +192,6 @@ namespace Domain.Services
                     if (penalty.IsGoal)
                     {
                         this.RemoveGoalFromGame(gameId, playerId, matchMinute);
-
                     }
                     break;
                 }

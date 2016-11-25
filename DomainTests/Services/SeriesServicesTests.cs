@@ -29,7 +29,7 @@ namespace DomainTests.Services
         public void AddSeries()
         {
             Assert.IsFalse(this.seriesService.GetAll().Contains(this.testSerieOne));
-            this.seriesService.AddSeries(this.testSerieOne);
+            this.seriesService.Add(this.testSerieOne);
             Assert.IsTrue(this.seriesService.GetAll().Contains(this.testSerieOne));
         }
 
@@ -43,7 +43,7 @@ namespace DomainTests.Services
         public void FindSeriesByIdIsWorking()
         {
             Assert.IsFalse(this.seriesService.FindById(this.testSerieOne.Id) == this.testSerieOne);
-            this.seriesService.AddSeries(this.testSerieOne);
+            this.seriesService.Add(this.testSerieOne);
             Assert.IsTrue(this.seriesService.FindById(this.testSerieOne.Id) == this.testSerieOne);
         }
 
@@ -52,7 +52,7 @@ namespace DomainTests.Services
         public void SeriesCanOnlyBeAddedToDbIfTeamIdsCountIsEqualToNumberOfTeams()
         {
             this.testSerieOne.TeamIds.Add(Guid.NewGuid());
-            this.seriesService.AddSeries(this.testSerieOne);
+            this.seriesService.Add(this.testSerieOne);
         }
 
         [TestMethod]

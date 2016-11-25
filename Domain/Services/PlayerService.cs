@@ -24,6 +24,22 @@ namespace Domain.Services
             this.repository.Add(player);
         }
 
+        public void Add(IEnumerable<Player> players)
+        {
+            if (players != null)
+            {
+                foreach (var player in players)
+                {
+                    this.Add(player);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of player is null");
+            }
+
+        }
+
         public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
         {
             var allPlayers = GetAll();
@@ -127,6 +143,6 @@ namespace Domain.Services
             return result;
         }
 
-       
+
     }
 }

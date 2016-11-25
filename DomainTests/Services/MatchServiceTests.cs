@@ -30,7 +30,7 @@ namespace DomainTests.Services
         [TestMethod]
         public void AddMatchIsWorking()
         {
-            this.service.AddMatch(this.match);
+            this.service.Add(this.match);
             var matchs = this.service.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
             Assert.IsFalse(matchs.Contains(this.match2));
@@ -41,7 +41,7 @@ namespace DomainTests.Services
         {
             var service1 = new MatchService();
             var service2 = new MatchService();
-            service1.AddMatch(this.match);
+            service1.Add(this.match);
             var matchs = service2.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
         }
@@ -50,7 +50,7 @@ namespace DomainTests.Services
         public void FindMatchByIdIsWorking()
         {
             Assert.IsFalse(this.service.FindById(this.match.Id) == this.match);
-            this.service.AddMatch(this.match);
+            this.service.Add(this.match);
             Assert.IsTrue(this.service.FindById(this.match.Id) == this.match);
         }
 

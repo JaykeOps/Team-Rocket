@@ -12,14 +12,24 @@ namespace Domain.Services
     {
         private readonly MatchRepository repository = MatchRepository.instance;
 
-        public void AddMatch(Match match)
+        public void Add(Match match)
         {
             this.repository.AddMatch(match);
         }
 
-        public void AddMatches(IEnumerable<Match> matches)
+        public void Add(IEnumerable<Match> matches)
         {
-            this.repository.AddMatches(matches);
+            if (matches != null)
+            {
+                foreach (var match in matches)
+                {
+                    this.Add(match);
+                }
+            }
+            else
+            {
+                    throw new NullReferenceException("List of matches is null");
+            }
         }
 
         public IEnumerable<Match> GetAll()

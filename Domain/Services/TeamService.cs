@@ -21,6 +21,21 @@ namespace Domain.Services
             TeamRepository.instance.Add(team);
         }
 
+        public void AddTeams(IEnumerable<Team> teams)
+        {
+            if (teams != null)
+            {
+                foreach (var team in teams)
+                {
+                    AddTeam(team);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of teams is null");
+            }
+        }
+
         public IEnumerable<Team> GetAll()
         {
             return TeamRepository.instance.GetAll();

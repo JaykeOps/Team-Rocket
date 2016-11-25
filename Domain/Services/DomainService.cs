@@ -73,7 +73,7 @@ namespace Domain.Services
         public static void AddMatches(IEnumerable<Match> matches)
         {
             var matchService = new MatchService();
-            matchService.AddMatches(matches);
+            matchService.Add(matches);
         }
 
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
