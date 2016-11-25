@@ -37,9 +37,9 @@ namespace Domain.Services.Tests
         {
             var player = new Player(new Name("John", "Doe"), new DateOfBirth("1985-05-20"), PlayerPosition.Forward,
                 PlayerStatus.Absent);
-            Assert.IsFalse(playerService.FindById(player.Id) == player);
-            playerService.Add(player);
-            Assert.IsTrue(playerService.FindById(player.Id) == player);
+            Assert.IsFalse(this.playerService.FindById(player.Id) == player);
+            this.playerService.Add(player);
+            Assert.IsTrue(this.playerService.FindById(player.Id) == player);
         }
 
         #region PlayerService, FindPlayer metod tests
@@ -140,7 +140,7 @@ namespace Domain.Services.Tests
         public void GetTopAssistTest()
         {
             var series = new DummySeries();
-            var topAssists = playerService.GetTopAssistsForSeries(series.SeriesDummy.Id);
+            var topAssists = this.playerService.GetTopAssistsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
@@ -156,7 +156,7 @@ namespace Domain.Services.Tests
         public void GetTopRedCardsTest()
         {
             var series = new DummySeries();
-            var topReds = playerService.GetTopRedCardsForSeries(series.SeriesDummy.Id);
+            var topReds = this.playerService.GetTopRedCardsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
@@ -172,7 +172,7 @@ namespace Domain.Services.Tests
         public void GetTopYellowCardsTest()
         {
             var series = new DummySeries();
-            var topYellow = playerService.GetTopYellowCardsForSeries(series.SeriesDummy.Id);
+            var topYellow = this.playerService.GetTopYellowCardsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
@@ -187,10 +187,12 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerCanBeRenamedThroughDuplicate()
         {
+            var playerService = new PlayerService();
             var duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
                 this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
             Assert.AreEqual(this.dummyPlayer.Name, duplicatePlayer.Name);
             this.playerService.RenamePlayer(duplicatePlayer, new Name("Torbjörn", "Nilsson"));
+            this.dummyPlayer = playerService.FindById(this.dummyPlayer.Id);
             Assert.AreEqual(duplicatePlayer.Name, this.dummyPlayer.Name);
 
         }

@@ -29,7 +29,8 @@ namespace Domain.Repositories
             {
                 if (this.TryGetPlayerWithDuplicateId(newPlayer, out existingDuplicate))
                 {
-                    existingDuplicate = newPlayer;
+                    this.players.Remove(existingDuplicate);
+                    this.players.Add(newPlayer);
                 }
                 else
                 {

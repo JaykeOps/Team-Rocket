@@ -72,7 +72,7 @@ namespace DomainTests.Value_Objects
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOnePenaltiesPreAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
-            this.dummySeries.DummyGames.GameThree.Protocol.Penalties.Add(new Penalty(new MatchMinute(89), this.playerOne.Id,true,dummySeries.DummyGames.GameThree,playerOne.TeamId));
+            this.dummySeries.DummyGames.GameThree.Protocol.Penalties.Add(new Penalty(new MatchMinute(89), this.playerOne.Id,true, this.dummySeries.DummyGames.GameThree, this.playerOne.TeamId));
             var playerOnePenaltiesPostAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
             Assert.IsTrue(playerOnePenaltiesPostAdd - playerOnePenaltiesPreAdd == 1);

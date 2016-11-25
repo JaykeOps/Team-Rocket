@@ -28,7 +28,7 @@ namespace Domain.Entities
 
         public Person(Name name, DateOfBirth dateOfBirth, Guid id) // For tests!
         {
-            this.Id = Guid.NewGuid(); // for tests!
+            this.Id = id; // for tests!
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
         }

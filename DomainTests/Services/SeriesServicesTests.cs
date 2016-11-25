@@ -57,8 +57,8 @@ namespace DomainTests.Services
         [TestMethod]
         public void GetLeagueTablePlacementIsWorking()
         {
-            var seriesId = seriesService.GetAll().ElementAt(0).Id;
-            var leagueTable = seriesService.GetLeagueTablePlacement(seriesId);
+            var seriesId = this.seriesService.GetAll().ElementAt(0).Id;
+            var leagueTable = this.seriesService.GetLeagueTablePlacement(seriesId);
         }
     }
 }

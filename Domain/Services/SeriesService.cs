@@ -35,7 +35,7 @@ namespace Domain.Services
 
         public IOrderedEnumerable<Team> GetLeagueTablePlacement(Guid seriesId)
         {
-            Series series = FindById(seriesId);
+            Series series = this.FindById(seriesId);
             HashSet<Guid> teamIdsOfSerie = series.TeamIds;
             HashSet<Team> teamsOfSerie = new HashSet<Team>();
 
