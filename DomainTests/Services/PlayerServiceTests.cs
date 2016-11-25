@@ -47,13 +47,13 @@ namespace Domain.Services.Tests
             Assert.IsTrue(this.playerService.FindById(player.Id) == player);
         }
 
-        #region PlayerService, FindPlayer metod tests
+        #region PlayerService, FreeTextSearchForPlayers metod tests
 
         //[TestMethod]
         //public void FindPlayerFullName()
         //{
         //    var expectedName = this.dummyPlayer.Name;
-        //    var nameFound = this.playerService.FindPlayer(expectedName.FirstName + expectedName.LastName,
+        //    var nameFound = this.playerService.FreeTextSearchForPlayers(expectedName.FirstName + expectedName.LastName,
         //        StringComparison.InvariantCultureIgnoreCase);
         //}
 
@@ -61,7 +61,7 @@ namespace Domain.Services.Tests
         //public void FindPlayerCaseSensitive()
         //{
         //    var expectedPlayer =
-        //        (Player)playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
+        //        (Player)playerService.FreeTextSearchForPlayers("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
 
         //    var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
 
@@ -72,7 +72,7 @@ namespace Domain.Services.Tests
         //public void FindPlayerPartOfFirstName()
         //{
         //    var expectedPlayer =
-        //        (Player)playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
+        //        (Player)playerService.FreeTextSearchForPlayers("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
 
         //    var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
 
@@ -83,7 +83,7 @@ namespace Domain.Services.Tests
         //public void FindPlayerPartOfLastName()
         //{
         //    var expectedPlayer =
-        //        (Player)playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
+        //        (Player)playerService.FreeTextSearchForPlayers("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
 
         //    var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
 
@@ -94,12 +94,12 @@ namespace Domain.Services.Tests
         public void FindPlayerSpecialCharactersNotAllowed()
         {
             IPresentablePlayer expectedPlayerObj =
-                this.playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
+                this.playerService.FreeTextSearchForPlayers("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
         }
 
-        #endregion PlayerService, FindPlayer metod tests
+        #endregion PlayerService, FreeTextSearchForPlayers metod tests
 
         //[TestMethod]
         //public void GetPlayerNameNotNull()
@@ -231,6 +231,22 @@ namespace Domain.Services.Tests
             var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
             Assert.IsNotNull(this.dummyPlayer.ShirtNumber.Value);
             Assert.AreEqual(this.dummyPlayer.ShirtNumber, repositoryPlayer.ShirtNumber);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewPosition()
+        {
+            Assert.AreNotEqual(this.dummyPlayer.Position, PlayerPosition.GoalKeeper);
+            this.playerService.SetPlayerPosition(this.dummyPlayer.Id, PlayerPosition.GoalKeeper);
+            Assert.AreEqual(this.dummyPlayer.Position, PlayerPosition.GoalKeeper);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewStatus()
+        {
+            Assert.AreNotEqual(this.dummyPlayer.Status, PlayerStatus.Injured);
+            this.playerService.SetPlayerStatus(this.dummyPlayer.Id, PlayerStatus.Injured);
+            Assert.AreEqual(this.dummyPlayer.Status, PlayerStatus.Injured);
         }
     }
 }
