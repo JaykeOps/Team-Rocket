@@ -14,7 +14,14 @@ namespace Domain.Services
 
         public void AddMatch(Match match)
         {
-            this.repository.AddMatch(match);
+            if (match.IsMatchValid())
+            {
+                this.repository.AddMatch(match);
+            }
+            else
+            {
+                throw new FormatException("Match cannot be added. Invalid matchdata");
+            }
         }
 
         public void AddMatches(IEnumerable<Match> matches)

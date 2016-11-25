@@ -9,7 +9,7 @@ namespace Domain.Entities
     [Serializable]
     public class Team : IPresentableTeam
     {
-        private HashSet<Guid> playerIds;
+        internal HashSet<Guid> playerIds;
         private TeamMatchSchedule matchSchedules;
         private TeamSeriesEvents seriesEvents;
         private TeamSeriesStats seriesStats;

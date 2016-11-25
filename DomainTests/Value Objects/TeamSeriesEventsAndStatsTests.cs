@@ -35,14 +35,14 @@ namespace Domain.Value_Objects.Tests
             {
                 if (game.Protocol.HomeTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score > game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore > game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesWon++;
                     }
                 }
                 else if (game.Protocol.AwayTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score < game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore < game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesWon++;
                     }
@@ -63,14 +63,14 @@ namespace Domain.Value_Objects.Tests
             {
                 if (game.Protocol.HomeTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score == game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore == game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesDraw++;
                     }
                 }
                 else if (game.Protocol.AwayTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score == game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore == game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesDraw++;
                     }
@@ -91,14 +91,14 @@ namespace Domain.Value_Objects.Tests
             {
                 if (game.Protocol.HomeTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score < game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore < game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesLost++;
                     }
                 }
                 else if (game.Protocol.AwayTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score > game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore > game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesLost++;
                     }

@@ -3,6 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Helper_Classes;
 using Domain.Value_Objects;
 
 namespace Domain.Services
@@ -13,13 +14,13 @@ namespace Domain.Services
 
         public void AddSeries(Series series)
         {
-            if (series.NumberOfTeams.Value == series.TeamIds.Count)
+            if (series.NumberOfTeams.Value == series.TeamIds.Count&&series.IsSeriesValid())
             {
                 this.repository.AddSeries(series);
             }
             else
             {
-                throw new ArgumentException($"Invalid numbers of teams. Number of teamIds in HashSet TeamIds must be {series.NumberOfTeams}");
+                throw new ArgumentException("Series cannot be added. Invalid seriesdata");
             }
         }
 

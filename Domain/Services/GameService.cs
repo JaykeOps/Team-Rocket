@@ -19,7 +19,15 @@ namespace Domain.Services
 
         public void Add(Game game)
         {
-            this.repository.Add(game);
+            if (game.IsValidGame())
+            {
+                this.repository.Add(game);
+            }
+            else
+            {
+                throw new FormatException("Game cannot be added. Invalid gamedata");
+            }
+            
         }
 
         public Guid Add(Guid matchId)
@@ -83,7 +91,7 @@ namespace Domain.Services
             game.Protocol.Cards.Add(card);
         }
 
-        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute,bool isGoal)
+        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute, bool isGoal)
         {
             var game = this.FindById(gameId);
 
@@ -158,8 +166,8 @@ namespace Domain.Services
                     game.Protocol.Penalties.Remove(penalty);
                     if (penalty.IsGoal)
                     {
-                        this.RemoveGoalFromGame(gameId,playerId,matchMinute);
-                        
+                        this.RemoveGoalFromGame(gameId, playerId, matchMinute);
+
                     }
                     break;
                 }
