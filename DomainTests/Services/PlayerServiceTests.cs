@@ -222,5 +222,15 @@ namespace Domain.Services.Tests
             var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
             Assert.AreEqual(repositoryPlayer.ShirtNumber, this.duplicatePlayer.ShirtNumber);
         }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewShirtNumberThroughReference()
+        {
+            Assert.IsNull(this.dummyPlayer.ShirtNumber.Value);
+            this.playerService.SetShirtNumber(this.dummyPlayer.Id, new ShirtNumber(9));
+            var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.IsNotNull(this.dummyPlayer.ShirtNumber.Value);
+            Assert.AreEqual(this.dummyPlayer.ShirtNumber, repositoryPlayer.ShirtNumber);
+        }
     }
 }
