@@ -248,5 +248,21 @@ namespace Domain.Services.Tests
             this.playerService.SetPlayerStatus(this.dummyPlayer.Id, PlayerStatus.Injured);
             Assert.AreEqual(this.dummyPlayer.Status, PlayerStatus.Injured);
         }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedAnEmailAddress()
+        {
+            var newEmail = new EmailAddress("tester@testmail.com");
+            this.dummyPlayer.ContactInformation.Email = newEmail;
+            Assert.AreEqual(this.dummyPlayer.ContactInformation.Email, newEmail);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedAPhoneNumber()
+        {
+            var newPhone = new PhoneNumber("0739-887722");
+            this.dummyPlayer.ContactInformation.Phone = newPhone;
+            Assert.AreEqual(this.dummyPlayer.ContactInformation.Phone, newPhone);
+        }
     }
 }

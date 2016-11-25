@@ -5,13 +5,30 @@ namespace Domain.Value_Objects
     [Serializable]
     public class ContactInformation : ValueObject<ContactInformation>
     {
-        public PhoneNumber Phone { get; set; }
-        public EmailAddress Email { get; set; }
+        private PhoneNumber phone;
+        private EmailAddress email;
+
+        public PhoneNumber Phone
+        {
+            get { return this?.phone; }
+            set { this.phone = value; }
+        }
+
+        public EmailAddress Email
+        {
+            get { return this?.email; }
+            set { this.email = value; }
+        }
 
         public ContactInformation(PhoneNumber phone, EmailAddress email)
         {
-            this.Phone = phone;
-            this.Email = email;
+            this.phone = phone;
+            this.email = email;
+        }
+
+        public ContactInformation()
+        {
+            
         }
     }
 }

@@ -11,19 +11,12 @@ namespace Domain.Entities
         public DateOfBirth DateOfBirth { get; set; }
         public ContactInformation ContactInformation { get; }
 
-        public Person(Name name, DateOfBirth dateOfBirth, ContactInformation contactInformation)
-        {
-            this.Id = Guid.NewGuid();
-            this.Name = name;
-            this.DateOfBirth = dateOfBirth;
-            this.ContactInformation = contactInformation;
-        }
-
         public Person(Name name, DateOfBirth dateOfBirth)
         {
             this.Id = Guid.NewGuid();
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
+            this.ContactInformation = new ContactInformation();
         }
 
         public Person(Name name, DateOfBirth dateOfBirth, Guid id) // For tests!
