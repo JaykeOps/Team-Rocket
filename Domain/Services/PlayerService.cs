@@ -114,11 +114,18 @@ namespace Domain.Services
             return result;
         }
 
-        public IPresentablePlayer SavePlayerName(IPresentablePlayer player, Name newName)
+        public IPresentablePlayer RenamePlayer(IPresentablePlayer presentablePlayer, Name newName)
         {
-            var p = (Player) player;
-            p.Name = newName;
-            return p;
+            var player = (Player) presentablePlayer;
+            player.Name = newName;
+            this.Add(player);
+            return player;
+        }
+
+        public void RenamePlayer(Guid playerId, Name newName)
+        {
+            var player = this.FindById(playerId);
+            player.Name = newName;
         }
     }
 }
