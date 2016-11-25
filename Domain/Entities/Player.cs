@@ -77,6 +77,17 @@ namespace Domain.Entities
             this.aggregatedStats = new AggregatedPlayerStats();
         }
 
+        public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
+            PlayerStatus status, Guid id) : base(name, dateOfBirth, id) //Id for tests!
+        {
+            this.Position = position;
+            this.Status = status;
+            this.TeamId = Guid.Empty;
+            this.affiliatedTeamName = new TeamName("Unaffiliated");
+            this.aggregatedEvents = new AggregatedPlayerEvents();
+            this.aggregatedStats = new AggregatedPlayerStats();
+        }
+
         public void AddSeries(Series series)
         {
             this.aggregatedEvents.AddSeries(series, this.teamId, this.Id);

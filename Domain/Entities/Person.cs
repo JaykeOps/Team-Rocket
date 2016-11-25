@@ -26,6 +26,13 @@ namespace Domain.Entities
             this.DateOfBirth = dateOfBirth;
         }
 
+        public Person(Name name, DateOfBirth dateOfBirth, Guid id) // For tests!
+        {
+            this.Id = Guid.NewGuid(); // for tests!
+            this.Name = name;
+            this.DateOfBirth = dateOfBirth;
+        }
+
         public override string ToString()
         {
             return $"{this.Name.FirstName} {this.Name.LastName}";

@@ -183,5 +183,16 @@ namespace Domain.Services.Tests
                 Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).YellowCardCount == topYellow.ElementAt(i).YellowCardCount);
             }
         }
+
+        [TestMethod]
+        public void PlayerCanBeRenamedThroughDuplicate()
+        {
+            var duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
+                this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
+            Assert.AreEqual(this.dummyPlayer.Name, duplicatePlayer.Name);
+            this.playerService.RenamePlayer(duplicatePlayer, new Name("Torbjörn", "Nilsson"));
+            Assert.AreEqual(duplicatePlayer.Name, this.dummyPlayer.Name);
+
+        }
     }
 }
