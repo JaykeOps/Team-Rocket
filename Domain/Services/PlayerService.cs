@@ -131,18 +131,40 @@ namespace Domain.Services
 
         public void SetShirtNumber(IPresentablePlayer presentablePlayer, ShirtNumber newShirtNumber)
         {
+            var player = (Player) presentablePlayer;
             try
             {
-                var player = (Player)presentablePlayer;
                 player.ShirtNumber = newShirtNumber;
-                
+
             }
             catch (ShirtNumberAlreadyInUseException ex)
             {
-                //this.Add(player);
-                //throw ex;
+                throw ex;
             }
-            
+            catch (IndexOutOfRangeException ex)
+            {
+                throw ex;
+            }
+            this.Add(player);
+
+        }
+
+        public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
+        {
+            var player = this.FindById(playerId);
+            try
+            {
+                player.ShirtNumber = newShirtNumber;
+            }
+            catch (ShirtNumberAlreadyInUseException ex)
+            {
+                
+                throw ex;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

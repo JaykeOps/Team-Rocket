@@ -15,6 +15,7 @@ namespace Domain.Services.Tests
         private DummySeries dummySeries;
         private Team dummyTeam;
         private Player dummyPlayer;
+        private Player duplicatePlayer;
 
         [TestInitialize]
         public void Init()
@@ -23,6 +24,10 @@ namespace Domain.Services.Tests
             this.dummySeries = new DummySeries();
             this.dummyTeam = this.dummySeries.DummyTeams.DummyTeamTwo;
             this.dummyPlayer = this.dummyTeam.Players.ElementAt(0);
+            this.duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
+                this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
+            this.duplicatePlayer.TeamId = this.dummyPlayer.TeamId;
+
         }
 
         [TestMethod]
@@ -128,7 +133,8 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = dummySeries.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[dummySeries.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[dummySeries.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             for (int i = 0; i < topScorers.Count(); i++)
             {
@@ -144,7 +150,8 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
             for (int i = 0; i < topAssists.Count(); i++)
             {
@@ -160,7 +167,8 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
             for (int i = 0; i < topReds.Count(); i++)
             {
@@ -176,25 +184,43 @@ namespace Domain.Services.Tests
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
             for (int i = 0; i < topYellow.Count(); i++)
             {
-                Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).YellowCardCount == topYellow.ElementAt(i).YellowCardCount);
+                Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).YellowCardCount ==
+                              topYellow.ElementAt(i).YellowCardCount);
             }
         }
 
         [TestMethod]
         public void PlayerCanBeRenamedThroughDuplicate()
         {
-            var playerService = new PlayerService();
-            var duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
-                this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
-            Assert.AreEqual(this.dummyPlayer.Name, duplicatePlayer.Name);
-            this.playerService.RenamePlayer(duplicatePlayer, new Name("Torbjörn", "Nilsson"));
-            this.dummyPlayer = playerService.FindById(this.dummyPlayer.Id);
-            Assert.AreEqual(duplicatePlayer.Name, this.dummyPlayer.Name);
+            Assert.AreEqual(this.dummyPlayer.Name, this.duplicatePlayer.Name);
+            this.playerService.RenamePlayer(this.duplicatePlayer, new Name("Torbjörn", "Nilsson"));
+            this.dummyPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.AreEqual(this.duplicatePlayer.Name, this.dummyPlayer.Name);
+        }
 
+        [TestMethod]
+        public void PlayerCanBeRenamedThroughReference()
+        {
+            Assert.AreNotEqual(this.dummyPlayer.Name, new Name("Deigo", "Maradona"));
+            this.playerService.RenamePlayer(this.dummyPlayer, new Name("Diego", "Maradona"));
+            var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.AreEqual(this.dummyPlayer.Name, repositoryPlayer.Name);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewShirtNumberThroughDuplicate()
+        {
+            Assert.AreEqual(this.dummyPlayer.Id, this.duplicatePlayer.Id);
+            Assert.IsNull(this.dummyPlayer.ShirtNumber.Value);
+            Assert.IsNull(this.duplicatePlayer.ShirtNumber.Value);
+            this.playerService.SetShirtNumber(this.duplicatePlayer, new ShirtNumber(7));
+            var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.AreEqual(repositoryPlayer.ShirtNumber, this.duplicatePlayer.ShirtNumber);
         }
     }
 }
