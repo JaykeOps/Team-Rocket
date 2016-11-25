@@ -191,5 +191,25 @@ namespace Domain.Services.Tests
                 Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).YellowCardCount == topYellow.ElementAt(i).YellowCardCount);
             }
         }
+
+        [TestMethod]
+        public void AddListOfPlayerTest()
+        {
+            var series = new DummySeries();
+            var playerOne = new Player(new Name("Kalle", "Kuling"), new DateOfBirth("2012-06-12"), PlayerPosition.Forward, PlayerStatus.Available);
+            var playerTwo = new Player(new Name("Kalle", "Kuling"), new DateOfBirth("2012-06-12"), PlayerPosition.Forward, PlayerStatus.Available);
+            var playerThree = new Player(new Name("Kalle", "Kuling"), new DateOfBirth("2012-06-12"), PlayerPosition.Forward, PlayerStatus.Available);
+
+            var players = new List<Player>
+            {
+                playerOne,
+                playerTwo
+            };
+            playerService.Add(players);
+            var allPlayers = DomainService.GetAllPlayers();
+            Assert.IsTrue(allPlayers.Contains(playerOne));
+            Assert.IsTrue(allPlayers.Contains(playerTwo));
+            Assert.IsFalse(allPlayers.Contains(playerThree));
+        }
     }
 }

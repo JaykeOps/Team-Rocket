@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -77,6 +78,26 @@ namespace DomainTests.Services
 
             this.service.EditMatchLocation("Svennes arena", matchToEdit.Id);
             Assert.IsTrue(matchToEdit.Location != unEditedMatch.Location);
+        }
+
+        [TestMethod]
+        public void AddListOfMatchesTest()
+        {
+            var series = new DummySeries();
+            var matchOne = new Match(new ArenaName("ullevi"),Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy );
+            var matchTwo = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+            var matchThree = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+
+            var matches = new List<Match>
+            {
+                matchOne,
+                matchTwo
+            };
+            service.Add(matches);
+            var allMatches = DomainService.GetAllMatches();
+            Assert.IsTrue(allMatches.Contains(matchOne));
+            Assert.IsTrue(allMatches.Contains(matchTwo));
+            Assert.IsFalse(allMatches.Contains(matchThree));
         }
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");

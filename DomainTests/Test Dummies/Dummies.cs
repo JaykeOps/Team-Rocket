@@ -161,10 +161,10 @@ namespace DomainTests.Test_Dummies
 
             this.FillTeamsWithPlayer();
             var teamService = new TeamService();
-            teamService.AddTeam(this.DummyTeamOne);
-            teamService.AddTeam(this.DummyTeamTwo);
-            teamService.AddTeam(this.DummyTeamThree);
-            teamService.AddTeam(this.DummyTeamFour);
+            teamService.Add(this.DummyTeamOne);
+            teamService.Add(this.DummyTeamTwo);
+            teamService.Add(this.DummyTeamThree);
+            teamService.Add(this.DummyTeamFour);
         }
 
         private void FillTeamsWithPlayer()
@@ -215,10 +215,10 @@ namespace DomainTests.Test_Dummies
         private void GeneratDummySeriesSchedual()
         {
             var teamService = new TeamService();
-            teamService.AddTeam(this.DummyTeams.DummyTeamOne);
-            teamService.AddTeam(this.DummyTeams.DummyTeamTwo);
-            teamService.AddTeam(this.DummyTeams.DummyTeamThree);
-            teamService.AddTeam(this.DummyTeams.DummyTeamFour);
+            teamService.Add(this.DummyTeams.DummyTeamOne);
+            teamService.Add(this.DummyTeams.DummyTeamTwo);
+            teamService.Add(this.DummyTeams.DummyTeamThree);
+            teamService.Add(this.DummyTeams.DummyTeamFour);
             DomainService.ScheduleGenerator(this.SeriesDummy.Id);
         }
     }

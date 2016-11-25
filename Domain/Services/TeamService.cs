@@ -16,18 +16,18 @@ namespace Domain.Services
             this.repository = TeamRepository.instance;
         }
 
-        public void AddTeam(Team team)
+        public void Add(Team team)
         {
             TeamRepository.instance.Add(team);
         }
 
-        public void AddTeams(IEnumerable<Team> teams)
+        public void AddTeam(IEnumerable<Team> teams)
         {
             if (teams != null)
             {
                 foreach (var team in teams)
                 {
-                    AddTeam(team);
+                    Add(team);
                 }
             }
             else

@@ -76,5 +76,37 @@ namespace DomainTests.Services
                 Assert.IsTrue(orderedTeamList.ElementAt(i).Name.Value == leagueTable.ElementAt(i).TeamName);
             }
         }
+        [TestMethod]
+        public void AddListOfSeriesTest()
+        {
+            var seriesOne = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "Körv");
+            var seriesTwo = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "Körv");
+            var seriesThree = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "Körv");
+            seriesOne.TeamIds.Add(Guid.NewGuid());
+            seriesOne.TeamIds.Add(Guid.NewGuid());
+            seriesOne.TeamIds.Add(Guid.NewGuid());
+            seriesOne.TeamIds.Add(Guid.NewGuid());
+
+            seriesTwo.TeamIds.Add(Guid.NewGuid());
+            seriesTwo.TeamIds.Add(Guid.NewGuid());
+            seriesTwo.TeamIds.Add(Guid.NewGuid());
+            seriesTwo.TeamIds.Add(Guid.NewGuid());
+
+            seriesThree.TeamIds.Add(Guid.NewGuid());
+            seriesThree.TeamIds.Add(Guid.NewGuid());
+            seriesThree.TeamIds.Add(Guid.NewGuid());
+            seriesThree.TeamIds.Add(Guid.NewGuid());
+
+            var series = new List<Series>
+            {
+                seriesOne,
+                seriesTwo
+            };
+            seriesService.Add(series);
+            var allSeries = DomainService.GetAllSeries();
+            Assert.IsTrue(allSeries.Contains(seriesOne));
+            Assert.IsTrue(allSeries.Contains(seriesTwo));
+            Assert.IsFalse(allSeries.Contains(seriesThree));
+        }
     }
 }

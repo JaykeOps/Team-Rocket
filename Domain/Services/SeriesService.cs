@@ -62,5 +62,6 @@ namespace Domain.Services
                 .ThenByDescending(x => x.GoalsFor);
 
         }
+
     }
 }
