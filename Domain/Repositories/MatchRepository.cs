@@ -93,12 +93,5 @@ namespace Domain.Repositories
             this.matches.Add(newMatch);
         }
 
-        public void AddMatches(IEnumerable<Match> matches)
-        {
-            foreach (var match in matches)
-            {
-                this.matches.Add(match);
-            }
-        }
     }
 }

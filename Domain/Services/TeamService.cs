@@ -17,7 +17,7 @@ namespace Domain.Services
             this.repository = TeamRepository.instance;
         }
 
-        public void AddTeam(Team team)
+        public void Add(Team team)
         {
             if (team.IsTeamValid())
             {
@@ -26,6 +26,21 @@ namespace Domain.Services
             else
             {
                 throw new FormatException("Match cannot be added. Invalid matchdata");
+            }
+        }
+
+        public void AddTeam(IEnumerable<Team> teams)
+        {
+            if (teams != null)
+            {
+                foreach (var team in teams)
+                {
+                    Add(team);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of teams is null");
             }
         }
 

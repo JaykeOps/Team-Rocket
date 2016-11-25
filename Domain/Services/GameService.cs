@@ -19,6 +19,25 @@ namespace Domain.Services
 
         public void Add(Game game)
         {
+            this.repository.Add(game);
+        }
+
+        public void Add(IEnumerable<Game> games)
+        {
+            if (games != null)
+            {
+                foreach (var game in games)
+                {
+                    Add(game);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of games is null");
+            }
+
+        }
+
             if (game.IsValidGame())
             {
                 this.repository.Add(game);
@@ -33,10 +52,10 @@ namespace Domain.Services
         public Guid Add(Guid matchId)
         {
             var match = DomainService.FindMatchById(matchId);
-            Game game;
+
             if (match != null)
             {
-                game = new Game(match);
+                var game = new Game(match);
                 this.repository.Add(game);
                 return game.Id;
             }
@@ -44,8 +63,25 @@ namespace Domain.Services
             {
                 throw new ArgumentException("Invalid matchId");
             }
-
-
+        }
+        public IEnumerable<Guid> AddList(IEnumerable<Guid> matchIds)
+        {
+            var gameIds = new List<Guid>();
+            foreach (var matchId in matchIds)
+            {
+                var match = DomainService.FindMatchById(matchId);
+                if (match != null)
+                {
+                    var game = new Game(match);
+                    this.repository.Add(game);
+                    gameIds.Add(game.Id);
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid matchId");
+                }
+            }
+            return gameIds;
         }
 
         public IEnumerable<Game> GetAll()
@@ -173,6 +209,5 @@ namespace Domain.Services
                 }
             }
         }
-
     }
 }

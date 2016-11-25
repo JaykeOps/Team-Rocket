@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -30,7 +31,7 @@ namespace DomainTests.Services
         [TestMethod]
         public void AddMatchIsWorking()
         {
-            this.service.AddMatch(this.match);
+            this.service.Add(this.match);
             var matchs = this.service.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
             Assert.IsFalse(matchs.Contains(this.match2));
@@ -41,7 +42,7 @@ namespace DomainTests.Services
         {
             var service1 = new MatchService();
             var service2 = new MatchService();
-            service1.AddMatch(this.match);
+            service1.Add(this.match);
             var matchs = service2.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
         }
@@ -50,7 +51,7 @@ namespace DomainTests.Services
         public void FindMatchByIdIsWorking()
         {
             Assert.IsFalse(this.service.FindById(this.match.Id) == this.match);
-            this.service.AddMatch(this.match);
+            this.service.Add(this.match);
             Assert.IsTrue(this.service.FindById(this.match.Id) == this.match);
         }
 
@@ -77,6 +78,26 @@ namespace DomainTests.Services
 
             this.service.EditMatchLocation("Svennes arena", matchToEdit.Id);
             Assert.IsTrue(matchToEdit.Location != unEditedMatch.Location);
+        }
+
+        [TestMethod]
+        public void AddListOfMatchesTest()
+        {
+            var series = new DummySeries();
+            var matchOne = new Match(new ArenaName("ullevi"),Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy );
+            var matchTwo = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+            var matchThree = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+
+            var matches = new List<Match>
+            {
+                matchOne,
+                matchTwo
+            };
+            service.Add(matches);
+            var allMatches = DomainService.GetAllMatches();
+            Assert.IsTrue(allMatches.Contains(matchOne));
+            Assert.IsTrue(allMatches.Contains(matchTwo));
+            Assert.IsFalse(allMatches.Contains(matchThree));
         }
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");

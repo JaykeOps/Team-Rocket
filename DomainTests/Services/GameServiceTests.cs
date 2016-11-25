@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Domain.Services.Tests
 {
@@ -19,12 +20,12 @@ namespace Domain.Services.Tests
         private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
 
         [TestMethod]
-        public void AddGameToListTest()
+        public void AddGameListTest()
         {
             Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
             var gameIsAdded = false;
             var matchService = new MatchService();
-            matchService.AddMatch(matchOne);
+            matchService.Add(matchOne);
             var gameId = this.gameService.Add(matchOne.Id);
 
             foreach (var gameItem in this.gameService.GetAll())
@@ -38,6 +39,39 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameIsAdded);
         }
 
+        [TestMethod]
+        public void AddListOfGames()
+        {
+            var series = new DummySeries();
+            var game1 = new Game(series.SeriesDummy.Schedule[0].ElementAt(0));
+            var game2 = new Game(series.SeriesDummy.Schedule[0].ElementAt(1));
+            var game3 = new Game(series.SeriesDummy.Schedule[1].ElementAt(0));
+
+            var games = new List<Game>
+            {
+                game1,
+                game2
+            };
+            gameService.Add(games);
+            var allGames = DomainService.GetAllGames();
+            Assert.IsTrue(allGames.Contains(game1));
+            Assert.IsTrue(allGames.Contains(game2));
+            Assert.IsFalse(allGames.Contains(game3));
+        }
+
+        [TestMethod]
+        public void AddListOfGamesUsingMatchIds()
+        {
+            var series = new DummySeries();
+            var matchs = series.SeriesDummy.Schedule.Values.SelectMany(matchess => matchess).ToList();
+            DomainService.AddMatches(matchs);
+            var matchIds = (from matches in series.SeriesDummy.Schedule.Values from match in matches select match.Id).ToList();
+            var numOfGamesPriorAdd = gameService.GetAll().Count();
+            gameService.AddList(matchIds);
+            var numOfGamesAfterAdd = gameService.GetAll().Count();
+            Assert.IsTrue(matchIds.Count == numOfGamesAfterAdd - numOfGamesPriorAdd);
+
+        }
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
         {
@@ -232,7 +266,7 @@ namespace Domain.Services.Tests
             var player = team.Players.First();
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
             var playerGoalsPriorPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddPenaltyToGame(game.Id, player.Id, 78,true);
+            gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
             var gameGoalsAfterPenalty = game.Protocol.Goals.Count;
             var playerGoalsAfterAfterPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty - 1);
@@ -267,7 +301,7 @@ namespace Domain.Services.Tests
             var gameGoalsAfterRemoveOfPenalty = game.Protocol.Goals.Count;
             var playerGoalsAfterAfterRemovOfPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorRemoveOfPenalty == gameGoalsAfterRemoveOfPenalty);
-            Assert.IsTrue(playerGoalsPrioRemoveOfPenalty==playerGoalsAfterAfterRemovOfPenalty);
+            Assert.IsTrue(playerGoalsPrioRemoveOfPenalty == playerGoalsAfterAfterRemovOfPenalty);
         }
     }
 }

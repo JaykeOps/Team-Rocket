@@ -12,7 +12,7 @@ namespace Domain.Services
     {
         private readonly SeriesRepository repository = SeriesRepository.instance;
 
-        public void AddSeries(Series series)
+        public void Add(Series series)
         {
             if (series.NumberOfTeams.Value == series.TeamIds.Count&&series.IsSeriesValid())
             {
@@ -21,6 +21,21 @@ namespace Domain.Services
             else
             {
                 throw new ArgumentException("Series cannot be added. Invalid seriesdata");
+            }
+        }
+
+        public void Add(IEnumerable<Series> series)
+        {
+            if (series != null)
+            {
+                foreach (var serie in series)
+                {
+                    this.Add(serie);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of series is null");
             }
         }
 
@@ -48,5 +63,6 @@ namespace Domain.Services
                 .ThenByDescending(x => x.GoalsFor);
 
         }
+
     }
 }

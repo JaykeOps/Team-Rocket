@@ -44,14 +44,14 @@ namespace DomainTests.Helper_Classes
         [TestMethod]
         public void ScheduleCanGenerateMatchesForSixteenTeams()
         {
-            this.teamService.AddTeam(this.testTeamOne);
-            this.teamService.AddTeam(this.testTeamTwo);
-            this.teamService.AddTeam(this.testTeamThree);
-            this.teamService.AddTeam(this.testTeamFour);
-            this.teamService.AddTeam(this.testTeamFive);
-            this.teamService.AddTeam(this.testTeamSix);
-            this.teamService.AddTeam(this.testTeamSeven);
-            this.teamService.AddTeam(this.testTeamEight);
+            this.teamService.Add(this.testTeamOne);
+            this.teamService.Add(this.testTeamTwo);
+            this.teamService.Add(this.testTeamThree);
+            this.teamService.Add(this.testTeamFour);
+            this.teamService.Add(this.testTeamFive);
+            this.teamService.Add(this.testTeamSix);
+            this.teamService.Add(this.testTeamSeven);
+            this.teamService.Add(this.testTeamEight);
 
             var teams = this.teamService.GetAll();
             foreach (var team in teams)
@@ -67,7 +67,7 @@ namespace DomainTests.Helper_Classes
         [ExpectedException(typeof(ArgumentException))]
         public void ScheduleCanHandleOddNumberOfTeams()
         {
-            this.teamService.AddTeam(this.testTeamOne);
+            this.teamService.Add(this.testTeamOne);
 
             var teams = this.teamService.GetAll();
             foreach (var team in teams)
