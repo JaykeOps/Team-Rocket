@@ -26,19 +26,19 @@ namespace Domain.Repositories
             this.players.Add(player);
         }
 
-        private bool TryGetDuplicate(Player player, out Player duplicate)
-        {
-            if (this.players.Count != 0 && this.players != null)
-            {
-                duplicate = this.players.First(x => x.Id.Equals(player.Id));
-                return true;
-            }
-            else
-            {
-                duplicate = null;
-                return false;
-            }
-        }
+        //private bool TryGetDuplicate(Player player, out Player duplicate)
+        //{
+        //    if (this.players.Count != 0 && this.players != null)
+        //    {
+        //        duplicate = this.players.First(x => x.Id.Equals(player.Id));
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        duplicate = null;
+        //        return false;
+        //    }
+        //}
 
         public IEnumerable<Player> GetAll()
         {
