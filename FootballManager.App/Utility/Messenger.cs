@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FootballManager.App.Utility
 {
-    public class Messenger
+    public class Messenger // Singleton class.
     {
         private static readonly object CreationLock = new object();
         private static readonly ConcurrentDictionary<MessengerKey, object> Dictionary = new ConcurrentDictionary<MessengerKey, object>();
@@ -168,8 +168,8 @@ namespace FootballManager.App.Utility
             public override bool Equals(object obj)
             {
                 if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != GetType()) return false;
+                if (ReferenceEquals(this, obj)) return true;   // Should switch place with
+                if (obj.GetType() != GetType()) return false;  // <-- that statement?
 
                 return Equals((MessengerKey)obj);
             }
