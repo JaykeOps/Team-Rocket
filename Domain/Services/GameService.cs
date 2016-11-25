@@ -22,13 +22,23 @@ namespace Domain.Services
             this.repository.Add(game);
         }
 
+        public void AddList(IEnumerable<Game> games)
+        {
+            foreach (var game in games)
+            {
+                Add(game);
+            }
+        }
+
+        
+
         public Guid Add(Guid matchId)
         {
             var match = DomainService.FindMatchById(matchId);
-            Game game;
+
             if (match != null)
             {
-                game = new Game(match);
+                var game = new Game(match);
                 this.repository.Add(game);
                 return game.Id;
             }
@@ -36,8 +46,25 @@ namespace Domain.Services
             {
                 throw new ArgumentException("Invalid matchId");
             }
-
-
+        }
+        public IEnumerable<Guid> AddList(IEnumerable<Guid> matchIds)
+        {
+            var gameIds = new List<Guid>();
+            foreach (var matchId in matchIds)
+            {
+                var match = DomainService.FindMatchById(matchId);
+                if (match != null)
+                {
+                    var game = new Game(match);
+                    this.repository.Add(game);
+                    gameIds.Add(game.Id);
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid matchId");
+                }
+            }
+            return gameIds;
         }
 
         public IEnumerable<Game> GetAll()
@@ -83,7 +110,7 @@ namespace Domain.Services
             game.Protocol.Cards.Add(card);
         }
 
-        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute,bool isGoal)
+        public void AddPenaltyToGame(Guid gameId, Guid playerId, int matchMinute, bool isGoal)
         {
             var game = this.FindById(gameId);
 
@@ -158,8 +185,8 @@ namespace Domain.Services
                     game.Protocol.Penalties.Remove(penalty);
                     if (penalty.IsGoal)
                     {
-                        this.RemoveGoalFromGame(gameId,playerId,matchMinute);
-                        
+                        this.RemoveGoalFromGame(gameId, playerId, matchMinute);
+
                     }
                     break;
                 }
