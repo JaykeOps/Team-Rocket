@@ -30,8 +30,6 @@ namespace Domain.Services
             }
         }
 
-        
-
         public Guid Add(Guid matchId)
         {
             var match = DomainService.FindMatchById(matchId);
@@ -192,6 +190,5 @@ namespace Domain.Services
                 }
             }
         }
-
     }
 }
