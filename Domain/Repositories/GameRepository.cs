@@ -86,10 +86,10 @@ namespace Domain.Repositories
 
         public void Add(Game newGame)
         {
-            Game gameInRepo;
-            if (this.TryGetGame(newGame, out gameInRepo))
+            Game gameInRepository;
+            if (this.TryGetGame(newGame, out gameInRepository))
             {
-                this.games.Remove(gameInRepo);
+                this.games.Remove(gameInRepository);
                 newGame.Protocol.UpdateGameResult();
                 this.games.Add(newGame);
             }
@@ -100,10 +100,10 @@ namespace Domain.Repositories
             }
         }
 
-        private bool TryGetGame(Game newGame, out Game gameInRepo)
+        private bool TryGetGame(Game game, out Game gameInRepository)
         {
-            gameInRepo = this.FindById(newGame.Id);
-            return gameInRepo != null;
+            gameInRepository = this.FindById(game.Id);
+            return gameInRepository != null;
         }
 
         private Game FindById(Guid gameId)

@@ -44,5 +44,7 @@ namespace DomainTests.Repositories
             var teset = MatchRepository.instance.GetAll();
             Assert.IsNotNull(MatchRepository.instance.GetAll());
         }
+
+        //TODO: Write tests for MatchRepository duplicate validation.
     }
 }

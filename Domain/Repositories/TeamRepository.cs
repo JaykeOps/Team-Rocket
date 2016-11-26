@@ -24,10 +24,10 @@ namespace Domain.Repositories
 
         public void Add(Team newTeam)
         {
-            Team teamInRepo;
-            if (this.TryGetTeam(newTeam, out teamInRepo))
+            Team teamInRepository;
+            if (this.TryGetTeam(newTeam, out teamInRepository))
             {
-                this.teams.Remove(teamInRepo);
+                this.teams.Remove(teamInRepository);
                 this.teams.Add(newTeam);
             }
             else
@@ -36,10 +36,10 @@ namespace Domain.Repositories
             }
         }
 
-        private bool TryGetTeam(Team newTeam, out Team teamInRepo)
+        private bool TryGetTeam(Team team, out Team teamInRepository)
         {
-            teamInRepo = this.FindById(newTeam.Id);
-            return teamInRepo != null;
+            teamInRepository = this.FindById(team.Id);
+            return teamInRepository != null;
         }
 
         private Team FindById(Guid teamId)

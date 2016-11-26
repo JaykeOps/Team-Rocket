@@ -36,10 +36,10 @@ namespace Domain.Repositories
             }
         }
 
-        private bool TryGetPlayer(Player newPlayer, out Player playerInRepo)
+        private bool TryGetPlayer(Player player, out Player repositoryPlayer)
         {
-            playerInRepo = this.FindById(newPlayer.Id);
-            return playerInRepo != null;
+            repositoryPlayer = this.FindById(player.Id);
+            return repositoryPlayer != null;
         }
 
         private Player FindById(Guid playerId)
