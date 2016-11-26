@@ -5,15 +5,14 @@ namespace Domain.Interfaces
 {
     public interface IPresentablePlayer
     {
-        string TeamName { get; }
+        TeamName AffiliatedTeamName { get; }
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
-        ContactInformation ContactInformation { get; set; }
-
-        PlayerPosition Position { get; set; }
-        PlayerStatus Status { get; set; }
-        IPresentablePlayerSeriesEvents PresentableSeriesEvents { get; }
-        IPresentablePlayerSeriesStats PresentableSeriesStats { get; }
+        ContactInformation ContactInformation { get; }
+        AggregatedPlayerEvents AggregatedEvents { get; }
+        AggregatedPlayerStats AggregatedStats { get; }
+        PlayerPosition Position { get; }
+        PlayerStatus Status { get; }
 
         ShirtNumber ShirtNumber { get; }
     }

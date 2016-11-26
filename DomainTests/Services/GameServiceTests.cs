@@ -93,11 +93,11 @@ namespace Domain.Services.Tests
             var player = team.Players.First();
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
             var teamGoalsPriorGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
-            var playerGoalsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddGoalToGame(game.Id, player.Id, 78);
+            var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
+            this.gameService.AddGoalToGame(game.Id, player.Id, 78);
             var gameGoalsAfterGame = game.Protocol.Goals.Count;
             var teamGoalsAfterGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
-            var playerGoalsAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
+            var playerGoalsAfterGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorGame == gameGoalsAfterGame - 1);
             Assert.IsTrue(teamGoalsPriorGame == teamGoalsAfterGame - 1);
             Assert.IsTrue(playerGoalsPriorGame == playerGoalsAfterGame - 1);
@@ -111,10 +111,10 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameAssistsPriorGame = game.Protocol.Assists.Count;
-            var playerAssistsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].AssistCount;
-            gameService.AddAssistToGame(game.Id, player.Id, 78);
+            var playerAssistsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].AssistCount;
+            this.gameService.AddAssistToGame(game.Id, player.Id, 78);
             var gameAssistsAfterGame = game.Protocol.Assists.Count;
-            var playerAssistsAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].AssistCount;
+            var playerAssistsAfterGame = player.AggregatedStats[series.SeriesDummy.Id].AssistCount;
             Assert.IsTrue(gameAssistsPriorGame == gameAssistsAfterGame - 1);
             Assert.IsTrue(playerAssistsPriorGame == playerAssistsAfterGame - 1);
         }
@@ -127,10 +127,10 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameYellowCardsPriorGame = game.Protocol.Cards.Count;
-            var playerYellowCardsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].YellowCardCount;
-            gameService.AddYellowCardToGame(game.Id, player.Id, 78);
+            var playerYellowCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].YellowCardCount;
+            this.gameService.AddYellowCardToGame(game.Id, player.Id, 78);
             var gameYellowCardsAfterGame = game.Protocol.Cards.Count;
-            var playerYellowCardsAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].YellowCardCount;
+            var playerYellowCardsAfterGame = player.AggregatedStats[series.SeriesDummy.Id].YellowCardCount;
             Assert.IsTrue(gameYellowCardsPriorGame == gameYellowCardsAfterGame - 1);
             Assert.IsTrue(playerYellowCardsPriorGame == playerYellowCardsAfterGame - 1);
         }
@@ -143,10 +143,10 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameRedCardsPriorGame = game.Protocol.Cards.Count;
-            var playerRedCardsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].RedCardCount;
-            gameService.AddRedCardToGame(game.Id, player.Id, 78);
+            var playerRedCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].RedCardCount;
+            this.gameService.AddRedCardToGame(game.Id, player.Id, 78);
             var gameRedCardsAfterGame = game.Protocol.Cards.Count;
-            var playerRedCardsAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].RedCardCount;
+            var playerRedCardsAfterGame = player.AggregatedStats[series.SeriesDummy.Id].RedCardCount;
             Assert.IsTrue(gameRedCardsPriorGame == gameRedCardsAfterGame - 1);
             Assert.IsTrue(playerRedCardsPriorGame == playerRedCardsAfterGame - 1);
         }
@@ -159,10 +159,10 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gamePenatliesPriorGame = game.Protocol.Penalties.Count;
-            var playerPenatliesPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].PenaltyCount;
-            gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
+            var playerPenatliesPriorGame = player.AggregatedStats[series.SeriesDummy.Id].PenaltyCount;
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
             var gamePenatliesAfterGame = game.Protocol.Penalties.Count;
-            var playerPenatliesAfterGame = player.PresentableSeriesStats[series.SeriesDummy.Id].PenaltyCount;
+            var playerPenatliesAfterGame = player.AggregatedStats[series.SeriesDummy.Id].PenaltyCount;
             Assert.IsTrue(gamePenatliesPriorGame == gamePenatliesAfterGame - 1);
             Assert.IsTrue(playerPenatliesPriorGame == playerPenatliesAfterGame - 1);
         }
@@ -171,7 +171,7 @@ namespace Domain.Services.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void AddGameThrowsExIfMatchIdCantBeFound()
         {
-            gameService.Add(new Guid());
+            this.gameService.Add(new Guid());
         }
         [TestMethod]
         public void RemoveGoalFromGame()
@@ -182,12 +182,12 @@ namespace Domain.Services.Tests
             var player = team.Players.First();
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
             var teamGoalsPriorGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
-            var playerGoalsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddGoalToGame(game.Id, player.Id, 78);
-            gameService.RemoveGoalFromGame(game.Id, player.Id, 78);
+            var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
+            this.gameService.AddGoalToGame(game.Id, player.Id, 78);
+            this.gameService.RemoveGoalFromGame(game.Id, player.Id, 78);
             var gameGoalsAfterRemove = game.Protocol.Goals.Count;
             var teamGoalsAfterRemove = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
-            var playerGoalsAfterRemove = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
+            var playerGoalsAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsAfterRemove == gameGoalsPriorGame);
             Assert.IsTrue(teamGoalsAfterRemove == teamGoalsPriorGame);
             Assert.IsTrue(playerGoalsAfterRemove == playerGoalsPriorGame);
@@ -200,11 +200,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameAssistsPriorGame = game.Protocol.Assists.Count;
-            var playerAssistsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].AssistCount;
-            gameService.AddAssistToGame(game.Id, player.Id, 78);
-            gameService.RemoveAssistFromGame(game.Id, player.Id, 78);
+            var playerAssistsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].AssistCount;
+            this.gameService.AddAssistToGame(game.Id, player.Id, 78);
+            this.gameService.RemoveAssistFromGame(game.Id, player.Id, 78);
             var gameAssistsAfterRemove = game.Protocol.Assists.Count;
-            var playerAssistsAfterRemove = player.PresentableSeriesStats[series.SeriesDummy.Id].AssistCount;
+            var playerAssistsAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].AssistCount;
             Assert.IsTrue(gameAssistsPriorGame == gameAssistsAfterRemove);
             Assert.IsTrue(playerAssistsPriorGame == playerAssistsAfterRemove);
         }
@@ -216,11 +216,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameYellowCardsPriorGame = game.Protocol.Cards.Count;
-            var playerYellowCardsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].YellowCardCount;
-            gameService.AddYellowCardToGame(game.Id, player.Id, 78);
-            gameService.RemoveYellowCardFromGame(game.Id, player.Id, 78);
+            var playerYellowCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].YellowCardCount;
+            this.gameService.AddYellowCardToGame(game.Id, player.Id, 78);
+            this.gameService.RemoveYellowCardFromGame(game.Id, player.Id, 78);
             var gameYellowCardsAfterRemove = game.Protocol.Cards.Count;
-            var playerYellowCardsAfterRemove = player.PresentableSeriesStats[series.SeriesDummy.Id].YellowCardCount;
+            var playerYellowCardsAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].YellowCardCount;
             Assert.IsTrue(gameYellowCardsPriorGame == gameYellowCardsAfterRemove);
             Assert.IsTrue(playerYellowCardsPriorGame == playerYellowCardsAfterRemove);
         }
@@ -232,11 +232,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameRedCardsPriorGame = game.Protocol.Cards.Count;
-            var playerRedCardsPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].RedCardCount;
-            gameService.AddRedCardToGame(game.Id, player.Id, 78);
-            gameService.RemoveRedCardFromGame(game.Id, player.Id, 78);
+            var playerRedCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].RedCardCount;
+            this.gameService.AddRedCardToGame(game.Id, player.Id, 78);
+            this.gameService.RemoveRedCardFromGame(game.Id, player.Id, 78);
             var gameRedCardsAfterRemove = game.Protocol.Cards.Count;
-            var playerRedCardsAfterRemove = player.PresentableSeriesStats[series.SeriesDummy.Id].RedCardCount;
+            var playerRedCardsAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].RedCardCount;
             Assert.IsTrue(gameRedCardsPriorGame == gameRedCardsAfterRemove);
             Assert.IsTrue(playerRedCardsPriorGame == playerRedCardsAfterRemove);
         }
@@ -248,11 +248,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gamePenatliesPriorGame = game.Protocol.Penalties.Count;
-            var playerPenatliesPriorGame = player.PresentableSeriesStats[series.SeriesDummy.Id].PenaltyCount;
-            gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
-            gameService.RemovePenaltyFromGame(game.Id, player.Id, 78);
+            var playerPenatliesPriorGame = player.AggregatedStats[series.SeriesDummy.Id].PenaltyCount;
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
+            this.gameService.RemovePenaltyFromGame(game.Id, player.Id, 78);
             var gamePenatliesAfterRemove = game.Protocol.Penalties.Count;
-            var playerPenatliesAfterRemove = player.PresentableSeriesStats[series.SeriesDummy.Id].PenaltyCount;
+            var playerPenatliesAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].PenaltyCount;
             Assert.IsTrue(gamePenatliesPriorGame == gamePenatliesAfterRemove);
             Assert.IsTrue(playerPenatliesPriorGame == playerPenatliesAfterRemove);
         }
@@ -265,10 +265,10 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
-            var playerGoalsPriorPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
+            var playerGoalsPriorPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78,true);
             var gameGoalsAfterPenalty = game.Protocol.Goals.Count;
-            var playerGoalsAfterAfterPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
+            var playerGoalsAfterAfterPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty - 1);
             Assert.IsTrue(playerGoalsPriorPenalty == playerGoalsAfterAfterPenalty - 1);
         }
@@ -280,10 +280,10 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
-            var playerGoalsPriorPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddPenaltyToGame(game.Id, player.Id, 78, false);
+            var playerGoalsPriorPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, false);
             var gameGoalsAfterPenalty = game.Protocol.Goals.Count;
-            var playerGoalsAfterAfterPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
+            var playerGoalsAfterAfterPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty);
             Assert.IsTrue(playerGoalsPriorPenalty == playerGoalsAfterAfterPenalty);
         }
@@ -295,11 +295,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = team.Players.First();
             var gameGoalsPriorRemoveOfPenalty = game.Protocol.Goals.Count;
-            var playerGoalsPrioRemoveOfPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
-            gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
-            gameService.RemovePenaltyFromGame(game.Id, player.Id, 78);
+            var playerGoalsPrioRemoveOfPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
+            this.gameService.RemovePenaltyFromGame(game.Id, player.Id, 78);
             var gameGoalsAfterRemoveOfPenalty = game.Protocol.Goals.Count;
-            var playerGoalsAfterAfterRemovOfPenalty = player.PresentableSeriesStats[series.SeriesDummy.Id].GoalCount;
+            var playerGoalsAfterAfterRemovOfPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorRemoveOfPenalty == gameGoalsAfterRemoveOfPenalty);
             Assert.IsTrue(playerGoalsPrioRemoveOfPenalty == playerGoalsAfterAfterRemovOfPenalty);
         }

@@ -13,28 +13,27 @@ namespace Domain.Services.Tests
     public class PlayerServiceTests
     {
         private PlayerService playerService;
-        private IEnumerable<Player> allPlayers;
-        private Guid zlatanPlayerId;
-        private Series series;
-        private Team team1;
-        private Team team2;
-        private Team team3;
-        private Team team4;
+        private DummySeries dummySeries;
+        private Team dummyTeam;
+        private Player dummyPlayer;
+        private Player duplicatePlayer;
 
         [TestInitialize]
         public void Init()
         {
             this.playerService = new PlayerService();
-            this.allPlayers = playerService.GetAll();
-            this.zlatanPlayerId = allPlayers.ElementAt(0).Id;
-            this.series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "TestSerie");
+            this.dummySeries = new DummySeries();
+            this.dummyTeam = this.dummySeries.DummyTeams.DummyTeamTwo;
+            this.dummyPlayer = this.dummyTeam.Players.ElementAt(0);
+            this.duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
+                this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
+            this.duplicatePlayer.TeamId = this.dummyPlayer.TeamId;
         }
 
         [TestMethod]
         public void GetAllPlayersNotNull()
         {
-            var getAllPlayers = this.playerService.GetAll();
-
+            var getAllPlayers = this.playerService.GetAllPresentablePlayers();
             Assert.IsNotNull(getAllPlayers);
         }
 
@@ -43,100 +42,30 @@ namespace Domain.Services.Tests
         {
             var player = new Player(new Name("John", "Doe"), new DateOfBirth("1985-05-20"), PlayerPosition.Forward,
                 PlayerStatus.Absent);
-            Assert.IsFalse(playerService.FindById(player.Id) == player);
-            playerService.Add(player);
-            Assert.IsTrue(playerService.FindById(player.Id) == player);
-        }
-
-        #region PlayerService, FindPlayer metod tests
-
-        [TestMethod]
-        public void FindPlayerFullName()
-        {
-            var expectedPlayer =
-                (Player)playerService.FindPlayer("Sergio Ramos", StringComparison.InvariantCultureIgnoreCase).First();
-            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
-
-            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
-        }
-
-        [TestMethod]
-        public void FindPlayerCaseSensitive()
-        {
-            var expectedPlayer =
-                (Player)playerService.FindPlayer("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
-
-            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
-
-            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
-        }
-
-        [TestMethod]
-        public void FindPlayerPartOfFirstName()
-        {
-            var expectedPlayer =
-                (Player)playerService.FindPlayer("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
-
-            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
-
-            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
-        }
-
-        [TestMethod]
-        public void FindPlayerPartOfLastName()
-        {
-            var expectedPlayer =
-                (Player)playerService.FindPlayer("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
-
-            var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
-
-            Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
+            Assert.IsFalse(this.playerService.FindById(player.Id) == player);
+            this.playerService.Add(player);
+            Assert.IsTrue(this.playerService.FindById(player.Id) == player);
         }
 
         [TestMethod]
         public void FindPlayerSpecialCharactersNotAllowed()
         {
             IPresentablePlayer expectedPlayerObj =
-                this.playerService.FindPlayer("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
+                this.playerService.FreeTextSearchForPlayers("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
-        }
-
-        #endregion PlayerService, FindPlayer metod tests
-
-        [TestMethod]
-        public void GetPlayerNameNotNull()
-        {
-            string expectedPlayerName = this.playerService.GetPlayerName(this.zlatanPlayerId);
-
-            Assert.IsNotNull(expectedPlayerName);
-        }
-
-        [TestMethod]
-        public void GetPlayerNameNotEmpty()
-        {
-            string expectedPlayerName = this.playerService.GetPlayerName(this.zlatanPlayerId);
-
-            Assert.AreNotEqual("", expectedPlayerName);
-        }
-
-        [TestMethod]
-        public void GetPlayerTeamIdNotNull()
-        {
-            Guid expectedTeamId = this.playerService.GetPlayerTeamId(this.zlatanPlayerId);
-
-            Assert.IsNotNull(expectedTeamId);
         }
 
         [TestMethod]
         public void GetTopScorersTest()
         {
-            var series = new DummySeries();
-            var topScorers = playerService.GetTopScorersForSeries(series.SeriesDummy.Id);
+            var dummySeries = new DummySeries();
+            var topScorers = this.playerService.GetTopScorersForSeries(dummySeries.SeriesDummy.Id);
 
-            var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
+            var allTeamsInSeries = dummySeries.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.PresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[dummySeries.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             for (int i = 0; i < topScorers.Count(); i++)
             {
@@ -148,11 +77,12 @@ namespace Domain.Services.Tests
         public void GetTopAssistTest()
         {
             var series = new DummySeries();
-            var topAssists = playerService.GetTopAssistsForSeries(series.SeriesDummy.Id);
+            var topAssists = this.playerService.GetTopAssistsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.PresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
             for (int i = 0; i < topAssists.Count(); i++)
             {
@@ -164,11 +94,12 @@ namespace Domain.Services.Tests
         public void GetTopRedCardsTest()
         {
             var series = new DummySeries();
-            var topReds = playerService.GetTopRedCardsForSeries(series.SeriesDummy.Id);
+            var topReds = this.playerService.GetTopRedCardsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.PresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
             for (int i = 0; i < topReds.Count(); i++)
             {
@@ -180,16 +111,89 @@ namespace Domain.Services.Tests
         public void GetTopYellowCardsTest()
         {
             var series = new DummySeries();
-            var topYellow = playerService.GetTopYellowCardsForSeries(series.SeriesDummy.Id);
+            var topYellow = this.playerService.GetTopYellowCardsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
             var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
-            var allPlayerStats = allPlayerInSeries.Select(player => player.PresentableSeriesStats[series.SeriesDummy.Id]).ToList();
+            var allPlayerStats =
+                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
             for (int i = 0; i < topYellow.Count(); i++)
             {
-                Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).YellowCardCount == topYellow.ElementAt(i).YellowCardCount);
+                Assert.IsTrue(allPlayerStatsSorted.ElementAt(i).YellowCardCount ==
+                              topYellow.ElementAt(i).YellowCardCount);
             }
+        }
+
+        [TestMethod]
+        public void PlayerCanBeRenamedThroughDuplicate()
+        {
+            Assert.AreEqual(this.dummyPlayer.Name, this.duplicatePlayer.Name);
+            this.playerService.RenamePlayer(this.duplicatePlayer, new Name("Torbjörn", "Nilsson"));
+            this.dummyPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.AreEqual(this.duplicatePlayer.Name, this.dummyPlayer.Name);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeRenamedThroughReference()
+        {
+            Assert.AreNotEqual(this.dummyPlayer.Name, new Name("Deigo", "Maradona"));
+            this.playerService.RenamePlayer(this.dummyPlayer, new Name("Diego", "Maradona"));
+            var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.AreEqual(this.dummyPlayer.Name, repositoryPlayer.Name);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewShirtNumberThroughDuplicate()
+        {
+            Assert.AreEqual(this.dummyPlayer.Id, this.duplicatePlayer.Id);
+            Assert.IsNull(this.dummyPlayer.ShirtNumber.Value);
+            Assert.IsNull(this.duplicatePlayer.ShirtNumber.Value);
+            this.playerService.SetShirtNumber(this.duplicatePlayer, new ShirtNumber(7));
+            var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.AreEqual(repositoryPlayer.ShirtNumber, this.duplicatePlayer.ShirtNumber);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewShirtNumberThroughReference()
+        {
+            Assert.IsNull(this.dummyPlayer.ShirtNumber.Value);
+            this.playerService.SetShirtNumber(this.dummyPlayer.Id, new ShirtNumber(9));
+            var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
+            Assert.IsNotNull(this.dummyPlayer.ShirtNumber.Value);
+            Assert.AreEqual(this.dummyPlayer.ShirtNumber, repositoryPlayer.ShirtNumber);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewPosition()
+        {
+            Assert.AreNotEqual(this.dummyPlayer.Position, PlayerPosition.GoalKeeper);
+            this.playerService.SetPlayerPosition(this.dummyPlayer.Id, PlayerPosition.GoalKeeper);
+            Assert.AreEqual(this.dummyPlayer.Position, PlayerPosition.GoalKeeper);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedNewStatus()
+        {
+            Assert.AreNotEqual(this.dummyPlayer.Status, PlayerStatus.Injured);
+            this.playerService.SetPlayerStatus(this.dummyPlayer.Id, PlayerStatus.Injured);
+            Assert.AreEqual(this.dummyPlayer.Status, PlayerStatus.Injured);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedAnEmailAddress()
+        {
+            var newEmail = new EmailAddress("tester@testmail.com");
+            this.dummyPlayer.ContactInformation.Email = newEmail;
+            Assert.AreEqual(this.dummyPlayer.ContactInformation.Email, newEmail);
+        }
+
+        [TestMethod]
+        public void PlayerCanBeAssignedAPhoneNumber()
+        {
+            var newPhone = new PhoneNumber("0739-887722");
+            this.dummyPlayer.ContactInformation.Phone = newPhone;
+            Assert.AreEqual(this.dummyPlayer.ContactInformation.Phone, newPhone);
         }
 
         [TestMethod]

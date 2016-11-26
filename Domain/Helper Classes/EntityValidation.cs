@@ -79,8 +79,8 @@ namespace Domain.Helper_Classes
             try
             {
                 return player.Id != null &&
-                       player.SeriesEvents != null &&
-                       player.SeriesStats != null &&
+                       player.AggregatedEvents != null &&
+                       player.AggregatedStats != null &&
                        player.Name.FirstName.IsValidName(true) &&
                        player.Name.LastName.IsValidName(true);
                        //player.DateOfBirth.Value.ToString().IsValidBirthOfDate();

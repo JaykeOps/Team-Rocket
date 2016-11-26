@@ -18,7 +18,7 @@ namespace Domain.Repositories
             this.matches = new HashSet<Match>(); ;
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//matchs.bin";
-            this.Load();
+            
         }
 
         public void SaveData()

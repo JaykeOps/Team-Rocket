@@ -1,6 +1,8 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,12 +20,41 @@ namespace Domain.Repositories
             this.players = new HashSet<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
-            this.LoadData();
         }
 
-        public void Add(Player player)
+        public void Add(Player newPlayer)
         {
-            this.players.Add(player);
+            Player existingDuplicate;
+            if (!this.IsExistingReference(newPlayer))
+            {
+                if (this.TryGetPlayerWithDuplicateId(newPlayer, out existingDuplicate))
+                {
+                    this.players.Remove(existingDuplicate);
+                    this.players.Add(newPlayer);
+                }
+                else
+                {
+                    this.players.Add(newPlayer);
+                }
+            }
+            
+        }
+
+        private bool TryGetPlayerWithDuplicateId(Player newPlayer, out Player duplicate)
+        {
+
+            duplicate = this.FindById(newPlayer.Id);
+            return duplicate != null;
+        }
+
+        private bool IsExistingReference(Player player)
+        {
+            return this.players.Contains(player);
+        }
+
+        private Player FindById(Guid playerId)
+        {
+            return this.players.FirstOrDefault(x => x.Id == playerId);
         }
 
         public IEnumerable<Player> GetAll()
