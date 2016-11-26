@@ -8,7 +8,7 @@ using System.Linq;
 namespace Domain.Entities
 {
     [Serializable]
-    public class Team : IPresentableTeam
+    public class Team : IExposableTeam
     {
         internal HashSet<Guid> playerIds;
         private TeamMatchSchedule matchSchedules;

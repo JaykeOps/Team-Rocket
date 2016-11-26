@@ -171,7 +171,7 @@ namespace Domain.Services
             return seriesService.GetAll();
         }
 
-        public static IEnumerable<IPresentablePlayer> GetAllPlayers()
+        public static IEnumerable<IExposablePlayer> GetAllPlayers()
         {
             var playerService = new PlayerService();
             return playerService.GetAllPresentablePlayers();
