@@ -91,6 +91,7 @@ namespace Domain.Repositories
                                                     $"A game with id {newGame.Id} already exists!");
             }
             {
+                newGame.Protocol.UpdateGameResult();
                 this.games.Add(newGame);
             }
         }

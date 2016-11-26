@@ -21,6 +21,7 @@ namespace Domain.Services
         {
             if (game.IsValidGame())
             {
+                
                 this.repository.Add(game);
             }
             else

@@ -81,6 +81,7 @@ namespace Domain.Value_Objects.Tests
             var games = DomainService.GetAllGames();
             foreach (var game in games)
             {
+                game.Protocol.UpdateGameResult();
                 var result = game.Protocol.GameResult;
                 var awayScore = 0;
                 var homeScore = 0;
