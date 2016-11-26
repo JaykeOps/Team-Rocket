@@ -24,8 +24,10 @@
             <Style BasedOn="{StaticResource MenuButtonStyle}" TargetType="{x:Type Button}" />
         </DockPanel.Resources>
         <StackPanel DockPanel.Dock="Top" Margin="20" Orientation="Horizontal" HorizontalAlignment="Right" >
-            <Button Content="Player" Command="{Binding OpenPlayerCommand}" /> 
+            <Button Content="Series" Command="{Binding OpenSeriesCommand}" />
             <Button Content="Team" Command="{Binding OpenTeamCommand}" />
+            <Button Content="Player" Command="{Binding OpenPlayerCommand}" />
+            <Button Content="Match" Command="{Binding OpenMatchCommand}"  />
         </StackPanel>
         <ContentControl DockPanel.Dock="Bottom" Content="{Binding SelectedViewModel}" />
     </DockPanel>

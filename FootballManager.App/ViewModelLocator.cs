@@ -28,5 +28,20 @@ namespace FootballManager.App
         {
             get { return new TeamAddViewModel(); }
         }
+
+        public static SeriesViewModel SeriesViewModel
+        {
+            get { return new SeriesViewModel(); }
+        }
+
+        public static MatchViewModel MatchViewModel
+        {
+            get { return new MatchViewModel(); }
+        }
+
+        public static MatchProtocolViewModel MatchProtocolViewModel
+        {
+            get { return new MatchProtocolViewModel(); }
+        }
     }
 }
