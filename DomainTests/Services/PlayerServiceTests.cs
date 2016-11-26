@@ -27,7 +27,6 @@ namespace Domain.Services.Tests
             this.duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
                 this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
             this.duplicatePlayer.TeamId = this.dummyPlayer.TeamId;
-
         }
 
         [TestMethod]
@@ -47,49 +46,6 @@ namespace Domain.Services.Tests
             Assert.IsTrue(this.playerService.FindById(player.Id) == player);
         }
 
-        #region PlayerService, FreeTextSearchForPlayers metod tests
-
-        //[TestMethod]
-        //public void FindPlayerFullName()
-        //{
-        //    var expectedName = this.dummyPlayer.Name;
-        //    var nameFound = this.playerService.FreeTextSearchForPlayers(expectedName.FirstName + expectedName.LastName,
-        //        StringComparison.InvariantCultureIgnoreCase);
-        //}
-
-        //[TestMethod]
-        //public void FindPlayerCaseSensitive()
-        //{
-        //    var expectedPlayer =
-        //        (Player)playerService.FreeTextSearchForPlayers("SeRGio RaMos", StringComparison.InvariantCultureIgnoreCase).First();
-
-        //    var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Sergio Ramos").Id;
-
-        //    Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
-        //}
-
-        //[TestMethod]
-        //public void FindPlayerPartOfFirstName()
-        //{
-        //    var expectedPlayer =
-        //        (Player)playerService.FreeTextSearchForPlayers("ZLat", StringComparison.InvariantCultureIgnoreCase).First();
-
-        //    var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
-
-        //    Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
-        //}
-
-        //[TestMethod]
-        //public void FindPlayerPartOfLastName()
-        //{
-        //    var expectedPlayer =
-        //        (Player)playerService.FreeTextSearchForPlayers("Ibra", StringComparison.InvariantCultureIgnoreCase).First();
-
-        //    var actualPlayerId = allPlayers.First(x => x.Name.ToString() == "Zlatan Ibrahimovic").Id;
-
-        //    Assert.AreEqual(expectedPlayer.Id, actualPlayerId);
-        //}
-
         [TestMethod]
         public void FindPlayerSpecialCharactersNotAllowed()
         {
@@ -98,32 +54,6 @@ namespace Domain.Services.Tests
 
             Assert.IsNull(expectedPlayerObj);
         }
-
-        #endregion PlayerService, FreeTextSearchForPlayers metod tests
-
-        //[TestMethod]
-        //public void GetPlayerNameNotNull()
-        //{
-        //    string expectedPlayerName = this.playerService.GetPlayerName(this.zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedPlayerName);
-        //}
-
-        //[TestMethod]
-        //public void GetPlayerNameNotEmpty()
-        //{
-        //    string expectedPlayerName = this.playerService.GetPlayerName(this.zlatanPlayerId);
-
-        //    Assert.AreNotEqual("", expectedPlayerName);
-        //}
-
-        //[TestMethod]
-        //public void GetPlayerTeamIdNotNull()
-        //{
-        //    Guid expectedTeamId = this.playerService.GetPlayerTeamId(this.zlatanPlayerId);
-
-        //    Assert.IsNotNull(expectedTeamId);
-        //}
 
         [TestMethod]
         public void GetTopScorersTest()
