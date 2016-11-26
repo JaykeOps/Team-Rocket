@@ -19,7 +19,14 @@ namespace Domain.Services
 
         public void Add(Game game)
         {
-            this.repository.Add(game);
+            if (game.IsValidGame())
+            {
+                this.repository.Add(game);
+            }
+            else
+            {
+                throw new FormatException("Game cannot be added. Invalid gamedata");
+            }
         }
 
         public void Add(IEnumerable<Game> games)
@@ -28,7 +35,7 @@ namespace Domain.Services
             {
                 foreach (var game in games)
                 {
-                    Add(game);
+                   this.Add(game);
                 }
             }
             else
@@ -38,16 +45,6 @@ namespace Domain.Services
 
         }
 
-            if (game.IsValidGame())
-            {
-                this.repository.Add(game);
-            }
-            else
-            {
-                throw new FormatException("Game cannot be added. Invalid gamedata");
-            }
-            
-        }
 
         public Guid Add(Guid matchId)
         {
