@@ -36,17 +36,6 @@ namespace Domain.Repositories
             }
         }
 
-        private bool TryGetTeam(Team team, out Team teamInRepository)
-        {
-            teamInRepository = this.FindById(team.Id);
-            return teamInRepository != null;
-        }
-
-        private Team FindById(Guid teamId)
-        {
-            return this.teams.FirstOrDefault(x => x.Id == teamId);
-        }
-
         public IEnumerable<Team> GetAll()
         {
             return this.teams;
@@ -112,6 +101,17 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
+        }
+
+        private bool TryGetTeam(Team team, out Team teamInRepository)
+        {
+            teamInRepository = this.FindById(team.Id);
+            return teamInRepository != null;
+        }
+
+        private Team FindById(Guid teamId)
+        {
+            return this.teams.FirstOrDefault(x => x.Id == teamId);
         }
     }
 }

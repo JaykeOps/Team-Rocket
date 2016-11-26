@@ -36,16 +36,7 @@ namespace Domain.Repositories
             }
         }
 
-        private bool TryGetPlayer(Player player, out Player repositoryPlayer)
-        {
-            repositoryPlayer = this.FindById(player.Id);
-            return repositoryPlayer != null;
-        }
-
-        private Player FindById(Guid playerId)
-        {
-            return this.players.FirstOrDefault(x => x.Id == playerId);
-        }
+        
 
         public IEnumerable<Player> GetAll()
         {
@@ -112,6 +103,17 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
+        }
+
+        private bool TryGetPlayer(Player player, out Player repositoryPlayer)
+        {
+            repositoryPlayer = this.FindById(player.Id);
+            return repositoryPlayer != null;
+        }
+
+        private Player FindById(Guid playerId)
+        {
+            return this.players.FirstOrDefault(x => x.Id == playerId);
         }
     }
 }
