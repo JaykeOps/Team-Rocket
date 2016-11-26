@@ -9,7 +9,7 @@ using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
-    [TestClass()]
+    [TestClass]
     public class SeriesServicesTests
     {
         private SeriesService seriesService;
