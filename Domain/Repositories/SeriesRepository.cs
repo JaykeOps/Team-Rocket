@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,7 +20,6 @@ namespace Domain.Repositories
             this.series = new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
-            
         }
 
         public void SaveData()
@@ -90,7 +91,27 @@ namespace Domain.Repositories
 
         public void AddSeries(Series newSeries)
         {
-            this.series.Add(newSeries);
+            Series repositorySeries;
+            if (this.TryGetSeries(newSeries, out repositorySeries))
+            {
+                this.series.Remove(repositorySeries);
+                this.series.Add(newSeries);
+            }
+            else
+            {
+                this.series.Add(newSeries);
+            }
+        }
+
+        private bool TryGetSeries(Series series, out Series repositorySeries)
+        {
+            repositorySeries = this.FindById(series.Id);
+            return repositorySeries != null;
+        }
+
+        private Series FindById(Guid seriesId)
+        {
+            return this.series.FirstOrDefault(x => x.Id == seriesId);
         }
     }
 }

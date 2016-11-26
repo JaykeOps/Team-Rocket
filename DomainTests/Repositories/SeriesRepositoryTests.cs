@@ -49,5 +49,7 @@ namespace DomainTests.Repositories
             var series = SeriesRepository.instance.GetAll();
             Assert.IsTrue(series.Count() != 0);
         }
+
+        //TODO: Write tests for SeriesRepository duplicate validation.
     }
 }
