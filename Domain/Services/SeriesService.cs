@@ -24,18 +24,14 @@ namespace Domain.Services
             }
         }
 
-        public void Add(IEnumerable<Series> series)
+        public void ScheduleGenerator(Guid seriesId)
         {
-            if (series != null)
+            var schedule = new Schedule();
+            var series = DomainService.FindSeriesById(seriesId);
+            schedule.GenerateSchedule(series);
+            foreach (var values in series.Schedule.Values)
             {
-                foreach (var serie in series)
-                {
-                    this.Add(serie);
-                }
-            }
-            else
-            {
-                throw new NullReferenceException("List of series is null");
+               DomainService.AddMatches(values);
             }
         }
 
@@ -64,5 +60,9 @@ namespace Domain.Services
 
         }
 
+        public void DeleteSeries(Guid seriesId)
+        {
+            repository.DeleteSeries(seriesId);
+        }
     }
 }

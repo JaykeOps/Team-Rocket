@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -91,6 +92,11 @@ namespace Domain.Repositories
         public void AddSeries(Series newSeries)
         {
             this.series.Add(newSeries);
+        }
+
+        public void DeleteSeries(Guid seriesId)
+        {
+            series.RemoveWhere(s => s.Id == seriesId);
         }
     }
 }

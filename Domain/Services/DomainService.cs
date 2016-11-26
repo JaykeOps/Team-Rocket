@@ -145,11 +145,8 @@ namespace Domain.Services
 
         public static void ScheduleGenerator(Guid seriesId)
         {
-            var schedule = new Schedule();
-            var series = FindSeriesById(seriesId);
-            schedule.GenerateSchedule(series);
-            AddMatches(series.Schedule[0]);
-            AddMatches(series.Schedule[1]);
+           var seriesService=new SeriesService();
+            seriesService.ScheduleGenerator(seriesId);
         }
 
         public static IEnumerable<Team> GetAllTeams()
