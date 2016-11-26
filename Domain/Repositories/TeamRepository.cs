@@ -1,6 +1,8 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -21,9 +23,40 @@ namespace Domain.Repositories
             
         }
 
-        public void Add(Team team)
+        public void Add(Team newTeam)
         {
-            this.teams.Add(team);
+            
+            if (!this.IsExistingReference(newTeam))
+            {
+                Team teamInRepo;
+                if (this.TryGetTeamWithDuplicateId(newTeam, out teamInRepo))
+                {
+                    this.teams.Remove(teamInRepo);
+                    this.teams.Add(newTeam);
+                }
+                else
+                {
+                    this.teams.Add(newTeam);
+                }
+            }
+            
+            
+        }
+
+        private bool TryGetTeamWithDuplicateId(Team newTeam, out Team teamInRepo)
+        {
+            teamInRepo = this.FindById(newTeam.Id);
+            return teamInRepo != null;
+        }
+
+        private Team FindById(Guid teamId)
+        {
+            return this.teams.FirstOrDefault(x => x.Id == teamId);
+        }
+
+        private bool IsExistingReference(Team team)
+        {
+            return this.teams.Contains(team);
         }
 
         public IEnumerable<Team> GetAll()

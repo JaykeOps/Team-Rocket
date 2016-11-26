@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,12 +24,12 @@ namespace Domain.Repositories
 
         public void Add(Player newPlayer)
         {
-            Player existingDuplicate;
             if (!this.IsExistingReference(newPlayer))
             {
-                if (this.TryGetPlayerWithDuplicateId(newPlayer, out existingDuplicate))
+                Player playerInRepo;
+                if (this.TryGetPlayerWithDuplicateId(newPlayer, out playerInRepo))
                 {
-                    this.players.Remove(existingDuplicate);
+                    this.players.Remove(playerInRepo);
                     this.players.Add(newPlayer);
                 }
                 else
@@ -37,14 +37,12 @@ namespace Domain.Repositories
                     this.players.Add(newPlayer);
                 }
             }
-            
         }
 
-        private bool TryGetPlayerWithDuplicateId(Player newPlayer, out Player duplicate)
+        private bool TryGetPlayerWithDuplicateId(Player newPlayer, out Player playerInRepo)
         {
-
-            duplicate = this.FindById(newPlayer.Id);
-            return duplicate != null;
+            playerInRepo = this.FindById(newPlayer.Id);
+            return playerInRepo != null;
         }
 
         private bool IsExistingReference(Player player)

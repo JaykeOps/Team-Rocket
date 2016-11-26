@@ -48,5 +48,7 @@ namespace DomainTests.Repositories
             var teams = TeamRepository.instance.GetAll();
             Assert.IsTrue(teams.Count() != 0);
         }
+
+        //TODO: Write tests for duplicate validation
     }
 }
