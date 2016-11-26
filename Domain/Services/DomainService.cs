@@ -59,8 +59,9 @@ namespace Domain.Services
         public static void AddSeriesToPlayers(Series series,
             Team team)
         {
-            foreach (var player in team.Players)
+            foreach (var playerId in team.PlayerIds)
             {
+                var player = DomainService.FindPlayerById(playerId);
                 player.AddSeries(series);
             }
         }

@@ -3,6 +3,7 @@ using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using Domain.Services;
 
 namespace DomainTests.Value_Objects
 {
@@ -18,7 +19,7 @@ namespace DomainTests.Value_Objects
         {
             this.dummySeries = new DummySeries();
             this.teamOne = this.dummySeries.DummyTeams.DummyTeamOne;
-            this.playerOne = this.dummySeries.DummyTeams.DummyTeamOne.Players.ElementAt(0);
+            this.playerOne = DomainService.FindPlayerById(this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.ElementAt(0));
         }
 
         [TestMethod]
