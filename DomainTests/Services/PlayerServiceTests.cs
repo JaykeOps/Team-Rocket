@@ -33,7 +33,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GetAllPlayersNotNull()
         {
-            var getAllPlayers = this.playerService.GetAllPresentablePlayers();
+            var getAllPlayers = this.playerService.GetAllExposablePlayers();
             Assert.IsNotNull(getAllPlayers);
         }
 

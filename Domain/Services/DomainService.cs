@@ -174,7 +174,7 @@ namespace Domain.Services
         public static IEnumerable<IExposablePlayer> GetAllPlayers()
         {
             var playerService = new PlayerService();
-            return playerService.GetAllPresentablePlayers();
+            return playerService.GetAllExposablePlayers();
         }
 
         public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)

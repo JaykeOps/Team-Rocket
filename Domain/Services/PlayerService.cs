@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         private PlayerRepository repository => PlayerRepository.instance;
 
@@ -42,7 +42,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllPresentablePlayers();
+            var allPlayers = this.GetAllExposablePlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -60,7 +60,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllPresentablePlayers();
+            var allPlayers = this.GetAllExposablePlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -78,7 +78,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopYellowCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllPresentablePlayers();
+            var allPlayers = this.GetAllExposablePlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -96,7 +96,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllPresentablePlayers();
+            var allPlayers = this.GetAllExposablePlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -117,7 +117,7 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Player> GetAllPresentablePlayers()
+        public IEnumerable<Player> GetAllExposablePlayers()
         {
             return this.repository.GetAll();
         }
