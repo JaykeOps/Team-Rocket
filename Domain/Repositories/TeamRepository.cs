@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,30 +20,23 @@ namespace Domain.Repositories
             this.teams = new HashSet<Team>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//teams.bin";
-            
         }
 
         public void Add(Team newTeam)
         {
-            
-            if (!this.IsExistingReference(newTeam))
+            Team teamInRepo;
+            if (this.TryGetTeam(newTeam, out teamInRepo))
             {
-                Team teamInRepo;
-                if (this.TryGetTeamWithDuplicateId(newTeam, out teamInRepo))
-                {
-                    this.teams.Remove(teamInRepo);
-                    this.teams.Add(newTeam);
-                }
-                else
-                {
-                    this.teams.Add(newTeam);
-                }
+                this.teams.Remove(teamInRepo);
+                this.teams.Add(newTeam);
             }
-            
-            
+            else
+            {
+                this.teams.Add(newTeam);
+            }
         }
 
-        private bool TryGetTeamWithDuplicateId(Team newTeam, out Team teamInRepo)
+        private bool TryGetTeam(Team newTeam, out Team teamInRepo)
         {
             teamInRepo = this.FindById(newTeam.Id);
             return teamInRepo != null;
@@ -52,11 +45,6 @@ namespace Domain.Repositories
         private Team FindById(Guid teamId)
         {
             return this.teams.FirstOrDefault(x => x.Id == teamId);
-        }
-
-        private bool IsExistingReference(Team team)
-        {
-            return this.teams.Contains(team);
         }
 
         public IEnumerable<Team> GetAll()

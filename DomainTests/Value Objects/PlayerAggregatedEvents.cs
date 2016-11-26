@@ -7,7 +7,7 @@ using System.Linq;
 namespace DomainTests.Value_Objects
 {
     [TestClass]
-    public class PlayerSeriesEventsAndStatsTests
+    public class PlayerAggregatedEvents
     {
         private DummySeries dummySeries;
         private Team teamOne;
@@ -22,7 +22,7 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
-        public void PlayerSeriesEventsIsUpdateWhenNewGoalIsAdded()
+        public void PlayerAggregatedEventsIsUpdatedWhenNewGoalIsAdded()
         {
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneGoalsPreAdd =
@@ -34,7 +34,7 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
-        public void PlayerSeriesEventsIsUpdatedWhenAssistIsAdded()
+        public void PlayerAggregatedEventsIsUpdatedWhenAssistIsAdded()
         {
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneAssistsPreAdd =
@@ -82,7 +82,7 @@ namespace DomainTests.Value_Objects
         public void PlayerSeriesStatsReflectsGoalsAddedToEvents()
         {
             var goalsPreAdd = this.playerOne.AggregatedStats[this.dummySeries.SeriesDummy.Id].GoalCount;
-            this.PlayerSeriesEventsIsUpdateWhenNewGoalIsAdded();
+            this.PlayerAggregatedEventsIsUpdatedWhenNewGoalIsAdded();
             var goalsPostAdd = this.playerOne.AggregatedStats[this.dummySeries.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(goalsPostAdd - goalsPreAdd == 1);
         }
@@ -91,7 +91,7 @@ namespace DomainTests.Value_Objects
         public void PlayerSeriesStatsReflectsAssistsAddedToEvents()
         {
             var assistsPreAdd = this.playerOne.AggregatedStats[this.dummySeries.SeriesDummy.Id].AssistCount;
-            this.PlayerSeriesEventsIsUpdatedWhenAssistIsAdded();
+            this.PlayerAggregatedEventsIsUpdatedWhenAssistIsAdded();
             var assistsPostAdd = this.playerOne.AggregatedStats[this.dummySeries.SeriesDummy.Id].AssistCount;
             Assert.IsTrue(assistsPostAdd - assistsPreAdd == 1);
         }

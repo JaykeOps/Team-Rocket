@@ -1,4 +1,5 @@
-﻿using Domain.CustomExceptions;
+﻿using System;
+using Domain.CustomExceptions;
 using Domain.Entities;
 using System.Collections.Generic;
 using System.IO;
@@ -85,20 +86,29 @@ namespace Domain.Repositories
 
         public void Add(Game newGame)
         {
-            if (this.IsAlreadyExisting(newGame))
+            Game gameInRepo;
+            if (this.TryGetGame(newGame, out gameInRepo))
             {
-                throw new GameAlreadyAddedException("Game could not be added. " +
-                                                    $"A game with id {newGame.Id} already exists!");
+                this.games.Remove(gameInRepo);
+                newGame.Protocol.UpdateGameResult();
+                this.games.Add(newGame);
             }
+            else
             {
                 newGame.Protocol.UpdateGameResult();
                 this.games.Add(newGame);
             }
         }
 
-        public bool IsAlreadyExisting(Game newGame)
+        private bool TryGetGame(Game newGame, out Game gameInRepo)
         {
-            return this.games.Select(x => x.Id).Contains(newGame.Id);
+            gameInRepo = this.FindById(newGame.Id);
+            return gameInRepo != null;
+        }
+
+        private Game FindById(Guid gameId)
+        {
+            return this.games.FirstOrDefault(x => x.Id == gameId);
         }
 
         public IEnumerable<Game> GetAll()

@@ -1,5 +1,4 @@
-﻿using Domain.CustomExceptions;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -62,17 +61,6 @@ namespace Domain.Repositories.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(GameAlreadyAddedException))]
-        public void AddThrowsGameAlreadyAddedException()
-        {
-            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
-            var game = new Game(matchOne);
-
-            this.gameRepository.Add(game);
-            this.gameRepository.Add(game);
-        }
-
-        [TestMethod]
         public void GetAllReturnsIEnumerable()
         {
             Assert.IsInstanceOfType(this.gameRepository.GetAll(), typeof(IEnumerable<Game>));
@@ -84,5 +72,7 @@ namespace Domain.Repositories.Tests
             var games = GameRepository.instance.GetAll();
             Assert.IsTrue(games.Count() != 0);
         }
+
+        //TODO: Write test for GameRepository duplicate validation!
     }
 }

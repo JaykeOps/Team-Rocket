@@ -24,30 +24,22 @@ namespace Domain.Repositories
 
         public void Add(Player newPlayer)
         {
-            if (!this.IsExistingReference(newPlayer))
+            Player playerInRepo;
+            if (this.TryGetPlayer(newPlayer, out playerInRepo))
             {
-                Player playerInRepo;
-                if (this.TryGetPlayerWithDuplicateId(newPlayer, out playerInRepo))
-                {
-                    this.players.Remove(playerInRepo);
-                    this.players.Add(newPlayer);
-                }
-                else
-                {
-                    this.players.Add(newPlayer);
-                }
+                this.players.Remove(playerInRepo);
+                this.players.Add(newPlayer);
+            }
+            else
+            {
+                this.players.Add(newPlayer);
             }
         }
 
-        private bool TryGetPlayerWithDuplicateId(Player newPlayer, out Player playerInRepo)
+        private bool TryGetPlayer(Player newPlayer, out Player playerInRepo)
         {
             playerInRepo = this.FindById(newPlayer.Id);
             return playerInRepo != null;
-        }
-
-        private bool IsExistingReference(Player player)
-        {
-            return this.players.Contains(player);
         }
 
         private Player FindById(Guid playerId)
