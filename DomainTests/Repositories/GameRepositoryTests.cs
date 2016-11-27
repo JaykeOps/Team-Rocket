@@ -1,10 +1,12 @@
-﻿using Domain.CustomExceptions;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Domain.Services;
+using DomainTests.Test_Dummies;
 
 namespace Domain.Repositories.Tests
 {
@@ -14,9 +16,23 @@ namespace Domain.Repositories.Tests
         private Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
         private MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
         private GameRepository gameRepository = GameRepository.instance;
-
         private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
         private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        private DummySeries dummySeries;
+        private Game dummyGame;
+        private Game dummyGameDuplicate;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+            this.dummyGame = this.dummySeries.DummyGames.GameOne;
+            this.dummyGameDuplicate = new Game(this.dummySeries.SeriesDummy.Schedule[0].ElementAt(0))
+            {
+                Id = this.dummyGame.Id,
+            };
+        }
+
 
         [TestMethod]
         public void RepoInstancesAreTheSameObject()
@@ -62,17 +78,6 @@ namespace Domain.Repositories.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(GameAlreadyAddedException))]
-        public void AddThrowsGameAlreadyAddedException()
-        {
-            Match matchOne = new Match(this.teamRed.ArenaName, this.teamRed.Id, this.teamGreen.Id, this.series, this.date);
-            var game = new Game(matchOne);
-
-            this.gameRepository.Add(game);
-            this.gameRepository.Add(game);
-        }
-
-        [TestMethod]
         public void GetAllReturnsIEnumerable()
         {
             Assert.IsInstanceOfType(this.gameRepository.GetAll(), typeof(IEnumerable<Game>));
@@ -83,6 +88,21 @@ namespace Domain.Repositories.Tests
         {
             var games = GameRepository.instance.GetAll();
             Assert.IsTrue(games.Count() != 0);
+        }
+
+        [TestMethod]
+        public void TryGetGameWillReplaceRepositoryGameWithNewGameIfIdsAreEqual()
+        {
+            var gameInRepositroy = DomainService.FindGameById(this.dummyGame.Id);
+            Assert.AreEqual(gameInRepositroy, this.dummyGame);
+            this.dummyGame.Protocol.Goals.Clear();
+            Assert.AreEqual(this.dummyGame.Id, this.dummyGameDuplicate.Id);
+            this.dummyGameDuplicate.Protocol.Goals.Add(new Goal(new MatchMinute(5), new Guid(), new Guid()));
+            Assert.AreNotEqual(this.dummyGame.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
+            this.gameRepository.Add(this.dummyGameDuplicate);
+            gameInRepositroy = this.gameRepository.GetAll().First(x => x.Id == this.dummyGame.Id);
+            Assert.AreEqual(gameInRepositroy.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
+            Assert.AreEqual(gameInRepositroy, this.dummyGameDuplicate);
         }
     }
 }

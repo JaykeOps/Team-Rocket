@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,38 +24,19 @@ namespace Domain.Repositories
 
         public void Add(Player newPlayer)
         {
-            Player existingDuplicate;
-            if (!this.IsExistingReference(newPlayer))
+            Player playerInRepo;
+            if (this.TryGetPlayer(newPlayer, out playerInRepo))
             {
-                if (this.TryGetPlayerWithDuplicateId(newPlayer, out existingDuplicate))
-                {
-                    this.players.Remove(existingDuplicate);
-                    this.players.Add(newPlayer);
-                }
-                else
-                {
-                    this.players.Add(newPlayer);
-                }
+                this.players.Remove(playerInRepo);
+                this.players.Add(newPlayer);
             }
-            
+            else
+            {
+                this.players.Add(newPlayer);
+            }
         }
 
-        private bool TryGetPlayerWithDuplicateId(Player newPlayer, out Player duplicate)
-        {
-
-            duplicate = this.FindById(newPlayer.Id);
-            return duplicate != null;
-        }
-
-        private bool IsExistingReference(Player player)
-        {
-            return this.players.Contains(player);
-        }
-
-        private Player FindById(Guid playerId)
-        {
-            return this.players.FirstOrDefault(x => x.Id == playerId);
-        }
+        
 
         public IEnumerable<Player> GetAll()
         {
@@ -122,6 +103,17 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
+        }
+
+        private bool TryGetPlayer(Player player, out Player repositoryPlayer)
+        {
+            repositoryPlayer = this.FindById(player.Id);
+            return repositoryPlayer != null;
+        }
+
+        private Player FindById(Guid playerId)
+        {
+            return this.players.FirstOrDefault(x => x.Id == playerId);
         }
     }
 }

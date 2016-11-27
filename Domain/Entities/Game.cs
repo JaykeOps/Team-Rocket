@@ -10,7 +10,7 @@ namespace Domain.Entities
     [Serializable]
     public class Game : IGameDuration
     {
-        public Guid Id { get; }
+        public Guid Id { get; set; } //TODO: set is for test only!
         public Guid SeriesId { get; }
         public MatchDuration MatchDuration { get; }
         public Guid HomeTeamId { get; }

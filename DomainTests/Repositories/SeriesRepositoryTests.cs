@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,22 @@ namespace DomainTests.Repositories
     [TestClass]
     public class SeriesRepositoryTests
     {
+        private DummySeries dummySeries;
+        private Series seriesDummy;
+        private Series seriesDummyDuplicate;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+            this.seriesDummy = this.dummySeries.SeriesDummy;
+            this.seriesDummyDuplicate = new Series(this.seriesDummy.MatchDuration,
+                this.seriesDummy.NumberOfTeams, this.seriesDummy.SeriesName)
+            {
+                Id = this.seriesDummy.Id
+            };
+        }
+
         [TestMethod]
         public void RepoStateIsTheSame()
         {
@@ -48,6 +65,21 @@ namespace DomainTests.Repositories
         {
             var series = SeriesRepository.instance.GetAll();
             Assert.IsTrue(series.Count() != 0);
+        }
+
+        [TestMethod]
+        public void TryGetSeriesWillReplaceRepositorySeriesWithNewSeriesIfIdsAreEqual()
+        {
+            var seriesInRepository = SeriesRepository.instance.GetAll().First(x => x.Id == this.seriesDummy.Id);
+            Assert.AreEqual(this.seriesDummy, seriesInRepository);
+            Assert.AreNotEqual(this.seriesDummy, this.seriesDummyDuplicate);
+            Assert.AreEqual(this.seriesDummy.Id, this.seriesDummyDuplicate.Id);
+            this.seriesDummyDuplicate.SeriesName = "Division 7";
+            Assert.AreNotEqual(this.seriesDummyDuplicate.SeriesName, this.seriesDummy.SeriesName);
+            SeriesRepository.instance.AddSeries(this.seriesDummyDuplicate);
+            seriesInRepository = SeriesRepository.instance.GetAll().First(x => x.Id == this.seriesDummy.Id);
+            Assert.AreEqual(this.seriesDummyDuplicate.SeriesName, seriesInRepository.SeriesName);
+            Assert.AreEqual(this.seriesDummyDuplicate, seriesInRepository);
         }
     }
 }
