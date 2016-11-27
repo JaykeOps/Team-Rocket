@@ -1,12 +1,11 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Domain.Services;
-using DomainTests.Test_Dummies;
 
 namespace Domain.Repositories.Tests
 {
@@ -32,7 +31,6 @@ namespace Domain.Repositories.Tests
                 Id = this.dummyGame.Id,
             };
         }
-
 
         [TestMethod]
         public void RepoInstancesAreTheSameObject()

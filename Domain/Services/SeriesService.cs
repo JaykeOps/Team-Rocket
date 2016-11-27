@@ -1,10 +1,10 @@
 ﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Repositories;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Helper_Classes;
-using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -57,7 +57,6 @@ namespace Domain.Services
             return teamStats.OrderByDescending(x => x.Points)
                 .ThenByDescending(x => x.GoalDifference)
                 .ThenByDescending(x => x.GoalsFor);
-
         }
 
         public void DeleteSeries(Guid seriesId)

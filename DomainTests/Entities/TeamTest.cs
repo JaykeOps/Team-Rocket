@@ -3,7 +3,6 @@ using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
-using Domain.Services;
 
 namespace DomainTests.Entities
 {
@@ -61,7 +60,7 @@ namespace DomainTests.Entities
         public void TeamsHashSetOFPlayersCanAdd()
         {
             var count = this.team.PlayerIds.Count();
-            
+
             this.team.AddPlayerId(Guid.NewGuid());
 
             Assert.IsTrue(count + 1 == this.team.PlayerIds.Count());

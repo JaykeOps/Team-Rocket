@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Helper_Classes;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -20,8 +20,6 @@ namespace Domain.Value_Objects
             }
         }
 
-        
-
         public static bool TryParse(string numberOfTeams, out NumberOfTeams result)
         {
             result = null;
@@ -33,7 +31,7 @@ namespace Domain.Value_Objects
                     result = new NumberOfTeams(numbersOfTeams);
                     return true;
                 }
-                catch(ArgumentException)
+                catch (ArgumentException)
                 {
                     return false;
                 }

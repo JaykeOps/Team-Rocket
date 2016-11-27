@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Helper_Classes;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {

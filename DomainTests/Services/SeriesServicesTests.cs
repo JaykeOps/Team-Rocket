@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -80,7 +80,7 @@ namespace DomainTests.Services
         [TestMethod]
         public void DeleteSeriesIsWorking()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(0,90,0)),new NumberOfTeams(4),"test");
+            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "test");
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(0).Id);
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(1).Id);
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(2).Id);

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Domain.Helper_Classes;
+using System;
 using System.Globalization;
-using Domain.Helper_Classes;
-
 
 namespace Domain.Value_Objects
 {
@@ -40,8 +39,6 @@ namespace Domain.Value_Objects
             }
             return false;
         }
-
-        
 
         public override string ToString()
         {

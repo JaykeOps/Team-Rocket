@@ -1,6 +1,5 @@
-﻿using System;
-using Domain.CustomExceptions;
-using Domain.Entities;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +20,6 @@ namespace Domain.Repositories
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//games.bin";
             this.games = new HashSet<Game>();
-            
         }
 
         public void SaveData()

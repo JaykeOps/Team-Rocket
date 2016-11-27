@@ -21,7 +21,6 @@ namespace Domain.Services
         {
             if (game.IsValidGame())
             {
-                
                 this.repository.Add(game);
             }
             else
@@ -36,16 +35,14 @@ namespace Domain.Services
             {
                 foreach (var game in games)
                 {
-                   this.Add(game);
+                    this.Add(game);
                 }
             }
             else
             {
                 throw new NullReferenceException("List of games is null");
             }
-
         }
-
 
         public Guid Add(Guid matchId)
         {
@@ -62,6 +59,7 @@ namespace Domain.Services
                 throw new ArgumentException("Invalid matchId");
             }
         }
+
         public IEnumerable<Guid> AddList(IEnumerable<Guid> matchIds)
         {
             var gameIds = new List<Guid>();
@@ -201,7 +199,6 @@ namespace Domain.Services
                     if (penalty.IsGoal)
                     {
                         this.RemoveGoalFromGame(gameId, playerId, matchMinute);
-
                     }
                     break;
                 }

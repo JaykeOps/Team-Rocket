@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Value_Objects;
+using System;
 
 namespace Domain.Helper_Classes
 {
@@ -14,8 +9,6 @@ namespace Domain.Helper_Classes
     {
         public static bool IsValidGame(this Game game)
         {
-
-
             try
             {
                 return game.Id != Guid.Empty &&
@@ -30,9 +23,7 @@ namespace Domain.Helper_Classes
             catch (NullReferenceException)
             {
                 return false;
-
             }
-
         }
 
         public static bool IsMatchValid(this Match match)
@@ -46,7 +37,6 @@ namespace Domain.Helper_Classes
                        match.Location.Value.IsValidArenaName(true) &&
                        //match.MatchDate.Value.IsValidMatchDateAndTime() &&
                        match.MatchDuration.Value.IsValidMatchDuration();
-
             }
             catch (NullReferenceException)
             {
@@ -71,7 +61,6 @@ namespace Domain.Helper_Classes
             catch (NullReferenceException)
             {
                 return false;
-
             }
         }
 
@@ -84,12 +73,11 @@ namespace Domain.Helper_Classes
                        player.AggregatedStats != null &&
                        player.Name.FirstName.IsValidName(true) &&
                        player.Name.LastName.IsValidName(true);
-                       //player.DateOfBirth.Value.ToString().IsValidBirthOfDate();
+                //player.DateOfBirth.Value.ToString().IsValidBirthOfDate();
             }
             catch (NullReferenceException)
             {
                 return false;
-
             }
         }
 
@@ -107,7 +95,6 @@ namespace Domain.Helper_Classes
             catch (NullReferenceException)
             {
                 return false;
-
             }
         }
 
@@ -124,10 +111,10 @@ namespace Domain.Helper_Classes
             }
             catch (NullReferenceException)
             {
-
                 return false;
             }
         }
+
         private static bool IsGameProtocolValid(GameProtocol protocol)
         {
             return protocol.Goals != null &&
@@ -138,7 +125,6 @@ namespace Domain.Helper_Classes
                    protocol.HomeTeamActivePlayers != null &&
                    protocol.AwayTeamId != Guid.Empty &&
                    protocol.HomeTeamId != Guid.Empty;
-
         }
     }
 }

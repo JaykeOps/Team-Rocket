@@ -1,6 +1,6 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using System;
-using Domain.Entities;
 
 namespace Domain.Value_Objects
 {
@@ -11,7 +11,7 @@ namespace Domain.Value_Objects
         public bool IsGoal { get; }
         public Guid PlayerId { get; }
 
-        public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal,Game game,Guid teamId)
+        public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal, Game game, Guid teamId)
         {
             this.MatchMinute = matchMinute;
             this.PlayerId = playerId;
@@ -19,7 +19,7 @@ namespace Domain.Value_Objects
 
             if (isGoal)
             {
-                game.Protocol.Goals.Add(new Goal(matchMinute,teamId,playerId));
+                game.Protocol.Goals.Add(new Goal(matchMinute, teamId, playerId));
             }
         }
     }

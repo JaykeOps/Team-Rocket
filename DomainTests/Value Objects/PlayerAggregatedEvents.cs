@@ -1,9 +1,9 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using Domain.Services;
 
 namespace DomainTests.Value_Objects
 {
@@ -73,7 +73,7 @@ namespace DomainTests.Value_Objects
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOnePenaltiesPreAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
-            this.dummySeries.DummyGames.GameThree.Protocol.Penalties.Add(new Penalty(new MatchMinute(89), this.playerOne.Id,true, this.dummySeries.DummyGames.GameThree, this.playerOne.TeamId));
+            this.dummySeries.DummyGames.GameThree.Protocol.Penalties.Add(new Penalty(new MatchMinute(89), this.playerOne.Id, true, this.dummySeries.DummyGames.GameThree, this.playerOne.TeamId));
             var playerOnePenaltiesPostAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Penalties.Count();
             Assert.IsTrue(playerOnePenaltiesPostAdd - playerOnePenaltiesPreAdd == 1);

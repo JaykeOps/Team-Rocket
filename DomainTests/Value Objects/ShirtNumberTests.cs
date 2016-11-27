@@ -1,11 +1,9 @@
 ﻿using Domain.Entities;
 using Domain.Services;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Domain.Value_Objects;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Entities.Tests
 {
@@ -105,8 +103,6 @@ namespace DomainTests.Entities.Tests
             }
             catch (ShirtNumberAlreadyInUseException)
             {
-
-
             }
             Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 3);
         }
@@ -119,12 +115,9 @@ namespace DomainTests.Entities.Tests
                 this.dummyPlayerOne.ShirtNumber = new ShirtNumber(5);
                 Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 5);
                 this.dummyPlayerOne.ShirtNumber = new ShirtNumber(100);
-
             }
             catch (IndexOutOfRangeException)
             {
-                
-                
             }
             Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 5);
         }

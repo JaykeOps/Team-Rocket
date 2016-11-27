@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Domain.Services.Tests
 {
@@ -70,8 +69,8 @@ namespace Domain.Services.Tests
             gameService.AddList(matchIds);
             var numOfGamesAfterAdd = gameService.GetAll().Count();
             Assert.IsTrue(matchIds.Count == numOfGamesAfterAdd - numOfGamesPriorAdd);
-
         }
+
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
         {
@@ -173,6 +172,7 @@ namespace Domain.Services.Tests
         {
             this.gameService.Add(new Guid());
         }
+
         [TestMethod]
         public void RemoveGoalFromGame()
         {
@@ -192,6 +192,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(teamGoalsAfterRemove == teamGoalsPriorGame);
             Assert.IsTrue(playerGoalsAfterRemove == playerGoalsPriorGame);
         }
+
         [TestMethod]
         public void RemoveAssistFromGame()
         {
@@ -208,6 +209,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameAssistsPriorGame == gameAssistsAfterRemove);
             Assert.IsTrue(playerAssistsPriorGame == playerAssistsAfterRemove);
         }
+
         [TestMethod]
         public void RemoveYellowCardFromGame()
         {
@@ -224,6 +226,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameYellowCardsPriorGame == gameYellowCardsAfterRemove);
             Assert.IsTrue(playerYellowCardsPriorGame == playerYellowCardsAfterRemove);
         }
+
         [TestMethod]
         public void RemoveRedCardFromGame()
         {
@@ -240,6 +243,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameRedCardsPriorGame == gameRedCardsAfterRemove);
             Assert.IsTrue(playerRedCardsPriorGame == playerRedCardsAfterRemove);
         }
+
         [TestMethod]
         public void RemovePenaltyFromGame()
         {
@@ -266,12 +270,13 @@ namespace Domain.Services.Tests
             var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
             var playerGoalsPriorPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
-            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78,true);
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
             var gameGoalsAfterPenalty = game.Protocol.Goals.Count;
             var playerGoalsAfterAfterPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty - 1);
             Assert.IsTrue(playerGoalsPriorPenalty == playerGoalsAfterAfterPenalty - 1);
         }
+
         [TestMethod]
         public void PenaltyDosnetAddGoalIfPenaltyIsNotGoal()
         {
@@ -287,6 +292,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty);
             Assert.IsTrue(playerGoalsPriorPenalty == playerGoalsAfterAfterPenalty);
         }
+
         [TestMethod]
         public void IfPenaltyThatIsGoalIsRemovedGoalIsAlsoRemoved()
         {

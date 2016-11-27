@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -114,6 +113,7 @@ namespace Domain.Repositories
         {
             return this.series.FirstOrDefault(x => x.Id == seriesId);
         }
+
         public void DeleteSeries(Guid seriesId)
         {
             series.RemoveWhere(s => s.Id == seriesId);

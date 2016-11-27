@@ -3,7 +3,6 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Domain.Entities
 {
@@ -90,7 +89,7 @@ namespace Domain.Entities
 
         private void RemovePlayerIdFromOldTeam(Guid playerId)
         {
-            var player = DomainService.FindPlayerById(playerId);;
+            var player = DomainService.FindPlayerById(playerId); ;
         }
 
         public void RemovePlayerId(Guid playerId)

@@ -18,7 +18,6 @@ namespace Domain.Value_Objects
         private int goalDifference;
         private int points;
 
-
         /* private TeamEvents TeamEvents
          {
              get
@@ -35,6 +34,7 @@ namespace Domain.Value_Objects
         public int Draws => this.draws;
         public int GoalDifference => this.GoalsFor - this.GoalsAgainst;
         public int Points => this.Wins * 3 + this.Draws;
+
         public int GoalsFor
         {
             get
@@ -51,7 +51,6 @@ namespace Domain.Value_Objects
             }
         }
 
-        
         private int CalculateAllMatchOutComes(MatchOutcome matchOutcomeToTrack)
         {
             int outcome = 0;
@@ -82,6 +81,7 @@ namespace Domain.Value_Objects
         {
             this.teamName = DomainService.FindTeamById(this.teamId).Name.ToString();
         }
+
         private void UpdateSeriesEvents()
         {
             var thisTeam = DomainService.FindTeamById(this.teamId);
@@ -91,7 +91,6 @@ namespace Domain.Value_Objects
         private void UpdateWins()
         {
             this.wins = this.CalculateAllMatchOutComes(MatchOutcome.Win);
-
         }
 
         private void UpdateLosses()
@@ -103,7 +102,6 @@ namespace Domain.Value_Objects
         {
             this.draws = this.CalculateAllMatchOutComes(MatchOutcome.Draw);
         }
-
 
         public void UpdateAllStats()
         {

@@ -15,8 +15,6 @@ namespace DomainTests.Repositories
         private Team dummyTeam;
         private Team dummyTeamDuplicate;
 
-
-
         [TestInitialize]
         public void Initialize()
         {
@@ -27,6 +25,7 @@ namespace DomainTests.Repositories
                 Id = this.dummyTeam.Id
             };
         }
+
         public void RepoStateIsTheSame()
         {
             var instance = TeamRepository.instance;

@@ -30,8 +30,6 @@ namespace Domain.Value_Objects
             this.Cards = new List<Card>();
             this.AwayTeamActivePlayers = new HashSet<Guid>();
             this.HomeTeamActivePlayers = new HashSet<Guid>();
-
-
         }
 
         public void UpdateGameResult()

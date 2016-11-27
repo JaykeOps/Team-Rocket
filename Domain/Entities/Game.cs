@@ -3,7 +3,6 @@ using Domain.Interfaces;
 using Domain.Services;
 using Domain.Value_Objects;
 using System;
-using System.Collections.Generic;
 
 namespace Domain.Entities
 {

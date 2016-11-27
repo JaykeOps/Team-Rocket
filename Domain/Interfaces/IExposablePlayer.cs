@@ -1,6 +1,6 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Value_Objects;
+using System;
 
 namespace Domain.Interfaces
 {

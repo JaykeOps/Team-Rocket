@@ -1,10 +1,10 @@
 ﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Repositories;
+using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Helper_Classes;
-using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -53,6 +53,7 @@ namespace Domain.Services
         {
             return this.GetAll().ToList().Find(t => t.Id.Equals(teamId));
         }
+
         public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
         {
             return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
