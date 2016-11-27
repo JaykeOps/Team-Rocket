@@ -20,7 +20,7 @@ namespace DomainTests.Repositories
         public void Initialize()
         {
             this.dummySeries = new DummySeries();
-            this.dummyMatch = dummySeries.SeriesDummy.Schedule.First().Value.First();
+            this.dummyMatch = this.dummySeries.SeriesDummy.Schedule.First().Value.First();
             this.dummyMatchDuplicate = new Match(this.dummyMatch.Location,
                 this.dummyMatch.HomeTeamId, this.dummyMatch.AwayTeamId,
                 this.dummySeries.SeriesDummy, this.dummyMatch.MatchDate)

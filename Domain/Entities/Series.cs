@@ -8,8 +8,8 @@ namespace Domain.Entities
     [Serializable]
     public class Series : IGameDuration
     {
-        public Guid Id { get; }
-        public string SeriesName { get; set; }
+        public Guid Id { get; set; } //TODO: Set is only for tests!
+        public string SeriesName { get; set; } //TODO: MAKE SeriesName a value object... No validation atm?
         public NumberOfTeams NumberOfTeams { get; }
         public HashSet<Guid> TeamIds { get; }
         public MatchDuration MatchDuration { get; }
