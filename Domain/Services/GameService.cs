@@ -209,37 +209,25 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Location.ToString().Contains(searchText, comparison)
-                                            || 
-                                            x.MatchDate.ToString().Contains(searchText, comparison) 
-                                            ||
-                                            DomainService.FindSeriesById(x.SeriesId).SeriesName
-                                                .Contains(searchText, comparison)
-                                            ||
-                                            x.Protocol.Goals.Count.ToString()
-                                                .Contains(searchText, comparison)
-                                            ||
-                                            x.Protocol.GameResult.ToString()
-                                                .Contains(searchText, comparison)
-                                            ||
-                                            DomainService.FindTeamById(x.HomeTeamId)
-                                                .ToString()
-                                                .Contains(searchText, comparison)
-                                            ||
-                                            DomainService.FindTeamById(x.AwayTeamId)
-                                                .ToString()
-                                                .Contains(searchText, comparison)
-                                            || x.Protocol.HomeTeamActivePlayers.Any(
-                                                y =>
-                                                DomainService.FindPlayerById(y)
-                                                    .ToString()
-                                                    .Contains(searchText, comparison)
-                                                ||
-                                                x.Protocol.AwayTeamActivePlayers.Any(
-                                                    z =>
-                                                        DomainService.FindPlayerById(z)
-                                                            .ToString()
-                                                            .Contains(searchText, comparison))));
-            //TODO: DID I DO THAAAAAAAT??????????
+            || 
+            x.MatchDate.ToString().Contains(searchText, comparison)
+            ||
+            DomainService.FindSeriesById(x.SeriesId).SeriesName.Contains(searchText, comparison)
+            ||
+            x.Protocol.Goals.Count.ToString().Contains(searchText, comparison)
+            ||
+            x.Protocol.GameResult.ToString().Contains(searchText, comparison)
+            ||
+            DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
+            ||
+            DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
+            || 
+            x.Protocol.HomeTeamActivePlayers.Any(y => DomainService.FindPlayerById(y).ToString()
+                .Contains(searchText, comparison)
+            ||
+            x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).ToString()
+                .Contains(searchText, comparison))));
+            
         }
     }
 }

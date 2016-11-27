@@ -3,6 +3,7 @@ using Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Domain.Helper_Classes;
 using Domain.Value_Objects;
 
@@ -62,6 +63,15 @@ namespace Domain.Services
                 .ThenByDescending(x => x.GoalDifference)
                 .ThenByDescending(x => x.GoalsFor);
 
+        }
+
+        public IEnumerable<Series> Search(string searchText, StringComparison comparison)
+        {
+            return this.GetAll().Where(x => x.TeamIds.Any
+            (y => DomainService.FindTeamById(y).ToString().Contains(searchText, comparison)
+            || x.MatchDuration.ToString().Contains(searchText, comparison)
+            || x.NumberOfTeams.ToString().Contains(searchText, comparison)
+            || x.SeriesName.Contains(searchText, comparison)));
         }
 
     }
