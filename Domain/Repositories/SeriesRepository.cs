@@ -114,5 +114,9 @@ namespace Domain.Repositories
         {
             return this.series.FirstOrDefault(x => x.Id == seriesId);
         }
+        public void DeleteSeries(Guid seriesId)
+        {
+            series.RemoveWhere(s => s.Id == seriesId);
+        }
     }
 }
