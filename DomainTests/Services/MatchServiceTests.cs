@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -22,7 +22,6 @@ namespace DomainTests.Services
         {
             this.dummySeries = new DummySeries();
         }
-
 
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
@@ -92,7 +91,7 @@ namespace DomainTests.Services
         public void AddListOfMatchesTest()
         {
             var series = new DummySeries();
-            var matchOne = new Match(new ArenaName("ullevi"),Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy );
+            var matchOne = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
             var matchTwo = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
             var matchThree = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
 
@@ -108,9 +107,44 @@ namespace DomainTests.Services
             Assert.IsFalse(allMatches.Contains(matchThree));
         }
 
-        
+        [TestMethod]
+        public void MatchSearchCanReturnMatchesBelongingToSpecifiedSeries()
+        {
+            var matches = this.service.Search("The Dummy Series").ToList();
+            Assert.IsNotNull(matches);
+            Assert.AreNotEqual(matches.Count, 0);
+            foreach (var match in matches)
+            {
+                Assert.AreEqual(DomainService.FindSeriesById(match.SeriesId).SeriesName,
+                    "The Dummy Series");
+            }
+        }
 
+        [TestMethod]
+        public void MatchSearchCanReturnMatchesContainingSpecifiedTeam()
+        {
+            var matches = this.service.Search("Dummy TeamThree");
+            Assert.IsNotNull(matches);
+            Assert.AreNotEqual(matches, 0);
+            foreach (var match in matches)
+            {
+                Assert.IsTrue(DomainService.FindTeamById(match.HomeTeamId).Name.ToString()
+                              == "Dummy TeamThree"
+                              || DomainService.FindTeamById(match.AwayTeamId).Name.ToString()
+                              == "Dummy TeamThree");
 
+            }
+        }
+
+        [TestMethod]
+        public void MatchSearchCanReturnMatchesContainingSpecifiedArena()
+        {
+        }
+
+        [TestMethod]
+        public void MatchSearchCanReturnMatchesScheduledAtSpecifiedDate()
+        {
+        }
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
         //MatchDateAndTime date = new MatchDateAndTime(new DateTime(2016, 12, 24));
