@@ -73,7 +73,8 @@ namespace Domain.Services
                 DomainService.FindSeriesById(x.SeriesId).SeriesName.Contains(searchText, comparison)
                 || DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
                 || DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
-                || x.Location.ToString().Contains(searchText, comparison));
+                || x.Location.ToString().Contains(searchText, comparison)
+                || x.MatchDate.ToString().Contains(searchText, comparison));
         } 
     }
 }

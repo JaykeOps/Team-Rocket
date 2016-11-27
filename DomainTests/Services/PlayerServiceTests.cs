@@ -1,9 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,15 +43,6 @@ namespace Domain.Services.Tests
             Assert.IsFalse(this.playerService.FindById(player.Id) == player);
             this.playerService.Add(player);
             Assert.IsTrue(this.playerService.FindById(player.Id) == player);
-        }
-
-        [TestMethod]
-        public void FindPlayerSpecialCharactersNotAllowed()
-        {
-            IPresentablePlayer expectedPlayerObj =
-                this.playerService.Search("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
-
-            Assert.IsNull(expectedPlayerObj);
         }
 
         [TestMethod]
