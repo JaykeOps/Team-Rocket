@@ -86,14 +86,17 @@ namespace Domain.Helper_Classes
         {
             return value.TotalMinutes <= 90 && value.TotalMinutes >= 10;
         }
+
         public static bool IsValidNumberOfTeams(this int value)
         {
             return value % 2 == 0 && value > 2;
         }
+
         public static bool IsValidMatchDateAndTime(this DateTime value)
         {
             return value > DateTime.Now && value < DateTime.Now + TimeSpan.FromDays(365 * 2);
         }
+
         public static bool IsValidBirthOfDate(this string value)
         {
             DateTime result;
@@ -107,10 +110,12 @@ namespace Domain.Helper_Classes
                 return false;
             }
         }
+
         public static bool IsMatchMinute(this int value)
         {
             return value >= 1 && value <= 90 + 30;
         }
+
         public static bool IsScoreValid(this int score)
         {
             return score >= 0 && score <= 50;
