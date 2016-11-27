@@ -36,7 +36,7 @@ namespace Domain.Services
             {
                 foreach (var team in teams)
                 {
-                    Add(team);
+                    this.Add(team);
                 }
             }
             else
@@ -56,7 +56,7 @@ namespace Domain.Services
         }
         public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
         {
-            return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
+            return this.GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
         }
 
         public IEnumerable<Team> Search(string searchText, StringComparison comparison 

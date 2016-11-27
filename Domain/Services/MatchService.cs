@@ -5,6 +5,7 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 
 namespace Domain.Services
 {
@@ -56,14 +57,23 @@ namespace Domain.Services
 
         public void EditMatchTime(DateTime dateTime, Guid matchId)
         {
-            var matchToEdit = GetAll().ToList().Find(x => x.Id == matchId);
+            var matchToEdit = this.GetAll().ToList().Find(x => x.Id == matchId);
             matchToEdit.MatchDate = new MatchDateAndTime(dateTime);
         }
 
         public void EditMatchLocation(string newArenaName, Guid matchId)
         {
-            var matchToEdit = GetAll().ToList().Find(x => x.Id == matchId);
+            var matchToEdit = this.GetAll().ToList().Find(x => x.Id == matchId);
             matchToEdit.Location = new ArenaName(newArenaName);
         }
+
+        public IEnumerable<Match> Search(string searchText, StringComparison comparison)
+        {
+            return this.GetAll().Where(x =>
+                DomainService.FindSeriesById(x.SeriesId).SeriesName.Contains(searchText, comparison)
+                || DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
+                || DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
+                || x.Location.ToString().Contains(searchText, comparison));
+        } 
     }
 }
