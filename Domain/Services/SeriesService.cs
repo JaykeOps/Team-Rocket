@@ -14,7 +14,7 @@ namespace Domain.Services
 
         public void Add(Series series)
         {
-            if (series.NumberOfTeams.Value == series.TeamIds.Count&&series.IsSeriesValid())
+            if (series.NumberOfTeams.Value == series.TeamIds.Count && series.IsSeriesValid())
             {
                 this.repository.AddSeries(series);
             }
@@ -31,7 +31,7 @@ namespace Domain.Services
             schedule.GenerateSchedule(series);
             foreach (var values in series.Schedule.Values)
             {
-               DomainService.AddMatches(values);
+                DomainService.AddMatches(values);
             }
         }
 
