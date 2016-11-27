@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Value_Objects;
 
 namespace Domain.Helper_Classes
@@ -74,7 +75,7 @@ namespace Domain.Helper_Classes
             }
         }
 
-        public static bool IsPlayerValid(this Player player)
+        public static bool IsValidPlayer(this Player player)
         {
             try
             {
@@ -84,6 +85,24 @@ namespace Domain.Helper_Classes
                        player.Name.FirstName.IsValidName(true) &&
                        player.Name.LastName.IsValidName(true);
                        //player.DateOfBirth.Value.ToString().IsValidBirthOfDate();
+            }
+            catch (NullReferenceException)
+            {
+                return false;
+
+            }
+        }
+
+        public static bool IsValidPlayer(this IExposablePlayer player)
+        {
+            try
+            {
+                return player.Id != null &&
+                       player.AggregatedEvents != null &&
+                       player.AggregatedStats != null &&
+                       player.Name.FirstName.IsValidName(true) &&
+                       player.Name.LastName.IsValidName(true);
+                //player.DateOfBirth.Value.ToString().IsValidBirthOfDate();
             }
             catch (NullReferenceException)
             {

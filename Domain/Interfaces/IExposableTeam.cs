@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Interfaces
 {
-    public interface IPresentableTeam
+    public interface IExposableTeam
     {
         TeamName Name { get; }
         IEnumerable<Player> Players { get; }

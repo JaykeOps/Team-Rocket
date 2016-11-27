@@ -1,18 +1,20 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Value_Objects;
 
 namespace Domain.Interfaces
 {
-    public interface IPresentablePlayer
+    public interface IExposablePlayer
     {
+        Guid Id { get; }
         TeamName AffiliatedTeamName { get; }
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
         ContactInformation ContactInformation { get; }
         AggregatedPlayerEvents AggregatedEvents { get; }
         AggregatedPlayerStats AggregatedStats { get; }
-        PlayerPosition Position { get; }
-        PlayerStatus Status { get; }
+        PlayerPosition Position { get; set; }
+        PlayerStatus Status { get; set; }
 
         ShirtNumber ShirtNumber { get; }
     }

@@ -6,7 +6,7 @@ using System;
 namespace Domain.Entities
 {
     [Serializable]
-    public class Player : Person, IPresentablePlayer
+    public class Player : Person, IExposablePlayer
     {
         private readonly AggregatedPlayerEvents aggregatedEvents;
         private readonly AggregatedPlayerStats aggregatedStats;
