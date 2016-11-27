@@ -15,6 +15,14 @@ namespace DomainTests.Services
         private MatchService service = new MatchService();
         private Match match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
         private Match match2 = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
+        private DummySeries dummySeries;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+        }
+
 
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
@@ -99,6 +107,32 @@ namespace DomainTests.Services
             Assert.IsTrue(allMatches.Contains(matchTwo));
             Assert.IsFalse(allMatches.Contains(matchThree));
         }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedName()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedTeamName()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedArenaName()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedMatchDate()
+        {
+            Assert.Fail();
+        }
+
+
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
         //MatchDateAndTime date = new MatchDateAndTime(new DateTime(2016, 12, 24));
