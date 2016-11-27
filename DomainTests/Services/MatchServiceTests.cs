@@ -108,29 +108,7 @@ namespace DomainTests.Services
             Assert.IsFalse(allMatches.Contains(matchThree));
         }
 
-        [TestMethod]
-        public void SeriesSearchCanReturnSeriesContainingSpecifiedName()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void SeriesSearchCanReturnSeriesContainingSpecifiedTeamName()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void SeriesSearchCanReturnSeriesContainingSpecifiedArenaName()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void SeriesSearchCanReturnSeriesContainingSpecifiedMatchDate()
-        {
-            Assert.Fail();
-        }
+        
 
 
 

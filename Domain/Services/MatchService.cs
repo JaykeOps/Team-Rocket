@@ -5,7 +5,6 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 
 namespace Domain.Services
 {
@@ -36,7 +35,7 @@ namespace Domain.Services
             }
             else
             {
-                    throw new NullReferenceException("List of matches is null");
+                throw new NullReferenceException("List of matches is null");
             }
         }
 
@@ -48,11 +47,6 @@ namespace Domain.Services
         public Match FindById(Guid id)
         {
             return this.GetAll().ToList().Find(m => m.Id == id);
-        }
-
-        public IEnumerable<Match> SearchMatch(string searchText, StringComparison comp)
-        {
-            return this.GetAll().Where(m => m.ToString().Contains(searchText, comp));
         }
 
         public void EditMatchTime(DateTime dateTime, Guid matchId)
@@ -67,7 +61,8 @@ namespace Domain.Services
             matchToEdit.Location = new ArenaName(newArenaName);
         }
 
-        public IEnumerable<Match> Search(string searchText, StringComparison comparison)
+        public IEnumerable<Match> Search(string searchText, StringComparison comparison 
+            = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x =>
                 DomainService.FindSeriesById(x.SeriesId).SeriesName.Contains(searchText, comparison)
@@ -75,6 +70,6 @@ namespace Domain.Services
                 || DomainService.FindTeamById(x.AwayTeamId).Name.ToString().Contains(searchText, comparison)
                 || x.Location.ToString().Contains(searchText, comparison)
                 || x.MatchDate.ToString().Contains(searchText, comparison));
-        } 
+        }
     }
 }

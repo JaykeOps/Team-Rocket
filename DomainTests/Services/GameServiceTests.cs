@@ -342,7 +342,9 @@ namespace Domain.Services.Tests
         public void GameSearchCanReturnGamesInSeries()
         {
             //TODO: Update when more series are available!
-            var games = this.gameService.Search("The Dummy Series");
+            var games = this.gameService.Search("The Dummy Series").ToList();
+            Assert.IsNotNull(games);
+            Assert.AreNotEqual(games.Count, 0);
             foreach (var game in games)
             {
                 Assert.AreEqual(DomainService.FindSeriesById(game.SeriesId).SeriesName, "The Dummy Series");
@@ -354,6 +356,8 @@ namespace Domain.Services.Tests
         {
             //TODO: Cannot be tried until games are populated with game squads!
             var games = this.gameService.Search("Player One").ToList();
+            Assert.IsNotNull(games);
+            Assert.AreNotEqual(games.Count, 0);
             foreach (var game in games)
             {
                 Assert.IsTrue(
@@ -369,7 +373,9 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GameSearchCanReturnGamesContainingTeam()
         {
-            var games = this.gameService.Search("Dummy TeamTh");
+            var games = this.gameService.Search("Dummy TeamTh").ToList();
+            Assert.IsNotNull(games);
+            Assert.AreNotEqual(games.Count, 0);
             foreach (var game in games)
             {
                 Assert.IsTrue(DomainService.FindTeamById(game.HomeTeamId).Name.ToString() == "Dummy TeamThree" 

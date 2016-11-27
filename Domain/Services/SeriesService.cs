@@ -65,13 +65,16 @@ namespace Domain.Services
 
         }
 
-        public IEnumerable<Series> Search(string searchText, StringComparison comparison)
+        public IEnumerable<Series> Search(string searchText, StringComparison comparison
+            = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.TeamIds.Any
-            (y => DomainService.FindTeamById(y).ToString().Contains(searchText, comparison)
+            (y => DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
             || x.MatchDuration.ToString().Contains(searchText, comparison)
             || x.NumberOfTeams.ToString().Contains(searchText, comparison)
-            || x.SeriesName.Contains(searchText, comparison)));
+            || x.SeriesName.ToString().Contains(searchText, comparison))
+            || x.Schedule.Values.Any(z => z.Any(p => p.Location.ToString().Contains(searchText)
+            || x.Schedule.Values.Any(o => o.Any(s => s.MatchDate.ToString().Contains(searchText))))));
         }
 
     }
