@@ -103,6 +103,10 @@ namespace Domain.Repositories
 
         public IEnumerable<Game> GetAll()
         {
+            foreach (var game in games)
+            {
+                game.Protocol.UpdateGameResult();
+            }
             return this.games;
         }
     }
