@@ -51,7 +51,7 @@ namespace Domain.Services.Tests
         public void FindPlayerSpecialCharactersNotAllowed()
         {
             IPresentablePlayer expectedPlayerObj =
-                this.playerService.FreeTextSearchForPlayers("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
+                this.playerService.Search("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
 
             Assert.IsNull(expectedPlayerObj);
         }
