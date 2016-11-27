@@ -28,7 +28,7 @@ namespace DomainTests.Entities.Tests
 
             this.dummySeries = new DummySeries();
             this.dummyTeam = this.dummySeries.DummyTeams.DummyTeamOne;
-            this.dummyPlayer = this.dummyTeam.Players.ElementAt(1);
+            this.dummyPlayer = DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(1));
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace DomainTests.Entities.Tests
             Assert.AreNotEqual(this.dummyPlayer.Name, newName);
             this.dummyPlayer.Name = newName;
             Assert.AreEqual(this.dummyPlayer.Name, newName);
-            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).Name, this.dummyPlayer.Name);
+            Assert.AreEqual(DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(1)).Name, this.dummyPlayer.Name);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace DomainTests.Entities.Tests
             Assert.AreNotEqual(this.dummyPlayer.DateOfBirth, newDateOfBirth);
             this.dummyPlayer.DateOfBirth = newDateOfBirth;
             Assert.AreEqual(this.dummyPlayer.DateOfBirth, newDateOfBirth);
-            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).DateOfBirth, newDateOfBirth);
+            Assert.AreEqual(DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(1)).DateOfBirth, newDateOfBirth);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace DomainTests.Entities.Tests
             Assert.AreNotEqual(this.dummyPlayer.Position, newPosition);
             this.dummyPlayer.Position = newPosition;
             Assert.AreEqual(this.dummyPlayer.Position, newPosition);
-            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).Position, newPosition);
+            Assert.AreEqual(DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(1)).Position, newPosition);
         }
 
         [TestMethod]
@@ -94,7 +94,7 @@ namespace DomainTests.Entities.Tests
             Assert.AreNotEqual(this.dummyPlayer.Status, newStatus);
             this.dummyPlayer.Status = newStatus;
             Assert.AreEqual(this.dummyPlayer.Status, newStatus);
-            Assert.AreEqual(this.dummyTeam.Players.ElementAt(1).Status, newStatus);
+            Assert.AreEqual(DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(1)).Status, newStatus);
         }
 
         [TestMethod]

@@ -28,8 +28,8 @@ namespace DomainTests.Entities.Tests
             this.dummySeries = new DummySeries();
             this.dummyTeamOne = this.dummySeries.DummyTeams.DummyTeamOne;
             this.dummyTeamTwo = this.dummySeries.DummyTeams.DummyTeamTwo;
-            this.dummyPlayerOne = this.dummyTeamOne.Players.ElementAt(0);
-            this.dummyPlayerTwo = this.dummyTeamOne.Players.ElementAt(1);
+            this.dummyPlayerOne = DomainService.FindPlayerById(this.dummyTeamOne.PlayerIds.ElementAt(0));
+            this.dummyPlayerTwo = DomainService.FindPlayerById(this.dummyTeamOne.PlayerIds.ElementAt(1));
         }
 
         [TestMethod]

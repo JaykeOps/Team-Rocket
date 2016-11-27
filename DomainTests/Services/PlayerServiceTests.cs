@@ -24,7 +24,7 @@ namespace Domain.Services.Tests
             this.playerService = new PlayerService();
             this.dummySeries = new DummySeries();
             this.dummyTeam = this.dummySeries.DummyTeams.DummyTeamTwo;
-            this.dummyPlayer = this.dummyTeam.Players.ElementAt(0);
+            this.dummyPlayer = DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(0));
             this.duplicatePlayer = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
                 this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
             this.duplicatePlayer.TeamId = this.dummyPlayer.TeamId;
@@ -63,9 +63,10 @@ namespace Domain.Services.Tests
             var topScorers = this.playerService.GetTopScorersForSeries(dummySeries.SeriesDummy.Id);
 
             var allTeamsInSeries = dummySeries.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
-            var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
+            var allPlayerIdsInSereis = allTeamsInSeries.SelectMany(team => team.PlayerIds).ToList();
+            var allPlayersInSeries = allPlayerIdsInSereis.Select(x => DomainService.FindPlayerById(x));
             var allPlayerStats =
-                allPlayerInSeries.Select(player => player.AggregatedStats[dummySeries.SeriesDummy.Id]).ToList();
+                allPlayersInSeries.Select(player => player.AggregatedStats[dummySeries.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             for (int i = 0; i < topScorers.Count(); i++)
             {
@@ -80,9 +81,10 @@ namespace Domain.Services.Tests
             var topAssists = this.playerService.GetTopAssistsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
-            var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
+            var allPlayerIdsInSeries = allTeamsInSeries.SelectMany(team => team.PlayerIds).ToList();
+            var allPlayersInSeries = allPlayerIdsInSeries.Select(x => DomainService.FindPlayerById(x));
             var allPlayerStats =
-                allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
+                allPlayersInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
             for (int i = 0; i < topAssists.Count(); i++)
             {
@@ -97,7 +99,8 @@ namespace Domain.Services.Tests
             var topReds = this.playerService.GetTopRedCardsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
-            var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
+            var allPlayerIdsInSeries = allTeamsInSeries.SelectMany(x => x.PlayerIds);
+            var allPlayerInSeries = allPlayerIdsInSeries.Select(x => DomainService.FindPlayerById(x));
             var allPlayerStats =
                 allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
@@ -114,7 +117,8 @@ namespace Domain.Services.Tests
             var topYellow = this.playerService.GetTopYellowCardsForSeries(series.SeriesDummy.Id);
 
             var allTeamsInSeries = series.SeriesDummy.TeamIds.Select(id => DomainService.FindTeamById(id)).ToList();
-            var allPlayerInSeries = allTeamsInSeries.SelectMany(team => team.Players).ToList();
+            var allPlayersIdsInSeries = allTeamsInSeries.SelectMany(x => x.PlayerIds).ToList();
+            var allPlayerInSeries = allPlayersIdsInSeries.Select(x => DomainService.FindPlayerById(x));
             var allPlayerStats =
                 allPlayerInSeries.Select(player => player.AggregatedStats[series.SeriesDummy.Id]).ToList();
             var allPlayerStatsSorted = allPlayerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);

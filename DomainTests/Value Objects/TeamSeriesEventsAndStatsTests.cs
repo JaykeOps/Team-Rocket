@@ -132,7 +132,7 @@ namespace Domain.Value_Objects.Tests
                 == preAddGoalsForCount);
 
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
-                this.teamTwo.Players.ElementAt(0).Id));
+                this.teamTwo.PlayerIds.ElementAt(0)));
             var postAddGoalsForCount = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].GoalsFor;
             Assert.IsTrue(postAddGoalsForCount - preAddGoalsForCount == 1);
         }
@@ -149,7 +149,7 @@ namespace Domain.Value_Objects.Tests
             var preAddGoalsAgainstCount = goalsAgainst.Count();
             Assert.IsTrue(teamStats.GoalsAgainst == preAddGoalsAgainstCount);
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
-                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
+                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));
             var postAddGoalAgainstCount = teamStats.GoalsAgainst;
             Assert.IsTrue(postAddGoalAgainstCount - preAddGoalsAgainstCount == 1);
         }
@@ -160,7 +160,7 @@ namespace Domain.Value_Objects.Tests
             var teamStats = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
             var preAddGoalDiffernce = teamStats.GoalDifference;
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
-                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
+                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));
             var postAddGoalDifference = teamStats.GoalDifference;
             Assert.IsTrue(postAddGoalDifference - preAddGoalDiffernce == -1);
         }

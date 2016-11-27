@@ -18,7 +18,7 @@ namespace Domain.Services.Tests
         {
             this.dummySeries = new DummySeries();
             this.dummyTeam = this.dummySeries.DummyTeams.DummyTeamFour;
-            this.dummyPlayer = this.dummyTeam.Players.ElementAt(0);
+            this.dummyPlayer = DomainService.FindPlayerById(this.dummyTeam.PlayerIds.ElementAt(0));
         }
 
         [TestMethod]

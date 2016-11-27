@@ -23,17 +23,9 @@ namespace Domain.Entities
         public EmailAddress Email { get; set; }
         public ShirtNumbers ShirtNumbers { get; }
 
-        public IEnumerable<Player> Players
+        public IEnumerable<Guid> PlayerIds
         {
-            get
-            {
-                var players = new List<Player>();
-                foreach (var playerId in this.playerIds)
-                {
-                    players.Add(DomainService.FindPlayerById(playerId));
-                }
-                return players;
-            }
+            get { return this.playerIds; }
         }
 
         public IPresentableTeamSeriesEvents PresentableSeriesEvents

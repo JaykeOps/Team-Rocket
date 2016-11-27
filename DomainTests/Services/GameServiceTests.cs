@@ -90,7 +90,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
             var teamGoalsPriorGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
@@ -109,7 +109,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameAssistsPriorGame = game.Protocol.Assists.Count;
             var playerAssistsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].AssistCount;
             this.gameService.AddAssistToGame(game.Id, player.Id, 78);
@@ -125,7 +125,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameYellowCardsPriorGame = game.Protocol.Cards.Count;
             var playerYellowCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].YellowCardCount;
             this.gameService.AddYellowCardToGame(game.Id, player.Id, 78);
@@ -141,7 +141,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameRedCardsPriorGame = game.Protocol.Cards.Count;
             var playerRedCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].RedCardCount;
             this.gameService.AddRedCardToGame(game.Id, player.Id, 78);
@@ -157,7 +157,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gamePenatliesPriorGame = game.Protocol.Penalties.Count;
             var playerPenatliesPriorGame = player.AggregatedStats[series.SeriesDummy.Id].PenaltyCount;
             this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
@@ -179,7 +179,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
             var teamGoalsPriorGame = team.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
@@ -198,7 +198,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameAssistsPriorGame = game.Protocol.Assists.Count;
             var playerAssistsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].AssistCount;
             this.gameService.AddAssistToGame(game.Id, player.Id, 78);
@@ -214,7 +214,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameYellowCardsPriorGame = game.Protocol.Cards.Count;
             var playerYellowCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].YellowCardCount;
             this.gameService.AddYellowCardToGame(game.Id, player.Id, 78);
@@ -230,7 +230,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameRedCardsPriorGame = game.Protocol.Cards.Count;
             var playerRedCardsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].RedCardCount;
             this.gameService.AddRedCardToGame(game.Id, player.Id, 78);
@@ -246,7 +246,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gamePenatliesPriorGame = game.Protocol.Penalties.Count;
             var playerPenatliesPriorGame = player.AggregatedStats[series.SeriesDummy.Id].PenaltyCount;
             this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
@@ -263,7 +263,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
             var playerGoalsPriorPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddPenaltyToGame(game.Id, player.Id, 78,true);
@@ -278,7 +278,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
             var playerGoalsPriorPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, false);
@@ -293,7 +293,7 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var game = series.DummyGames.GameTwo;
             var team = DomainService.FindTeamById(game.HomeTeamId);
-            var player = team.Players.First();
+            var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorRemoveOfPenalty = game.Protocol.Goals.Count;
             var playerGoalsPrioRemoveOfPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
