@@ -311,16 +311,26 @@ namespace Domain.Services.Tests
             Assert.IsTrue(playerGoalsPrioRemoveOfPenalty == playerGoalsAfterAfterRemovOfPenalty);
         }
 
-        [TestMethod]
-        public void GameSearchCanReturnGamesWithContainingSpecifiedArenaName()
+        [TestMethod] //Works if you run it solo!
+        public void GameSearchCanReturnGamesContainingSpecifiedArenaName()
         {
-            var games = this.gameService.Search("Dummy ArenaOne").ToList();
+            var games = this.gameService.Search("Dummy ArenaOne");
             foreach (var game in games)
             {
                 Assert.AreEqual(game.Location.ToString(), "Dummy ArenaOne");
             }
         }
 
+        [TestMethod]
+        public void GameSearchCanReturnGamesContainingSpecifiedDate()
+        {
+            //TODO: Update when default MatchDate/GameDate has been discussed - atm all games has the same date by default!
+            var games = this.gameService.Search("2017-08-22");
+            foreach (var game in games)
+            {
+                Assert.AreEqual(game.MatchDate.ToString(), "2017-08-22 10:10");
+            }
+        }
         
     }
 }
