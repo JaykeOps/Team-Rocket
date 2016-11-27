@@ -1,18 +1,17 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
+using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Services;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Repositories
 {
     [TestClass]
     public class PlayerRepositoryTests
     {
-
         private DummySeries dummySeries;
         private Player dummyPlayer;
         private Player dummyPlayerDuplicate;
@@ -22,7 +21,7 @@ namespace DomainTests.Repositories
         {
             this.dummySeries = new DummySeries();
             this.dummyPlayer = DomainService.FindPlayerById(this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
-            this.dummyPlayerDuplicate = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth, 
+            this.dummyPlayerDuplicate = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth,
                 this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
         }
 
