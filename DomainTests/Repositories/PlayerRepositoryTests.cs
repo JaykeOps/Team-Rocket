@@ -4,6 +4,7 @@ using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Services;
 using DomainTests.Test_Dummies;
 
 namespace DomainTests.Repositories
@@ -20,7 +21,7 @@ namespace DomainTests.Repositories
         public void Initialize()
         {
             this.dummySeries = new DummySeries();
-            this.dummyPlayer = this.dummySeries.DummyTeams.DummyTeamOne.Players.First();
+            this.dummyPlayer = DomainService.FindPlayerById(this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
             this.dummyPlayerDuplicate = new Player(this.dummyPlayer.Name, this.dummyPlayer.DateOfBirth, 
                 this.dummyPlayer.Position, this.dummyPlayer.Status, this.dummyPlayer.Id);
         }
