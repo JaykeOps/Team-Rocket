@@ -18,6 +18,13 @@ namespace Domain.Services.Tests
 
         private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
         private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        private DummySeries dummySeries;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+        }
 
         [TestMethod]
         public void AddGameListTest()
@@ -303,5 +310,17 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameGoalsPriorRemoveOfPenalty == gameGoalsAfterRemoveOfPenalty);
             Assert.IsTrue(playerGoalsPrioRemoveOfPenalty == playerGoalsAfterAfterRemovOfPenalty);
         }
+
+        [TestMethod]
+        public void GameSearchCanReturnGamesWithContainingSpecifiedArenaName()
+        {
+            var games = this.gameService.Search("Dummy ArenaOne").ToList();
+            foreach (var game in games)
+            {
+                Assert.AreEqual(game.Location.ToString(), "Dummy ArenaOne");
+            }
+        }
+
+        
     }
 }

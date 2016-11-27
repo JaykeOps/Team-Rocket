@@ -90,10 +90,10 @@ namespace Domain.Services
             return this.GetAll().ToList().Find(g => g.Id == id);
         }
 
-        public IEnumerable<Game> SearchGame(string searchText, StringComparison comp)
-        {
-            return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
-        }
+        //public IEnumerable<Game> SearchGame(string searchText, StringComparison comp)
+        //{
+        //    return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
+        //}
 
         public void AddGoalToGame(Guid gameId, Guid playerId, int matchMinute)
         {
