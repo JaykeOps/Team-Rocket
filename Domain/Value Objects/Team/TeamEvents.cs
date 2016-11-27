@@ -7,36 +7,43 @@ namespace Domain.Value_Objects
 {
     public class TeamEvents
     {
-        public Guid teamId;
+        public Guid TeamId { get;}
         private Guid seriesId;
 
-        public string TeamName
+        private string teamName;
+        private IEnumerable<Game> games;
+        private IEnumerable<Goal> goals;
+        
+        public string TeamName => this.teamName;
+        public IEnumerable<Game> Games => this.games;
+        public IEnumerable<Goal> Goals => this.goals;
+
+        private void UpdateTeamName()
         {
-            get
-            {
-                return DomainService.FindTeamById(this.teamId).Name.ToString();
-            }
+            this.teamName= DomainService.FindTeamById(this.TeamId).Name.ToString();
         }
 
-        public IEnumerable<Game> Games
+        private void UpdateGames()
         {
-            get
-            {
-                return DomainService.GetTeamsGamesInSeries(this.teamId, this.seriesId);
-            }
+            this.games= DomainService.GetTeamsGamesInSeries(this.TeamId, this.seriesId);
         }
 
-        public IEnumerable<Goal> Goals
+        private void UpdateGoals()
         {
-            get
-            {
-                return DomainService.GetAllTeamsGoalsForAndAgainstInSeries(this.teamId, this.seriesId);
-            }
+            this.goals = DomainService.GetAllTeamsGoalsForAndAgainstInSeries(this.TeamId, this.seriesId);
+            
+        }
+
+        public void UpdateAllEvents()
+        {
+            this.UpdateTeamName();
+            this.UpdateGames();
+            this.UpdateGoals();
         }
 
         public TeamEvents(Guid seriesId, Guid teamId)
         {
-            this.teamId = teamId;
+            this.TeamId = teamId;
             this.seriesId = seriesId;
         }
     }

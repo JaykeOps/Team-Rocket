@@ -12,8 +12,8 @@ namespace Domain.Entities
     {
         internal HashSet<Guid> playerIds;
         private TeamMatchSchedule matchSchedules;
-        private TeamSeriesEvents seriesEvents;
-        private TeamSeriesStats seriesStats;
+        private AggregatedTeamEvents _events;
+        private AggregatedTeamStats _stats;
 
         public Guid Id { get; set; } //TODO: Set is for test!
 
@@ -32,7 +32,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.seriesEvents;
+                return this._events;
             }
         }
 
@@ -40,7 +40,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.seriesStats;
+                return this._stats;
             }
         }
 
@@ -52,27 +52,27 @@ namespace Domain.Entities
             }
         }
 
-        public TeamSeriesEvents SeriesEvents
+        public AggregatedTeamEvents Events
         {
             get
             {
-                return this.seriesEvents;
+                return this._events;
             }
         }
 
-        public TeamSeriesStats SeriesStats
+        public AggregatedTeamStats Stats
         {
             get
             {
-                return this.seriesStats;
+                return this._stats;
             }
         }
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
             this.Id = Guid.NewGuid();
-            this.seriesEvents = new TeamSeriesEvents(this.Id);
-            this.seriesStats = new TeamSeriesStats(this.Id);
+            this._events = new AggregatedTeamEvents(this.Id);
+            this._stats = new AggregatedTeamStats(this.Id);
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
@@ -108,8 +108,8 @@ namespace Domain.Entities
         public void AddSeries(Series series)
         {
             //this.matchSchedules.AddSeries(series);
-            this.seriesEvents.AddSeries(series);
-            this.seriesStats.AddSeries(series);
+            this._events.AddSeries(series);
+            this._stats.AddSeries(series);
         }
 
         public override string ToString()

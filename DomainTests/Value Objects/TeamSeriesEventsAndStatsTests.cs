@@ -22,13 +22,13 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesEventGamesIsNotNull()
         {
-            Assert.IsNotNull(this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games);
+            Assert.IsNotNull(this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games);
         }
 
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamWinCountBasedOnEvents()
         {
-            var games = this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesWon = 0;
             foreach (var game in games)
@@ -56,7 +56,7 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamDrawCountBasedOnEvents()
         {
-            var games = this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesDraw = 0;
             foreach (var game in games)
@@ -84,7 +84,7 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamLossCountBasedOnEvents()
         {
-            var games = this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesLost = 0;
             foreach (var game in games)

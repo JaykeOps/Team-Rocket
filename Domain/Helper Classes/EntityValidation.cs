@@ -59,8 +59,8 @@ namespace Domain.Helper_Classes
             try
             {
                 return team.Id != Guid.Empty &&
-                       team.SeriesEvents != null &&
-                       team.SeriesStats != null &&
+                       team.Events != null &&
+                       team.Stats != null &&
                        team.Name.Value.IsValidName(true) &&
                        team.playerIds != null &&
                        team.ArenaName.Value.IsValidArenaName(true) &&

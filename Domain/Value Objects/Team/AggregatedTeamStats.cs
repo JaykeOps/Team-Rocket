@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Domain.Value_Objects
 {
     [Serializable]
-    public class TeamSeriesStats : IPresentableTeamSeriesStats
+    public class AggregatedTeamStats : IPresentableTeamSeriesStats
     {
         private Dictionary<Guid, TeamStats> seriesStats;
         private Guid teamId;
@@ -18,6 +18,7 @@ namespace Domain.Value_Objects
                 TeamStats teamStats;
                 if (this.seriesStats.TryGetValue(seriesId, out teamStats))
                 {
+                    teamStats.UpdateAllStats();
                     return teamStats;
                 }
                 else
@@ -38,6 +39,7 @@ namespace Domain.Value_Objects
                 {
                     if (this.seriesStats.TryGetValue(seriesId, out teamStats))
                     {
+                        teamStats.UpdateAllStats();
                         seriesStats.Add(teamStats);
                     }
                 }
@@ -45,7 +47,7 @@ namespace Domain.Value_Objects
             }
         }
 
-        public TeamSeriesStats(Guid teamId)
+        public AggregatedTeamStats(Guid teamId)
         {
             this.teamId = teamId;
             this.seriesStats = new Dictionary<Guid, TeamStats>();
