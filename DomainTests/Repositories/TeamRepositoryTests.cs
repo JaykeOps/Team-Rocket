@@ -75,6 +75,7 @@ namespace DomainTests.Repositories
             this.dummyTeamDuplicate.Name = new TeamName("Smurfs United");
             TeamRepository.instance.Add(this.dummyTeamDuplicate);
             teamInRepository = TeamRepository.instance.GetAll().First(x => x.Id == this.dummyTeam.Id);
+            Assert.AreEqual(teamInRepository.Name, this.dummyTeamDuplicate.Name);
             Assert.AreEqual(this.dummyTeamDuplicate, teamInRepository);
         }
 

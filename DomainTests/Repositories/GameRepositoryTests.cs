@@ -101,6 +101,7 @@ namespace Domain.Repositories.Tests
             Assert.AreNotEqual(this.dummyGame.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
             this.gameRepository.Add(this.dummyGameDuplicate);
             gameInRepositroy = this.gameRepository.GetAll().First(x => x.Id == this.dummyGame.Id);
+            Assert.AreEqual(gameInRepositroy.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
             Assert.AreEqual(gameInRepositroy, this.dummyGameDuplicate);
         }
     }
