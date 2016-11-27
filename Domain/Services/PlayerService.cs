@@ -136,8 +136,9 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.repository.GetAll().Where(x =>
-                x.Name.ToString().Contains(searchText, comparison) ||
-                x.DateOfBirth.Value.ToString().Contains(searchText, comparison));
+                x.Name.ToString().Contains(searchText, comparison) 
+                || x.DateOfBirth.ToString().Contains(searchText, comparison)
+                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
         }
 
         public void RenamePlayer(IPresentablePlayer presentablePlayer, Name newName)

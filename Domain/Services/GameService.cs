@@ -224,7 +224,8 @@ namespace Domain.Services
                                             DomainService.FindTeamById(x.AwayTeamId)
                                                 .ToString()
                                                 .Contains(searchText, comparison)
-                                            || x.Protocol.HomeTeamActivePlayers.Any(y =>
+                                            || x.Protocol.HomeTeamActivePlayers.Any(
+                                                y =>
                                                 DomainService.FindPlayerById(y)
                                                     .ToString()
                                                     .Contains(searchText, comparison)
