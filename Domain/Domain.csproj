@@ -49,7 +49,7 @@
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\EntityValidation.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
-    <Compile Include="Helper Classes\StringUtils.cs" />
+    <Compile Include="Helper Classes\StringUtilities.cs" />
     <Compile Include="Interfaces\IPresentablePlayer.cs" />
     <Compile Include="Interfaces\IPresentableTeam.cs" />
     <Compile Include="Interfaces\IPresentableTeamSeriesEvents.cs" />

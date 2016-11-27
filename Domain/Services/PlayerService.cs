@@ -6,7 +6,6 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Domain.Services
 {
@@ -39,15 +38,12 @@ namespace Domain.Services
             {
                 throw new NullReferenceException("List of player is null");
             }
-
         }
-            //TODO: Add validation when merged to master!
-            //TODO: Validate Name
-            //TODO: Validate DateOfBirth
-            //TODO: Validate Contactinformation - Email, Phone
-             
-            
-        
+
+        //TODO: Add validation when merged to master!
+        //TODO: Validate Name
+        //TODO: Validate DateOfBirth
+        //TODO: Validate Contactinformation - Email, Phone
 
         public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
         {
@@ -136,19 +132,18 @@ namespace Domain.Services
             return this.repository.GetAll().ToList().Find(p => p.Id.Equals(playerId));
         }
 
-        public IEnumerable<IPresentablePlayer> FreeTextSearchForPlayers(string searchText, StringComparison comp)
+        public IEnumerable<IPresentablePlayer> Search(string searchText, StringComparison comparison
+            = StringComparison.InvariantCultureIgnoreCase)
         {
-            var result = this.repository.GetAll().Where(x =>
-                x.Name.ToString().Contains(searchText, comp) ||
-                x.DateOfBirth.Value.ToString().Contains(searchText, comp));
-
-            return result;
+            return this.repository.GetAll().Where(x =>
+                x.Name.ToString().Contains(searchText, comparison) ||
+                x.DateOfBirth.Value.ToString().Contains(searchText, comparison));
         }
 
         public void RenamePlayer(IPresentablePlayer presentablePlayer, Name newName)
         {
-            //TODO: Implement validaiton when merged!   
-            var player = (Player) presentablePlayer;
+            //TODO: Implement validaiton when merged!
+            var player = (Player)presentablePlayer;
             player.Name = newName;
             this.Add(player);
         }
@@ -162,11 +157,10 @@ namespace Domain.Services
 
         public void SetShirtNumber(IPresentablePlayer presentablePlayer, ShirtNumber newShirtNumber)
         {
-            var player = (Player) presentablePlayer;
+            var player = (Player)presentablePlayer;
             try
             {
                 player.ShirtNumber = newShirtNumber;
-
             }
             catch (ShirtNumberAlreadyInUseException ex)
             {
@@ -177,12 +171,10 @@ namespace Domain.Services
                 throw ex;
             }
             this.Add(player);
-
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
         {
-
             try
             {
                 var player = this.FindById(playerId);
@@ -190,7 +182,6 @@ namespace Domain.Services
             }
             catch (ShirtNumberAlreadyInUseException ex)
             {
-
                 throw ex;
             }
             catch (IndexOutOfRangeException ex)

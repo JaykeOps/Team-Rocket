@@ -2,6 +2,7 @@
 using Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Domain.Helper_Classes;
 using Domain.Value_Objects;
@@ -56,6 +57,14 @@ namespace Domain.Services
         public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
         {
             return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
+        }
+
+        public IEnumerable<Team> Search(string searchText, StringComparison comparison 
+            = StringComparison.InvariantCultureIgnoreCase)
+        {
+            return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
+                                            || x.ArenaName.ToString().Contains(searchText, comparison)
+                                            || x.Email.ToString().Contains(searchText, comparison));
         }
     }
 }
