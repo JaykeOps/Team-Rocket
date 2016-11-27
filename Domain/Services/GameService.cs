@@ -209,7 +209,11 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Location.ToString().Contains(searchText, comparison)
-                                            || x.MatchDate.ToString().Contains(searchText, comparison)
+                                            || 
+                                            x.MatchDate.ToString().Contains(searchText, comparison) 
+                                            ||
+                                            DomainService.FindSeriesById(x.SeriesId).SeriesName
+                                                .Contains(searchText, comparison)
                                             ||
                                             x.Protocol.Goals.Count.ToString()
                                                 .Contains(searchText, comparison)
