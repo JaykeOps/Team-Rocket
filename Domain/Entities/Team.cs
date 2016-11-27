@@ -15,7 +15,7 @@ namespace Domain.Entities
         private TeamSeriesEvents seriesEvents;
         private TeamSeriesStats seriesStats;
 
-        public Guid Id { get; }
+        public Guid Id { get; set; } //TODO: Set is for test!
 
         public TeamName Name { get; set; }
 

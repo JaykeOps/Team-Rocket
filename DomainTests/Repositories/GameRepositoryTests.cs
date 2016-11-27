@@ -93,15 +93,15 @@ namespace Domain.Repositories.Tests
         [TestMethod]
         public void TryGetGameWillReplaceRepositoryGameWithNewGameIfIdsAreEqual()
         {
-            this.dummyGame.Protocol.Goals.Clear();
             var gameInRepositroy = DomainService.FindGameById(this.dummyGame.Id);
-            Assert.AreEqual(this.dummyGame.Id, gameInRepositroy.Id);
+            Assert.AreEqual(gameInRepositroy, this.dummyGame);
+            this.dummyGame.Protocol.Goals.Clear();
             Assert.AreEqual(this.dummyGame.Id, this.dummyGameDuplicate.Id);
             this.dummyGameDuplicate.Protocol.Goals.Add(new Goal(new MatchMinute(5), new Guid(), new Guid()));
             Assert.AreNotEqual(this.dummyGame.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
             this.gameRepository.Add(this.dummyGameDuplicate);
             gameInRepositroy = this.gameRepository.GetAll().First(x => x.Id == this.dummyGame.Id);
-            Assert.AreEqual(gameInRepositroy.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
+            Assert.AreEqual(gameInRepositroy, this.dummyGameDuplicate);
         }
     }
 }
