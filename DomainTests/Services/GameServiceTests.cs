@@ -331,6 +331,29 @@ namespace Domain.Services.Tests
                 Assert.AreEqual(game.MatchDate.ToString(), "2017-08-22 10:10");
             }
         }
+
+        [TestMethod]
+        public void GameSearchCanReturnGamesInSeries()
+        {
+            //TODO: Update when more series are available!
+            var games = this.gameService.Search("The Dummy Series");
+            foreach (var game in games)
+            {
+                Assert.AreEqual(DomainService.FindSeriesById(game.SeriesId).SeriesName, "The Dummy Series");
+            }
+        }
+
+        [TestMethod]
+        public void GameSearchCanReturnGamesContainingActivePlayer()
+        {
+
+        }
+
+        [TestMethod]
+        public void GameSearchCanReturnGamesContainingTeam()
+        {
+
+        }
         
     }
 }
