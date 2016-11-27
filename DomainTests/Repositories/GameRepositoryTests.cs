@@ -4,6 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Domain.Services;
+using DomainTests.Test_Dummies;
 
 namespace Domain.Repositories.Tests
 {
@@ -13,9 +16,23 @@ namespace Domain.Repositories.Tests
         private Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
         private MatchDateAndTime date = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(1));
         private GameRepository gameRepository = GameRepository.instance;
-
         private Team teamRed = new Team(new TeamName("RedTeam"), new ArenaName("RedArena"), new EmailAddress("red@gmail.se"));
         private Team teamGreen = new Team(new TeamName("GreenTeam"), new ArenaName("GreenArena"), new EmailAddress("green@gmail.se"));
+        private DummySeries dummySeries;
+        private Game dummyGame;
+        private Game dummyGameDuplicate;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+            this.dummyGame = this.dummySeries.DummyGames.GameOne;
+            this.dummyGameDuplicate = new Game(this.dummySeries.SeriesDummy.Schedule[0].ElementAt(0))
+            {
+                Id = this.dummyGame.Id,
+            };
+        }
+
 
         [TestMethod]
         public void RepoInstancesAreTheSameObject()
@@ -73,6 +90,18 @@ namespace Domain.Repositories.Tests
             Assert.IsTrue(games.Count() != 0);
         }
 
-        //TODO: Write test for GameRepository duplicate validation!
+        [TestMethod]
+        public void TryGetGameWillReplaceRepositoryGameWithNewGameIfIdsAreEqual()
+        {
+            this.dummyGame.Protocol.Goals.Clear();
+            var gameInRepositroy = DomainService.FindGameById(this.dummyGame.Id);
+            Assert.AreEqual(this.dummyGame.Id, gameInRepositroy.Id);
+            Assert.AreEqual(this.dummyGame.Id, this.dummyGameDuplicate.Id);
+            this.dummyGameDuplicate.Protocol.Goals.Add(new Goal(new MatchMinute(5), new Guid(), new Guid()));
+            Assert.AreNotEqual(this.dummyGame.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
+            this.gameRepository.Add(this.dummyGameDuplicate);
+            gameInRepositroy = this.gameRepository.GetAll().First(x => x.Id == this.dummyGame.Id);
+            Assert.AreEqual(gameInRepositroy.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
+        }
     }
 }
