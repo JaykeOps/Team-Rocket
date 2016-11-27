@@ -222,10 +222,10 @@ namespace Domain.Services
             ||
             DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
             || 
-            x.Protocol.HomeTeamActivePlayers.Any(y => DomainService.FindPlayerById(y).ToString()
+            x.Protocol.HomeTeamActivePlayers.Any(y => DomainService.FindPlayerById(y).Name.ToString()
                 .Contains(searchText, comparison)
             ||
-            x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).ToString()
+            x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).Name.ToString()
                 .Contains(searchText, comparison))));
             
         }

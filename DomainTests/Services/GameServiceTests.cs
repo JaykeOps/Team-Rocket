@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Domain.Services.Tests
 {
@@ -77,8 +76,8 @@ namespace Domain.Services.Tests
             gameService.AddList(matchIds);
             var numOfGamesAfterAdd = gameService.GetAll().Count();
             Assert.IsTrue(matchIds.Count == numOfGamesAfterAdd - numOfGamesPriorAdd);
-
         }
+
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
         {
@@ -180,6 +179,7 @@ namespace Domain.Services.Tests
         {
             this.gameService.Add(new Guid());
         }
+
         [TestMethod]
         public void RemoveGoalFromGame()
         {
@@ -199,6 +199,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(teamGoalsAfterRemove == teamGoalsPriorGame);
             Assert.IsTrue(playerGoalsAfterRemove == playerGoalsPriorGame);
         }
+
         [TestMethod]
         public void RemoveAssistFromGame()
         {
@@ -215,6 +216,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameAssistsPriorGame == gameAssistsAfterRemove);
             Assert.IsTrue(playerAssistsPriorGame == playerAssistsAfterRemove);
         }
+
         [TestMethod]
         public void RemoveYellowCardFromGame()
         {
@@ -231,6 +233,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameYellowCardsPriorGame == gameYellowCardsAfterRemove);
             Assert.IsTrue(playerYellowCardsPriorGame == playerYellowCardsAfterRemove);
         }
+
         [TestMethod]
         public void RemoveRedCardFromGame()
         {
@@ -247,6 +250,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameRedCardsPriorGame == gameRedCardsAfterRemove);
             Assert.IsTrue(playerRedCardsPriorGame == playerRedCardsAfterRemove);
         }
+
         [TestMethod]
         public void RemovePenaltyFromGame()
         {
@@ -273,12 +277,13 @@ namespace Domain.Services.Tests
             var player = team.Players.First();
             var gameGoalsPriorPenalty = game.Protocol.Goals.Count;
             var playerGoalsPriorPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
-            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78,true);
+            this.gameService.AddPenaltyToGame(game.Id, player.Id, 78, true);
             var gameGoalsAfterPenalty = game.Protocol.Goals.Count;
             var playerGoalsAfterAfterPenalty = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty - 1);
             Assert.IsTrue(playerGoalsPriorPenalty == playerGoalsAfterAfterPenalty - 1);
         }
+
         [TestMethod]
         public void PenaltyDosnetAddGoalIfPenaltyIsNotGoal()
         {
@@ -294,6 +299,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(gameGoalsPriorPenalty == gameGoalsAfterPenalty);
             Assert.IsTrue(playerGoalsPriorPenalty == playerGoalsAfterAfterPenalty);
         }
+
         [TestMethod]
         public void IfPenaltyThatIsGoalIsRemovedGoalIsAlsoRemoved()
         {
@@ -346,14 +352,29 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GameSearchCanReturnGamesContainingActivePlayer()
         {
-
+            //TODO: Cannot be tried until games are populated with game squads!
+            var games = this.gameService.Search("Player One").ToList();
+            foreach (var game in games)
+            {
+                Assert.IsTrue(
+                    game.Protocol.HomeTeamActivePlayers.Any
+                    (x => DomainService.FindPlayerById(x).Name.ToString() == "Player One")
+                    || 
+                    game.Protocol.AwayTeamActivePlayers.Any
+                    (x => DomainService.FindPlayerById(x).Name.ToString() == "Player One"));
+            }
+            Assert.Fail();
         }
 
         [TestMethod]
         public void GameSearchCanReturnGamesContainingTeam()
         {
-
+            var games = this.gameService.Search("Dummy TeamTh");
+            foreach (var game in games)
+            {
+                Assert.IsTrue(DomainService.FindTeamById(game.HomeTeamId).Name.ToString() == "Dummy TeamThree" 
+                    || DomainService.FindTeamById(game.AwayTeamId).Name.ToString() == "Dummy TeamThree");
+            }
         }
-        
     }
 }
