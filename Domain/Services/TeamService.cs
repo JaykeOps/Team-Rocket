@@ -64,7 +64,8 @@ namespace Domain.Services
         {
             return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
                                             || x.ArenaName.ToString().Contains(searchText, comparison)
-                                            || x.Email.ToString().Contains(searchText, comparison));
+                                            || x.Email.ToString().Contains(searchText, comparison)
+                                            || x.Players.Any(y => y.Name.ToString().Contains(searchText, comparison)));
         }
     }
 }
