@@ -208,5 +208,15 @@ namespace Domain.Services.Tests
             Assert.IsTrue(allPlayers.Contains(playerTwo));
             Assert.IsFalse(allPlayers.Contains(playerThree));
         }
+
+        [TestMethod]
+        public void RemovePlayerWorks()
+        {
+            var series = new DummySeries();
+            var playerToRemove = DomainService.FindTeamById(series.SeriesDummy.
+                TeamIds.ElementAt(0)).PlayerIds.ElementAt(0);
+            playerService.RemovePlayer(playerToRemove);
+            Assert.IsTrue(!(playerService.GetAllPlayers().Contains(DomainService.FindPlayerById(playerToRemove))));
+        }
     }
 }

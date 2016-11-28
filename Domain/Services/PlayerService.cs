@@ -157,5 +157,10 @@ namespace Domain.Services
                 throw new NullReferenceException($"Search failed! Datasource does not contain any data related to the player id '{playerId}'");
             }
         }
+
+        public void RemovePlayer(Guid playerId)
+        {
+            repository.RemovePlayer(playerId);
+        }
     }
 }
