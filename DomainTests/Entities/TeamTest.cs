@@ -26,7 +26,7 @@ namespace DomainTests.Entities
             Assert.IsTrue(this.team.Name == new TeamName("Ifk Göteborg"));
             Assert.IsTrue(this.team.ArenaName == new ArenaName("Ullevi"));
             Assert.IsTrue(this.team.Email == new EmailAddress("Ifk@gmail.com"));
-            Assert.IsTrue(this.team.Players != null);
+            Assert.IsTrue(this.team.PlayerIds != null);
         }
 
         [TestMethod]
@@ -59,8 +59,11 @@ namespace DomainTests.Entities
         [TestMethod]
         public void TeamsHashSetOFPlayersCanAdd()
         {
+            var count = this.team.PlayerIds.Count();
+
             this.team.AddPlayerId(Guid.NewGuid());
-            Assert.IsTrue(this.team.Players.Count() == 1);
+
+            Assert.IsTrue(count + 1 == this.team.PlayerIds.Count());
         }
     }
 }

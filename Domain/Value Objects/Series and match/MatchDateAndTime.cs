@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Helper_Classes;
+using System;
 using System.Globalization;
 
 namespace Domain.Value_Objects
@@ -11,7 +12,7 @@ namespace Domain.Value_Objects
 
         public MatchDateAndTime(DateTime dateTime)
         {
-            if (IsValidMatchDateAndTime(dateTime))
+            if (dateTime.IsValidMatchDateAndTime())
             {
                 this.Value = dateTime;
             }
@@ -29,7 +30,7 @@ namespace Domain.Value_Objects
                 DateTimeStyles.None,
                 out dateTime))
             {
-                if (IsValidMatchDateAndTime(dateTime))
+                if (dateTime.IsValidMatchDateAndTime())
                 {
                     result = new MatchDateAndTime(dateTime);
                     return true;
@@ -37,11 +38,6 @@ namespace Domain.Value_Objects
                 return false;
             }
             return false;
-        }
-
-        private static bool IsValidMatchDateAndTime(DateTime date)
-        {
-            return date > DateTime.Now && date < DateTime.Now + TimeSpan.FromDays(365 * 2);
         }
 
         public override string ToString()

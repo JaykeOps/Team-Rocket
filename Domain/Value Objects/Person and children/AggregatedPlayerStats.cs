@@ -1,22 +1,22 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
     [Serializable]
-    public class PlayerSeriesStats : IPresentablePlayerSeriesStats
+    public class AggregatedPlayerStats
     {
-        private Dictionary<Guid, PlayerStats> seriesStats;
+        private readonly Dictionary<Guid, PlayerStats> allSeriesStats;
 
         public PlayerStats this[Guid seriesId]
         {
             get
             {
                 PlayerStats playerStats;
-                if (this.seriesStats.TryGetValue(seriesId, out playerStats))
+                if (this.allSeriesStats.TryGetValue(seriesId, out playerStats))
                 {
+                    playerStats.UpdateAllStats();
                     return playerStats;
                 }
                 else
@@ -35,8 +35,9 @@ namespace Domain.Value_Objects
                 foreach (var seriesId in seriesIds)
                 {
                     PlayerStats playerStats;
-                    if (this.seriesStats.TryGetValue(seriesId, out playerStats))
+                    if (this.allSeriesStats.TryGetValue(seriesId, out playerStats))
                     {
+                        playerStats.UpdateAllStats();
                         seriesStats.Add(playerStats);
                     }
                 }
@@ -44,19 +45,19 @@ namespace Domain.Value_Objects
             }
         }
 
-        public PlayerSeriesStats()
+        public AggregatedPlayerStats()
         {
-            this.seriesStats = new Dictionary<Guid, PlayerStats>();
+            this.allSeriesStats = new Dictionary<Guid, PlayerStats>();
         }
 
-        public void AddSeries(Series series, Guid teamId, Guid playerId)
+        public void AddSeries(Series series, Guid teamId, Player player)
         {
-            this.seriesStats.Add(series.Id, new PlayerStats(series.Id, teamId, playerId));
+            this.allSeriesStats.Add(series.Id, new PlayerStats(series.Id, teamId, player));
         }
 
         public void RemoveSeries(Series series)
         {
-            this.seriesStats.Remove(series.Id);
+            this.allSeriesStats.Remove(series.Id);
         }
     }
 }

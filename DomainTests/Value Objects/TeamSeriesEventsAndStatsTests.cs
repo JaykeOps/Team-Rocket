@@ -22,27 +22,27 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesEventGamesIsNotNull()
         {
-            Assert.IsNotNull(this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games);
+            Assert.IsNotNull(this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games);
         }
 
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamWinCountBasedOnEvents()
         {
-            var games = this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesWon = 0;
             foreach (var game in games)
             {
                 if (game.Protocol.HomeTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score > game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore > game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesWon++;
                     }
                 }
                 else if (game.Protocol.AwayTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score < game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore < game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesWon++;
                     }
@@ -56,21 +56,21 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamDrawCountBasedOnEvents()
         {
-            var games = this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesDraw = 0;
             foreach (var game in games)
             {
                 if (game.Protocol.HomeTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score == game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore == game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesDraw++;
                     }
                 }
                 else if (game.Protocol.AwayTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score == game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore == game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesDraw++;
                     }
@@ -84,21 +84,21 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamLossCountBasedOnEvents()
         {
-            var games = this.teamTwo.SeriesEvents[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesLost = 0;
             foreach (var game in games)
             {
                 if (game.Protocol.HomeTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score < game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore < game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesLost++;
                     }
                 }
                 else if (game.Protocol.AwayTeamId == this.teamTwo.Id)
                 {
-                    if (game.Protocol.GameResult.HomeTeam_Score > game.Protocol.GameResult.AwayTeam_Score)
+                    if (game.Protocol.GameResult.HomeTeamScore > game.Protocol.GameResult.AwayTeamScore)
                     {
                         gamesLost++;
                     }
@@ -132,7 +132,7 @@ namespace Domain.Value_Objects.Tests
                 == preAddGoalsForCount);
 
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
-                this.teamTwo.Players.ElementAt(0).Id));
+                this.teamTwo.PlayerIds.ElementAt(0)));
             var postAddGoalsForCount = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id].GoalsFor;
             Assert.IsTrue(postAddGoalsForCount - preAddGoalsForCount == 1);
         }
@@ -149,7 +149,7 @@ namespace Domain.Value_Objects.Tests
             var preAddGoalsAgainstCount = goalsAgainst.Count();
             Assert.IsTrue(teamStats.GoalsAgainst == preAddGoalsAgainstCount);
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
-                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
+                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));
             var postAddGoalAgainstCount = teamStats.GoalsAgainst;
             Assert.IsTrue(postAddGoalAgainstCount - preAddGoalsAgainstCount == 1);
         }
@@ -160,7 +160,7 @@ namespace Domain.Value_Objects.Tests
             var teamStats = this.teamTwo.PresentableSeriesStats[this.dummySeries.SeriesDummy.Id];
             var preAddGoalDiffernce = teamStats.GoalDifference;
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
-                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.Players.ElementAt(0).Id));
+                this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));
             var postAddGoalDifference = teamStats.GoalDifference;
             Assert.IsTrue(postAddGoalDifference - preAddGoalDiffernce == -1);
         }

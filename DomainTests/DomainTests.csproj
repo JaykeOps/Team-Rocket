@@ -55,6 +55,7 @@
     <Compile Include="Entities\PlayerTests.cs" />
     <Compile Include="Entities\SeriesTest.cs" />
     <Compile Include="Entities\TeamTest.cs" />
+    <Compile Include="Helper Classes\EntityValidationTest.cs" />
     <Compile Include="Helper Classes\ScheduleTest.cs" />
     <Compile Include="Repositories\GameRepositoryTests.cs" />
     <Compile Include="Repositories\MatchRepositoryTests.cs" />
@@ -85,7 +86,8 @@
     <Compile Include="Value Objects\PenaltyTests.cs" />
     <Compile Include="Value Objects\PersonContactInformationTests.cs" />
     <Compile Include="Value Objects\PhoneNumberTests.cs" />
-    <Compile Include="Value Objects\PlayerSeriesEventsAndStatsTests.cs" />
+    <Compile Include="Value Objects\PlayerAggregatedEvents.cs" />
+    <Compile Include="Value Objects\SeriesNameTest.cs" />
     <Compile Include="Value Objects\ShirtNumberTests.cs" />
     <Compile Include="Value Objects\TeamNameTest.cs" />
     <Compile Include="Value Objects\TeamSeriesEventsAndStatsTests.cs" />

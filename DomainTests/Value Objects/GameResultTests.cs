@@ -22,9 +22,9 @@ namespace Domain.Value_Objects.Tests
             var gameResult = new GameResult(this.teamOne.Id, this.teamTwo.Id, 3, 0);
 
             Assert.AreEqual(gameResult.HomeTeamId, this.teamOne.Id);
-            Assert.AreEqual(gameResult.HomeTeam_Score, 3);
+            Assert.AreEqual(gameResult.HomeTeamScore, 3);
             Assert.AreEqual(gameResult.AwayTeamId, this.teamTwo.Id);
-            Assert.AreEqual(gameResult.AwayTeam_Score, 0);
+            Assert.AreEqual(gameResult.AwayTeamScore, 0);
         }
 
         [TestMethod]
@@ -81,14 +81,15 @@ namespace Domain.Value_Objects.Tests
             var games = DomainService.GetAllGames();
             foreach (var game in games)
             {
+                game.Protocol.UpdateGameResult();
                 var result = game.Protocol.GameResult;
                 var awayScore = 0;
                 var homeScore = 0;
                 awayScore += game.Protocol.Goals.Count(goal => goal.TeamId == result.AwayTeamId);
                 homeScore += game.Protocol.Goals.Count(goal => goal.TeamId == result.HomeTeamId);
 
-                Assert.IsTrue(awayScore == result.AwayTeam_Score);
-                Assert.IsTrue(homeScore == result.HomeTeam_Score);
+                Assert.IsTrue(awayScore == result.AwayTeamScore);
+                Assert.IsTrue(homeScore == result.HomeTeamScore);
             }
         }
     }

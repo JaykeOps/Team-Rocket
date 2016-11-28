@@ -1,10 +1,10 @@
 ﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -14,18 +14,26 @@ namespace Domain.Repositories
         public static readonly PlayerRepository instance = new PlayerRepository();
         private IFormatter formatter;
         private string filePath;
-     
+
         private PlayerRepository()
         {
             this.players = new HashSet<Player>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//players.bin";
-            this.LoadData();           
         }
 
-        public void Add(Player player)
+        public void Add(Player newPlayer)
         {
-            this.players.Add(player);
+            Player playerInRepo;
+            if (this.TryGetPlayer(newPlayer, out playerInRepo))
+            {
+                this.players.Remove(playerInRepo);
+                this.players.Add(newPlayer);
+            }
+            else
+            {
+                this.players.Add(newPlayer);
+            }
         }
 
         public IEnumerable<Player> GetAll()
@@ -92,7 +100,18 @@ namespace Domain.Repositories
             catch (IOException ex)
             {
                 throw ex;
-            }            
+            }
+        }
+
+        private bool TryGetPlayer(Player player, out Player repositoryPlayer)
+        {
+            repositoryPlayer = this.FindById(player.Id);
+            return repositoryPlayer != null;
+        }
+
+        private Player FindById(Guid playerId)
+        {
+            return this.players.FirstOrDefault(x => x.Id == playerId);
         }
     }
 }

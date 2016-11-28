@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -9,7 +10,7 @@ namespace Domain.Value_Objects
 
         public NumberOfTeams(int numberOfTeams)
         {
-            if (IsNumberOfTeamsValid(numberOfTeams))
+            if (numberOfTeams.IsValidNumberOfTeams())
             {
                 this.Value = numberOfTeams;
             }
@@ -19,23 +20,18 @@ namespace Domain.Value_Objects
             }
         }
 
-        private static bool IsNumberOfTeamsValid(int numberOfTeams)
-        {
-            return numberOfTeams % 2 == 0 && numberOfTeams > 2;
-        }
-
         public static bool TryParse(string numberOfTeams, out NumberOfTeams result)
         {
             result = null;
             int numbersOfTeams;
             if (int.TryParse(numberOfTeams, out numbersOfTeams))
             {
-                if (IsNumberOfTeamsValid(numbersOfTeams))
+                try
                 {
                     result = new NumberOfTeams(numbersOfTeams);
                     return true;
                 }
-                else
+                catch (ArgumentException)
                 {
                     return false;
                 }

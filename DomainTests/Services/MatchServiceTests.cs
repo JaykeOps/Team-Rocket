@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace DomainTests.Services
     public class MatchServiceTests
     {
         private MatchService service = new MatchService();
-        private Match match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
-        private Match match2 = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan"), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
+        private Match match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), new SeriesName("Allsvenskan")), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
+        private Match match2 = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), new SeriesName("Allsvenskan")), new MatchDateAndTime(new DateTime(2016, 12, 20, 19, 30, 00)));
 
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
@@ -30,7 +31,7 @@ namespace DomainTests.Services
         [TestMethod]
         public void AddMatchIsWorking()
         {
-            this.service.AddMatch(this.match);
+            this.service.Add(this.match);
             var matchs = this.service.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
             Assert.IsFalse(matchs.Contains(this.match2));
@@ -41,7 +42,7 @@ namespace DomainTests.Services
         {
             var service1 = new MatchService();
             var service2 = new MatchService();
-            service1.AddMatch(this.match);
+            service1.Add(this.match);
             var matchs = service2.GetAll();
             Assert.IsTrue(matchs.Contains(this.match));
         }
@@ -50,8 +51,53 @@ namespace DomainTests.Services
         public void FindMatchByIdIsWorking()
         {
             Assert.IsFalse(this.service.FindById(this.match.Id) == this.match);
-            this.service.AddMatch(this.match);
+            this.service.Add(this.match);
             Assert.IsTrue(this.service.FindById(this.match.Id) == this.match);
+        }
+
+        [TestMethod]
+        public void EditMatchTimeIsWorking()
+        {
+            var matchToEdit = this.service.GetAll().ElementAt(0);
+            var unEditedMatch = new Match(matchToEdit.Location, matchToEdit.HomeTeamId,
+                matchToEdit.AwayTeamId, DomainService.FindSeriesById(matchToEdit.SeriesId),
+                matchToEdit.MatchDate);
+
+            this.service.EditMatchTime(new DateTime(2016, 12, 20, 10, 30, 00), matchToEdit.Id);
+            Assert.IsTrue(matchToEdit.MatchDate != unEditedMatch.MatchDate);
+        }
+
+        [TestMethod]
+        public void EditMatchLocationIsWorking()
+        {
+            var matchToEdit = this.service.GetAll().ElementAt(0);
+
+            var unEditedMatch = new Match(matchToEdit.Location, matchToEdit.HomeTeamId,
+                matchToEdit.AwayTeamId, DomainService.FindSeriesById(matchToEdit.SeriesId),
+                matchToEdit.MatchDate);
+
+            this.service.EditMatchLocation("Svennes arena", matchToEdit.Id);
+            Assert.IsTrue(matchToEdit.Location != unEditedMatch.Location);
+        }
+
+        [TestMethod]
+        public void AddListOfMatchesTest()
+        {
+            var series = new DummySeries();
+            var matchOne = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+            var matchTwo = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+            var matchThree = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
+
+            var matches = new List<Match>
+            {
+                matchOne,
+                matchTwo
+            };
+            service.Add(matches);
+            var allMatches = DomainService.GetAllMatches();
+            Assert.IsTrue(allMatches.Contains(matchOne));
+            Assert.IsTrue(allMatches.Contains(matchTwo));
+            Assert.IsFalse(allMatches.Contains(matchThree));
         }
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");

@@ -7,14 +7,14 @@ using System.Collections.Generic;
 namespace Domain.Entities
 {
     [Serializable]
-    public class Team : IPresentableTeam
+    public class Team : IExposableTeam
     {
-        private HashSet<Guid> playerIds;
+        internal HashSet<Guid> playerIds;
         private TeamMatchSchedule matchSchedules;
-        private TeamSeriesEvents seriesEvents;
-        private TeamSeriesStats seriesStats;
+        private AggregatedTeamEvents events;
+        private AggregatedTeamStats stats;
 
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } //TODO: Set is for test!
 
         public TeamName Name { get; set; }
 
@@ -22,24 +22,16 @@ namespace Domain.Entities
         public EmailAddress Email { get; set; }
         public ShirtNumbers ShirtNumbers { get; }
 
-        public IEnumerable<Player> Players
+        public IEnumerable<Guid> PlayerIds
         {
-            get
-            {
-                var players = new List<Player>();
-                foreach (var playerId in this.playerIds)
-                {
-                    players.Add(DomainService.FindPlayerById(playerId));
-                }
-                return players;
-            }
+            get { return this.playerIds; }
         }
 
         public IPresentableTeamSeriesEvents PresentableSeriesEvents
         {
             get
             {
-                return this.seriesEvents;
+                return this.events;
             }
         }
 
@@ -47,7 +39,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.seriesStats;
+                return this.stats;
             }
         }
 
@@ -59,27 +51,27 @@ namespace Domain.Entities
             }
         }
 
-        public TeamSeriesEvents SeriesEvents
+        public AggregatedTeamEvents Events
         {
             get
             {
-                return this.seriesEvents;
+                return this.events;
             }
         }
 
-        public TeamSeriesStats SeriesStats
+        public AggregatedTeamStats Stats
         {
             get
             {
-                return this.seriesStats;
+                return this.stats;
             }
         }
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
             this.Id = Guid.NewGuid();
-            this.seriesEvents = new TeamSeriesEvents(this.Id);
-            this.seriesStats = new TeamSeriesStats(this.Id);
+            this.events = new AggregatedTeamEvents(this.Id);
+            this.stats = new AggregatedTeamStats(this.Id);
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
@@ -90,31 +82,36 @@ namespace Domain.Entities
 
         public void AddPlayerId(Guid playerId)
         {
+            this.RemovePlayerIdFromOldTeam(playerId);
             this.playerIds.Add(playerId);
             DomainService.AddTeamToPlayer(this, playerId);
         }
 
-        public void AddPlayerId(Player player)
+        private void RemovePlayerIdFromOldTeam(Guid playerId)
         {
-            this.playerIds.Add(player.Id);
-        }
-
-        public void RemovePlayerId(Player player)
-        {
-            this.playerIds.Remove(player.Id);
+            var player = DomainService.FindPlayerById(playerId); ;
         }
 
         public void RemovePlayerId(Guid playerId)
         {
             this.playerIds.Remove(playerId);
+            this.RemoveTeamIdFromPlayerToBeRemoved(playerId);
+        }
+
+        private void RemoveTeamIdFromPlayerToBeRemoved(Guid playerId)
+        {
+            var player = DomainService.FindPlayerById(playerId);
+            player.TeamId = Guid.Empty;
         }
 
         public void AddSeries(Series series)
         {
             //this.matchSchedules.AddSeries(series);
-            this.seriesEvents.AddSeries(series);
-            this.seriesStats.AddSeries(series);
+            this.events.AddSeries(series);
+            this.stats.AddSeries(series);
         }
+
+        
 
         public override string ToString()
         {

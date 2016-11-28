@@ -1,8 +1,12 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -18,12 +22,21 @@ namespace Domain.Repositories
             this.teams = new HashSet<Team>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//teams.bin";
-            this.LoadData();
         }
 
-        public void Add(Team team)
+        public void Add(Team newTeam)
         {
-            this.teams.Add(team);
+            
+            Team teamInRepository;
+            if (this.TryGetTeam(newTeam, out teamInRepository))
+            {
+                this.teams.Remove(teamInRepository);
+                this.teams.Add(newTeam);
+            }
+            else
+            {
+                this.teams.Add(newTeam);
+            }
         }
 
         public IEnumerable<Team> GetAll()
@@ -91,6 +104,17 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
+        }
+
+        private bool TryGetTeam(Team team, out Team teamInRepository)
+        {
+            teamInRepository = this.FindById(team.Id);
+            return teamInRepository != null;
+        }
+
+        private Team FindById(Guid teamId)
+        {
+            return this.teams.FirstOrDefault(x => x.Id == teamId);
         }
     }
 }

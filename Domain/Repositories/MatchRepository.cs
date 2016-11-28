@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,7 +20,6 @@ namespace Domain.Repositories
             this.matches = new HashSet<Match>(); ;
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//matchs.bin";
-            this.Load();
         }
 
         public void SaveData()
@@ -90,15 +91,27 @@ namespace Domain.Repositories
 
         public void AddMatch(Match newMatch)
         {
-            this.matches.Add(newMatch);
+            Match matchInRepository;
+            if (this.TryGetMatch(newMatch, out matchInRepository))
+            {
+                this.matches.Remove(matchInRepository);
+                this.matches.Add(newMatch);
+            }
+            else
+            {
+                this.matches.Add(newMatch);
+            }
         }
 
-        public void AddMatches(IEnumerable<Match> matches)
+        private bool TryGetMatch(Match match, out Match matchInRepository)
         {
-            foreach (var match in matches)
-            {
-                this.matches.Add(match);
-            }
+            matchInRepository = this.FindById(match.Id);
+            return matchInRepository != null;
+        }
+
+        private Match FindById(Guid matchId)
+        {
+            return this.matches.FirstOrDefault(x => x.Id == matchId);
         }
     }
 }

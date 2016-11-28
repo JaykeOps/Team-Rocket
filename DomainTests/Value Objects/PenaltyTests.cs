@@ -1,8 +1,8 @@
 ﻿using Domain.Entities;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using DomainTests.Test_Dummies;
 
 namespace Domain.Value_Objects.Tests
 {

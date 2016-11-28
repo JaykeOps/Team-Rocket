@@ -93,7 +93,7 @@ namespace FootballManager.App.ViewModel
 
         public void LoadData()
         {
-            Players = playerService.GetAll().ToObservableCollection();
+            Players = playerService.GetAllPlayers().ToObservableCollection();
         }
         #endregion
 

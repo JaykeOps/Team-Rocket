@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using Domain.Helper_Classes;
+using Domain.Interfaces;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
@@ -58,8 +58,9 @@ namespace Domain.Services
         public static void AddSeriesToPlayers(Series series,
             Team team)
         {
-            foreach (var player in team.Players)
+            foreach (var playerId in team.PlayerIds)
             {
+                var player = DomainService.FindPlayerById(playerId);
                 player.AddSeries(series);
             }
         }
@@ -73,7 +74,7 @@ namespace Domain.Services
         public static void AddMatches(IEnumerable<Match> matches)
         {
             var matchService = new MatchService();
-            matchService.AddMatches(matches);
+            matchService.Add(matches);
         }
 
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
@@ -138,19 +139,14 @@ namespace Domain.Services
         {
             var allGames = GetAllGames();
             var gamesMatchingSeries = allGames.Where(game => game.SeriesId == seriesId).ToList();
-            return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamStartingPlayers.Contains(playerId) ||
-                                                                 game.Protocol.AwayTeamSub.Contains(playerId) ||
-                                                     game.Protocol.HomeTeamStartingPlayers.Contains(playerId) ||
-                                                                 game.Protocol.HomeTeamSub.Contains(playerId));
+            return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamActivePlayers.Contains(playerId) ||
+                                                     game.Protocol.HomeTeamActivePlayers.Contains(playerId));
         }
 
         public static void ScheduleGenerator(Guid seriesId)
         {
-            var schedule = new Schedule();
-            var series = FindSeriesById(seriesId);
-            schedule.GenerateSchedule(series);
-            AddMatches(series.Schedule[0]);
-            AddMatches(series.Schedule[1]);
+            var seriesService = new SeriesService();
+            seriesService.ScheduleGenerator(seriesId);
         }
 
         public static IEnumerable<Team> GetAllTeams()
@@ -171,10 +167,10 @@ namespace Domain.Services
             return seriesService.GetAll();
         }
 
-        public static IEnumerable<Player> GetAllPlayers()
+        public static IEnumerable<IExposablePlayer> GetAllPlayers()
         {
             var playerService = new PlayerService();
-            return playerService.GetAll();
+            return playerService.GetAllExposablePlayers();
         }
 
         public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)

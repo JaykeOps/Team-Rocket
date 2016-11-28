@@ -8,7 +8,7 @@ namespace Domain.Entities
     [Serializable]
     public class Match : IGameDuration
     {
-        public Guid Id { get; }
+        public Guid Id { get; set; } //TODO: Set is for tests only!
         public ArenaName Location { get; set; }
         public MatchDuration MatchDuration { get; }
         public MatchDateAndTime MatchDate { get; set; }
@@ -35,6 +35,7 @@ namespace Domain.Entities
             this.HomeTeamId = homeTeam;
             this.AwayTeamId = awayTeam;
             this.SeriesId = series.Id;
+            this.MatchDate = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(365));
         }
 
         public override string ToString()

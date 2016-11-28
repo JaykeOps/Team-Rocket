@@ -1,5 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -10,7 +10,7 @@ namespace Domain.Value_Objects
 
         public DateOfBirth(string dateOfbirth)
         {
-            if (this.IsValid(dateOfbirth))
+            if (dateOfbirth.IsValidBirthOfDate())
             {
                 this.Value = Convert.ToDateTime(dateOfbirth);
             }
@@ -19,20 +19,6 @@ namespace Domain.Value_Objects
                 this.Value = DateTime.MinValue;
                 throw new FormatException($"Date of birth declaration '{dateOfbirth}'" +
                     "failed to follow format restriciton 'yyyy-MM-dd'!");
-            }
-        }
-
-        public bool IsValid(string value)
-        {
-            DateTime result;
-            if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out result))
-            {
-                return !this.IsFuture(result) && !this.IsMoreThanAHundredYearsOld(result);
-            }
-            else
-            {
-                return false;
             }
         }
 
@@ -48,16 +34,6 @@ namespace Domain.Value_Objects
                 result = null;
                 return false;
             }
-        }
-
-        private bool IsFuture(DateTime dateTime)
-        {
-            return dateTime.Year > DateTime.Now.Year - 3 ? true : false;
-        }
-
-        private bool IsMoreThanAHundredYearsOld(DateTime dateTime)
-        {
-            return dateTime.Year < 1936 ? true : false;
         }
 
         public override string ToString()

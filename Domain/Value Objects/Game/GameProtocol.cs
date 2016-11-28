@@ -7,22 +7,18 @@ namespace Domain.Value_Objects
     [Serializable]
     public class GameProtocol : ValueObject<GameProtocol>
     {
+        private GameResult gameResult;
+
         public Guid HomeTeamId { get; }
         public Guid AwayTeamId { get; }
-        private OverTime OverTime { get; set; }
-        public HashSet<Guid> HomeTeamStartingPlayers { get; }
-        public HashSet<Guid> HomeTeamSub { get; }
-        public HashSet<Guid> AwayTeamStartingPlayers { get; }
-        public HashSet<Guid> AwayTeamSub { get; }
+        public OverTime OverTime { get; set; }
+        public HashSet<Guid> HomeTeamActivePlayers { get; }
+        public HashSet<Guid> AwayTeamActivePlayers { get; }
         public List<Goal> Goals { get; }
         public List<Assist> Assists { get; }
         public List<Penalty> Penalties { get; }
         public List<Card> Cards { get; }
-
-        public GameResult GameResult
-        {
-            get { return DomainService.GetGameResult(this); }
-        }
+        public GameResult GameResult => gameResult;
 
         public GameProtocol(Guid homeTeamId, Guid awayTeamId)
         {
@@ -32,10 +28,13 @@ namespace Domain.Value_Objects
             this.Assists = new List<Assist>();
             this.Penalties = new List<Penalty>();
             this.Cards = new List<Card>();
-            this.AwayTeamStartingPlayers = new HashSet<Guid>();
-            this.HomeTeamStartingPlayers = new HashSet<Guid>();
-            this.AwayTeamSub = new HashSet<Guid>();
-            this.HomeTeamSub = new HashSet<Guid>();
+            this.AwayTeamActivePlayers = new HashSet<Guid>();
+            this.HomeTeamActivePlayers = new HashSet<Guid>();
+        }
+
+        public void UpdateGameResult()
+        {
+            this.gameResult = DomainService.GetGameResult(this);
         }
     }
 }
