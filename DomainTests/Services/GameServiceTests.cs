@@ -347,7 +347,7 @@ namespace Domain.Services.Tests
             Assert.AreNotEqual(games.Count, 0);
             foreach (var game in games)
             {
-                Assert.AreEqual(DomainService.FindSeriesById(game.SeriesId).SeriesName, "The Dummy Series");
+                Assert.AreEqual(DomainService.FindSeriesById(game.SeriesId).SeriesName.ToString(), "The Dummy Series");
             }
         }
 

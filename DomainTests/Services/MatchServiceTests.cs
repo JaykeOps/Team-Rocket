@@ -115,7 +115,7 @@ namespace DomainTests.Services
             Assert.AreNotEqual(matches.Count, 0);
             foreach (var match in matches)
             {
-                Assert.AreEqual(DomainService.FindSeriesById(match.SeriesId).SeriesName,
+                Assert.AreEqual(DomainService.FindSeriesById(match.SeriesId).SeriesName.ToString(),
                     "The Dummy Series");
             }
         }
