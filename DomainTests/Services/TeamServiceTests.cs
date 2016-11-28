@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
@@ -14,6 +15,13 @@ namespace DomainTests.Services
         private TeamService service = new TeamService();
         private Team team = new Team(new TeamName("ifk göteborg"), new ArenaName("ullevi"), new EmailAddress("ifkgoteborg@gmail.com"));
         private Team team2 = new Team(new TeamName("GAIS"), new ArenaName("ullevi"), new EmailAddress("GAIS@gmail.com"));
+        private DummySeries dummySeries;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+        }
 
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
@@ -94,6 +102,32 @@ namespace DomainTests.Services
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamTwo)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamThree)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamFour));
+        }
+
+        [TestMethod]
+        public void AddPlayerIdToTeamReflectsOnPlayerTeamId()
+        {
+            var playerOne = DomainService.FindPlayerById(
+                this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
+            var teamOne = this.dummySeries.DummyTeams.DummyTeamOne;
+            var teamTwo = this.dummySeries.DummyTeams.DummyTeamTwo;
+            Assert.AreNotEqual(playerOne.TeamId, Guid.Empty);
+            Assert.AreEqual(playerOne.TeamId, teamOne.Id);
+            Assert.AreNotEqual(teamTwo.Id, Guid.Empty);
+            this.service.AddPlayerIdToTeam(playerOne, teamTwo);
+            Assert.AreEqual(teamTwo.Id, playerOne.TeamId);
+        }
+
+        [TestMethod]
+        public void AddPlayerIdToTeamReflectsOnPlayersOldTeamPlayerIds()
+        {
+            var playerOne = DomainService.FindPlayerById(
+                this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
+            var teamOne = this.dummySeries.DummyTeams.DummyTeamOne;
+            var teamTwo = this.dummySeries.DummyTeams.DummyTeamTwo;
+            Assert.AreNotEqual(playerOne.TeamId, Guid.Empty);
+            Assert.AreEqual(playerOne.TeamId, teamOne.Id);
+            Assert.AreNotEqual(teamTwo.Id, Guid.Empty);
         }
     }
 }
