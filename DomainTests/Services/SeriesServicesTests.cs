@@ -78,18 +78,64 @@ namespace DomainTests.Services
         }
 
         [TestMethod]
-        public void DeleteSeriesIsWorking()
+        public void AddTeamToSeriesIsWorking()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(0,90,0)),new NumberOfTeams(4),"test");
-            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(0).Id);
-            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(1).Id);
-            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(2).Id);
-            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(3).Id);
-            seriesService.Add(series);
-            seriesService.ScheduleGenerator(series.Id);
-            Assert.IsTrue(seriesService.GetAll().Contains(series));
-            seriesService.DeleteSeries(series.Id);
-            Assert.IsFalse(seriesService.GetAll().Contains(series));
+            var series = seriesService.GetAll().ElementAt(0);
+
+            var teamOne = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(0);
+            var teamTwo = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(1);
+            var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
+            var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
+
+            for (int i = series.TeamIds.Count-1; i >= 0; i--)
+            {
+                series.TeamIds.Remove(series.TeamIds.ElementAt(i));
+            }
+
+            seriesService.AddTeamToSeries(series.Id, teamOne);
+            seriesService.AddTeamToSeries(series.Id, teamTwo);
+            seriesService.AddTeamToSeries(series.Id, teamThree);
+            seriesService.AddTeamToSeries(series.Id, teamFour);
+
+            Assert.IsTrue(series.TeamIds.Contains(teamOne)
+                && series.TeamIds.Contains(teamTwo)
+                && series.TeamIds.Contains(teamThree)
+                && series.TeamIds.Contains(teamFour));
+
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AddTeamToSeriesCanNotAddSameTeamMultipleTimes()
+        {
+            var series = seriesService.GetAll().ElementAt(0);
+
+            var teamOne = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(0);
+            var teamTwo = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(1);
+            var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
+            var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
+
+            for (int i = series.TeamIds.Count - 1; i >= 0; i--)
+            {
+                series.TeamIds.Remove(series.TeamIds.ElementAt(i));
+            }
+
+            seriesService.AddTeamToSeries(series.Id, teamOne);
+            seriesService.AddTeamToSeries(series.Id, teamTwo);
+            seriesService.AddTeamToSeries(series.Id, teamThree);
+            seriesService.AddTeamToSeries(series.Id, teamFour);
+            seriesService.AddTeamToSeries(series.Id, teamOne);
+            seriesService.AddTeamToSeries(series.Id, teamTwo);
+            seriesService.AddTeamToSeries(series.Id, teamThree);
+            seriesService.AddTeamToSeries(series.Id, teamFour);
+
+            Assert.IsTrue(series.TeamIds.Contains(teamOne)
+                && series.TeamIds.Contains(teamTwo)
+                && series.TeamIds.Contains(teamThree)
+                && series.TeamIds.Contains(teamFour));
+
+
         }
     }
 }

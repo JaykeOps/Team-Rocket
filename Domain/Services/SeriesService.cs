@@ -64,5 +64,22 @@ namespace Domain.Services
         {
             repository.DeleteSeries(seriesId);
         }
+
+        public void AddTeamToSeries(Guid seriesId, Guid teamId)
+        {
+            var series = FindById(seriesId);
+            if (!(series.TeamIds.Contains(teamId)))
+            {
+                series.TeamIds.Add(teamId);
+                var team = DomainService.FindTeamById(teamId);
+                team.AddSeries(series);
+                DomainService.AddSeriesToPlayers(series, team);
+            }
+            else
+            {
+                throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
+            }
+            
+        }
     }
 }
