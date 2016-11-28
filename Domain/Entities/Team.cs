@@ -111,6 +111,8 @@ namespace Domain.Entities
             this.stats.AddSeries(series);
         }
 
+        
+
         public override string ToString()
         {
             return $"{this.Name.Value}";

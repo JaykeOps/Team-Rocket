@@ -2,6 +2,7 @@
 using Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Domain.Value_Objects
@@ -10,19 +11,23 @@ namespace Domain.Value_Objects
     public class TeamMatchSchedule
     {
         private Guid teamId;
-       
+        private Dictionary<Guid, List<Match>> allMatches;
+
         public IEnumerable<Match> this[Guid seriesId]
         {
             get
             {
-                var seriesSchedule = DomainService.GetTeamScheduleForSeries(seriesId, this.teamId).ToList();
-                var matches = new List<Match>();
-
-                foreach (var matchId in seriesSchedule)
+                List<Match> matches;
+                if (this.allMatches.TryGetValue(seriesId, out matches))
                 {
-                    matches.Add(DomainService.FindMatchById(matchId));
+                    this.UpdateSchedule(seriesId);
+                    return matches;
                 }
-                return matches;
+                else
+                {
+                    throw new SeriesMissingException($"Series with Id {seriesId} could not be found!");
+                }
+                
             }
         }
 
@@ -43,28 +48,25 @@ namespace Domain.Value_Objects
         //        }
         //    }
         //}
+        public void UpdateSchedule(Guid seriesId)
+        {
+            this.allMatches[seriesId] = 
+                DomainService.GetAllMatches().Where(x => x.SeriesId == seriesId && x.HomeTeamId 
+                == this.teamId || x.AwayTeamId 
+                == this.teamId).ToList();
+        }
 
         public TeamMatchSchedule(Guid teamId)
         {
             this.teamId = teamId;
-            //this.teamsSeries = new List<Guid>();
+            this.allMatches = new Dictionary<Guid, List<Match>>();
         }
 
-        //public void AddSeries(Series series)
-        //{
-        //    this.teamsSeries.Add(series.Id);
-        //}
-
-        private IEnumerable<Match> GetMatchScheduleForSeries(Guid seriesId)
+        public void AddSeries(Series series)
         {
-            var series = DomainService.FindSeriesById(seriesId);
-            var allSeriesMatches = new List<Match>();
-            foreach (var pair in series.Schedule)
-            {
-                allSeriesMatches.AddRange(pair.Value);
-            }
-
-            return allSeriesMatches.Where(x => x.HomeTeamId == this.teamId || x.AwayTeamId == this.teamId);
+            this.allMatches.Add(series.Id, new List<Match>());
         }
+
+        
     }
 }

@@ -82,6 +82,7 @@ namespace Domain.Services
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
+                
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
