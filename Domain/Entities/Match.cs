@@ -35,6 +35,7 @@ namespace Domain.Entities
             this.HomeTeamId = homeTeam;
             this.AwayTeamId = awayTeam;
             this.SeriesId = series.Id;
+            this.MatchDate = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(365));
         }
 
         public override string ToString()

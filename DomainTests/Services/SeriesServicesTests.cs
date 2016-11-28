@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -152,6 +152,16 @@ namespace DomainTests.Services
         [ExpectedException(typeof(ArgumentException))]
         public void RemoveTeamFromSeriesCanNotRemoveTeamThatIsNotInSeries()
         {
+            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "test");
+            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(0).Id);
+            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(1).Id);
+            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(2).Id);
+            series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(3).Id);
+            seriesService.Add(series);
+            seriesService.ScheduleGenerator(series.Id);
+            Assert.IsTrue(seriesService.GetAll().Contains(series));
+            seriesService.DeleteSeries(series.Id);
+            Assert.IsFalse(seriesService.GetAll().Contains(series));
             var seriesToEdit = new DummySeries();
             var uneditedSeries = new DummySeries();
             var teamToRemove = seriesToEdit.SeriesDummy.TeamIds.ElementAt(0);

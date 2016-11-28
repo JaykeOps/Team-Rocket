@@ -98,5 +98,7 @@ namespace Domain.Entities
             this.TeamId = newTeam.Id;
             this.affiliatedTeamName = newTeam.Name;
         }
+
+       
     }
 }

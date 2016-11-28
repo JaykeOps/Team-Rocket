@@ -3,7 +3,6 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Domain.Entities
 {
@@ -12,8 +11,8 @@ namespace Domain.Entities
     {
         internal HashSet<Guid> playerIds;
         private TeamMatchSchedule matchSchedules;
-        private TeamSeriesEvents seriesEvents;
-        private TeamSeriesStats seriesStats;
+        private AggregatedTeamEvents events;
+        private AggregatedTeamStats stats;
 
         public Guid Id { get; set; } //TODO: Set is for test!
 
@@ -32,7 +31,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.seriesEvents;
+                return this.events;
             }
         }
 
@@ -40,7 +39,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this.seriesStats;
+                return this.stats;
             }
         }
 
@@ -52,27 +51,27 @@ namespace Domain.Entities
             }
         }
 
-        public TeamSeriesEvents SeriesEvents
+        public AggregatedTeamEvents Events
         {
             get
             {
-                return this.seriesEvents;
+                return this.events;
             }
         }
 
-        public TeamSeriesStats SeriesStats
+        public AggregatedTeamStats Stats
         {
             get
             {
-                return this.seriesStats;
+                return this.stats;
             }
         }
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
             this.Id = Guid.NewGuid();
-            this.seriesEvents = new TeamSeriesEvents(this.Id);
-            this.seriesStats = new TeamSeriesStats(this.Id);
+            this.events = new AggregatedTeamEvents(this.Id);
+            this.stats = new AggregatedTeamStats(this.Id);
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
@@ -90,7 +89,7 @@ namespace Domain.Entities
 
         private void RemovePlayerIdFromOldTeam(Guid playerId)
         {
-            var player = DomainService.FindPlayerById(playerId);;
+            var player = DomainService.FindPlayerById(playerId); ;
         }
 
         public void RemovePlayerId(Guid playerId)
@@ -108,9 +107,11 @@ namespace Domain.Entities
         public void AddSeries(Series series)
         {
             //this.matchSchedules.AddSeries(series);
-            this.seriesEvents.AddSeries(series);
-            this.seriesStats.AddSeries(series);
+            this.events.AddSeries(series);
+            this.stats.AddSeries(series);
         }
+
+        
 
         public override string ToString()
         {

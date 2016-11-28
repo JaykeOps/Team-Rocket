@@ -36,8 +36,6 @@ namespace Domain.Repositories
             }
         }
 
-        
-
         public IEnumerable<Player> GetAll()
         {
             return this.players;

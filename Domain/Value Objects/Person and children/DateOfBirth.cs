@@ -1,6 +1,5 @@
-﻿using System;
-using System.Globalization;
-using Domain.Helper_Classes;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -22,8 +21,6 @@ namespace Domain.Value_Objects
                     "failed to follow format restriciton 'yyyy-MM-dd'!");
             }
         }
-
-        
 
         public static bool TryParse(string value, out DateOfBirth result)
         {

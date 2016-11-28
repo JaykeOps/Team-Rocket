@@ -131,7 +131,6 @@ namespace DomainTests.Entities.Tests
             Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummySeries.DummyTeams.DummyTeamTwo.Id);
             newTeam.AddPlayerId(this.dummyPlayer.Id);
             Assert.AreEqual(this.dummyPlayer.TeamId, newTeam.Id);
-
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -84,7 +84,7 @@ namespace DomainTests.Services
         public void AddListOfMatchesTest()
         {
             var series = new DummySeries();
-            var matchOne = new Match(new ArenaName("ullevi"),Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy );
+            var matchOne = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
             var matchTwo = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
             var matchThree = new Match(new ArenaName("ullevi"), Guid.NewGuid(), Guid.NewGuid(), series.SeriesDummy);
 

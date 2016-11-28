@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +16,7 @@ namespace Domain.Value_Objects
                 PlayerStats playerStats;
                 if (this.allSeriesStats.TryGetValue(seriesId, out playerStats))
                 {
-                    playerStats.UpdateSeriesEvents();
+                    playerStats.UpdateAllStats();
                     return playerStats;
                 }
                 else
@@ -38,7 +37,7 @@ namespace Domain.Value_Objects
                     PlayerStats playerStats;
                     if (this.allSeriesStats.TryGetValue(seriesId, out playerStats))
                     {
-                        playerStats.UpdateSeriesEvents();
+                        playerStats.UpdateAllStats();
                         seriesStats.Add(playerStats);
                     }
                 }

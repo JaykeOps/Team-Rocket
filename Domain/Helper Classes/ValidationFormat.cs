@@ -121,5 +121,4 @@ namespace Domain.Helper_Classes
             return score >= 0 && score <= 50;
         }
     }
-
 }

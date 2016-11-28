@@ -1,16 +1,16 @@
-﻿using Domain.Services;
+﻿using Domain.Helper_Classes;
+using Domain.Services;
 using System;
-using Domain.Helper_Classes;
 
 namespace Domain.Value_Objects
 {
     [Serializable]
     public class GameResult : ValueObject<GameResult>
     {
-        public Guid HomeTeamId { get; } 
-        public Guid AwayTeamId { get; } 
-        public int HomeTeamScore { get; }    
-        public int AwayTeamScore { get; }     
+        public Guid HomeTeamId { get; }
+        public Guid AwayTeamId { get; }
+        public int HomeTeamScore { get; }
+        public int AwayTeamScore { get; }
 
         public GameResult(Guid homeTeamId, Guid awayTeamId, int homeTeamScore, int awayTeamScore)
         {
@@ -36,11 +36,9 @@ namespace Domain.Value_Objects
             }
         }
 
-       
-
         public override string ToString()
         {
-            return $"{DomainService.FindTeamById(this.HomeTeamId)}  {this.HomeTeamScore} : {this.AwayTeamScore}  {DomainService.FindTeamById(this.AwayTeamId)}"; 
-        }                                                                                                          
+            return $"{DomainService.FindTeamById(this.HomeTeamId)}  {this.HomeTeamScore} : {this.AwayTeamScore}  {DomainService.FindTeamById(this.AwayTeamId)}";
+        }
     }
 }

@@ -28,7 +28,6 @@ namespace Domain.Value_Objects
 
         public ContactInformation()
         {
-            
         }
     }
 }

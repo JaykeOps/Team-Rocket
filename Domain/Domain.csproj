@@ -106,8 +106,8 @@
     <Compile Include="Value Objects\Team\TeamName.cs" />
     <Compile Include="Value Objects\Global\PhoneNumber.cs" />
     <Compile Include="CustomExceptions\ShirtNumberAlreadyInUseException.cs" />
-    <Compile Include="Value Objects\Team\TeamSeriesEvents.cs" />
-    <Compile Include="Value Objects\Team\TeamSeriesStats.cs" />
+    <Compile Include="Value Objects\Team\AggregatedTeamEvents.cs" />
+    <Compile Include="Value Objects\Team\AggregatedTeamStats.cs" />
     <Compile Include="Value Objects\Team\TeamStats.cs" />
     <Compile Include="Value Objects\Global\ValueObject.cs" />
   </ItemGroup>

@@ -1,11 +1,10 @@
 ﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Services
 {
@@ -65,6 +64,7 @@ namespace DomainTests.Services
             var teamGoals = games.Where(game => game.SeriesId == series.SeriesDummy.Id).SelectMany(game => game.Protocol.Goals).Count(goal => goal.TeamId == team.Id);
             Assert.IsTrue(teamGoals == teamStats.GoalsFor);
         }
+
         [TestMethod]
         public void AddListOfPlayerTest()
         {

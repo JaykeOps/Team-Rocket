@@ -26,6 +26,7 @@ namespace Domain.Repositories
 
         public void Add(Team newTeam)
         {
+            
             Team teamInRepository;
             if (this.TryGetTeam(newTeam, out teamInRepository))
             {
