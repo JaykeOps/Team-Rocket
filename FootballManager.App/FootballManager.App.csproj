@@ -97,9 +97,6 @@
     <Compile Include="View\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SeriesView.xaml.cs">
-      <DependentUpon>SeriesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\TeamAddView.xaml.cs">
       <DependentUpon>TeamAddView.xaml</DependentUpon>
     </Compile>
@@ -144,10 +141,6 @@
     <Page Include="View\PlayerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\SeriesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TeamAddView.xaml">
       <Generator>MSBuild:Compile</Generator>
