@@ -11,8 +11,8 @@ namespace Domain.Entities
     {
         internal HashSet<Guid> playerIds;
         private TeamMatchSchedule matchSchedules;
-        private AggregatedTeamEvents _events;
-        private AggregatedTeamStats _stats;
+        private AggregatedTeamEvents events;
+        private AggregatedTeamStats stats;
 
         public Guid Id { get; set; } //TODO: Set is for test!
 
@@ -31,7 +31,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this._events;
+                return this.events;
             }
         }
 
@@ -39,7 +39,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this._stats;
+                return this.stats;
             }
         }
 
@@ -55,7 +55,7 @@ namespace Domain.Entities
         {
             get
             {
-                return this._events;
+                return this.events;
             }
         }
 
@@ -63,15 +63,15 @@ namespace Domain.Entities
         {
             get
             {
-                return this._stats;
+                return this.stats;
             }
         }
 
         public Team(TeamName name, ArenaName arenaName, EmailAddress email)
         {
             this.Id = Guid.NewGuid();
-            this._events = new AggregatedTeamEvents(this.Id);
-            this._stats = new AggregatedTeamStats(this.Id);
+            this.events = new AggregatedTeamEvents(this.Id);
+            this.stats = new AggregatedTeamStats(this.Id);
             this.Name = name;
             this.playerIds = new HashSet<Guid>();
             this.ArenaName = arenaName;
@@ -107,8 +107,8 @@ namespace Domain.Entities
         public void AddSeries(Series series)
         {
             //this.matchSchedules.AddSeries(series);
-            this._events.AddSeries(series);
-            this._stats.AddSeries(series);
+            this.events.AddSeries(series);
+            this.stats.AddSeries(series);
         }
 
         public override string ToString()
