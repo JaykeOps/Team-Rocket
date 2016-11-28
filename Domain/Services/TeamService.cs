@@ -67,5 +67,23 @@ namespace Domain.Services
             || x.Email.ToString().Contains(searchText, comparison)
             || x.Players.Any(y => y.Name.ToString().Contains(searchText, comparison)));
         }
+
+        public TeamEvents GetTeamEventsInSeries(Guid teamId, Guid seriesId)
+        {
+            var team = this.FindById(teamId);
+            return team.PresentableSeriesEvents[seriesId];
+        }
+
+        public TeamStats GetTeamStatsInseries(Guid teamId, Guid seriesId)
+        {
+            var team = this.FindById(teamId);
+            return team.PresentableSeriesStats[seriesId];
+        }
+
+        public IEnumerable<Match> GetTeamSchedule(Guid teamId, Guid seriesId)
+        {
+            var team = this.FindById(teamId);
+            return team.MatchSchedules[seriesId];
+        } 
     }
 }

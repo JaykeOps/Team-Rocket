@@ -222,5 +222,17 @@ namespace Domain.Services
             var player = this.FindById(playerId);
             player.Status = newStatus;
         }
+
+        public PlayerEvents GetPlayerEventsInSeries(Guid playerId, Guid seriesId)
+        {
+            var player = this.FindById(playerId);
+            return player.AggregatedEvents[seriesId];
+        }
+
+        public PlayerStats GetPlayerStatsInSeries(Guid playerId, Guid seriesId)
+        {
+            var player = this.FindById(playerId);
+            return player.AggregatedStats[seriesId];
+        }
     }
 }
