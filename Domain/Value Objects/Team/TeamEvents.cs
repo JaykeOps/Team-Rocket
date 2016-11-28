@@ -14,6 +14,7 @@ namespace Domain.Value_Objects
         private IEnumerable<Game> games;
         private IEnumerable<Goal> goals;
 
+
         public string TeamName => this.teamName;
         public IEnumerable<Game> Games => this.games;
         public IEnumerable<Goal> Goals => this.goals;
