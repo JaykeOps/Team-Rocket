@@ -2,7 +2,7 @@
 
 namespace Domain.Helper_Classes
 {
-    public static class StringUtils
+    public static class StringUtilities
     {
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {

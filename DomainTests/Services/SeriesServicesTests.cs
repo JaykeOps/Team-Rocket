@@ -14,6 +14,13 @@ namespace DomainTests.Services
     {
         private SeriesService seriesService;
         private Series testSerieOne;
+        private DummySeries dummySeries;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dummySeries = new DummySeries();
+        }
 
         public SeriesServicesTests()
         {
@@ -65,9 +72,9 @@ namespace DomainTests.Services
             {
                 teamsOfSerie.Add(DomainService.FindTeamById(teamId));
             }
-            var orderedTeamList = teamsOfSerie.OrderByDescending(x => x.PresentableSeriesStats[series.SeriesDummy.Id].Points)
-                    .ThenByDescending(x => x.PresentableSeriesStats[series.SeriesDummy.Id].GoalDifference)
-                    .ThenByDescending(x => x.PresentableSeriesStats[series.SeriesDummy.Id].GoalsFor);
+            var orderedTeamList = teamsOfSerie.OrderByDescending(x => x.AggregatedTeamStats[series.SeriesDummy.Id].Points)
+                    .ThenByDescending(x => x.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference)
+                    .ThenByDescending(x => x.AggregatedTeamStats[series.SeriesDummy.Id].GoalsFor);
 
             var leagueTable = seriesService.GetLeagueTablePlacement(series.SeriesDummy.Id);
 
@@ -168,6 +175,58 @@ namespace DomainTests.Services
             var teamToRemove = seriesToEdit.SeriesDummy.TeamIds.ElementAt(0);
             seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
             seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedSeriesName()
+        {
+            var matchingSeries = this.seriesService.Search("The Dummy Series").ToList();
+            Assert.IsNotNull(matchingSeries);
+            Assert.AreNotEqual(matchingSeries.Count, 0);
+            foreach (var series in matchingSeries)
+            {
+                Assert.AreEqual(series.SeriesName, "The Dummy Series");
+            }
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedTeamName()
+        {
+            var matchingSeries = this.seriesService.Search("Dummy TeamFour").ToList();
+            Assert.IsNotNull(matchingSeries);
+            Assert.AreNotEqual(matchingSeries.Count, 0);
+            foreach (var series in matchingSeries)
+            {
+                Assert.IsTrue(series.TeamIds.Any(x => DomainService.FindTeamById(x).Name.ToString()
+                == "Dummy TeamFour"));
+            }
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedArenaName()
+        {
+            var matchingSeries = this.seriesService.Search("Dummy ArenaOne").ToList();
+            Assert.IsNotNull(matchingSeries);
+            Assert.AreNotEqual(matchingSeries.Count, 0);
+            foreach (var series in matchingSeries)
+            {
+                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.Location.ToString() 
+                == "Dummy ArenaOne")));
+            }
+        }
+
+        [TestMethod]
+        public void SeriesSearchCanReturnSeriesContainingSpecifiedMatchDate()
+        {
+            //TODO: Update when matches has dates!
+            var matchingSeries = this.seriesService.Search("2017-08-22 10:10").ToList();
+            Assert.IsNotNull(matchingSeries);
+            Assert.AreNotEqual(matchingSeries.Count, 0);
+            foreach (var series in matchingSeries)
+            {
+                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.MatchDate.ToString() 
+                == "2017-08-22 10:10")));
+            }
         }
     }
 }

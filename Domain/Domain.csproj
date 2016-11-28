@@ -50,7 +50,7 @@
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\EntityValidation.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
-    <Compile Include="Helper Classes\StringUtils.cs" />
+    <Compile Include="Helper Classes\StringUtilities.cs" />
     <Compile Include="Interfaces\IExposablePlayer.cs" />
     <Compile Include="Interfaces\IExposableTeam.cs" />
     <Compile Include="Interfaces\IPresentableTeamSeriesEvents.cs" />

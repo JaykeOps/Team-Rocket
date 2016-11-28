@@ -128,13 +128,15 @@ namespace Domain.Services
             return this.repository.GetAll().ToList().Find(p => p.Id.Equals(playerId));
         }
 
-        public IEnumerable<IExposablePlayer> FreeTextSearchForPlayers(string searchText, StringComparison comp)
+        public IEnumerable<IExposablePlayer> Search(string searchText, StringComparison comparison
+            = StringComparison.InvariantCultureIgnoreCase)
         {
-            var result = this.repository.GetAll().Where(x =>
-                x.Name.ToString().Contains(searchText, comp) ||
-                x.DateOfBirth.Value.ToString().Contains(searchText, comp));
-
-            return result;
+            return this.repository.GetAll().Where(x =>
+                x.Name.ToString().Contains(searchText, comparison)
+                || x.DateOfBirth.ToString().Contains(searchText, comparison)
+                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison) 
+                || x.AggregatedStats.AllStats.Keys.Any
+                (y => DomainService.FindSeriesById(y).SeriesName.ToString().Contains(searchText)));
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
@@ -156,6 +158,18 @@ namespace Domain.Services
             {
                 throw new NullReferenceException($"Search failed! Datasource does not contain any data related to the player id '{playerId}'");
             }
+        }
+
+        public PlayerEvents GetPlayerEventsInSeries(Guid playerId, Guid seriesId)
+        {
+            var player = this.FindById(playerId);
+            return player.AggregatedEvents[seriesId];
+        }
+
+        public PlayerStats GetPlayerStatsInSeries(Guid playerId, Guid seriesId)
+        {
+            var player = this.FindById(playerId);
+            return player.AggregatedStats[seriesId];
         }
     }
 }

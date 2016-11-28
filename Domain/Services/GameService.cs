@@ -90,10 +90,10 @@ namespace Domain.Services
             return this.GetAll().ToList().Find(g => g.Id == id);
         }
 
-        public IEnumerable<Game> SearchGame(string searchText, StringComparison comp)
-        {
-            return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
-        }
+        //public IEnumerable<Game> SearchGame(string searchText, StringComparison comp)
+        //{
+        //    return this.GetAll().Where(g => g.ToString().Contains(searchText, comp));
+        //}
 
         public void AddGoalToGame(Guid gameId, Guid playerId, int matchMinute)
         {
@@ -203,6 +203,31 @@ namespace Domain.Services
                     break;
                 }
             }
+        }
+
+        public IEnumerable<Game> Search(string searchText, StringComparison comparison
+            = StringComparison.InvariantCultureIgnoreCase)
+        {
+            return this.GetAll().Where(x => x.Location.ToString().Contains(searchText, comparison)
+            || 
+            x.MatchDate.ToString().Contains(searchText, comparison)
+            ||
+            DomainService.FindSeriesById(x.SeriesId).SeriesName.ToString().Contains(searchText, comparison)
+            ||
+            x.Protocol.Goals.Count.ToString().Contains(searchText, comparison)
+            ||
+            x.Protocol.GameResult.ToString().Contains(searchText, comparison)
+            ||
+            DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
+            ||
+            DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
+            || 
+            x.Protocol.HomeTeamActivePlayers.Any(y => DomainService.FindPlayerById(y).Name.ToString()
+                .Contains(searchText, comparison)
+            ||
+            x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).Name.ToString()
+                .Contains(searchText, comparison))));
+            
         }
     }
 }

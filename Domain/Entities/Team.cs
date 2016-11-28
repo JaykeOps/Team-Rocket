@@ -35,7 +35,7 @@ namespace Domain.Entities
             }
         }
 
-        public IPresentableTeamSeriesStats PresentableSeriesStats
+        public IPresentableTeamSeriesStats AggregatedTeamStats
         {
             get
             {

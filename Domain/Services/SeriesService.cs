@@ -5,6 +5,9 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Domain.Helper_Classes;
+using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -52,7 +55,7 @@ namespace Domain.Services
             var teamIdsOfSerie = series.TeamIds;
 
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-            var teamStats = teamsOfSerie.Select(team => team.PresentableSeriesStats[series.Id]).ToList();
+            var teamStats = teamsOfSerie.Select(team => team.AggregatedTeamStats[series.Id]).ToList();
 
             return teamStats.OrderByDescending(x => x.Points)
                 .ThenByDescending(x => x.GoalDifference)
@@ -79,6 +82,18 @@ namespace Domain.Services
                 throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
             }
             
+        }
+
+        public IEnumerable<Series> Search(string searchText, StringComparison comparison
+            = StringComparison.InvariantCultureIgnoreCase)
+        {
+            return this.GetAll().Where(x => x.TeamIds.Any
+            (y => DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
+            || x.MatchDuration.ToString().Contains(searchText, comparison)
+            || x.NumberOfTeams.ToString().Contains(searchText, comparison)
+            || x.SeriesName.ToString().Contains(searchText, comparison))
+            || x.Schedule.Values.Any(z => z.Any(p => p.Location.ToString().Contains(searchText)
+            || x.Schedule.Values.Any(o => o.Any(s => s.MatchDate.ToString().Contains(searchText))))));
         }
 
         public void RemoveTeamFromSeries(Guid seriesId, Guid teamId)

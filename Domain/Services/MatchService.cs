@@ -5,6 +5,7 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Helper_Classes;
 
 namespace Domain.Services
 {
@@ -35,7 +36,7 @@ namespace Domain.Services
             }
             else
             {
-                    throw new NullReferenceException("List of matches is null");
+                throw new NullReferenceException("List of matches is null");
             }
         }
 
@@ -49,21 +50,27 @@ namespace Domain.Services
             return this.GetAll().ToList().Find(m => m.Id == id);
         }
 
-        public IEnumerable<Match> SearchMatch(string searchText, StringComparison comp)
-        {
-            return this.GetAll().Where(m => m.ToString().Contains(searchText, comp));
-        }
-
         public void EditMatchTime(DateTime dateTime, Guid matchId)
         {
-            var matchToEdit = GetAll().ToList().Find(x => x.Id == matchId);
+            var matchToEdit = this.GetAll().ToList().Find(x => x.Id == matchId);
             matchToEdit.MatchDate = new MatchDateAndTime(dateTime);
         }
 
         public void EditMatchLocation(string newArenaName, Guid matchId)
         {
-            var matchToEdit = GetAll().ToList().Find(x => x.Id == matchId);
+            var matchToEdit = this.GetAll().ToList().Find(x => x.Id == matchId);
             matchToEdit.Location = new ArenaName(newArenaName);
+        }
+
+        public IEnumerable<Match> Search(string searchText, StringComparison comparison 
+            = StringComparison.InvariantCultureIgnoreCase)
+        {
+            return this.GetAll().Where(x =>
+                DomainService.FindSeriesById(x.SeriesId).SeriesName.ToString().Contains(searchText, comparison)
+                || DomainService.FindTeamById(x.HomeTeamId).Name.ToString().Contains(searchText, comparison)
+                || DomainService.FindTeamById(x.AwayTeamId).Name.ToString().Contains(searchText, comparison)
+                || x.Location.ToString().Contains(searchText, comparison)
+                || x.MatchDate.ToString().Contains(searchText, comparison));
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{this.Value:yyyy-MM-dd HH:mm tt}";
+            return $"{this.Value:yyyy-MM-dd HH:mm}";
         }
     }
 }

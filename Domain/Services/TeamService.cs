@@ -4,6 +4,7 @@ using Domain.Repositories;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Domain.Services
@@ -35,7 +36,7 @@ namespace Domain.Services
             {
                 foreach (var team in teams)
                 {
-                    Add(team);
+                    this.Add(team);
                 }
             }
             else
@@ -56,8 +57,36 @@ namespace Domain.Services
 
         public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
         {
-            return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
+            return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedTeamStats[seriesId];
         }
+
+        public IEnumerable<Team> Search(string searchText, StringComparison comparison 
+            = StringComparison.InvariantCultureIgnoreCase)
+        {
+            return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
+            || x.ArenaName.ToString().Contains(searchText, comparison)
+            || x.Email.ToString().Contains(searchText, comparison)
+            || x.playerIds.Any(y => DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
+        }
+
+        public TeamEvents GetTeamEventsInSeries(Guid teamId, Guid seriesId)
+        {
+            var team = this.FindById(teamId);
+            return team.PresentableSeriesEvents[seriesId];
+        }
+
+        public TeamStats GetTeamStatsInseries(Guid teamId, Guid seriesId)
+        {
+            var team = this.FindById(teamId);
+            return team.AggregatedTeamStats[seriesId];
+        }
+
+        public IEnumerable<Match> GetTeamSchedule(Guid teamId, Guid seriesId)
+        {
+            var team = this.FindById(teamId);
+            return team.MatchSchedules[seriesId];
+        } 
+            
 
         public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
         {

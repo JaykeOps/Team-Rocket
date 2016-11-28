@@ -9,6 +9,7 @@ namespace Domain.Value_Objects
     {
         private readonly Dictionary<Guid, PlayerStats> allSeriesStats;
 
+        public IReadOnlyDictionary<Guid, PlayerStats> AllStats => this.allSeriesStats;
         public PlayerStats this[Guid seriesId]
         {
             get
@@ -44,6 +45,8 @@ namespace Domain.Value_Objects
                 return seriesStats;
             }
         }
+
+        
 
         public AggregatedPlayerStats()
         {
