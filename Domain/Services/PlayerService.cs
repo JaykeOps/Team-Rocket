@@ -138,7 +138,10 @@ namespace Domain.Services
             return this.repository.GetAll().Where(x =>
                 x.Name.ToString().Contains(searchText, comparison)
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
-                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
+                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison)
+                || DomainService.GetAllSeries().Any(y => y.TeamIds.Any
+                (z => DomainService.FindTeamById(z).Players.Any
+                (p => p.Name.ToString().Contains(searchText, comparison)))));
         }
 
         public void RenamePlayer(IPresentablePlayer presentablePlayer, Name newName)
