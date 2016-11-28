@@ -198,7 +198,7 @@ namespace DomainTests.Test_Dummies
                 (
                 new MatchDuration(new TimeSpan(0, 90, 0)),
                 new NumberOfTeams(4),
-                "The Dummy Series"
+                new SeriesName("The Dummy Series")
                 );
             this.DummyTeams = new DummyTeams();
             this.SeriesDummy.TeamIds.Add(this.DummyTeams.DummyTeamOne.Id);

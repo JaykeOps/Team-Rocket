@@ -18,7 +18,7 @@ namespace DomainTests.Services
         public SeriesServicesTests()
         {
             this.seriesService = new SeriesService();
-            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(4), "Allsvenskan");
+            this.testSerieOne = new Series(new MatchDuration(new TimeSpan(45 * 6000000000 / 10)), new NumberOfTeams(4), new SeriesName("Allsvenskan"));
             this.testSerieOne.TeamIds.Add(Guid.NewGuid());
             this.testSerieOne.TeamIds.Add(Guid.NewGuid());
             this.testSerieOne.TeamIds.Add(Guid.NewGuid());
@@ -80,62 +80,63 @@ namespace DomainTests.Services
         [TestMethod]
         public void AddTeamToSeriesIsWorking()
         {
-            var series = seriesService.GetAll().ElementAt(0);
+            var seriesDummyTeams = new DummySeries().SeriesDummy.TeamIds;
 
-            var teamOne = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(0);
-            var teamTwo = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(1);
-            var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
-            var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
+            var series = new Series
+              (
+              new MatchDuration(new TimeSpan(0, 90, 0)),
+              new NumberOfTeams(4),
+              new SeriesName("The Dummy Series")
+              );
+           
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(0));
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(1));
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(2));
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(3));
 
-            for (int i = series.TeamIds.Count-1; i >= 0; i--)
-            {
-                series.TeamIds.Remove(series.TeamIds.ElementAt(i));
-            }
-
-            seriesService.AddTeamToSeries(series.Id, teamOne);
-            seriesService.AddTeamToSeries(series.Id, teamTwo);
-            seriesService.AddTeamToSeries(series.Id, teamThree);
-            seriesService.AddTeamToSeries(series.Id, teamFour);
-
-            Assert.IsTrue(series.TeamIds.Contains(teamOne)
-                && series.TeamIds.Contains(teamTwo)
-                && series.TeamIds.Contains(teamThree)
-                && series.TeamIds.Contains(teamFour));
-
-
+            seriesService.Add(series);
+            seriesService.ScheduleGenerator(series.Id);
+            
+            Assert.IsTrue(series.TeamIds.Contains(seriesDummyTeams.ElementAt(0))
+                && series.TeamIds.Contains(seriesDummyTeams.ElementAt(1))
+                && series.TeamIds.Contains(seriesDummyTeams.ElementAt(2))
+                && series.TeamIds.Contains(seriesDummyTeams.ElementAt(3)));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void AddTeamToSeriesCanNotAddSameTeamMultipleTimes()
         {
-            var series = seriesService.GetAll().ElementAt(0);
+            var seriesDummyTeams = new DummySeries().SeriesDummy.TeamIds;
 
-            var teamOne = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(0);
-            var teamTwo = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(1);
-            var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
-            var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
+            var series = new Series
+              (
+              new MatchDuration(new TimeSpan(0, 90, 0)),
+              new NumberOfTeams(4),
+              new SeriesName("The Dummy Series")
+              );
 
-            for (int i = series.TeamIds.Count - 1; i >= 0; i--)
-            {
-                series.TeamIds.Remove(series.TeamIds.ElementAt(i));
-            }
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(0));
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(1));
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(2));
+            series.TeamIds.Add(seriesDummyTeams.ElementAt(3));
 
-            seriesService.AddTeamToSeries(series.Id, teamOne);
-            seriesService.AddTeamToSeries(series.Id, teamTwo);
-            seriesService.AddTeamToSeries(series.Id, teamThree);
-            seriesService.AddTeamToSeries(series.Id, teamFour);
-            seriesService.AddTeamToSeries(series.Id, teamOne);
-            seriesService.AddTeamToSeries(series.Id, teamTwo);
-            seriesService.AddTeamToSeries(series.Id, teamThree);
-            seriesService.AddTeamToSeries(series.Id, teamFour);
+            seriesService.Add(series);
+            seriesService.ScheduleGenerator(series.Id);
 
-            Assert.IsTrue(series.TeamIds.Contains(teamOne)
-                && series.TeamIds.Contains(teamTwo)
-                && series.TeamIds.Contains(teamThree)
-                && series.TeamIds.Contains(teamFour));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(0));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(1));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(2));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(3));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(0));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(1));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(2));
+            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(3));
 
-
+            Assert.IsTrue(series.TeamIds.Contains(seriesDummyTeams.ElementAt(0))
+                && series.TeamIds.Contains(seriesDummyTeams.ElementAt(1))
+                && series.TeamIds.Contains(seriesDummyTeams.ElementAt(2))
+                && series.TeamIds.Contains(seriesDummyTeams.ElementAt(3)));
         }
 
         [TestMethod]

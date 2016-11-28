@@ -79,6 +79,7 @@
     <Compile Include="Value Objects\Game\GameResult.cs" />
     <Compile Include="Value Objects\Game\Goal.cs" />
     <Compile Include="CustomExceptions\ShirtNumberMissingTeamIdException.cs" />
+    <Compile Include="Value Objects\Series and match\SeriesName.cs" />
     <Compile Include="Value Objects\Team\ShirtNumbers.cs" />
     <Compile Include="Value Objects\Game\MatchMinute.cs" />
     <Compile Include="Value Objects\Game\OverTime.cs" />

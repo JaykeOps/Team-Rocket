@@ -46,8 +46,8 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void RepoAddIsWorking()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
-            var series2 = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
+            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), new SeriesName("Allsvenskan"));
+            var series2 = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), new SeriesName("Allsvenskan"));
             SeriesRepository.instance.AddSeries(series);
             var allSeries = SeriesRepository.instance.GetAll();
             Assert.IsTrue(allSeries.Contains(series));
@@ -74,7 +74,7 @@ namespace DomainTests.Repositories
             Assert.AreEqual(this.seriesDummy, seriesInRepository);
             Assert.AreNotEqual(this.seriesDummy, this.seriesDummyDuplicate);
             Assert.AreEqual(this.seriesDummy.Id, this.seriesDummyDuplicate.Id);
-            this.seriesDummyDuplicate.SeriesName = "Division 7";
+            this.seriesDummyDuplicate.SeriesName = new SeriesName("Division 7");
             Assert.AreNotEqual(this.seriesDummyDuplicate.SeriesName, this.seriesDummy.SeriesName);
             SeriesRepository.instance.AddSeries(this.seriesDummyDuplicate);
             seriesInRepository = SeriesRepository.instance.GetAll().First(x => x.Id == this.seriesDummy.Id);
