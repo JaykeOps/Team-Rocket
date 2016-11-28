@@ -204,5 +204,35 @@ namespace Domain.Services.Tests
             Assert.IsTrue(allPlayers.Contains(playerTwo));
             Assert.IsFalse(allPlayers.Contains(playerThree));
         }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersWithSpecifiedName()
+        {
+            var players = this.playerService.Search("Player One").ToList();
+            Assert.IsNotNull(players);
+            Assert.AreNotEqual(players.Count, 0);
+            foreach (var player in players)
+            {
+                Assert.AreEqual(player.Name.ToString(), "Player One");
+            }
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersWithSpecifiedDateOfBirth()
+        {
+
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersBelongingToSpecifiedTeam()
+        {
+
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersPlayingInSpecifiedSeries()
+        {
+
+        }
     }
 }
