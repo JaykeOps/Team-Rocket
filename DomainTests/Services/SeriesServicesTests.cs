@@ -153,7 +153,7 @@ namespace DomainTests.Services
         [ExpectedException(typeof(ArgumentException))]
         public void RemoveTeamFromSeriesCanNotRemoveTeamThatIsNotInSeries()
         {
-            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), "test");
+            var series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(4), new SeriesName("test"));
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(0).Id);
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(1).Id);
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(2).Id);
