@@ -81,5 +81,19 @@ namespace Domain.Services
             }
             
         }
+
+        public void RemoveTeamFromSeries(Guid seriesId, Guid teamId)
+        {
+            var series = DomainService.FindSeriesById(seriesId);
+            if (series.TeamIds.Contains(teamId))
+            {
+                series.TeamIds.Remove(teamId);
+            }
+            else
+            {
+                throw new ArgumentException($"Can not remove {DomainService.FindTeamById(teamId)}."
+                + $" Team doesn't exist in series {DomainService.FindSeriesById(seriesId)}.");
+            }
+        }
     }
 }
