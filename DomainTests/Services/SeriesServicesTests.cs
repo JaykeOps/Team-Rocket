@@ -95,7 +95,7 @@ namespace DomainTests.Services
               new NumberOfTeams(4),
               new SeriesName("The Dummy Series")
               );
-           
+
             series.TeamIds.Add(seriesDummyTeams.ElementAt(0));
             series.TeamIds.Add(seriesDummyTeams.ElementAt(1));
             series.TeamIds.Add(seriesDummyTeams.ElementAt(2));
@@ -103,7 +103,7 @@ namespace DomainTests.Services
 
             seriesService.Add(series);
             seriesService.ScheduleGenerator(series.Id);
-            
+
             Assert.IsTrue(series.TeamIds.Contains(seriesDummyTeams.ElementAt(0))
                 && series.TeamIds.Contains(seriesDummyTeams.ElementAt(1))
                 && series.TeamIds.Contains(seriesDummyTeams.ElementAt(2))
@@ -185,7 +185,7 @@ namespace DomainTests.Services
             Assert.AreNotEqual(matchingSeries.Count, 0);
             foreach (var series in matchingSeries)
             {
-                Assert.AreEqual(series.SeriesName, "The Dummy Series");
+                Assert.AreEqual(series.SeriesName.Value, "The Dummy Series");
             }
         }
 
@@ -210,7 +210,7 @@ namespace DomainTests.Services
             Assert.AreNotEqual(matchingSeries.Count, 0);
             foreach (var series in matchingSeries)
             {
-                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.Location.ToString() 
+                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.Location.ToString()
                 == "Dummy ArenaOne")));
             }
         }
@@ -219,13 +219,14 @@ namespace DomainTests.Services
         public void SeriesSearchCanReturnSeriesContainingSpecifiedMatchDate()
         {
             //TODO: Update when matches has dates!
-            var matchingSeries = this.seriesService.Search("2017-08-22 10:10").ToList();
+            var seriesDummy = new DummySeries();
+            var matchingSeries = this.seriesService.Search((DateTime.Now + TimeSpan.FromDays(365)).ToShortTimeString()).ToList();
             Assert.IsNotNull(matchingSeries);
             Assert.AreNotEqual(matchingSeries.Count, 0);
             foreach (var series in matchingSeries)
             {
-                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.MatchDate.ToString() 
-                == "2017-08-22 10:10")));
+                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.MatchDate.Value.ToShortTimeString()
+                == (DateTime.Now + TimeSpan.FromDays(365)).ToShortTimeString())));
             }
         }
     }

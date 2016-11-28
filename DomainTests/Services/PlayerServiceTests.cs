@@ -201,6 +201,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerSearchCanReturnPlayersWithSpecifiedName()
         {
+            var series=new DummySeries();
             var players = this.playerService.Search("Player One").ToList();
             Assert.IsNotNull(players);
             Assert.AreNotEqual(players.Count, 0);
