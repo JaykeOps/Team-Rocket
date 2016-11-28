@@ -128,6 +128,9 @@ namespace DomainTests.Services
             Assert.AreNotEqual(playerOne.TeamId, Guid.Empty);
             Assert.AreEqual(playerOne.TeamId, teamOne.Id);
             Assert.AreNotEqual(teamTwo.Id, Guid.Empty);
+            this.service.AddPlayerIdToTeam(playerOne, teamTwo);
+            Assert.AreEqual(teamTwo.Id, playerOne.TeamId);
+            Assert.IsFalse(teamOne.PlayerIds.Contains(playerOne.Id));
         }
     }
 }
