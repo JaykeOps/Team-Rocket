@@ -68,7 +68,7 @@ namespace Domain.Services
         public static void AddTeamToPlayer(Team team, Guid playerId)
         {
             var player = FindPlayerById(playerId);
-            player.TeamId = team.Id;
+            player.UpdateTeamAffiliation(team);  //TODO: Player gets TeamId assigned when player gets assigned to a team!
         }
 
         public static void AddMatches(IEnumerable<Match> matches)
