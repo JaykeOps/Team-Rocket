@@ -87,7 +87,7 @@ namespace DomainTests.Services
             var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
             var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
 
-            for (int i = 11; i >= 0; i--)
+            for (int i = series.TeamIds.Count-1; i >= 0; i--)
             {
                 series.TeamIds.Remove(series.TeamIds.ElementAt(i));
             }
@@ -116,7 +116,7 @@ namespace DomainTests.Services
             var teamThree = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(2);
             var teamFour = seriesService.GetAll().ElementAt(0).TeamIds.ElementAt(3);
 
-            for (int i = 11; i >= 0; i--)
+            for (int i = series.TeamIds.Count - 1; i >= 0; i--)
             {
                 series.TeamIds.Remove(series.TeamIds.ElementAt(i));
             }
