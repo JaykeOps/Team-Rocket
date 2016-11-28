@@ -29,5 +29,10 @@ namespace FootballManager.Admin
         {
             get { return new TeamAddViewModel(); }
         }
+
+        public static SeriesViewModel SeriesViewModel
+        {
+            get { return new SeriesViewModel(); }
+        }
     }
 }

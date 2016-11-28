@@ -18,12 +18,19 @@
     
     <DockPanel LastChildFill="True">
         <DockPanel.Background>
-            <ImageBrush Stretch="Fill" ImageSource="../Images/BarcelonaFC.png" AlignmentY="Top" AlignmentX="Center"/>
+            <ImageBrush Stretch="Fill" 
+                        ImageSource="../Images/BarcelonaFC.png" 
+                        AlignmentY="Top"
+                        AlignmentX="Center"/>
         </DockPanel.Background>
         <DockPanel.Resources>
             <Style BasedOn="{StaticResource MenuButtonStyle}" TargetType="{x:Type Button}" />
         </DockPanel.Resources>
-        <StackPanel DockPanel.Dock="Top" Margin="20" Orientation="Horizontal" HorizontalAlignment="Right" >
+        <StackPanel DockPanel.Dock="Top" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Margin="20">
+            <Button Content="Series" Command="{Binding OpenSeriesCommand}" />
             <Button Content="Player" Command="{Binding OpenPlayerCommand}" /> 
             <Button Content="Team" Command="{Binding OpenTeamCommand}" />
         </StackPanel>

@@ -14,8 +14,9 @@ namespace FootballManager.Admin.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        public ICommand OpenPlayerCommand { get; set; }
-        public ICommand OpenTeamCommand { get; set; }
+        public ICommand OpenSeriesCommand { get; }
+        public ICommand OpenPlayerCommand { get; }
+        public ICommand OpenTeamCommand { get; }
 
         private object selectedViewModel;
 
@@ -31,8 +32,14 @@ namespace FootballManager.Admin.ViewModel
 
         public MainViewModel()
         {
+            OpenSeriesCommand = new RelayCommand(SeriesCommand);
             OpenPlayerCommand = new RelayCommand(PlayerCommand);
             OpenTeamCommand = new RelayCommand(TeamCommand);
+        }
+
+        private void SeriesCommand(object obj)
+        {
+            SelectedViewModel = new SeriesView();
         }
 
         private void PlayerCommand(object obj)
