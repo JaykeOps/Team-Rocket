@@ -13,7 +13,7 @@ namespace Domain.Interfaces
         EmailAddress Email { get; }
 
         IPresentableTeamSeriesEvents PresentableSeriesEvents { get; }
-        IPresentableTeamSeriesStats PresentableSeriesStats { get; }
+        IPresentableTeamSeriesStats AggregatedTeamStats { get; }
 
         ShirtNumbers ShirtNumbers { get; }
     }

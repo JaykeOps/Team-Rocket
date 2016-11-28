@@ -19,7 +19,7 @@ namespace Domain.Services
         Player FindById(Guid playerId);
 
         [OperationContract]
-        IEnumerable<IExposablePlayer> FreeTextSearchForPlayers(string searchText, StringComparison comp);
+        IEnumerable<IExposablePlayer> Search(string searchText, StringComparison comp);
 
         [OperationContract]
         IEnumerable<Player> GetAllExposablePlayers();

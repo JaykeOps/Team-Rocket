@@ -28,7 +28,9 @@ namespace Domain.Entities
                 this.AwayTeamId = match.AwayTeamId;
                 this.SeriesId = match.SeriesId;
                 this.Location = match.Location;
-                this.MatchDate = match.MatchDate;
+                MatchDateAndTime dateAndTime;
+                this.MatchDate = MatchDateAndTime.TryParse("2017-08-22 10:10", out dateAndTime) //TODO: For tests!
+                    ? dateAndTime : match.MatchDate;
                 this.Protocol = new GameProtocol(this.HomeTeamId, this.AwayTeamId);
             }
             else

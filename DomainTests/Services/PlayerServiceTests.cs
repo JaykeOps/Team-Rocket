@@ -1,9 +1,7 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,15 +43,6 @@ namespace Domain.Services.Tests
             Assert.IsFalse(this.playerService.FindById(player.Id) == player);
             this.playerService.Add(player);
             Assert.IsTrue(this.playerService.FindById(player.Id) == player);
-        }
-
-        [TestMethod]
-        public void FindPlayerSpecialCharactersNotAllowed()
-        {
-            IExposablePlayer expectedPlayerObj =
-                this.playerService.FreeTextSearchForPlayers("Ibra@%", StringComparison.InvariantCultureIgnoreCase).FirstOrDefault();
-
-            Assert.IsNull(expectedPlayerObj);
         }
 
         [TestMethod]
@@ -207,6 +196,33 @@ namespace Domain.Services.Tests
             Assert.IsTrue(allPlayers.Contains(playerOne));
             Assert.IsTrue(allPlayers.Contains(playerTwo));
             Assert.IsFalse(allPlayers.Contains(playerThree));
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersWithSpecifiedName()
+        {
+            var players = this.playerService.Search("Player One").ToList();
+            Assert.IsNotNull(players);
+            Assert.AreNotEqual(players.Count, 0);
+            foreach (var player in players)
+            {
+                Assert.AreEqual(player.Name.ToString(), "Player One");
+            }
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersWithSpecifiedDateOfBirth()
+        {
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersBelongingToSpecifiedTeam()
+        {
+        }
+
+        [TestMethod]
+        public void PlayerSearchCanReturnPlayersPlayingInSpecifiedSeries()
+        {
         }
     }
 }
