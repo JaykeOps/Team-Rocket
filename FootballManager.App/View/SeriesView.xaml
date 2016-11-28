@@ -50,16 +50,16 @@
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series:" />
                         <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />                    
+                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
-                    
+
                     <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
                     </StackPanel>-->
                     <!--Margin: Left, Top, Right, Bottom-->
                     <!-- Region Display Player -->
-                    
+
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding Players}" 
+                              ItemsSource="{Binding }" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
@@ -67,7 +67,7 @@
                         <DataGrid.Columns>
                             <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
                             <DataGridTextColumn Header="Ranking"/>
-                                
+
                             <DataGridTextColumn Header="Team" />
                             <DataGridTextColumn Header="Matches Played" />
                             <DataGridTextColumn Header="Wins" />
@@ -82,7 +82,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Position}" />
-                                        --><!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players --><!--
+                                        -->
+                            <!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players -->
+                            <!--
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
@@ -97,7 +99,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Status}" />
-                                        --><!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players --><!--
+                                        -->
+                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
+                            <!--
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
@@ -112,7 +116,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" />
-                                        --><!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players --><!--
+                                        -->
+                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
+                            <!--
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
@@ -149,14 +155,64 @@
                     </DataGrid>
                 </Grid>
                 <!-- End Region Display Player -->
-
             </TabItem>
-
             <TabItem Header="Series Stats">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50">Reserverat</TextBlock>
-                    <ComboBox ItemsSource="{Binding DataContext.TeamNames, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" Width="100" />
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                        <Label Content="Choose Series:" />
+                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
+                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <Grid x:Name="multiDataGridContainer" Grid.Column="0" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <DataGrid x:Name="topScorersDataGrid" Grid.Row="0" Grid.Column="0" 
+                              ItemsSource="{Binding }" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="False">
+                            
+                        </DataGrid>
+                        <DataGrid x:Name="topAssistsDataGrid" Grid.Row="0" Grid.Column="1" 
+                              ItemsSource="{Binding }" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="False">
+
+                        </DataGrid>
+                        <DataGrid x:Name="topYellowCardsDataGrid" Grid.Row="1" Grid.Column="0" 
+                              ItemsSource="{Binding }" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="False">
+
+                        </DataGrid>
+                        <DataGrid x:Name="topRedCardsDataGrid" Grid.Row="1" Grid.Column="1" 
+                              ItemsSource="{Binding }" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="False">
+
+                        </DataGrid>
+                    </Grid>
+                </Grid>
             </TabItem>
         </dragablz:TabablzControl>
         <!--</ItemsControl>-->

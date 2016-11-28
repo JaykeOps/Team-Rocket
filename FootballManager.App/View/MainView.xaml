@@ -12,10 +12,10 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="Administrator" Height="700" Width="980"
+        Title="User Application" Height="700" Width="980"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
-     
+    
     <DockPanel LastChildFill="True">
         <DockPanel.Background>
             <ImageBrush Stretch="Fill" ImageSource="../Images/BarcelonaFC.png" AlignmentY="Top" AlignmentX="Center"/>
