@@ -16,7 +16,7 @@ namespace DomainTests.Entities
         {
             var arena = new ArenaName("Ullevi");
             var date = new MatchDateAndTime(new DateTime(2016, 12, 23, 19, 00, 00));
-            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16), "Allsvenskan");
+            var series = new Series(new MatchDuration(new TimeSpan(90 * 6000000000 / 10)), new NumberOfTeams(16), new SeriesName("Allsvenskan"));
             this.awayTeamId = Guid.NewGuid();
             this.homeTeamId = Guid.NewGuid();
             this.match = new Match(arena, this.homeTeamId, this.awayTeamId, series, date);

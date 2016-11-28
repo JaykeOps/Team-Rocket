@@ -15,7 +15,7 @@ namespace DomainTests.Entities
 
         public SeriesTest()
         {
-            this.series = new Series(new MatchDuration(this.duartion), this.numberOfTeams, "Allsvenskan");
+            this.series = new Series(new MatchDuration(this.duartion), this.numberOfTeams, new SeriesName("Allsvenskan"));
         }
 
         [TestMethod]

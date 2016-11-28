@@ -10,7 +10,7 @@ namespace DomainTests.Helper_Classes
     [TestClass]
     public class ScheduleTest
     {
-        private Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(8), "Allsvenskan");
+        private Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(8), new SeriesName("Allsvenskan"));
         private Schedule schedule;
         private TeamService teamService;
 

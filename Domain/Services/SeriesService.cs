@@ -91,8 +91,8 @@ namespace Domain.Services
             }
             else
             {
-                throw new ArgumentException($"Can not remove {DomainService.FindTeamById(teamId)}."
-                + $" Team doesn't exist in series {DomainService.FindSeriesById(seriesId)}.");
+                throw new ArgumentException($"Can not remove team \"{DomainService.FindTeamById(teamId)}\"."
+                + $" Team doesn't exist in series \"{DomainService.FindSeriesById(seriesId)}\".");
             }
         }
     }
