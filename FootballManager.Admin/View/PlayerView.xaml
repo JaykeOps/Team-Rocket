@@ -52,7 +52,7 @@
                                 VerticalAlignment="Center" 
                                 Margin="10">
                         <Label Content="Search for player:" />
-                        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=LostFocus}" />
                         <Button Command="{Binding OpenPlayerAddViewCommand}" 
                                 Content="Add New Player" 
                                 Style="{StaticResource FlatButton}" 

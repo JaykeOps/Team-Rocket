@@ -74,6 +74,7 @@ namespace FootballManager.Admin.ViewModel
             set
             {
                 searchText = value;
+                var test = playerService.Search(SearchText).ToObservableCollection();
                 OnPropertyChanged();
             }
         }
