@@ -11,10 +11,6 @@ namespace Domain.Interfaces
         IEnumerable<Guid> PlayerIds { get; }
         ArenaName ArenaName { get; }
         EmailAddress Email { get; }
-
-        IPresentableTeamSeriesEvents PresentableSeriesEvents { get; }
-        IPresentableTeamSeriesStats AggregatedTeamStats { get; }
-
         ShirtNumbers ShirtNumbers { get; }
     }
 }

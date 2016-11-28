@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class SeriesService
+    public class SeriesService : ISeriesService
     {
         private readonly SeriesRepository repository = SeriesRepository.instance;
 
@@ -52,7 +52,7 @@ namespace Domain.Services
             var teamIdsOfSerie = series.TeamIds;
 
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-            var teamStats = teamsOfSerie.Select(team => team.AggregatedTeamStats[series.Id]).ToList();
+            var teamStats = teamsOfSerie.Select(team => team.AggregatedStats[series.Id]).ToList();
 
             return teamStats.OrderByDescending(x => x.Points)
                 .ThenByDescending(x => x.GoalDifference)

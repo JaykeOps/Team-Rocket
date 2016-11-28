@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Domain.Value_Objects
 {
     [Serializable]
-    public class AggregatedTeamStats : IPresentableTeamSeriesStats
+    public class AggregatedTeamStats
     {
         private Dictionary<Guid, TeamStats> seriesStats;
         private Guid teamId;

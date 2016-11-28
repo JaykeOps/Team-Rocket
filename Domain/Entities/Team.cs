@@ -27,22 +27,6 @@ namespace Domain.Entities
             get { return this.playerIds; }
         }
 
-        public IPresentableTeamSeriesEvents PresentableSeriesEvents
-        {
-            get
-            {
-                return this.events;
-            }
-        }
-
-        public IPresentableTeamSeriesStats AggregatedTeamStats
-        {
-            get
-            {
-                return this.stats;
-            }
-        }
-
         public TeamMatchSchedule MatchSchedules
         {
             get
@@ -51,7 +35,7 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedTeamEvents Events
+        public AggregatedTeamEvents AggregatedEvents
         {
             get
             {
@@ -59,7 +43,7 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedTeamStats Stats
+        public AggregatedTeamStats AggregatedStats
         {
             get
             {

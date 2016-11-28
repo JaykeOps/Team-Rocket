@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class TeamService
+    public class TeamService : ITeamService
     {
         private readonly TeamRepository repository;
 
@@ -57,7 +57,7 @@ namespace Domain.Services
 
         public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
         {
-            return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedTeamStats[seriesId];
+            return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedStats[seriesId];
         }
 
         public IEnumerable<Team> Search(string searchText, StringComparison comparison 
@@ -72,13 +72,13 @@ namespace Domain.Services
         public TeamEvents GetTeamEventsInSeries(Guid teamId, Guid seriesId)
         {
             var team = this.FindById(teamId);
-            return team.PresentableSeriesEvents[seriesId];
+            return team.AggregatedEvents[seriesId];
         }
 
         public TeamStats GetTeamStatsInseries(Guid teamId, Guid seriesId)
         {
             var team = this.FindById(teamId);
-            return team.AggregatedTeamStats[seriesId];
+            return team.AggregatedStats[seriesId];
         }
 
         public IEnumerable<Match> GetTeamSchedule(Guid teamId, Guid seriesId)
