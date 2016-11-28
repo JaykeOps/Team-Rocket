@@ -2,6 +2,7 @@
 using Domain.Value_Objects;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Domain.Entities
 {
@@ -11,39 +12,15 @@ namespace Domain.Entities
         private readonly Guid seriesId;
         private readonly Guid playerId;
         private readonly Guid teamId;
+        private string playerName;
+        private string teamName;
+
         private PlayerEvents seriesEvents;
 
-        public string PlayerName
-        {
-            get
-            {
-                return DomainService.FindPlayerById(this.playerId).Name.ToString();
-            }
-        }
-
-        public string TeamName
-        {
-            get
-            {
-                return DomainService.FindTeamById(this.teamId).Name.ToString();
-            }
-        }
-
-        public int GoalCount
-        {
-            get
-            {
-                return this.seriesEvents.Goals.Count();
-            }
-        }
-
-        public int AssistCount
-        {
-            get
-            {
-                return this.seriesEvents.Assists.Count();
-            }
-        }
+        public string PlayerName => this.playerName;
+        public string TeamName => this.teamName;
+        public int GoalCount => this.seriesEvents.Goals.Count();
+        public int AssistCount => this.seriesEvents.Assists.Count();
 
         public int YellowCardCount
         {
@@ -63,28 +40,30 @@ namespace Domain.Entities
             }
         }
 
-        public int PenaltyCount
-        {
-            get
-            {
-                return this.seriesEvents.Penalties.Count();
-            }
-        }
-
-        public int GamesPlayedCount
-        {
-            get
-            {
-                return this.seriesEvents.Games.Count();
-            }
-        }
-
+        public int PenaltyCount => this.seriesEvents.Penalties.Count();
+        public int GamesPlayedCount => this.seriesEvents.Games.Count();
         public void UpdateSeriesEvents()
         {
             var player = DomainService.FindPlayerById(this.playerId);
             this.seriesEvents = player.AggregatedEvents[this.seriesId];
         }
 
+        private void UpdatePlayerName()
+        {
+            this.playerName = DomainService.FindPlayerById(this.playerId).Name.ToString();
+        }
+
+        private void UpdateTeamName()
+        {
+            this.teamName = DomainService.FindTeamById(this.teamId).Name.ToString();
+        }
+
+        public void UpdateAllStats()
+        {
+            this.UpdatePlayerName();
+            this.UpdateTeamName();
+            this.UpdateSeriesEvents();
+        }
         public PlayerStats(Guid seriesId, Guid teamId, Player player)
         {
             this.seriesId = seriesId;

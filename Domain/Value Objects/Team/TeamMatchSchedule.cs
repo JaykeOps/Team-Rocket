@@ -10,7 +10,7 @@ namespace Domain.Value_Objects
     public class TeamMatchSchedule
     {
         private Guid teamId;
-
+       
         public IEnumerable<Match> this[Guid seriesId]
         {
             get
