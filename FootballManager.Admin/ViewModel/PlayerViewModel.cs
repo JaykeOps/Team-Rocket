@@ -19,6 +19,7 @@ namespace FootballManager.Admin.ViewModel
         private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
         private ICommand deletePlayerCommand;
+        private string searchText;
 
         public PlayerViewModel()
         {
@@ -66,6 +67,18 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                searchText = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
         #region Methods
@@ -88,7 +101,8 @@ namespace FootballManager.Admin.ViewModel
 
         private void OnPlayerObjReceived(Player player)
         {
-            players.Add(player);
+            playerService.Add(player);
+            LoadData();
         }
 
         public void LoadData()

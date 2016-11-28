@@ -20,6 +20,7 @@ namespace Domain.Repositories
             this.series = new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
+            LoadData();
         }
 
         public void SaveData()

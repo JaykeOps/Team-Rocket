@@ -22,6 +22,7 @@ namespace Domain.Repositories
             this.teams = new HashSet<Team>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//teams.bin";
+            LoadData();
         }
 
         public void Add(Team newTeam)

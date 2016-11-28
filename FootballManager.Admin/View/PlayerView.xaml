@@ -46,13 +46,25 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="0" Grid.Column="0" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Margin="10">
                         <Label Content="Search for player:" />
-                        <TextBox />
-                        <Button Command="{Binding OpenPlayerAddViewCommand}" Content="Add New Player" Style="{StaticResource FlatButton}" VerticalAlignment="Bottom" Margin="40,0,0,0" />
+                        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Command="{Binding OpenPlayerAddViewCommand}" 
+                                Content="Add New Player" 
+                                Style="{StaticResource FlatButton}" 
+                                VerticalAlignment="Bottom" 
+                                Margin="40,0,0,0" />
                     </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
-
+                    <StackPanel Grid.Row="0" Grid.Column="0" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Center" 
+                                Margin="10" 
+                                Height="60">
                     </StackPanel>
                     
                     
@@ -63,7 +75,8 @@
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
-                              CanUserSortColumns="True">
+                              CanUserSortColumns="True"
+                              >
                         <DataGrid.Columns>
                             <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
                             <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />

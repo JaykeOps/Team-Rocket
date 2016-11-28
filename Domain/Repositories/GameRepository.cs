@@ -20,6 +20,7 @@ namespace Domain.Repositories
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//games.bin";
             this.games = new HashSet<Game>();
+            LoadData();
         }
 
         public void SaveData()
