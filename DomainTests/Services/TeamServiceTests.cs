@@ -83,5 +83,17 @@ namespace DomainTests.Services
             Assert.IsTrue(allTeams.Contains(teamTwo));
             Assert.IsFalse(allTeams.Contains(teamThree));
         }
+
+        [TestMethod]
+        public void GetAllTeamsOfSeriesIsWorking()
+        {
+            var series = new DummySeries();
+            var teamsOfSerie = service.GetTeamsOfSerie(series.SeriesDummy.Id);
+            Assert.IsTrue(teamsOfSerie != null
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamOne)
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamTwo)
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamThree)
+                && teamsOfSerie.Contains(series.DummyTeams.DummyTeamFour));
+        }
     }
 }

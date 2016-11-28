@@ -57,5 +57,13 @@ namespace Domain.Services
         {
             return GetAll().ToList().Find(t => t.Id == teamId).PresentableSeriesStats[seriesId];
         }
+
+        public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
+        {
+            var series = DomainService.FindSeriesById(sereisId);
+            var teamsOfSerie = series.TeamIds;
+
+            return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
+        }
     }
 }
