@@ -66,17 +66,16 @@
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
                             <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <DataGridTextColumn Header="Ranking"/>
-
-                            <DataGridTextColumn Header="Team" />
-                            <DataGridTextColumn Header="Matches Played" />
-                            <DataGridTextColumn Header="Wins" />
-                            <DataGridTextColumn Header="Draws" />
-                            <DataGridTextColumn Header="Losses" />
-                            <DataGridTextColumn Header="Goals For" />
-                            <DataGridTextColumn Header="Goals Against" />
-                            <DataGridTextColumn Header="Goal Difference" />
-                            <DataGridTextColumn Header="Points" />
+                            <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Matches Played" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Wins" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Draws" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Losses" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Goals For" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Goals Against" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Points" Binding="{Binding }" />
 
                             <!--<DataGridTemplateColumn Header="Position">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -176,41 +175,106 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <DataGrid x:Name="topScorersDataGrid" Grid.Row="0" Grid.Column="0" 
-                              ItemsSource="{Binding }" 
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
-                            
-                        </DataGrid>
-                        <DataGrid x:Name="topAssistsDataGrid" Grid.Row="0" Grid.Column="1" 
-                              ItemsSource="{Binding }" 
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
 
-                        </DataGrid>
-                        <DataGrid x:Name="topYellowCardsDataGrid" Grid.Row="1" Grid.Column="0" 
+                        <Grid x:Name="topScorersGrid" Grid.Row="0" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Scorers" TextAlignment="Center"/>
+                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="10" 
                               ItemsSource="{Binding }" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Goals" Binding="{Binding }" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <Grid x:Name="topAssistsGrid" Grid.Row="0" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        </DataGrid>
-                        <DataGrid x:Name="topRedCardsDataGrid" Grid.Row="1" Grid.Column="1" 
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Assists" TextAlignment="Center"/>
+                            <DataGrid x:Name="topAssistsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
                               ItemsSource="{Binding }" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Assists" Binding="{Binding }" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <Grid x:Name="topYellowCardsGrid" Grid.Row="1" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        </DataGrid>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Yellow Cards" TextAlignment="Center"/>
+                            <DataGrid x:Name="topYellowCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
+                              ItemsSource="{Binding }" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding }" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                        <Grid x:Name="topRedCardsGrid" Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Red Cards" TextAlignment="Center"/>
+                            <DataGrid x:Name="topRedCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
+                              ItemsSource="{Binding }" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding }" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>
