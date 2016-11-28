@@ -123,7 +123,8 @@ namespace DomainTests.Services
         [TestMethod]
         public void MatchSearchCanReturnMatchesContainingSpecifiedTeam()
         {
-            var matches = this.service.Search("Dummy TeamThree");
+            //TODO: Gets screwed because matches has no dates!
+            var matches = this.service.Search("Dummy TeamThree").ToList();
             Assert.IsNotNull(matches);
             Assert.AreNotEqual(matches, 0);
             foreach (var match in matches)
@@ -139,11 +140,20 @@ namespace DomainTests.Services
         [TestMethod]
         public void MatchSearchCanReturnMatchesContainingSpecifiedArena()
         {
+            //TODO: Gets screwed since matches has no dates!
+            var matches = this.service.Search("Dummy ArenaTwo").ToList();
+            Assert.IsNotNull(matches);
+            Assert.AreNotEqual(matches.Count, 0);
+            foreach (var match in matches)
+            {
+                Assert.AreEqual(match.Location.ToString(), "Dummy ArenaTwo");
+            }
         }
 
         [TestMethod]
         public void MatchSearchCanReturnMatchesScheduledAtSpecifiedDate()
         {
+            //TODO: Write when matches has dates!
         }
 
         //Series series = new Series(new MatchDuration(new TimeSpan(0, 90, 0)), new NumberOfTeams(16), "Allsvenskan");
