@@ -171,5 +171,10 @@ namespace Domain.Services
             var player = this.FindById(playerId);
             return player.AggregatedStats[seriesId];
         }
+
+        public void RemovePlayer(Guid playerId)
+        {
+            repository.RemovePlayer(playerId);
+        }
     }
 }

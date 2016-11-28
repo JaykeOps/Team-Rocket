@@ -224,5 +224,15 @@ namespace Domain.Services.Tests
         public void PlayerSearchCanReturnPlayersPlayingInSpecifiedSeries()
         {
         }
+
+        [TestMethod]
+        public void RemovePlayerWorks()
+        {
+            var series = new DummySeries();
+            var playerToRemove = DomainService.FindTeamById(series.SeriesDummy.
+                TeamIds.ElementAt(0)).PlayerIds.ElementAt(0);
+            playerService.RemovePlayer(playerToRemove);
+            Assert.IsTrue(!(playerService.GetAllPlayers().Contains(DomainService.FindPlayerById(playerToRemove))));
+        }
     }
 }
