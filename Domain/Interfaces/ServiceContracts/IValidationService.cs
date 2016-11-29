@@ -3,10 +3,10 @@ using System.ServiceModel;
 using Domain.Entities;
 using Domain.Interfaces;
 
-namespace Domain.Helper_Classes
+namespace Domain.Services
 {
     [ServiceContract]
-    public interface IValidator
+    public interface IValidationService
     {
         [OperationContract]
         bool IsValidName(string value, bool ignoreCase);

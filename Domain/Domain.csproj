@@ -50,7 +50,7 @@
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\EntityValidation.cs" />
     <Compile Include="Services\ValidationService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\IValidator.cs" />
+    <Compile Include="Interfaces\ServiceContracts\IValidationService.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtilities.cs" />
     <Compile Include="Interfaces\IExposablePlayer.cs" />

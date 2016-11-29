@@ -10,7 +10,7 @@ using Domain.Value_Objects;
 
 namespace Domain.Services
 {
-    public class ValidationService : IValidator
+    public class ValidationService : IValidationService
     {
         public bool IsValidName(string value, bool ignoreCase)
         {
