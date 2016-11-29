@@ -32,11 +32,11 @@ namespace FootballManager.App.ViewModel
 
         #region Combobox population
 
-        public IEnumerable<Series> AllSeries
+        public IEnumerable<string> AllSeries
         {
             get
             {
-                return seriesService.GetAll(); // This will later be called as a WCF service.
+                return seriesService.GetAll().Select(s => s.SeriesName); // This will later be called as a WCF service.
             }
         }
 
