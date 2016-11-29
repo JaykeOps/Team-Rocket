@@ -47,5 +47,8 @@ namespace Domain.Services
 
         [OperationContract]
         void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber);
+
+        [OperationContract]
+        void PlayerTeamIdBecomesIdOfTeamWhenPlayerIdIsAddedToTeam();
     }
 }
