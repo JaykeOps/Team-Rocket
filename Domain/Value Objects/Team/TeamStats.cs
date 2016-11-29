@@ -14,15 +14,6 @@ namespace Domain.Value_Objects
         private int losses;
         private int draws;
 
-        /* private TeamEvents TeamEvents
-         {
-             get
-             {
-                 var thisTeam = DomainService.FindTeamById(this.teamId);
-                 return thisTeam.Events[this.seriesId];
-             }
-         }*/
-
         public string TeamName => this.teamName;
         public int GamesPlayed => this.teamEvents.Games.Count();
         public int Wins => this.wins;

@@ -18,6 +18,11 @@ namespace Domain.Entities
         public MatchDateAndTime MatchDate { get; set; }
         public GameProtocol Protocol { get; }
 
+        public Game()
+        {
+            
+        }
+
         public Game(Match match)
         {
             if (match.HomeTeamId != match.AwayTeamId)

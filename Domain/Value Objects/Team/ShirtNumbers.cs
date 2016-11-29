@@ -12,6 +12,11 @@ namespace Domain.Value_Objects
         private Guid teamId;
         private Dictionary<int, bool> availableNumbers;
 
+        public ShirtNumbers()
+        {
+            
+        }
+
         public ShirtNumber this[int? number]
         {
             get

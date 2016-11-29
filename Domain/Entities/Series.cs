@@ -15,6 +15,11 @@ namespace Domain.Entities
         public MatchDuration MatchDuration { get; }
         public Dictionary<int, List<Match>> Schedule { get; set; }
 
+        public Series()
+        {
+            
+        }
+
         public Series(MatchDuration matchDuration, NumberOfTeams numberOfTeams, SeriesName name)
         {
             this.Id = Guid.NewGuid();

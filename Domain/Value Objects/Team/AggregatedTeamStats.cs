@@ -11,6 +11,11 @@ namespace Domain.Value_Objects
         private Dictionary<Guid, TeamStats> seriesStats;
         private Guid teamId;
 
+        public AggregatedTeamStats()
+        {
+            
+        }
+
         public TeamStats this[Guid seriesId]
         {
             get

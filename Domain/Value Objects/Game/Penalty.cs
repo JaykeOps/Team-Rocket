@@ -11,6 +11,11 @@ namespace Domain.Value_Objects
         public bool IsGoal { get; }
         public Guid PlayerId { get; }
 
+        public Penalty()
+        {
+            
+        }
+
         public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal, Game game, Guid teamId)
         {
             this.MatchMinute = matchMinute;

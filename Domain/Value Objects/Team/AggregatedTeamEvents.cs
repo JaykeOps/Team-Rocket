@@ -11,6 +11,11 @@ namespace Domain.Value_Objects
         private Dictionary<Guid, TeamEvents> seriesEvents;
         private Guid teamId;
 
+        public AggregatedTeamEvents()
+        {
+            
+        }
+
         public TeamEvents this[Guid seriesId]
         {
             get
