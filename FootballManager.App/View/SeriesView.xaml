@@ -49,8 +49,8 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series:" />
-                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                                  SelectedItem="{Binding SeriesName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
