@@ -210,5 +210,7 @@ namespace Domain.Services
             player.UpdateTeamAffiliation(team);
             team.UpdatePlayerIds();
         }
+
+        
     }
 }
