@@ -80,6 +80,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
+    <Compile Include="ViewModel\SeriesGameProtocolViewModel.cs" />
+    <Compile Include="ViewModel\SeriesScheduleViewModel.cs" />
     <Compile Include="ViewModel\SeriesViewModel.cs" />
     <Compile Include="ViewModel\TeamAddViewModel.cs" />
     <Compile Include="ViewModel\TeamViewModel.cs" />
@@ -88,6 +90,12 @@
     </Compile>
     <Compile Include="View\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SeriesGameProtocolView.xaml.cs">
+      <DependentUpon>SeriesGameProtocolView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SeriesScheduleView.xaml.cs">
+      <DependentUpon>SeriesScheduleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SeriesView.xaml.cs">
       <DependentUpon>SeriesView.xaml</DependentUpon>
@@ -136,6 +144,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\PlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SeriesGameProtocolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SeriesScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

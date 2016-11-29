@@ -6,6 +6,7 @@
             xmlns:local="clr-namespace:FootballManager.Admin.View"
             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             mc:Ignorable="d" 
             Height="700" Width="980"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -109,9 +110,10 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Tomt">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
+            <TabItem Header="Schedule">
+                <local:SeriesScheduleView />
             </TabItem>
+            
         </dragablz:TabablzControl>
     </Grid>
 </UserControl>

@@ -34,5 +34,15 @@ namespace FootballManager.Admin
         {
             get { return new SeriesViewModel(); }
         }
+
+        public static SeriesScheduleViewModel SeriesScheduleViewModel
+        {
+            get { return new SeriesScheduleViewModel(); }
+        }
+
+        public static SeriesGameProtocolViewModel SeriesGameProtocolViewModel
+        {
+            get { return new SeriesGameProtocolViewModel(); }
+        }
     }
 }
