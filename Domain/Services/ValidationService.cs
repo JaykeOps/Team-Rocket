@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Interfaces;
 using Domain.Value_Objects;
 
-namespace Domain.Helper_Classes
+namespace Domain.Services
 {
     public class ValidationService : IValidator
     {
