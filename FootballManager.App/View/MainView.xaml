@@ -18,6 +18,7 @@
     
     <DockPanel LastChildFill="True">
         <DockPanel.Background>
+            <!-- Stretch="Fill" ../Images/BarcelonaFC.png" -->
             <ImageBrush Stretch="Fill" ImageSource="../Images/BarcelonaFC.png" AlignmentY="Top" AlignmentX="Center"/>
         </DockPanel.Background>
         <DockPanel.Resources>
