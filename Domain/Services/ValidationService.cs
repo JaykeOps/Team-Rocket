@@ -9,7 +9,7 @@ using Domain.Value_Objects;
 
 namespace Domain.Helper_Classes
 {
-    public class ExposeableValidations : IValidator
+    public class ValidationService : IValidator
     {
         public bool IsValidName(string value, bool ignoreCase)
         {

@@ -49,7 +49,7 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\EntityValidation.cs" />
-    <Compile Include="Helper Classes\ExposeableValidations.cs" />
+    <Compile Include="Services\ValidationService.cs" />
     <Compile Include="Interfaces\ServiceContracts\IValidator.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtilities.cs" />
