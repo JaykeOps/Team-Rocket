@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="FootballManager.Admin.View.PlayerInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FootballManager.Admin.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Height="700" Width="980"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PlayerInfoViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Margin="10">
+            <Label Content="Search for player:" />
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=LostFocus}" />
+            <Button Command="{Binding OpenPlayerAddViewCommand}" 
+                                Content="Search" 
+                                Style="{StaticResource FlatButton}" 
+                                VerticalAlignment="Bottom" 
+                                Margin="40,0,0,0" />
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="0" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Center" 
+                                Margin="10" 
+                                Height="60">
+        </StackPanel>
+
+        <!--Margin: Left, Top, Right, Bottom-->
+        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
+                              ItemsSource="{Binding Players}" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              SelectionMode="Extended"
+                              CanUserSortColumns="True"
+                              >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="No" />
+                <DataGridTextColumn Header="First name" />
+                <DataGridTextColumn Header="Last name" />
+                <DataGridTextColumn Header="Date of Birth" />
+
+                <DataGridTemplateColumn Header="Position">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Position}" />
+                            <!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players -->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerInfoView}}}" 
+                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Status">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status}" />
+                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding DataContext.PlayerStatuses, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerInfoView}}}" 
+                                                  SelectedItem="{Binding Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Team">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" />
+                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerInfoView}}}" 
+                                                  SelectedItem="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Matches" />
+                <DataGridTextColumn Header="Goals" />
+                <DataGridTextColumn Header="Assists" />
+                <DataGridTextColumn Header="Red" />
+                <DataGridTextColumn Header="Yellow" />
+            
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

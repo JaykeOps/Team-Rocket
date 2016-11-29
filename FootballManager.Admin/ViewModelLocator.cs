@@ -20,6 +20,11 @@ namespace FootballManager.Admin
             get { return new PlayerAddViewModel(); }
         }
 
+        public static PlayerInfoViewModel PlayerInfoViewModel
+        {
+            get { return new PlayerInfoViewModel(); }
+        }
+
         public static TeamViewModel TeamViewModel
         {
             get { return new TeamViewModel(); }
