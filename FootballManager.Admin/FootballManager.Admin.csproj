@@ -57,6 +57,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +81,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Service References\GameService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MatchService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PlayerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SeriesService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TeamService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
     <Compile Include="ViewModel\SeriesGameProtocolViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleViewModel.cs" />
@@ -190,11 +217,123 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Domain.Entities.Game.datasource" />
+    <None Include="Properties\DataSources\Domain.Entities.Match.datasource" />
+    <None Include="Properties\DataSources\Domain.Entities.Player.datasource" />
+    <None Include="Properties\DataSources\Domain.Entities.PlayerStats.datasource" />
+    <None Include="Properties\DataSources\Domain.Entities.Series.datasource" />
+    <None Include="Properties\DataSources\Domain.Entities.Team.datasource" />
+    <None Include="Properties\DataSources\Domain.Value_Objects.TeamEvents.datasource" />
+    <None Include="Properties\DataSources\Domain.Value_Objects.TeamStats.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\GameService\GameService.wsdl" />
+    <None Include="Service References\GameService\GameService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GameService\GameService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GameService\GameService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GameService\GameService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GameService\GameService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GameService\GameService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\GameService\GameService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MatchService\MatchService.wsdl" />
+    <None Include="Service References\MatchService\MatchService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MatchService\MatchService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MatchService\MatchService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MatchService\MatchService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MatchService\MatchService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService.wsdl" />
+    <None Include="Service References\PlayerService\PlayerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlayerService\PlayerService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeriesService\SeriesService.wsdl" />
+    <None Include="Service References\SeriesService\SeriesService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeriesService\SeriesService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeriesService\SeriesService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeriesService\SeriesService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeriesService\SeriesService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeriesService\SeriesService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\FootballManager.Admin.TeamService.GetTeamStatsInseriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TeamService\TeamService.wsdl" />
+    <None Include="Service References\TeamService\TeamService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\TeamService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\TeamService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\TeamService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\TeamService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\TeamService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TeamService\TeamService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -222,6 +361,91 @@
   <ItemGroup>
     <Resource Include="Images\locked.jpg" />
     <Resource Include="Images\unlocked.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\GameService\" />
+    <WCFMetadataStorage Include="Service References\MatchService\" />
+    <WCFMetadataStorage Include="Service References\PlayerService\" />
+    <WCFMetadataStorage Include="Service References\SeriesService\" />
+    <WCFMetadataStorage Include="Service References\TeamService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GameService\GameService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GameService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GameService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GameService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlayerService\PlayerService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlayerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlayerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlayerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MatchService\MatchService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MatchService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MatchService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MatchService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeriesService\SeriesService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeriesService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeriesService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeriesService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TeamService\TeamService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TeamService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TeamService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TeamService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
