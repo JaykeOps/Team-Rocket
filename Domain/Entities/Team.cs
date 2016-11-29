@@ -82,7 +82,7 @@ namespace Domain.Entities
         public void RemovePlayerId(Guid playerId)
         {
             this.playerIds.Remove(playerId);
-            //this.RemoveTeamIdFromPlayerToBeRemoved(playerId);
+            this.RemoveTeamIdFromPlayerToBeRemoved(playerId);
         }
 
         private void RemoveTeamIdFromPlayerToBeRemoved(Guid playerId)
