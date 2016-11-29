@@ -72,9 +72,9 @@ namespace DomainTests.Services
             {
                 teamsOfSerie.Add(DomainService.FindTeamById(teamId));
             }
-            var orderedTeamList = teamsOfSerie.OrderByDescending(x => x.AggregatedTeamStats[series.SeriesDummy.Id].Points)
-                    .ThenByDescending(x => x.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference)
-                    .ThenByDescending(x => x.AggregatedTeamStats[series.SeriesDummy.Id].GoalsFor);
+            var orderedTeamList = teamsOfSerie.OrderByDescending(x => x.AggregatedStats[series.SeriesDummy.Id].Points)
+                    .ThenByDescending(x => x.AggregatedStats[series.SeriesDummy.Id].GoalDifference)
+                    .ThenByDescending(x => x.AggregatedStats[series.SeriesDummy.Id].GoalsFor);
 
             var leagueTable = seriesService.GetLeagueTablePlacement(series.SeriesDummy.Id);
 

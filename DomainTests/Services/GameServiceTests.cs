@@ -98,11 +98,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
-            var teamGoalsPriorGame = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsPriorGame = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddGoalToGame(game.Id, player.Id, 78);
             var gameGoalsAfterGame = game.Protocol.Goals.Count;
-            var teamGoalsAfterGame = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsAfterGame = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsAfterGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorGame == gameGoalsAfterGame - 1);
             Assert.IsTrue(teamGoalsPriorGame == teamGoalsAfterGame - 1);
@@ -188,12 +188,12 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
-            var teamGoalsPriorGame = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsPriorGame = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddGoalToGame(game.Id, player.Id, 78);
             this.gameService.RemoveGoalFromGame(game.Id, player.Id, 78);
             var gameGoalsAfterRemove = game.Protocol.Goals.Count;
-            var teamGoalsAfterRemove = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsAfterRemove = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsAfterRemove == gameGoalsPriorGame);
             Assert.IsTrue(teamGoalsAfterRemove == teamGoalsPriorGame);

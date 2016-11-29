@@ -244,7 +244,8 @@ namespace Domain.Services.Tests
             Assert.AreNotEqual(players.Count, 0);
             foreach (var player in players)
             {
-                Assert.IsTrue(player.AggregatedStats.AllStats.Keys.Any(x =>
+                var temporaryPlayer = (Player)player;
+                Assert.IsTrue(temporaryPlayer.AggregatedStats.AllStats.Keys.Any(x =>
                     DomainService.FindSeriesById(x).SeriesName.ToString() == "The Dummy Series"));
             }
         }

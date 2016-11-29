@@ -22,13 +22,13 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesEventGamesIsNotNull()
         {
-            Assert.IsNotNull(this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games);
+            Assert.IsNotNull(this.teamTwo.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Games);
         }
 
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamWinCountBasedOnEvents()
         {
-            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesWon = 0;
             foreach (var game in games)
@@ -48,7 +48,7 @@ namespace Domain.Value_Objects.Tests
                     }
                 }
             }
-            var teamWins = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Wins;
+            var teamWins = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Wins;
             Assert.IsTrue(teamWins != 0);
             Assert.IsTrue(gamesWon == teamWins);
         }
@@ -56,7 +56,7 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamDrawCountBasedOnEvents()
         {
-            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesDraw = 0;
             foreach (var game in games)
@@ -76,7 +76,7 @@ namespace Domain.Value_Objects.Tests
                     }
                 }
             }
-            var teamDraws = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Draws;
+            var teamDraws = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Draws;
             Assert.IsTrue(teamDraws != 0);
             Assert.IsTrue(gamesDraw == teamDraws);
         }
@@ -84,7 +84,7 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsCanShowCorrectTeamLossCountBasedOnEvents()
         {
-            var games = this.teamTwo.Events[this.dummySeries.SeriesDummy.Id].Games;
+            var games = this.teamTwo.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Games;
             Assert.IsNotNull(games);
             var gamesLost = 0;
             foreach (var game in games)
@@ -104,7 +104,7 @@ namespace Domain.Value_Objects.Tests
                     }
                 }
             }
-            var teamLosses = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Losses;
+            var teamLosses = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Losses;
             Assert.IsTrue(teamLosses != 0);
             Assert.IsTrue(gamesLost == teamLosses);
         }
@@ -112,10 +112,10 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamStatsCanShowCorrectTeamScoreBasedOnEvents()
         {
-            var teamWins = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Wins;
-            var teamDraws = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Draws;
-            var teamLosses = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Losses;
-            var teamScore = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].Points;
+            var teamWins = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Wins;
+            var teamDraws = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Draws;
+            var teamLosses = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Losses;
+            var teamScore = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].Points;
             Assert.IsTrue(teamScore == (3 * teamWins) + (1 * teamDraws) + (0 * teamLosses));
         }
 
@@ -128,19 +128,19 @@ namespace Domain.Value_Objects.Tests
             .SelectMany(y => y.Protocol.Goals.Where(z => z.TeamId == this.teamTwo.Id));
 
             var preAddGoalsForCount = goalsFor.Count();
-            Assert.IsTrue(this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].GoalsFor
+            Assert.IsTrue(this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].GoalsFor
                 == preAddGoalsForCount);
 
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(35), this.teamTwo.Id,
                 this.teamTwo.PlayerIds.ElementAt(0)));
-            var postAddGoalsForCount = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id].GoalsFor;
+            var postAddGoalsForCount = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id].GoalsFor;
             Assert.IsTrue(postAddGoalsForCount - preAddGoalsForCount == 1);
         }
 
         [TestMethod]
         public void TeamSeriesStatsGoalsAgainstReflectsChangesInEvents()
         {
-            var teamStats = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id];
+            var teamStats = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id];
             var goalsAgainst = DomainService.GetAllGames().Where(x => (x.SeriesId == this.dummySeries.SeriesDummy.Id)
             && x.Protocol.HomeTeamId == this.teamTwo.Id
             || x.Protocol.AwayTeamId == this.teamTwo.Id)
@@ -157,7 +157,7 @@ namespace Domain.Value_Objects.Tests
         [TestMethod]
         public void TeamSeriesStatsGoalDifferenceReflectsChangesInEvents()
         {
-            var teamStats = this.teamTwo.AggregatedTeamStats[this.dummySeries.SeriesDummy.Id];
+            var teamStats = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id];
             var preAddGoalDiffernce = teamStats.GoalDifference;
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
                 this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));

@@ -27,22 +27,6 @@ namespace Domain.Entities
             get { return this.playerIds; }
         }
 
-        public IPresentableTeamSeriesEvents PresentableSeriesEvents
-        {
-            get
-            {
-                return this.events;
-            }
-        }
-
-        public IPresentableTeamSeriesStats AggregatedTeamStats
-        {
-            get
-            {
-                return this.stats;
-            }
-        }
-
         public TeamMatchSchedule MatchSchedules
         {
             get
@@ -51,7 +35,7 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedTeamEvents Events
+        public AggregatedTeamEvents AggregatedEvents
         {
             get
             {
@@ -59,7 +43,7 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedTeamStats Stats
+        public AggregatedTeamStats AggregatedStats
         {
             get
             {
@@ -82,20 +66,23 @@ namespace Domain.Entities
 
         public void AddPlayerId(Guid playerId)
         {
-            this.RemovePlayerIdFromOldTeam(playerId);
+            if (DomainService.FindPlayerById(playerId).TeamId != Guid.Empty)
+            {
+                this.RemovePlayerIdFromOldTeam(playerId);
+            }
             this.playerIds.Add(playerId);
             DomainService.AddTeamToPlayer(this, playerId);
         }
 
         private void RemovePlayerIdFromOldTeam(Guid playerId)
         {
-            var player = DomainService.FindPlayerById(playerId); ;
+            
         }
 
         public void RemovePlayerId(Guid playerId)
         {
             this.playerIds.Remove(playerId);
-            this.RemoveTeamIdFromPlayerToBeRemoved(playerId);
+            //this.RemoveTeamIdFromPlayerToBeRemoved(playerId);
         }
 
         private void RemoveTeamIdFromPlayerToBeRemoved(Guid playerId)
@@ -110,8 +97,6 @@ namespace Domain.Entities
             this.events.AddSeries(series);
             this.stats.AddSeries(series);
         }
-
-        
 
         public override string ToString()
         {

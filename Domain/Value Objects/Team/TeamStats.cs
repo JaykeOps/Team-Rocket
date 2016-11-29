@@ -13,10 +13,6 @@ namespace Domain.Value_Objects
         private int wins;
         private int losses;
         private int draws;
-        private int goalsFor;
-        private int goalsAgainst;
-        private int goalDifference;
-        private int points;
 
         /* private TeamEvents TeamEvents
          {
@@ -85,7 +81,7 @@ namespace Domain.Value_Objects
         private void UpdateSeriesEvents()
         {
             var thisTeam = DomainService.FindTeamById(this.teamId);
-            this.teamEvents = thisTeam.Events[this.seriesId];
+            this.teamEvents = thisTeam.AggregatedEvents[this.seriesId];
         }
 
         private void UpdateWins()

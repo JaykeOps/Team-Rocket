@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class MatchService
+    public class MatchService : IMatchService
     {
         private readonly MatchRepository repository = MatchRepository.instance;
 
