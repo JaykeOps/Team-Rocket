@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Helper_Classes;
-using Domain.Value_Objects;
+﻿using Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DomainTests.Services
