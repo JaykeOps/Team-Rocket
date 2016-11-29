@@ -47,5 +47,11 @@ namespace Domain.Services
 
         [OperationContract]
         void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber);
+
+        [OperationContract]
+        void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId);
+
+        [OperationContract]
+        void RemovePlayer(Guid playerId);
     }
 }

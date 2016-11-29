@@ -49,6 +49,8 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\EntityValidation.cs" />
+    <Compile Include="Services\ValidationService.cs" />
+    <Compile Include="Interfaces\ServiceContracts\IValidationService.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtilities.cs" />
     <Compile Include="Interfaces\IExposablePlayer.cs" />
@@ -91,7 +93,7 @@
     <Compile Include="Value Objects\Person and children\ShirtNumber.cs" />
     <Compile Include="Enums\PlayerPosition.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
-    <Compile Include="Helper Classes\ValidationFormat.cs" />
+    <Compile Include="Helper Classes\ValueObjectValidation.cs" />
     <Compile Include="Value Objects\Person and children\PersonContactInformation.cs" />
     <Compile Include="Value Objects\Person and children\DateOfBirth.cs" />
     <Compile Include="Value Objects\Global\EmailAddress.cs" />

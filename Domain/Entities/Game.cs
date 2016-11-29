@@ -44,9 +44,6 @@ namespace Domain.Entities
             }
         }
 
-        public override string ToString()
-        {
-            return $"Location: {this.Location} Time: {this.MatchDate} Hometeam: {DomainService.FindTeamById(this.HomeTeamId)} Awayteam: {DomainService.FindTeamById(this.AwayTeamId)}";
-        }
+        
     }
 }
