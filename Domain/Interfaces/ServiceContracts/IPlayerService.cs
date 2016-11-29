@@ -49,6 +49,9 @@ namespace Domain.Services
         void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber);
 
         [OperationContract]
-        void PlayerTeamIdBecomesIdOfTeamWhenPlayerIdIsAddedToTeam();
+        void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId);
+
+        [OperationContract]
+        void RemovePlayer(Guid playerId);
     }
 }
