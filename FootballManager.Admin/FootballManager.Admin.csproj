@@ -81,9 +81,11 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
     <Compile Include="ViewModel\SeriesGameProtocolViewModel.cs" />
+    <Compile Include="ViewModel\SeriesScheduleEditViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleViewModel.cs" />
     <Compile Include="ViewModel\SeriesViewModel.cs" />
     <Compile Include="ViewModel\TeamAddViewModel.cs" />
+    <Compile Include="ViewModel\TeamInfoViewModel.cs" />
     <Compile Include="ViewModel\TeamViewModel.cs" />
     <Compile Include="View\PlayerAddView.xaml.cs">
       <DependentUpon>PlayerAddView.xaml</DependentUpon>
@@ -94,6 +96,9 @@
     <Compile Include="View\SeriesGameProtocolView.xaml.cs">
       <DependentUpon>SeriesGameProtocolView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SeriesScheduleEditView.xaml.cs">
+      <DependentUpon>SeriesScheduleEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SeriesScheduleView.xaml.cs">
       <DependentUpon>SeriesScheduleView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +107,9 @@
     </Compile>
     <Compile Include="View\TeamAddView.xaml.cs">
       <DependentUpon>TeamAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeamInfoView.xaml.cs">
+      <DependentUpon>TeamInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TeamView.xaml.cs">
       <DependentUpon>TeamView.xaml</DependentUpon>
@@ -151,6 +159,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SeriesScheduleEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SeriesScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TeamAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeamInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

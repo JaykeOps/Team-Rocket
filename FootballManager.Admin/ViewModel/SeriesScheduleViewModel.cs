@@ -31,5 +31,25 @@ namespace FootballManager.Admin.ViewModel
             var view = new SeriesGameProtocolView();
             view.ShowDialog();
         }
+
+        private ICommand openSeriesScheduleEditViewCommand;
+
+        public ICommand OpenSeriesScheduleEditViewCommand
+        {
+            get
+            {
+                if (openSeriesScheduleEditViewCommand == null)
+                {
+                    openSeriesScheduleEditViewCommand = new RelayCommand(OpenSeriesScheduleEditView);
+                }
+                return openSeriesScheduleEditViewCommand;
+            }
+        }
+
+        private void OpenSeriesScheduleEditView(object obj)
+        {
+            var view = new SeriesScheduleEditView();
+            view.ShowDialog();
+        }
     }
 }

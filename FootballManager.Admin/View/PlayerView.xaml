@@ -20,10 +20,9 @@
             <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
             <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
 
-
             <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
-            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
+            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
             <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->

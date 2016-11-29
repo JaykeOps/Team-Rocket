@@ -24,7 +24,7 @@
 
             <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
-            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
+            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
             <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
@@ -46,8 +46,13 @@
             <Label Content="Series:" />
             <ComboBox ItemsSource="{Binding}" 
                     SelectedItem="" />
+            <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
+                                Content="Temp: Open Edit" 
+                                Style="{StaticResource FlatButton}" 
+                                VerticalAlignment="Center" 
+                                Margin="40,0,0,0" />
             <Button Command="{Binding OpenSeriesGameProtocolViewCommand}" 
-                                Content="Temp: Open Game Protocol" 
+                                Content="Temp: Open Create Protocol" 
                                 Style="{StaticResource FlatButton}" 
                                 VerticalAlignment="Center" 
                                 Margin="40,0,0,0" />

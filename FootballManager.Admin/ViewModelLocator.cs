@@ -30,6 +30,11 @@ namespace FootballManager.Admin
             get { return new TeamAddViewModel(); }
         }
 
+        public static TeamInfoViewModel TeamInfoViewModel
+        {
+            get { return new TeamInfoViewModel(); }
+        }
+
         public static SeriesViewModel SeriesViewModel
         {
             get { return new SeriesViewModel(); }
@@ -40,9 +45,16 @@ namespace FootballManager.Admin
             get { return new SeriesScheduleViewModel(); }
         }
 
+        public static SeriesScheduleEditViewModel SeriesScheduleEditViewModel
+        {
+            get { return new SeriesScheduleEditViewModel(); }
+        }
+
         public static SeriesGameProtocolViewModel SeriesGameProtocolViewModel
         {
             get { return new SeriesGameProtocolViewModel(); }
         }
+
+
     }
 }

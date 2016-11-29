@@ -93,11 +93,8 @@
 
             </TabItem>
 
-            <TabItem Header="Tomt">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
-            </TabItem>
-            <TabItem Header="Tomt">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
+            <TabItem Header="Team Info">
+                <local:TeamInfoView />
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>

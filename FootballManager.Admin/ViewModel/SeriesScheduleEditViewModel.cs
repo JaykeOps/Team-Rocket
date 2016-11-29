@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class SeriesGameProtocolViewModel : ViewModelBase
+    public class SeriesScheduleEditViewModel
     {
     }
 }
