@@ -10,7 +10,7 @@ namespace Domain.Services
     [ServiceContract]
     public interface ISeriesService
     {
-        [OperationContract]
+        [OperationContract(Name = "AddSeries")]
         void Add(Series series);
 
         [OperationContract]

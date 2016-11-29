@@ -8,11 +8,11 @@ namespace Domain.Services
     [ServiceContract]
     public interface IGameService
     {
-        [OperationContract]
+        [OperationContract(Name = "AddGameFromList")]
         void Add(IEnumerable<Game> games);
-        [OperationContract]
+        [OperationContract(Name="AddGameFromMatchId")]
         Guid Add(Guid matchId);
-        [OperationContract]
+        [OperationContract(Name = "AddGame")]
         void Add(Game game);
         [OperationContract]
         void AddAssistToGame(Guid gameId, Guid playerId, int matchMinute);

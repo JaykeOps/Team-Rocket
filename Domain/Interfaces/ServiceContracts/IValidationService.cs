@@ -50,16 +50,16 @@ namespace Domain.Services
         [OperationContract]
         bool IsMatchValid(Match match);
 
-        [OperationContract]
+        [OperationContract(Name = "IsTeamValid")]
         bool IsTeamValid(Team team);
 
-        [OperationContract]
+        [OperationContract(Name = "IsExposableTeamValid")]
         bool IsTeamValid(IExposableTeam exposableTeam);
 
-        [OperationContract]
+        [OperationContract(Name = "IsValidPlayer")]
         bool IsValidPlayer(Player player);
 
-        [OperationContract]
+        [OperationContract(Name = "IsValidExposablePlayer")]
         bool IsValidPlayer(IExposablePlayer exposablePlayer);
 
         [OperationContract]

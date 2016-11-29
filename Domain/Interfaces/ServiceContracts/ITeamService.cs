@@ -10,16 +10,16 @@ namespace Domain.Services
     [ServiceContract]
     public interface ITeamService
     {
-        [OperationContract]
+        [OperationContract(Name = "AddTeam")]
         void Add(Team team);
 
-        [OperationContract]
+        [OperationContract(Name = "AddExposableTeam")]
         void Add(IExposableTeam team);
 
-        [OperationContract]
+        [OperationContract(Name = "AddTeamFromList")]
         void Add(IEnumerable<Team> teams);
 
-        [OperationContract]
+        [OperationContract(Name = "AddExposableTeamFromList")]
         void Add(IEnumerable<IExposableTeam> teams);
 
         [OperationContract]

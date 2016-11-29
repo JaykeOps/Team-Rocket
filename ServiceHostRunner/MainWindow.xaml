@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceHostRunner"
         mc:Ignorable="d"
-        Title="ServiceRunner" Height="200" Width="400">
+        Title="ServiceRunner" Height="130" Width="400">
+
+    <Window.Resources>
+        <BitmapImage x:Key="notStartedImage" UriSource="Resources/clock.png"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -19,9 +23,11 @@
             <Button Content="Start service" Margin="5" Click="StartService_OnClick"/>
             <Button Content="Stop service" Margin="5" Click="StopService_OnClick"/>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-        <Label  Content="Status: "/>
-            <TextBlock Margin="0, 5, 0 , 0" Text="Not started." Name="StatusTextBlock"></TextBlock>
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Label  Content="Status: "/>
+            <TextBlock Margin="0, 5, 0 , 0" Text="Service not started " Name="StatusTextBlock" />
+            <Image Height="15" Width="15" Margin="2, 2, 0 , 0" x:Name="StatusImage" Source="{StaticResource notStartedImage}"/>
         </StackPanel>
+        <TextBlock Grid.Row="1" Grid.Column="0" Name="OpenClosedCheck" Text=""></TextBlock>
     </Grid>
 </Window>

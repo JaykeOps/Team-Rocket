@@ -9,16 +9,16 @@ namespace Domain.Services
     [ServiceContract]
     public interface IPlayerService
     {
-        [OperationContract]
+        [OperationContract(Name = "AddExposablePlayer")]
         void Add(IExposablePlayer player);
 
-        [OperationContract]
+        [OperationContract(Name = "AddPlayer")]
         void Add(Player player);
 
-        [OperationContract]
+        [OperationContract(Name = "AddPlayerFromList")]
         void Add(IEnumerable<Player> players);
 
-        [OperationContract]
+        [OperationContract(Name = "AddExposablePlayerFromList")]
         void Add(IEnumerable<IExposablePlayer> players);
 
         [OperationContract]

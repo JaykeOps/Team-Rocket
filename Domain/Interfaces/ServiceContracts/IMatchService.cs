@@ -8,10 +8,10 @@ namespace Domain.Services
     [ServiceContract]
     public interface IMatchService
     {
-        [OperationContract]
+        [OperationContract(Name = "AddMatch")]
         void Add(Match match);
 
-        [OperationContract]
+        [OperationContract(Name = "AddMatchFromList")]
         void Add(IEnumerable<Match> matches);
 
         [OperationContract]
