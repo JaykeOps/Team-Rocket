@@ -42,6 +42,7 @@ namespace Domain.Services
 
         [OperationContract]
         TeamStats GetTeamStatsInseries(Guid teamId, Guid seriesId);
+
         [OperationContract]
         IEnumerable<Team> Search(string searchText, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase);
     }

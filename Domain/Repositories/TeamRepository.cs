@@ -105,6 +105,20 @@ namespace Domain.Repositories
             }
         }
 
+        public void RemoveTeam(Guid teamId)
+        {
+            Team playerToRemove;
+
+            if (this.TryGetTeam(DomainService.FindTeamById(teamId), out playerToRemove))
+            {
+                this.teams.Remove(playerToRemove);
+            }
+            else
+            {
+                throw new ArgumentException("Team doesn't exist.");
+            }
+        }
+
         private bool TryGetTeam(Team team, out Team teamInRepository)
         {
             teamInRepository = this.FindById(team.Id);
@@ -115,5 +129,6 @@ namespace Domain.Repositories
         {
             return this.teams.FirstOrDefault(x => x.Id == teamId);
         }
+        
     }
 }

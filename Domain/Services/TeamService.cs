@@ -94,7 +94,7 @@ namespace Domain.Services
         {
             return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
             || x.ArenaName.ToString().Contains(searchText, comparison)
-            || x.Email.ToString().Contains(searchText, comparison)
+            || x.Email.Value.Contains(searchText, comparison)
             || x.playerIds.Any(y => DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
         }
 
@@ -123,6 +123,11 @@ namespace Domain.Services
             var teamsOfSerie = series.TeamIds;
 
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
+        }
+
+        public void RemoveTeam(Guid teamId)
+        {
+            this.repository.RemoveTeam(teamId);
         }
     }
 }

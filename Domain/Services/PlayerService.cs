@@ -182,7 +182,9 @@ namespace Domain.Services
             }
             catch (NullReferenceException)
             {
-                throw new NullReferenceException($"Search failed! Datasource does not contain any data related to the player id '{playerId}'");
+                throw new NullReferenceException(
+                    "Search failed! Datasource does not contain any " 
+                    + $"data related to the player id '{playerId}'");
             }
         }
 
