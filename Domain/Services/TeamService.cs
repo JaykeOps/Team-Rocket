@@ -124,5 +124,10 @@ namespace Domain.Services
 
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
         }
+
+        public void RemoveTeam(Guid teamId)
+        {
+            this.repository.RemoveTeam(teamId);
+        }
     }
 }

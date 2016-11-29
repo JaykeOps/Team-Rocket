@@ -102,5 +102,14 @@ namespace DomainTests.Services
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamThree)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamFour));
         }
+        [TestMethod]
+        public void RemovePlayerWorks()
+        {
+            var series = new DummySeries();
+            var teamToRemove = DomainService.FindTeamById(series.SeriesDummy.
+                TeamIds.ElementAt(0));
+            service.RemoveTeam(teamToRemove.Id);
+            Assert.IsFalse(service.GetAll().ToList().Contains(teamToRemove));
+        }
     }
 }
