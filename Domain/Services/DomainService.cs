@@ -60,7 +60,7 @@ namespace Domain.Services
         {
             foreach (var playerId in team.PlayerIds)
             {
-                var player = DomainService.FindPlayerById(playerId);
+                var player = FindPlayerById(playerId);
                 player.AddSeries(series);
             }
         }

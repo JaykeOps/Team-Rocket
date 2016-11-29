@@ -28,6 +28,7 @@
             <TextBlock Margin="0, 5, 0 , 0" Text="Service not started " Name="StatusTextBlock" />
             <Image Height="15" Width="15" Margin="2, 2, 0 , 0" x:Name="StatusImage" Source="{StaticResource notStartedImage}"/>
         </StackPanel>
-        <TextBlock Grid.Row="1" Grid.Column="0" Name="OpenClosedCheck" Text=""></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" Name="OpenClosedCheck" Text="" />
     </Grid>
 </Window>
+

@@ -31,53 +31,53 @@ namespace ServiceHostRunner
 
         public MainWindow()
         {
-            InitializeComponent();
-            gameServiceHost = new ServiceHost(typeof(GameService));
-            matchServiceHost = new ServiceHost(typeof(MatchService));
-            playerServiceHost = new ServiceHost(typeof(PlayerService));
-            seriesServiceHost = new ServiceHost(typeof(SeriesService));
-            teamServiceHost = new ServiceHost(typeof(TeamService));
-            validationServiceHost = new ServiceHost(typeof(ValidationService));
+            this.InitializeComponent();
+            this.gameServiceHost = new ServiceHost(typeof(GameService));
+            this.matchServiceHost = new ServiceHost(typeof(MatchService));
+            this.playerServiceHost = new ServiceHost(typeof(PlayerService));
+            this.seriesServiceHost = new ServiceHost(typeof(SeriesService));
+            this.teamServiceHost = new ServiceHost(typeof(TeamService));
+            this.validationServiceHost = new ServiceHost(typeof(ValidationService));
         }
 
         private void StartService_OnClick(object sender, RoutedEventArgs e)
         {
-            var state = gameServiceHost.State;
+            var state = this.gameServiceHost.State;
 
-            if (gameServiceHost.State == CommunicationState.Created )
+            if (this.gameServiceHost.State == CommunicationState.Created )
             {
-                OpenClosedCheck.Text = "";
-                gameServiceHost.Open();
-                matchServiceHost.Open();
-                playerServiceHost.Open();
-                seriesServiceHost.Open();
-                teamServiceHost.Open();
-                validationServiceHost.Open();
-                StatusTextBlock.Text = $"Service started at {DateTime.Now} ";
-                StatusImage.Source = new BitmapImage(new Uri(@"Resources/correct.png", UriKind.RelativeOrAbsolute));
+                this.OpenClosedCheck.Text = "";
+                this.gameServiceHost.Open();
+                this.matchServiceHost.Open();
+                this.playerServiceHost.Open();
+                this.seriesServiceHost.Open();
+                this.teamServiceHost.Open();
+                this.validationServiceHost.Open();
+                this.StatusTextBlock.Text = $"Service started at {DateTime.Now} ";
+                this.StatusImage.Source = new BitmapImage(new Uri(@"Resources/correct.png", UriKind.RelativeOrAbsolute));
             }
-            else if (gameServiceHost.State == CommunicationState.Closed)
+            else if (this.gameServiceHost.State == CommunicationState.Closed)
             {
-                gameServiceHost = new ServiceHost(typeof(GameService));
-                matchServiceHost = new ServiceHost(typeof(MatchService));
-                playerServiceHost = new ServiceHost(typeof(PlayerService));
-                seriesServiceHost = new ServiceHost(typeof(SeriesService));
-                teamServiceHost = new ServiceHost(typeof(TeamService));
-                validationServiceHost = new ServiceHost(typeof(ValidationService));
+                this.gameServiceHost = new ServiceHost(typeof(GameService));
+                this.matchServiceHost = new ServiceHost(typeof(MatchService));
+                this.playerServiceHost = new ServiceHost(typeof(PlayerService));
+                this.seriesServiceHost = new ServiceHost(typeof(SeriesService));
+                this.teamServiceHost = new ServiceHost(typeof(TeamService));
+                this.validationServiceHost = new ServiceHost(typeof(ValidationService));
 
-                OpenClosedCheck.Text = "";
-                gameServiceHost.Open();
-                matchServiceHost.Open();
-                playerServiceHost.Open();
-                seriesServiceHost.Open();
-                teamServiceHost.Open();
-                validationServiceHost.Open();
-                StatusTextBlock.Text = $"Service started at {DateTime.Now} ";
-                StatusImage.Source = new BitmapImage(new Uri(@"Resources/correct.png", UriKind.RelativeOrAbsolute));
+                this.OpenClosedCheck.Text = "";
+                this.gameServiceHost.Open();
+                this.matchServiceHost.Open();
+                this.playerServiceHost.Open();
+                this.seriesServiceHost.Open();
+                this.teamServiceHost.Open();
+                this.validationServiceHost.Open();
+                this.StatusTextBlock.Text = $"Service started at {DateTime.Now} ";
+                this.StatusImage.Source = new BitmapImage(new Uri(@"Resources/correct.png", UriKind.RelativeOrAbsolute));
             }
             else
             {
-                OpenClosedCheck.Text = "Already started.";
+                this.OpenClosedCheck.Text = "Already started.";
             }
 
         }
@@ -86,21 +86,21 @@ namespace ServiceHostRunner
 
         private void StopService_OnClick(object sender, RoutedEventArgs e)
         {
-            if (gameServiceHost.State == CommunicationState.Opened)
+            if (this.gameServiceHost.State == CommunicationState.Opened)
             {
-                OpenClosedCheck.Text = "";
-                gameServiceHost.Close();
-                matchServiceHost.Close();
-                playerServiceHost.Close();
-                seriesServiceHost.Close();
-                teamServiceHost.Close();
-                validationServiceHost.Close();
-                StatusTextBlock.Text = $"Service stopped at {DateTime.Now} ";
-                StatusImage.Source = new BitmapImage(new Uri(@"Resources/cancel.png", UriKind.RelativeOrAbsolute));
+                this.OpenClosedCheck.Text = "";
+                this.gameServiceHost.Close();
+                this.matchServiceHost.Close();
+                this.playerServiceHost.Close();
+                this.seriesServiceHost.Close();
+                this.teamServiceHost.Close();
+                this.validationServiceHost.Close();
+                this.StatusTextBlock.Text = $"Service stopped at {DateTime.Now} ";
+                this.StatusImage.Source = new BitmapImage(new Uri(@"Resources/cancel.png", UriKind.RelativeOrAbsolute));
             }
             else 
             {
-                OpenClosedCheck.Text = "Already stopped.";
+                this.OpenClosedCheck.Text = "Already stopped.";
                 
             }
             

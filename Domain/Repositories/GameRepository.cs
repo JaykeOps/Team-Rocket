@@ -111,7 +111,7 @@ namespace Domain.Repositories
 
         public IEnumerable<Game> GetAll()
         {
-            foreach (var game in games)
+            foreach (var game in this.games)
             {
                 game.Protocol.UpdateGameResult();
             }

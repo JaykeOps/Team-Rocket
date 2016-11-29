@@ -58,7 +58,7 @@ namespace Domain.Services.Tests
                 game1,
                 game2
             };
-            gameService.Add(games);
+            this.gameService.Add(games);
             var allGames = DomainService.GetAllGames();
             Assert.IsTrue(allGames.Contains(game1));
             Assert.IsTrue(allGames.Contains(game2));
@@ -72,9 +72,9 @@ namespace Domain.Services.Tests
             var matchs = series.SeriesDummy.Schedule.Values.SelectMany(matchess => matchess).ToList();
             DomainService.AddMatches(matchs);
             var matchIds = (from matches in series.SeriesDummy.Schedule.Values from match in matches select match.Id).ToList();
-            var numOfGamesPriorAdd = gameService.GetAll().Count();
-            gameService.AddList(matchIds);
-            var numOfGamesAfterAdd = gameService.GetAll().Count();
+            var numOfGamesPriorAdd = this.gameService.GetAll().Count();
+            this.gameService.AddList(matchIds);
+            var numOfGamesAfterAdd = this.gameService.GetAll().Count();
             Assert.IsTrue(matchIds.Count == numOfGamesAfterAdd - numOfGamesPriorAdd);
         }
 

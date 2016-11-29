@@ -116,7 +116,7 @@ namespace Domain.Repositories
 
         public void DeleteSeries(Guid seriesId)
         {
-            series.RemoveWhere(s => s.Id == seriesId);
+            this.series.RemoveWhere(s => s.Id == seriesId);
         }
     }
 }

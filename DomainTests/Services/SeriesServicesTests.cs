@@ -76,7 +76,7 @@ namespace DomainTests.Services
                     .ThenByDescending(x => x.AggregatedStats[series.SeriesDummy.Id].GoalDifference)
                     .ThenByDescending(x => x.AggregatedStats[series.SeriesDummy.Id].GoalsFor);
 
-            var leagueTable = seriesService.GetLeagueTablePlacement(series.SeriesDummy.Id);
+            var leagueTable = this.seriesService.GetLeagueTablePlacement(series.SeriesDummy.Id);
 
             for (int i = 0; i < orderedTeamList.Count(); i++)
             {
@@ -101,8 +101,8 @@ namespace DomainTests.Services
             series.TeamIds.Add(seriesDummyTeams.ElementAt(2));
             series.TeamIds.Add(seriesDummyTeams.ElementAt(3));
 
-            seriesService.Add(series);
-            seriesService.ScheduleGenerator(series.Id);
+            this.seriesService.Add(series);
+            this.seriesService.ScheduleGenerator(series.Id);
 
             Assert.IsTrue(series.TeamIds.Contains(seriesDummyTeams.ElementAt(0))
                 && series.TeamIds.Contains(seriesDummyTeams.ElementAt(1))
@@ -128,17 +128,17 @@ namespace DomainTests.Services
             series.TeamIds.Add(seriesDummyTeams.ElementAt(2));
             series.TeamIds.Add(seriesDummyTeams.ElementAt(3));
 
-            seriesService.Add(series);
-            seriesService.ScheduleGenerator(series.Id);
+            this.seriesService.Add(series);
+            this.seriesService.ScheduleGenerator(series.Id);
 
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(0));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(1));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(2));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(3));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(0));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(1));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(2));
-            seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(3));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(0));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(1));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(2));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(3));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(0));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(1));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(2));
+            this.seriesService.AddTeamToSeries(series.Id, seriesDummyTeams.ElementAt(3));
 
             Assert.IsTrue(series.TeamIds.Contains(seriesDummyTeams.ElementAt(0))
                 && series.TeamIds.Contains(seriesDummyTeams.ElementAt(1))
@@ -152,7 +152,7 @@ namespace DomainTests.Services
             var seriesToEdit = new DummySeries();
             var uneditedSeries = new DummySeries();
             var teamToRemove = seriesToEdit.SeriesDummy.TeamIds.ElementAt(0);
-            seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
+            this.seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
             Assert.IsTrue(seriesToEdit.SeriesDummy.TeamIds.Count != uneditedSeries.SeriesDummy.TeamIds.Count);
         }
 
@@ -165,16 +165,16 @@ namespace DomainTests.Services
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(1).Id);
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(2).Id);
             series.TeamIds.Add(DomainService.GetAllTeams().ElementAt(3).Id);
-            seriesService.Add(series);
-            seriesService.ScheduleGenerator(series.Id);
-            Assert.IsTrue(seriesService.GetAll().Contains(series));
-            seriesService.DeleteSeries(series.Id);
-            Assert.IsFalse(seriesService.GetAll().Contains(series));
+            this.seriesService.Add(series);
+            this.seriesService.ScheduleGenerator(series.Id);
+            Assert.IsTrue(this.seriesService.GetAll().Contains(series));
+            this.seriesService.DeleteSeries(series.Id);
+            Assert.IsFalse(this.seriesService.GetAll().Contains(series));
             var seriesToEdit = new DummySeries();
             var uneditedSeries = new DummySeries();
             var teamToRemove = seriesToEdit.SeriesDummy.TeamIds.ElementAt(0);
-            seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
-            seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
+            this.seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
+            this.seriesService.RemoveTeamFromSeries(seriesToEdit.SeriesDummy.Id, teamToRemove);
         }
 
         [TestMethod]

@@ -11,10 +11,10 @@ namespace DomainTests.Services
         [TestMethod]
         public void ServiceCanExposeValidations()
         {
-            validationService = new ValidationService();
-            Assert.IsTrue(validationService.IsValidSeriesName("Allsvenskan", true));
-            Assert.IsTrue(validationService.IsValidArenaName("Ullevi", true));
-            Assert.IsTrue(validationService.IsValidTeamName("Grötpojkarna", true));
+            this.validationService = new ValidationService();
+            Assert.IsTrue(this.validationService.IsValidSeriesName("Allsvenskan", true));
+            Assert.IsTrue(this.validationService.IsValidArenaName("Ullevi", true));
+            Assert.IsTrue(this.validationService.IsValidTeamName("Grötpojkarna", true));
         }
 
 

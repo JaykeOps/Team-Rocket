@@ -66,7 +66,7 @@ namespace DomainTests.Services
         {
             var series = new DummySeries();
             var team = series.DummyTeams.DummyTeamOne;
-            var teamStats = service.GetTeamStatsInSeries(series.SeriesDummy.Id, team.Id);
+            var teamStats = this.service.GetTeamStatsInSeries(series.SeriesDummy.Id, team.Id);
             var games = DomainService.GetAllGames();
             var teamGoals = games.Where(game => game.SeriesId == series.SeriesDummy.Id).SelectMany(game => game.Protocol.Goals).Count(goal => goal.TeamId == team.Id);
             Assert.IsTrue(teamGoals == teamStats.GoalsFor);
@@ -84,7 +84,7 @@ namespace DomainTests.Services
                 teamOne,
                 teamTwo
             };
-            service.Add(teams);
+            this.service.Add(teams);
             var allTeams = DomainService.GetAllTeams();
             Assert.IsTrue(allTeams.Contains(teamOne));
             Assert.IsTrue(allTeams.Contains(teamTwo));
@@ -95,7 +95,7 @@ namespace DomainTests.Services
         public void GetAllTeamsOfSeriesIsWorking()
         {
             var series = new DummySeries();
-            var teamsOfSerie = service.GetTeamsOfSerie(series.SeriesDummy.Id);
+            var teamsOfSerie = this.service.GetTeamsOfSerie(series.SeriesDummy.Id);
             Assert.IsTrue(teamsOfSerie != null
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamOne)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamTwo)

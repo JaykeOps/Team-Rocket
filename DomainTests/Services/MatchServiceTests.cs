@@ -100,7 +100,7 @@ namespace DomainTests.Services
                 matchOne,
                 matchTwo
             };
-            service.Add(matches);
+            this.service.Add(matches);
             var allMatches = DomainService.GetAllMatches();
             Assert.IsTrue(allMatches.Contains(matchOne));
             Assert.IsTrue(allMatches.Contains(matchTwo));

@@ -191,7 +191,7 @@ namespace Domain.Services.Tests
                 playerOne,
                 playerTwo
             };
-            playerService.Add(players);
+            this.playerService.Add(players);
             var allPlayers = DomainService.GetAllPlayers();
             Assert.IsTrue(allPlayers.Contains(playerOne));
             Assert.IsTrue(allPlayers.Contains(playerTwo));
@@ -256,8 +256,8 @@ namespace Domain.Services.Tests
             var series = new DummySeries();
             var playerToRemove = DomainService.FindTeamById(series.SeriesDummy.
                 TeamIds.ElementAt(0)).PlayerIds.ElementAt(0);
-            playerService.RemovePlayer(playerToRemove);
-            Assert.IsTrue(!(playerService.GetAllPlayers().Contains(DomainService.FindPlayerById(playerToRemove))));
+            this.playerService.RemovePlayer(playerToRemove);
+            Assert.IsTrue(!(this.playerService.GetAllPlayers().Contains(DomainService.FindPlayerById(playerToRemove))));
         }
 
         [TestMethod]
