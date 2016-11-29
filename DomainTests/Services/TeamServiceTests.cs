@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
@@ -85,7 +84,7 @@ namespace DomainTests.Services
                 teamOne,
                 teamTwo
             };
-            service.AddTeam(teams);
+            service.Add(teams);
             var allTeams = DomainService.GetAllTeams();
             Assert.IsTrue(allTeams.Contains(teamOne));
             Assert.IsTrue(allTeams.Contains(teamTwo));
@@ -102,35 +101,6 @@ namespace DomainTests.Services
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamTwo)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamThree)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamFour));
-        }
-
-        [TestMethod]
-        public void AddPlayerIdToTeamReflectsOnPlayerTeamId()
-        {
-            var playerOne = DomainService.FindPlayerById(
-                this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
-            var teamOne = this.dummySeries.DummyTeams.DummyTeamOne;
-            var teamTwo = this.dummySeries.DummyTeams.DummyTeamTwo;
-            Assert.AreNotEqual(playerOne.TeamId, Guid.Empty);
-            Assert.AreEqual(playerOne.TeamId, teamOne.Id);
-            Assert.AreNotEqual(teamTwo.Id, Guid.Empty);
-            this.service.AddPlayerIdToTeam(playerOne, teamTwo);
-            Assert.AreEqual(teamTwo.Id, playerOne.TeamId);
-        }
-
-        [TestMethod]
-        public void AddPlayerIdToTeamReflectsOnPlayersOldTeamPlayerIds()
-        {
-            var playerOne = DomainService.FindPlayerById(
-                this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
-            var teamOne = this.dummySeries.DummyTeams.DummyTeamOne;
-            var teamTwo = this.dummySeries.DummyTeams.DummyTeamTwo;
-            Assert.AreNotEqual(playerOne.TeamId, Guid.Empty);
-            Assert.AreEqual(playerOne.TeamId, teamOne.Id);
-            Assert.AreNotEqual(teamTwo.Id, Guid.Empty);
-            this.service.AddPlayerIdToTeam(playerOne, teamTwo);
-            Assert.AreEqual(teamTwo.Id, playerOne.TeamId);
-            Assert.IsFalse(teamOne.PlayerIds.Contains(playerOne.Id));
         }
     }
 }

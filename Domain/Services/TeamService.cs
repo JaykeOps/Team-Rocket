@@ -31,7 +31,35 @@ namespace Domain.Services
             }
         }
 
-        public void AddTeam(IEnumerable<Team> teams)
+
+        public void Add(IExposableTeam team)
+        {
+            if (team.IsTeamValid())
+            {
+                this.repository.Add((Team)team);
+            }
+            else
+            {
+                throw new FormatException("Match cannot be added. Invalid matchdata");
+            }
+        }
+
+        public void Add(IEnumerable<Team> teams)
+        {
+            if (teams != null)
+            {
+                foreach (var team in teams)
+                {
+                    this.Add(team);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of teams is null");
+            }
+        }
+
+        public void Add(IEnumerable<IExposableTeam> teams)
         {
             if (teams != null)
             {
@@ -61,7 +89,7 @@ namespace Domain.Services
             return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedStats[seriesId];
         }
 
-        public IEnumerable<Team> Search(string searchText, StringComparison comparison 
+        public IEnumerable<Team> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
@@ -86,8 +114,8 @@ namespace Domain.Services
         {
             var team = this.FindById(teamId);
             return team.MatchSchedules[seriesId];
-        } 
-            
+        }
+
 
         public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
         {
@@ -95,12 +123,6 @@ namespace Domain.Services
             var teamsOfSerie = series.TeamIds;
 
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-        }
-
-        public void AddPlayerIdToTeam(IExposablePlayer exposablePlayer, IExposableTeam exposableTeam)
-        {
-            var team = (Team) exposableTeam;
-            team.AddPlayerId(exposablePlayer.Id);
         }
     }
 }

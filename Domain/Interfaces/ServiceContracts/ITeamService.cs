@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Value_Objects;
 
 namespace Domain.Services
@@ -13,7 +14,13 @@ namespace Domain.Services
         void Add(Team team);
 
         [OperationContract]
-        void AddTeam(IEnumerable<Team> teams);
+        void Add(IExposableTeam team);
+
+        [OperationContract]
+        void Add(IEnumerable<Team> teams);
+
+        [OperationContract]
+        void Add(IEnumerable<IExposableTeam> teams);
 
         [OperationContract]
         Team FindById(Guid teamId);

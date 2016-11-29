@@ -110,15 +110,7 @@ namespace DomainTests.Entities.Tests
             Assert.AreEqual(this.dummyPlayer.TeamId, newTeamId);
         }
 
-        [TestMethod]
-        public void PlayerTeamIdBecomesEmptyGuidWhenPlayerIdGetsRemovedFromTeam()
-        {
-            Assert.IsNotNull(this.dummyPlayer.TeamId);
-            Assert.AreNotEqual(this.dummyPlayer.TeamId, Guid.Empty);
-            Assert.AreEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
-            this.dummyTeam.RemovePlayerId(this.dummyPlayer.Id);
-            Assert.AreEqual(this.dummyPlayer.TeamId, Guid.Empty);
-        }
+        
 
         [TestMethod]
         public void PlayerTeamIdBecomesIdOfTeamWhenPlayerIdIsAddedToTeam()
@@ -129,7 +121,7 @@ namespace DomainTests.Entities.Tests
             Assert.IsNotNull(this.dummyPlayer.TeamId);
             Assert.AreNotEqual(this.dummyPlayer.TeamId, Guid.Empty);
             Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummySeries.DummyTeams.DummyTeamTwo.Id);
-            newTeam.AddPlayerId(this.dummyPlayer.Id);
+            
             Assert.AreEqual(this.dummyPlayer.TeamId, newTeam.Id);
         }
     }
