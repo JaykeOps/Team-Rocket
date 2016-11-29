@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1013addd-a8b7-4ba8-b5fd-c6f79e04ad5b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/TeamService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TeamService.xsd" MetadataType="Schema" ID="18491c40-bf79-45ea-a46f-12714ad22859" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd3" />
+    <MetadataFile FileName="TeamService1.xsd" MetadataType="Schema" ID="b4880086-7340-4fec-9596-469a66c9bcff" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd2" />
+    <MetadataFile FileName="TeamService2.xsd" MetadataType="Schema" ID="718c5218-c8d7-4a9e-97c9-5371a537cd8e" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd5" />
+    <MetadataFile FileName="TeamService3.xsd" MetadataType="Schema" ID="b25b93a5-6a75-4079-9612-76b40fdaa568" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd4" />
+    <MetadataFile FileName="TeamService4.xsd" MetadataType="Schema" ID="85f73fb3-4821-4217-a77b-28d9f5f78a68" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd6" />
+    <MetadataFile FileName="TeamService5.xsd" MetadataType="Schema" ID="075e0009-8100-4461-949e-e55ef8215ff3" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd1" />
+    <MetadataFile FileName="TeamService.disco" MetadataType="Disco" ID="bbae46e0-032b-4854-92bc-f0764a25b882" SourceId="1" SourceUrl="http://localhost:8080/TeamService?disco" />
+    <MetadataFile FileName="TeamService.wsdl" MetadataType="Wsdl" ID="21831281-92a8-4900-80bf-cf7dd8b96fad" SourceId="1" SourceUrl="http://localhost:8080/TeamService?wsdl" />
+    <MetadataFile FileName="TeamService6.xsd" MetadataType="Schema" ID="38ceba08-ed97-4aa4-af41-07ae996deaeb" SourceId="1" SourceUrl="http://localhost:8080/TeamService?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

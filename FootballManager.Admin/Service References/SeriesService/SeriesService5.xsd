@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8080/SeriesService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="MatchDuration">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfMatchDuration9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="ser:duration" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MatchDuration" nillable="true" type="tns:MatchDuration" />
+  <xs:complexType name="ValueObjectOfMatchDuration9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MatchDuration" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfMatchDuration9ysJgGRF" nillable="true" type="tns:ValueObjectOfMatchDuration9ysJgGRF" />
+  <xs:complexType name="NumberOfTeams">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfNumberOfTeams9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="NumberOfTeams" nillable="true" type="tns:NumberOfTeams" />
+  <xs:complexType name="ValueObjectOfNumberOfTeams9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NumberOfTeams" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfNumberOfTeams9ysJgGRF" nillable="true" type="tns:ValueObjectOfNumberOfTeams9ysJgGRF" />
+  <xs:complexType name="ArenaName">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfArenaName9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ArenaName" nillable="true" type="tns:ArenaName" />
+  <xs:complexType name="ValueObjectOfArenaName9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ArenaName" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfArenaName9ysJgGRF" nillable="true" type="tns:ValueObjectOfArenaName9ysJgGRF" />
+  <xs:complexType name="MatchDateAndTime">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfMatchDateAndTime9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MatchDateAndTime" nillable="true" type="tns:MatchDateAndTime" />
+  <xs:complexType name="ValueObjectOfMatchDateAndTime9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MatchDateAndTime" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfMatchDateAndTime9ysJgGRF" nillable="true" type="tns:ValueObjectOfMatchDateAndTime9ysJgGRF" />
+  <xs:complexType name="SeriesName">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfSeriesName9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SeriesName" nillable="true" type="tns:SeriesName" />
+  <xs:complexType name="ValueObjectOfSeriesName9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="SeriesName" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfSeriesName9ysJgGRF" nillable="true" type="tns:ValueObjectOfSeriesName9ysJgGRF" />
+</xs:schema>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Domain.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Domain.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8080/PlayerService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/" />
+  <xs:import schemaLocation="http://localhost:8080/PlayerService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+  <xs:import schemaLocation="http://localhost:8080/PlayerService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Player">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Person">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/" name="_x003C_Position_x003E_k__BackingField" type="q1:PlayerPosition" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" name="_x003C_Status_x003E_k__BackingField" type="q2:PlayerStatus" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="affiliatedTeamName" nillable="true" type="q3:TeamName" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="aggregatedEvents" nillable="true" type="q4:AggregatedPlayerEvents" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="aggregatedStats" nillable="true" type="q5:AggregatedPlayerStats" />
+          <xs:element name="shirtNumber" nillable="true" type="tns:ShirtNumber" />
+          <xs:element name="teamId" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Player" nillable="true" type="tns:Player" />
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="_x003C_ContactInformation_x003E_k__BackingField" nillable="true" type="q6:ContactInformation" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="_x003C_DateOfBirth_x003E_k__BackingField" nillable="true" type="q7:DateOfBirth" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="ser:guid" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="tns:Name" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Person" nillable="true" type="tns:Person" />
+  <xs:complexType name="Name">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q8="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" base="q8:ValueObjectOfNameMbb067J0">
+        <xs:sequence>
+          <xs:element name="_x003C_FirstName_x003E_k__BackingField" nillable="true" type="xs:string" />
+          <xs:element name="_x003C_LastName_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Name" nillable="true" type="tns:Name" />
+  <xs:complexType name="ArrayOfGame">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Game" nillable="true" type="tns:Game" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGame" nillable="true" type="tns:ArrayOfGame" />
+  <xs:complexType name="Game">
+    <xs:sequence>
+      <xs:element name="_x003C_AwayTeamId_x003E_k__BackingField" type="ser:guid" />
+      <xs:element name="_x003C_HomeTeamId_x003E_k__BackingField" type="ser:guid" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="ser:guid" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="_x003C_Location_x003E_k__BackingField" nillable="true" type="q9:ArenaName" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="_x003C_MatchDate_x003E_k__BackingField" nillable="true" type="q10:MatchDateAndTime" />
+      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="_x003C_MatchDuration_x003E_k__BackingField" nillable="true" type="q11:MatchDuration" />
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" name="_x003C_Protocol_x003E_k__BackingField" nillable="true" type="q12:GameProtocol" />
+      <xs:element name="_x003C_SeriesId_x003E_k__BackingField" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Game" nillable="true" type="tns:Game" />
+  <xs:complexType name="PlayerStats">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q13="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" base="q13:ValueObjectOfPlayerStatsMbb067J0">
+        <xs:sequence>
+          <xs:element name="playerId" type="ser:guid" />
+          <xs:element name="playerName" nillable="true" type="xs:string" />
+          <xs:element name="seriesEvents" nillable="true" type="q13:PlayerEvents" />
+          <xs:element name="seriesId" type="ser:guid" />
+          <xs:element name="teamId" type="ser:guid" />
+          <xs:element name="teamName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PlayerStats" nillable="true" type="tns:PlayerStats" />
+  <xs:complexType name="ShirtNumber">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q14="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" base="q14:ValueObjectOfShirtNumberMbb067J0">
+        <xs:sequence>
+          <xs:element name="_x003C_PlayerTeamId_x003E_k__BackingField" type="ser:guid" />
+          <xs:element name="_x003C_Value_x003E_k__BackingField" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ShirtNumber" nillable="true" type="tns:ShirtNumber" />
+  <xs:complexType name="ArrayOfPlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Player" nillable="true" type="tns:Player" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayer" nillable="true" type="tns:ArrayOfPlayer" />
+  <xs:complexType name="ArrayOfPlayerStats">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerStats" nillable="true" type="tns:PlayerStats" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerStats" nillable="true" type="tns:ArrayOfPlayerStats" />
+</xs:schema>

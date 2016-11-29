@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9ea55ff4-483a-4ca2-8ccd-d9e0778168ad" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/SeriesService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SeriesService.wsdl" MetadataType="Wsdl" ID="616befd6-7090-40d2-89e3-490bda4fa7a3" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?wsdl" />
+    <MetadataFile FileName="SeriesService.disco" MetadataType="Disco" ID="5e642fa3-5e24-44c1-96f8-2788b247032b" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?disco" />
+    <MetadataFile FileName="SeriesService.xsd" MetadataType="Schema" ID="2deeb438-1173-4063-b687-6aa4f8848c37" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?xsd=xsd1" />
+    <MetadataFile FileName="SeriesService1.xsd" MetadataType="Schema" ID="a1d39dc3-9864-40a2-9810-53f483bdde2b" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?xsd=xsd4" />
+    <MetadataFile FileName="SeriesService2.xsd" MetadataType="Schema" ID="3ac6f1ce-e843-458f-83eb-a29643b0454a" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?xsd=xsd2" />
+    <MetadataFile FileName="SeriesService3.xsd" MetadataType="Schema" ID="1637e89a-1ac9-4f2c-b376-04104463e8bd" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?xsd=xsd5" />
+    <MetadataFile FileName="SeriesService4.xsd" MetadataType="Schema" ID="d0bb40eb-a5e9-42b4-97ec-50fce228eee6" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?xsd=xsd0" />
+    <MetadataFile FileName="SeriesService5.xsd" MetadataType="Schema" ID="40796b19-2a09-4f99-bc10-9307dd7b5e45" SourceId="1" SourceUrl="http://localhost:8080/SeriesService?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

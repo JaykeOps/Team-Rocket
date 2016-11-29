@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d15a17f7-5262-4ae3-b1e1-a60f4e83b57c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/MatchService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MatchService.xsd" MetadataType="Schema" ID="38444a11-df35-45e4-87c9-f4b1d5f2bd87" SourceId="1" SourceUrl="http://localhost:8080/MatchService?xsd=xsd4" />
+    <MetadataFile FileName="MatchService.wsdl" MetadataType="Wsdl" ID="5c57f732-741f-49bd-93c9-984da918ac2e" SourceId="1" SourceUrl="http://localhost:8080/MatchService?wsdl" />
+    <MetadataFile FileName="MatchService1.xsd" MetadataType="Schema" ID="b6fb2775-0a6d-4b31-8230-c89bc0df86ed" SourceId="1" SourceUrl="http://localhost:8080/MatchService?xsd=xsd0" />
+    <MetadataFile FileName="MatchService2.xsd" MetadataType="Schema" ID="451e095c-0a51-4c57-8616-c295960d0dbc" SourceId="1" SourceUrl="http://localhost:8080/MatchService?xsd=xsd1" />
+    <MetadataFile FileName="MatchService3.xsd" MetadataType="Schema" ID="8c54aa53-16c6-4a8f-9a8c-80daac49464a" SourceId="1" SourceUrl="http://localhost:8080/MatchService?xsd=xsd2" />
+    <MetadataFile FileName="MatchService.disco" MetadataType="Disco" ID="8818d2ad-a68f-4e25-b7d5-acd1ab9925f3" SourceId="1" SourceUrl="http://localhost:8080/MatchService?disco" />
+    <MetadataFile FileName="MatchService4.xsd" MetadataType="Schema" ID="bd27ab40-14b4-4139-8602-436681c5dfb6" SourceId="1" SourceUrl="http://localhost:8080/MatchService?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

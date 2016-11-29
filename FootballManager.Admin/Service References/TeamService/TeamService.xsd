@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8080/TeamService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8080/TeamService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:8080/TeamService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Domain.Entities" />
+  <xs:import schemaLocation="http://localhost:8080/TeamService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/" />
+  <xs:complexType name="ArenaName">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfArenaName9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ArenaName" nillable="true" type="tns:ArenaName" />
+  <xs:complexType name="ValueObjectOfArenaName9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ArenaName" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfArenaName9ysJgGRF" nillable="true" type="tns:ValueObjectOfArenaName9ysJgGRF" />
+  <xs:complexType name="EmailAddress">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfEmailAddress9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EmailAddress" nillable="true" type="tns:EmailAddress" />
+  <xs:complexType name="ValueObjectOfEmailAddress9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="EmailAddress" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfEmailAddress9ysJgGRF" nillable="true" type="tns:ValueObjectOfEmailAddress9ysJgGRF" />
+  <xs:complexType name="TeamName">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfTeamName9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TeamName" nillable="true" type="tns:TeamName" />
+  <xs:complexType name="ValueObjectOfTeamName9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="TeamName" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfTeamName9ysJgGRF" nillable="true" type="tns:ValueObjectOfTeamName9ysJgGRF" />
+  <xs:complexType name="ShirtNumbers">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfShirtNumbers9ysJgGRF">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="availableNumbers" nillable="true" type="q1:ArrayOfKeyValueOfintboolean" />
+          <xs:element name="teamId" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ShirtNumbers" nillable="true" type="tns:ShirtNumbers" />
+  <xs:complexType name="ValueObjectOfShirtNumbers9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ShirtNumbers" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfShirtNumbers9ysJgGRF" nillable="true" type="tns:ValueObjectOfShirtNumbers9ysJgGRF" />
+  <xs:complexType name="AggregatedTeamEvents">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="seriesEvents" nillable="true" type="q2:ArrayOfKeyValueOfguidTeamEventsmvGPPpy_S" />
+      <xs:element name="teamId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AggregatedTeamEvents" nillable="true" type="tns:AggregatedTeamEvents" />
+  <xs:complexType name="TeamEvents">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Domain.Entities" minOccurs="0" name="Games" nillable="true" type="q3:ArrayOfGame" />
+      <xs:element minOccurs="0" name="Goals" nillable="true" type="tns:ArrayOfGoal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeamEvents" nillable="true" type="tns:TeamEvents" />
+  <xs:complexType name="MatchDateAndTime">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfMatchDateAndTime9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MatchDateAndTime" nillable="true" type="tns:MatchDateAndTime" />
+  <xs:complexType name="ValueObjectOfMatchDateAndTime9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MatchDateAndTime" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfMatchDateAndTime9ysJgGRF" nillable="true" type="tns:ValueObjectOfMatchDateAndTime9ysJgGRF" />
+  <xs:complexType name="MatchDuration">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfMatchDuration9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="ser:duration" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MatchDuration" nillable="true" type="tns:MatchDuration" />
+  <xs:complexType name="ValueObjectOfMatchDuration9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MatchDuration" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfMatchDuration9ysJgGRF" nillable="true" type="tns:ValueObjectOfMatchDuration9ysJgGRF" />
+  <xs:complexType name="GameProtocol">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfGameProtocol9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Assists_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAssist" />
+          <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_x003C_AwayTeamActivePlayers_x003E_k__BackingField" nillable="true" type="q4:ArrayOfguid" />
+          <xs:element name="_x003C_AwayTeamId_x003E_k__BackingField" type="ser:guid" />
+          <xs:element name="_x003C_Cards_x003E_k__BackingField" nillable="true" type="tns:ArrayOfCard" />
+          <xs:element name="_x003C_Goals_x003E_k__BackingField" nillable="true" type="tns:ArrayOfGoal" />
+          <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_x003C_HomeTeamActivePlayers_x003E_k__BackingField" nillable="true" type="q5:ArrayOfguid" />
+          <xs:element name="_x003C_HomeTeamId_x003E_k__BackingField" type="ser:guid" />
+          <xs:element name="_x003C_OverTime_x003E_k__BackingField" nillable="true" type="tns:OverTime" />
+          <xs:element name="_x003C_Penalties_x003E_k__BackingField" nillable="true" type="tns:ArrayOfPenalty" />
+          <xs:element name="gameResult" nillable="true" type="tns:GameResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GameProtocol" nillable="true" type="tns:GameProtocol" />
+  <xs:complexType name="ValueObjectOfGameProtocol9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="GameProtocol" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfGameProtocol9ysJgGRF" nillable="true" type="tns:ValueObjectOfGameProtocol9ysJgGRF" />
+  <xs:complexType name="ArrayOfAssist">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Assist" nillable="true" type="tns:Assist" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAssist" nillable="true" type="tns:ArrayOfAssist" />
+  <xs:complexType name="Assist">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfAssist9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_MatchMinute_x003E_k__BackingField" nillable="true" type="tns:MatchMinute" />
+          <xs:element name="_x003C_PlayerId_x003E_k__BackingField" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Assist" nillable="true" type="tns:Assist" />
+  <xs:complexType name="ValueObjectOfAssist9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Assist" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfAssist9ysJgGRF" nillable="true" type="tns:ValueObjectOfAssist9ysJgGRF" />
+  <xs:complexType name="MatchMinute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfMatchMinute9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MatchMinute" nillable="true" type="tns:MatchMinute" />
+  <xs:complexType name="ValueObjectOfMatchMinute9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="MatchMinute" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfMatchMinute9ysJgGRF" nillable="true" type="tns:ValueObjectOfMatchMinute9ysJgGRF" />
+  <xs:complexType name="ArrayOfCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Card" nillable="true" type="tns:Card" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCard" nillable="true" type="tns:ArrayOfCard" />
+  <xs:complexType name="Card">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfCard9ysJgGRF">
+        <xs:sequence>
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/" name="_x003C_CardType_x003E_k__BackingField" type="q6:CardType" />
+          <xs:element name="_x003C_MatchMinute_x003E_k__BackingField" nillable="true" type="tns:MatchMinute" />
+          <xs:element name="_x003C_PlayerId_x003E_k__BackingField" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Card" nillable="true" type="tns:Card" />
+  <xs:complexType name="ValueObjectOfCard9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Card" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfCard9ysJgGRF" nillable="true" type="tns:ValueObjectOfCard9ysJgGRF" />
+  <xs:complexType name="ArrayOfGoal">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Goal" nillable="true" type="tns:Goal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGoal" nillable="true" type="tns:ArrayOfGoal" />
+  <xs:complexType name="Goal">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfGoal9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_MatchMinute_x003E_k__BackingField" nillable="true" type="tns:MatchMinute" />
+          <xs:element name="_x003C_PlayerId_x003E_k__BackingField" type="ser:guid" />
+          <xs:element name="_x003C_TeamId_x003E_k__BackingField" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Goal" nillable="true" type="tns:Goal" />
+  <xs:complexType name="ValueObjectOfGoal9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Goal" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfGoal9ysJgGRF" nillable="true" type="tns:ValueObjectOfGoal9ysJgGRF" />
+  <xs:complexType name="OverTime">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfOverTime9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OverTime" nillable="true" type="tns:OverTime" />
+  <xs:complexType name="ValueObjectOfOverTime9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="OverTime" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfOverTime9ysJgGRF" nillable="true" type="tns:ValueObjectOfOverTime9ysJgGRF" />
+  <xs:complexType name="ArrayOfPenalty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Penalty" nillable="true" type="tns:Penalty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPenalty" nillable="true" type="tns:ArrayOfPenalty" />
+  <xs:complexType name="Penalty">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfPenalty9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_IsGoal_x003E_k__BackingField" type="xs:boolean" />
+          <xs:element name="_x003C_MatchMinute_x003E_k__BackingField" nillable="true" type="tns:MatchMinute" />
+          <xs:element name="_x003C_PlayerId_x003E_k__BackingField" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Penalty" nillable="true" type="tns:Penalty" />
+  <xs:complexType name="ValueObjectOfPenalty9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Penalty" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfPenalty9ysJgGRF" nillable="true" type="tns:ValueObjectOfPenalty9ysJgGRF" />
+  <xs:complexType name="GameResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ValueObjectOfGameResult9ysJgGRF">
+        <xs:sequence>
+          <xs:element name="_x003C_AwayTeamId_x003E_k__BackingField" type="ser:guid" />
+          <xs:element name="_x003C_AwayTeamScore_x003E_k__BackingField" type="xs:int" />
+          <xs:element name="_x003C_HomeTeamId_x003E_k__BackingField" type="ser:guid" />
+          <xs:element name="_x003C_HomeTeamScore_x003E_k__BackingField" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GameResult" nillable="true" type="tns:GameResult" />
+  <xs:complexType name="ValueObjectOfGameResult9ysJgGRF">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="GameResult" Namespace="http://schemas.datacontract.org/2004/07/Domain.Value_Objects" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ValueObjectOfGameResult9ysJgGRF" nillable="true" type="tns:ValueObjectOfGameResult9ysJgGRF" />
+  <xs:complexType name="TeamMatchSchedule">
+    <xs:sequence>
+      <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="allMatches" nillable="true" type="q7:ArrayOfKeyValueOfguidArrayOfMatch5bQmwVs7" />
+      <xs:element name="teamId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeamMatchSchedule" nillable="true" type="tns:TeamMatchSchedule" />
+  <xs:complexType name="AggregatedTeamStats">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="seriesStats" nillable="true" type="q8:ArrayOfKeyValueOfguidTeamStatsmvGPPpy_S" />
+      <xs:element name="teamId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AggregatedTeamStats" nillable="true" type="tns:AggregatedTeamStats" />
+  <xs:complexType name="TeamStats">
+    <xs:sequence>
+      <xs:element name="draws" type="xs:int" />
+      <xs:element name="losses" type="xs:int" />
+      <xs:element name="seriesId" type="ser:guid" />
+      <xs:element name="teamEvents" nillable="true" type="tns:TeamEvents" />
+      <xs:element name="teamId" type="ser:guid" />
+      <xs:element name="teamName" nillable="true" type="xs:string" />
+      <xs:element name="wins" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeamStats" nillable="true" type="tns:TeamStats" />
+</xs:schema>
