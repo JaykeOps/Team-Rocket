@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
 using FootballManager.App.View;
+using Dragablz;
 
 namespace FootballManager.App.ViewModel
 {
@@ -18,7 +20,7 @@ namespace FootballManager.App.ViewModel
         private PlayerService playerService;
         private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
-        private ICommand deletePlayerCommand;
+        private ICommand playerInfoCommand;
 
         public PlayerViewModel()
         {
@@ -45,16 +47,16 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        public ICommand DeletePlayerCommand
+        public ICommand PlayerInfoCommand
         {
             get
             {
-                if (deletePlayerCommand == null)
+                if (playerInfoCommand == null)
                 {
-                    deletePlayerCommand = new RelayCommand(DeletePlayer);
+                    playerInfoCommand = new RelayCommand(PlayerInfo);
                 }
-                return deletePlayerCommand;
-            }            
+                return playerInfoCommand;
+            }
         }
 
         public ObservableCollection<Player> Players
@@ -69,21 +71,17 @@ namespace FootballManager.App.ViewModel
         #endregion
 
         #region Methods
-        private void DeletePlayer(object obj)
-        {
-            IList playersSelectedIList = (IList)obj;
-            List<Player> playersSelectedList = playersSelectedIList.Cast<Player>().ToList();
-
-            foreach (var player in playersSelectedList)
-            {
-                players.Remove(player);
-            }
-        }
 
         private void OpenPlayerAddView(object obj)
         {
             var playerAddView = new PlayerAddView();
             playerAddView.ShowDialog();
+        }
+
+        private void PlayerInfo(object obj)
+        {
+            TabablzControl playerViewTabablzControl = (TabablzControl)obj;
+            playerViewTabablzControl.SelectedIndex = 1;
         }
 
         private void OnPlayerObjReceived(Player player)
@@ -95,6 +93,7 @@ namespace FootballManager.App.ViewModel
         {
             Players = playerService.GetAllPlayers().ToObservableCollection();
         }
+
         #endregion
 
         #region Combobox population

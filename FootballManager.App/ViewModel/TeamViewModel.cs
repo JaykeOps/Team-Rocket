@@ -5,6 +5,7 @@ using Domain.Services;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
 using FootballManager.App.View;
+using Dragablz;
 
 namespace FootballManager.App.ViewModel
 {
@@ -13,6 +14,7 @@ namespace FootballManager.App.ViewModel
         private ObservableCollection<Team> teams;
         private TeamService teamService;
         private Team selectedTeam;
+        private ICommand teamInfoCommand;
 
         public TeamViewModel()
         {
@@ -29,6 +31,19 @@ namespace FootballManager.App.ViewModel
 
         public ICommand OpenTeamAddViewCommand { get; }
         public ICommand DeleteTeamCommand { get; }
+
+        public ICommand TeamInfoCommand
+        {
+            get
+            {
+                if (teamInfoCommand == null)
+                {
+                    teamInfoCommand = new RelayCommand(TeamInfo);
+                }
+                return teamInfoCommand;
+            }
+        }
+
 
         public Team SelectedTeam
         {
@@ -58,6 +73,12 @@ namespace FootballManager.App.ViewModel
         {
             teams.Remove(selectedTeam);
 
+        }
+
+        private void TeamInfo(object obj)
+        {
+            TabablzControl teamViewTabablzControl = (TabablzControl)obj;
+            teamViewTabablzControl.SelectedIndex = 1;
         }
 
         private void OpenTeamAddView(object obj)
