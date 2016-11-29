@@ -130,7 +130,7 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                                Command="{Binding Path=DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                                Command="{Binding Path=DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}">
                                             <materialDesign:PackIcon Kind="Pen" />
                                         </Button>
                                     </DataTemplate>
@@ -141,7 +141,7 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                                Command="{Binding Path=DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                                Command="{Binding Path=DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}">
                                             <materialDesign:PackIcon Kind="Delete" />
                                         </Button>
                                     </DataTemplate>
