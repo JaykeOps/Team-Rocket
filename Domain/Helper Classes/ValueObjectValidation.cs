@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Domain.Helper_Classes
 {
-    public static class ValidationFormat
+    public static class ValueObjectValidation
     {
         public const string NAME_REGEX = "^[a-z A-ZÄäÀàÁáÂâÃãÅåǍǎĄąĂăÆæĀāÇçĆćĈĉČčĎđĐďð" +
             "ÈèÉéÊêËëĚěĘęĖėĒēĜĝĢģĞğĤĥÌìÍíÎîÏïıĪīĮįĴĵĶķĹĺĻļŁłĽľÑñŃńŇňŅņÖöÒòÓóÔôÕõŐőØø"
