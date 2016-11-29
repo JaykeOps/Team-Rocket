@@ -14,5 +14,6 @@ namespace FootballManager.App.ViewModel
 {
     public class SeriesViewModel
     {
+
     }
 }
