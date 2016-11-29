@@ -23,6 +23,11 @@ namespace Domain.Entities
         public EmailAddress Email { get; set; }
         public ShirtNumbers ShirtNumbers { get; }
 
+        public Team()
+        {
+            
+        }
+
         public IEnumerable<Guid> PlayerIds
         {
             get { return this.playerIds; }

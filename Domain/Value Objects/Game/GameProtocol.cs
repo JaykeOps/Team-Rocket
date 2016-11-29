@@ -20,6 +20,11 @@ namespace Domain.Value_Objects
         public List<Card> Cards { get; }
         public GameResult GameResult => gameResult;
 
+        public GameProtocol()
+        {
+            
+        }
+
         public GameProtocol(Guid homeTeamId, Guid awayTeamId)
         {
             this.HomeTeamId = homeTeamId;

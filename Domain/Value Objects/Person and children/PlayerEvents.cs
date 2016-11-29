@@ -18,6 +18,12 @@ namespace Domain.Value_Objects
         private IEnumerable<Assist> assists;
         private IEnumerable<Card> cards;
         private IEnumerable<Penalty> penalties;
+
+        public PlayerEvents()
+        {
+            
+        }
+
         public string PlayerName
         {
             get { return this.playerName; }

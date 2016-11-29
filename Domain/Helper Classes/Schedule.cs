@@ -19,6 +19,11 @@ namespace Domain.Helper_Classes
         private List<Team> Teams = new List<Team>();
         private Dictionary<int, List<Match>> AllMatchesWithRounds = new Dictionary<int, List<Match>>();
 
+        public Schedule()
+        {
+            
+        }
+
         public void GenerateSchedule(Series series)
         {
             int numberOfTeams = series.TeamIds.Count;

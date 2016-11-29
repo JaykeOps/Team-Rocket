@@ -10,6 +10,11 @@ namespace Domain.Value_Objects
         public Guid TeamId { get; set; }
         public Guid PlayerId { get; }
 
+        public Goal()
+        {
+            
+        }
+
         public Goal(MatchMinute matchMinute, Guid teamId, Guid playerId)
         {
             if (matchMinute == null || teamId == null || playerId == null)

@@ -10,6 +10,11 @@ namespace Domain.Entities
         public string FirstName { get; }
         public string LastName { get; }
 
+        public Name()
+        {
+            
+        }
+
         public Name(string firstName, string lastName)
         {
             if (firstName.IsValidName(true) && lastName.IsValidName(true))
