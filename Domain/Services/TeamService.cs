@@ -94,7 +94,7 @@ namespace Domain.Services
         {
             return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
             || x.ArenaName.ToString().Contains(searchText, comparison)
-            || x.Email.ToString().Contains(searchText, comparison)
+            || x.Email.Value.Contains(searchText, comparison)
             || x.playerIds.Any(y => DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
         }
 

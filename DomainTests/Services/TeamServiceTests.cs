@@ -13,7 +13,7 @@ namespace DomainTests.Services
     {
         private TeamService service = new TeamService();
         private Team team = new Team(new TeamName("ifk göteborg"), new ArenaName("ullevi"), new EmailAddress("ifkgoteborg@gmail.com"));
-        private Team team2 = new Team(new TeamName("GAIS"), new ArenaName("ullevi"), new EmailAddress("GAIS@gmail.com"));
+        private Team team2 = new Team(new TeamName("GAIS"), new ArenaName("ullevi"), new EmailAddress("gais@gmail.com"));
         private DummySeries dummySeries;
 
         [TestInitialize]
@@ -101,6 +101,63 @@ namespace DomainTests.Services
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamTwo)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamThree)
                 && teamsOfSerie.Contains(series.DummyTeams.DummyTeamFour));
+        }
+
+        [TestMethod]
+        public void TeamSearchCanReturnTeamsWithMatchingName()
+        {
+            var teams = this.service.Search
+                (this.dummySeries.DummyTeams.DummyTeamOne.Name.ToString()).ToList();
+            Assert.IsNotNull(teams);
+            Assert.AreNotEqual(teams.Count, 0);
+            foreach (var team in teams)
+            {
+                Assert.AreEqual(team.Name.ToString(), "Dummy TeamOne");
+            }
+        }
+
+        [TestMethod]
+        public void TeamSearchCanReturnTeamsWithMatchingArenaName()
+        {
+            var teams = this.service.Search(
+                this.dummySeries.DummyTeams.DummyTeamTwo.ArenaName.ToString()).ToList();
+            Assert.IsNotNull(teams);
+            Assert.AreNotEqual(teams.Count, 0);
+            foreach (var team in teams)
+            {
+                Assert.AreEqual(team.ArenaName.ToString(), "Dummy ArenaTwo");
+            }
+        }
+
+        [TestMethod]
+        public void TeamSearchCanReturnTeamsWithMatchingEmailAddress()
+        {
+            var teamFour = this.dummySeries.DummyTeams.DummyTeamFour;
+            teamFour.Email = new EmailAddress("cardio@workout.com");
+            var teams = this.service.Search("cardio@workout.com").ToList();
+            Assert.IsNotNull(teams);
+            Assert.AreNotEqual(teams.Count, 0);
+            foreach (var team in teams)
+            {
+                Assert.AreEqual(teamFour.Email, team.Email);
+            }
+        }
+
+        [TestMethod]
+        public void TeamSearchCanReturnTeamContainingPlayerIdWithMatchingName()
+        {
+            var playerOne = DomainService.FindPlayerById(
+                this.dummySeries.DummyTeams.DummyTeamOne.PlayerIds.First());
+            playerOne.Name = new Name("James", "Bond");
+            var teams = this.service.Search("James Bond").ToList();
+            Assert.IsNotNull(teams);
+            Assert.AreNotEqual(teams.Count, 0);
+            foreach (var team in teams)
+            {
+                Assert.IsTrue(team.PlayerIds.Any(x => 
+                DomainService.FindPlayerById(x).Name.ToString() == "James Bond"));
+            }
+
         }
     }
 }

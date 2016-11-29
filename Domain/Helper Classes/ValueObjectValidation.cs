@@ -42,7 +42,7 @@ namespace Domain.Helper_Classes
         {
             if (ignoreCase)
             {
-                return Regex.IsMatch(value, CELL_PHONE_NUMBER, RegexOptions.IgnoreCase);
+                return Regex.IsMatch(value, CELL_PHONE_NUMBER, RegexOptions.CultureInvariant);
             }
             else
             {
