@@ -201,7 +201,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerSearchCanReturnPlayersWithSpecifiedName()
         {
-            var series=new DummySeries();
+            var series = new DummySeries();
             var players = this.playerService.Search("Player One").ToList();
             Assert.IsNotNull(players);
             Assert.AreNotEqual(players.Count, 0);
@@ -258,6 +258,16 @@ namespace Domain.Services.Tests
                 TeamIds.ElementAt(0)).PlayerIds.ElementAt(0);
             playerService.RemovePlayer(playerToRemove);
             Assert.IsTrue(!(playerService.GetAllPlayers().Contains(DomainService.FindPlayerById(playerToRemove))));
+        }
+
+        [TestMethod]
+        public void AddingTeamIdToPlayerReflectsOnTeam()
+        {
+            var dummyTeamOne = this.dummySeries.DummyTeams.DummyTeamOne;
+            Assert.AreEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
+            this.playerService.AssignPlayerToTeam(this.dummyPlayer, dummyTeamOne.Id);
+            Assert.AreEqual(this.dummyPlayer.TeamId, dummyTeamOne.Id);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
         }
     }
 }

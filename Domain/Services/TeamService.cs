@@ -4,9 +4,7 @@ using Domain.Repositories;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using Domain.Interfaces;
 
 namespace Domain.Services
 {
@@ -61,7 +59,7 @@ namespace Domain.Services
             return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedStats[seriesId];
         }
 
-        public IEnumerable<Team> Search(string searchText, StringComparison comparison 
+        public IEnumerable<Team> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
@@ -86,8 +84,7 @@ namespace Domain.Services
         {
             var team = this.FindById(teamId);
             return team.MatchSchedules[seriesId];
-        } 
-            
+        }
 
         public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
         {
@@ -95,12 +92,6 @@ namespace Domain.Services
             var teamsOfSerie = series.TeamIds;
 
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-        }
-
-        public void AddPlayerIdToTeam(IExposablePlayer exposablePlayer, IExposableTeam exposableTeam)
-        {
-            var team = (Team) exposableTeam;
-            team.AddPlayerId(exposablePlayer.Id);
         }
     }
 }
