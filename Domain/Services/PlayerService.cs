@@ -200,7 +200,15 @@ namespace Domain.Services
 
         public void RemovePlayer(Guid playerId)
         {
-            repository.RemovePlayer(playerId);
+            this.repository.RemovePlayer(playerId);
+        }
+
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
+        {
+            var player = (Player) exposablePlayer;
+            var team = DomainService.FindTeamById(teamId);
+            player.UpdateTeamAffiliation(team);
+            team.UpdatePlayerIds();
         }
     }
 }

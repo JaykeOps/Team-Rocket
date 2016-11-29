@@ -124,11 +124,5 @@ namespace Domain.Services
 
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
         }
-
-        public void AddPlayerIdToTeam(IExposablePlayer exposablePlayer, IExposableTeam exposableTeam)
-        {
-            var team = (Team)exposableTeam;
-            team.AddPlayerId(exposablePlayer.Id);
-        }
     }
 }

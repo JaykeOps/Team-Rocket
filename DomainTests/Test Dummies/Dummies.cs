@@ -159,29 +159,32 @@ namespace DomainTests.Test_Dummies
                 new EmailAddress("dummy_TeamFour@dummies.tp")
                 );
 
-            this.FillTeamsWithPlayer();
             var teamService = new TeamService();
             teamService.Add(this.DummyTeamOne);
             teamService.Add(this.DummyTeamTwo);
             teamService.Add(this.DummyTeamThree);
             teamService.Add(this.DummyTeamFour);
+            this.FillTeamsWithPlayer();
+            
         }
 
         private void FillTeamsWithPlayer()
         {
+            var playerService = new PlayerService();
             var dummyPlayers = new DummyPlayers();
-            this.DummyTeamOne.AddPlayerId(dummyPlayers.DummyPlayerOne.Id);
-            this.DummyTeamOne.AddPlayerId(dummyPlayers.DummyPlayerTwo.Id);
-            this.DummyTeamOne.AddPlayerId(dummyPlayers.DummyPlayerThree.Id);
-            this.DummyTeamTwo.AddPlayerId(dummyPlayers.DummyPlayerFour.Id);
-            this.DummyTeamTwo.AddPlayerId(dummyPlayers.DummyPlayerFive.Id);
-            this.DummyTeamTwo.AddPlayerId(dummyPlayers.DummyPlayerSix.Id);
-            this.DummyTeamThree.AddPlayerId(dummyPlayers.DummyPlayerSeven.Id);
-            this.DummyTeamThree.AddPlayerId(dummyPlayers.DummyPlayerEight.Id);
-            this.DummyTeamThree.AddPlayerId(dummyPlayers.DummyPlayerNine.Id);
-            this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTen.Id);
-            this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerEleven.Id);
-            this.DummyTeamFour.AddPlayerId(dummyPlayers.DummyPlayerTwelve.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerOne, this.DummyTeamOne.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTwo, this.DummyTeamOne.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerThree, this.DummyTeamOne.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerFour, this.DummyTeamTwo.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerFive, this.DummyTeamTwo.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerSix, this.DummyTeamTwo.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerSeven, this.DummyTeamThree.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerEight, this.DummyTeamThree.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerNine, this.DummyTeamThree.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTen, this.DummyTeamFour.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerEleven, this.DummyTeamFour.Id);
+            playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTwelve, this.DummyTeamFour.Id);
+            
         }
     }
 
