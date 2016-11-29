@@ -85,7 +85,7 @@ namespace DomainTests.Services
                 teamOne,
                 teamTwo
             };
-            service.AddTeam(teams);
+            service.Add(teams);
             var allTeams = DomainService.GetAllTeams();
             Assert.IsTrue(allTeams.Contains(teamOne));
             Assert.IsTrue(allTeams.Contains(teamTwo));

@@ -13,7 +13,13 @@ namespace Domain.Services
         void Add(IExposablePlayer player);
 
         [OperationContract]
+        void Add(Player player);
+
+        [OperationContract]
         void Add(IEnumerable<Player> players);
+
+        [OperationContract]
+        void Add(IEnumerable<IExposablePlayer> players);
 
         [OperationContract]
         Player FindById(Guid playerId);
