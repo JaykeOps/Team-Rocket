@@ -213,6 +213,12 @@ namespace Domain.Services
             team.UpdatePlayerIds();
         }
 
-        
+        public IEnumerable<PlayerStats> GetAllPlayerStats(Guid playerId)
+        {
+            return DomainService.FindPlayerById(playerId).AggregatedStats.AllStats.Values;
+        }
+
+
+
     }
 }
