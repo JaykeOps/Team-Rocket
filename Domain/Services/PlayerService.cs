@@ -69,7 +69,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -87,7 +87,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -105,7 +105,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopYellowCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -124,7 +124,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -145,7 +145,7 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Player> GetAllExposablePlayers()
+        public IEnumerable<IExposablePlayer> GetAllExposablePlayers()
         {
             return this.repository.GetAll();
         }
