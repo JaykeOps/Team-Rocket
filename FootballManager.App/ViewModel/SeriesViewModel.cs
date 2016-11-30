@@ -15,9 +15,10 @@ using Dragablz;
 
 namespace FootballManager.App.ViewModel
 {
-    public class SeriesViewModel
+    public class SeriesViewModel : ViewModelBase
     {
         private SeriesService seriesService;
+        private Series selectedSeries;
 
         public SeriesViewModel()
         {
@@ -25,12 +26,51 @@ namespace FootballManager.App.ViewModel
         }
 
         #region Properties
-        //public ObservableCollection<TeamStats> TeamStats
-        //{
-        //    get {
-        //        return seriesService.GetLeagueTablePlacement();
-        //        }
-        //}
+
+        public ObservableCollection<int> Ranking
+        {
+
+            get
+            {
+                var numberOfTeams = selectedSeries.NumberOfTeams.Value;
+                var rankingNumbers = new ObservableCollection<int>();
+                for (int i = 1; i <= numberOfTeams; i++)
+                {
+                    rankingNumbers.Add(i);
+                }
+                return rankingNumbers;
+            }
+        }
+
+        public ObservableCollection<TeamStats> TeamStats
+        {
+            get
+            {
+                if (selectedSeries == null)
+                {
+                    return new ObservableCollection<TeamStats>();
+                }
+                else
+                {
+                    return seriesService.GetLeagueTablePlacement(selectedSeries.Id).ToObservableCollection();
+                }
+            }
+        }
+        #endregion
+
+        #region Combobox properties
+        public Series SelectedSeries
+        {
+            get { return selectedSeries; }
+            set
+            {
+                if (selectedSeries != value)
+                {
+                    selectedSeries = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Methods

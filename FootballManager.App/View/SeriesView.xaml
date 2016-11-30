@@ -49,8 +49,10 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series: " />
-                        <ComboBox ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
-                                                  SelectedItem="{Binding Series, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox x:Name="chooseSeriesComboBox" ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                                  SelectedItem="{Binding Series, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  DisplayMemberPath="SeriesName"
+                                                  SelectedValue="{Binding SelectedSeries, Mode=TwoWay}"/>
                     </StackPanel>
 
                     <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
@@ -59,15 +61,15 @@
                     <!-- Region Display Player -->
 
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding TeamStats}" 
+                              ItemsSource="{Binding DataContext.TeamStats, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
                             <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding }" />
+                            <DataGridTextColumn Header="Ranking" Binding="{Binding DataContext.Ranking, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding teamName}" />
                             <DataGridTextColumn Header="Matches Played" Binding="{Binding }" />
                             <DataGridTextColumn Header="Wins" Binding="{Binding }" />
                             <DataGridTextColumn Header="Draws" Binding="{Binding }" />
