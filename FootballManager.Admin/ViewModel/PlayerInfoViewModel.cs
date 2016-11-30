@@ -15,14 +15,14 @@ namespace FootballManager.Admin.ViewModel
         private PlayerService playerService;
         private SeriesService seriesService;
         private ObservableCollection<Player> players;
-        private ObservableCollection<PlayerStats> playerStats;
+        private ObservableCollection<PlayerStats> playersInfoStats;
 
         public PlayerInfoViewModel()
         {
             this.playerService = new PlayerService();
             this.seriesService = new SeriesService();
             this.players = new ObservableCollection<Player>();
-            this.playerStats = new ObservableCollection<PlayerStats>();
+            this.playersInfoStats = new ObservableCollection<PlayerStats>();
             LoadData();
         }
 
@@ -36,12 +36,12 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public ObservableCollection<PlayerStats> PlayersStats
+        public ObservableCollection<PlayerStats> PlayersInfoStats
         {
-            get { return playerStats; }
+            get { return playersInfoStats; }
             set
             {
-                playerStats = value;
+                playersInfoStats = value;
                 OnPropertyChanged();
             }
         }
@@ -50,16 +50,8 @@ namespace FootballManager.Admin.ViewModel
         {
             Players = playerService.GetAllPlayers().ToObservableCollection();
 
-            //var allSeries = seriesService.Search();
-            //foreach (var player in players)
-            //{   
-            //    var t = seriesService.Search(player.Name.);
-            //    foreach (var series in allSeries)
-            //    {
-            //        var stats = playerService.GetPlayerStatsInSeries(player.Id, series.Id);
-            //        PlayersStats.Add(stats);
-            //    }
-            //}
+
+            
         }
     }
 }
