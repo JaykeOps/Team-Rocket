@@ -41,7 +41,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 if (!string.IsNullOrEmpty(filterString))
                 {
-                    return playerStats.PlayerName.Contains(filterString);
+                    return playerStats.PlayerName.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
                 }
                 return true;
             }
