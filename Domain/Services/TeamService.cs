@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Domain.Interfaces;
 
 namespace Domain.Services
 {
-    public class TeamService
+    public class TeamService : ITeamService
     {
         private readonly TeamRepository repository;
 
@@ -30,7 +31,35 @@ namespace Domain.Services
             }
         }
 
-        public void AddTeam(IEnumerable<Team> teams)
+
+        public void Add(IExposableTeam team)
+        {
+            if (team.IsTeamValid())
+            {
+                this.repository.Add((Team)team);
+            }
+            else
+            {
+                throw new FormatException("Match cannot be added. Invalid matchdata");
+            }
+        }
+
+        public void Add(IEnumerable<Team> teams)
+        {
+            if (teams != null)
+            {
+                foreach (var team in teams)
+                {
+                    this.Add(team);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of teams is null");
+            }
+        }
+
+        public void Add(IEnumerable<IExposableTeam> teams)
         {
             if (teams != null)
             {
@@ -57,36 +86,36 @@ namespace Domain.Services
 
         public TeamStats GetTeamStatsInSeries(Guid seriesId, Guid teamId)
         {
-            return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedTeamStats[seriesId];
+            return this.GetAll().ToList().Find(t => t.Id == teamId).AggregatedStats[seriesId];
         }
 
-        public IEnumerable<Team> Search(string searchText, StringComparison comparison 
+        public IEnumerable<Team> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
             || x.ArenaName.ToString().Contains(searchText, comparison)
-            || x.Email.ToString().Contains(searchText, comparison)
+            || x.Email.Value.Contains(searchText, comparison)
             || x.playerIds.Any(y => DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
         }
 
         public TeamEvents GetTeamEventsInSeries(Guid teamId, Guid seriesId)
         {
             var team = this.FindById(teamId);
-            return team.PresentableSeriesEvents[seriesId];
+            return team.AggregatedEvents[seriesId];
         }
 
         public TeamStats GetTeamStatsInseries(Guid teamId, Guid seriesId)
         {
             var team = this.FindById(teamId);
-            return team.AggregatedTeamStats[seriesId];
+            return team.AggregatedStats[seriesId];
         }
 
         public IEnumerable<Match> GetTeamSchedule(Guid teamId, Guid seriesId)
         {
             var team = this.FindById(teamId);
             return team.MatchSchedules[seriesId];
-        } 
-            
+        }
+
 
         public IEnumerable<Team> GetTeamsOfSerie(Guid sereisId)
         {
@@ -94,6 +123,11 @@ namespace Domain.Services
             var teamsOfSerie = series.TeamIds;
 
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
+        }
+
+        public void RemoveTeam(Guid teamId)
+        {
+            this.repository.RemoveTeam(teamId);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class TeamEvents
     {
         public Guid TeamId { get; }
@@ -18,6 +19,11 @@ namespace Domain.Value_Objects
         public string TeamName => this.teamName;
         public IEnumerable<Game> Games => this.games;
         public IEnumerable<Goal> Goals => this.goals;
+
+        public TeamEvents()
+        {
+            
+        }
 
         private void UpdateTeamName()
         {

@@ -201,6 +201,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerSearchCanReturnPlayersWithSpecifiedName()
         {
+            var series = new DummySeries();
             var players = this.playerService.Search("Player One").ToList();
             Assert.IsNotNull(players);
             Assert.AreNotEqual(players.Count, 0);
@@ -213,16 +214,60 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerSearchCanReturnPlayersWithSpecifiedDateOfBirth()
         {
+            var players = this.playerService.Search("1995-01-02").ToList();
+            Assert.IsNotNull(players);
+            Assert.AreNotEqual(players.Count, 0);
+            foreach (var player in players)
+            {
+                Assert.AreEqual(player.Name.ToString(), "Player Three");
+                Assert.AreEqual(player.DateOfBirth.ToString(), "1995-01-02");
+            }
         }
 
         [TestMethod]
         public void PlayerSearchCanReturnPlayersBelongingToSpecifiedTeam()
         {
+            var players = this.playerService.Search("Dummy TeamOne").ToList();
+            Assert.IsNotNull(players);
+            Assert.AreNotEqual(players.Count, 0);
+            foreach (var player in players)
+            {
+                Assert.AreEqual(player.AffiliatedTeamName.ToString(), "Dummy TeamOne");
+            }
         }
 
         [TestMethod]
         public void PlayerSearchCanReturnPlayersPlayingInSpecifiedSeries()
         {
+            var players = this.playerService.Search("The Dummy Series").ToList();
+            Assert.IsNotNull(players);
+            Assert.AreNotEqual(players.Count, 0);
+            foreach (var player in players)
+            {
+                var temporaryPlayer = (Player)player;
+                Assert.IsTrue(temporaryPlayer.AggregatedStats.AllStats.Keys.Any(x =>
+                    DomainService.FindSeriesById(x).SeriesName.ToString() == "The Dummy Series"));
+            }
+        }
+
+        [TestMethod]
+        public void RemovePlayerWorks()
+        {
+            var series = new DummySeries();
+            var playerToRemove = DomainService.FindTeamById(series.SeriesDummy.
+                TeamIds.ElementAt(0)).PlayerIds.ElementAt(0);
+            playerService.RemovePlayer(playerToRemove);
+            Assert.IsTrue(!(playerService.GetAllPlayers().Contains(DomainService.FindPlayerById(playerToRemove))));
+        }
+
+        [TestMethod]
+        public void AddingTeamIdToPlayerReflectsOnTeam()
+        {
+            var dummyTeamOne = this.dummySeries.DummyTeams.DummyTeamOne;
+            Assert.AreEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
+            this.playerService.AssignPlayerToTeam(this.dummyPlayer, dummyTeamOne.Id);
+            Assert.AreEqual(this.dummyPlayer.TeamId, dummyTeamOne.Id);
+            Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
         }
     }
 }

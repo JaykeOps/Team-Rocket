@@ -8,6 +8,11 @@ namespace Domain.Value_Objects
     {
         public string Value { get; }
 
+        public PhoneNumber()
+        {
+            
+        }
+
         public PhoneNumber(string phoneNumber)
         {
             if (phoneNumber.IsValidCellPhoneNumber(false))

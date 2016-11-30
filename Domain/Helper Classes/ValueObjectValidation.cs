@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Domain.Helper_Classes
 {
-    public static class ValidationFormat
+    public static class ValueObjectValidation
     {
         public const string NAME_REGEX = "^[a-z A-ZÄäÀàÁáÂâÃãÅåǍǎĄąĂăÆæĀāÇçĆćĈĉČčĎđĐďð" +
             "ÈèÉéÊêËëĚěĘęĖėĒēĜĝĢģĞğĤĥÌìÍíÎîÏïıĪīĮįĴĵĶķĹĺĻļŁłĽľÑñŃńŇňŅņÖöÒòÓóÔôÕõŐőØø"
@@ -42,7 +42,7 @@ namespace Domain.Helper_Classes
         {
             if (ignoreCase)
             {
-                return Regex.IsMatch(value, CELL_PHONE_NUMBER, RegexOptions.IgnoreCase);
+                return Regex.IsMatch(value, CELL_PHONE_NUMBER, RegexOptions.CultureInvariant);
             }
             else
             {

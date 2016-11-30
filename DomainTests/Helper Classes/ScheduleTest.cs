@@ -4,6 +4,7 @@ using Domain.Services;
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using DomainTests.Test_Dummies;
 
 namespace DomainTests.Helper_Classes
 {
@@ -32,6 +33,7 @@ namespace DomainTests.Helper_Classes
         [TestMethod]
         public void ScheduleCanGenerateMatchesWithRounds()
         {
+            var series = new DummySeries();
             var teams = this.teamService.GetAll();
             foreach (var team in teams)
             {

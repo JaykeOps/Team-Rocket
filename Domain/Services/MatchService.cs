@@ -5,11 +5,10 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Helper_Classes;
 
 namespace Domain.Services
 {
-    public class MatchService
+    public class MatchService : IMatchService
     {
         private readonly MatchRepository repository = MatchRepository.instance;
 

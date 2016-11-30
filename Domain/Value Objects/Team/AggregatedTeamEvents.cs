@@ -6,10 +6,15 @@ using System.Collections.Generic;
 namespace Domain.Value_Objects
 {
     [Serializable]
-    public class AggregatedTeamEvents : IPresentableTeamSeriesEvents
+    public class AggregatedTeamEvents
     {
         private Dictionary<Guid, TeamEvents> seriesEvents;
         private Guid teamId;
+
+        public AggregatedTeamEvents()
+        {
+            
+        }
 
         public TeamEvents this[Guid seriesId]
         {

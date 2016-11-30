@@ -102,5 +102,26 @@ namespace Domain.Repositories.Tests
             Assert.AreEqual(gameInRepositroy.Protocol.Goals.Count, this.dummyGameDuplicate.Protocol.Goals.Count);
             Assert.AreEqual(gameInRepositroy, this.dummyGameDuplicate);
         }
+
+        /*[TestMethod]
+        public void RepositoriesCanGenerateBinFiles()
+        {
+            new DummySeries();
+            GameRepository.instance.SaveData();
+            MatchRepository.instance.SaveData();
+            PlayerRepository.instance.SaveData();
+            SeriesRepository.instance.SaveData();
+            TeamRepository.instance.SaveData();
+        }
+
+        [TestMethod]
+        public void RepositoriesCanLoadBinFiles()
+        {
+            GameRepository.instance.LoadData();
+            MatchRepository.instance.LoadData();
+            PlayerRepository.instance.LoadData();
+            SeriesRepository.instance.LoadData();
+            TeamRepository.instance.LoadData();
+        }*/
     }
 }

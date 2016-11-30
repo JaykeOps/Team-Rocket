@@ -10,6 +10,9 @@ namespace Domain.Value_Objects
         private readonly Dictionary<Guid, PlayerEvents> allSeriesEvents;
 
         public IReadOnlyDictionary<Guid, PlayerEvents> AllEvents => this.allSeriesEvents;
+
+       
+
         public PlayerEvents this[Guid seriesId]
         {
             get

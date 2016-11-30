@@ -18,6 +18,11 @@ namespace Domain.Entities
         public MatchDateAndTime MatchDate { get; set; }
         public GameProtocol Protocol { get; }
 
+        public Game()
+        {
+            
+        }
+
         public Game(Match match)
         {
             if (match.HomeTeamId != match.AwayTeamId)
@@ -39,9 +44,6 @@ namespace Domain.Entities
             }
         }
 
-        public override string ToString()
-        {
-            return $"Location: {this.Location} Time: {this.MatchDate} Hometeam: {DomainService.FindTeamById(this.HomeTeamId)} Awayteam: {DomainService.FindTeamById(this.AwayTeamId)}";
-        }
+        
     }
 }

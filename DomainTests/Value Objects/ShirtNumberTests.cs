@@ -52,7 +52,7 @@ namespace DomainTests.Entities.Tests
         {
             this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 55);
             Assert.IsTrue(this.dummyPlayerOne.ShirtNumber.Value == 55);
-            this.dummyTeamOne.RemovePlayerId(this.dummyPlayerOne.Id);
+            
             this.dummyPlayerOne.TeamId = Guid.Empty;
             this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(this.dummyPlayerTwo.TeamId, 55);
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == 55);

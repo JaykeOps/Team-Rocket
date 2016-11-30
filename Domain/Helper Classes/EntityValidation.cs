@@ -49,8 +49,28 @@ namespace Domain.Helper_Classes
             try
             {
                 return team.Id != Guid.Empty &&
-                       team.Events != null &&
-                       team.Stats != null &&
+                       team.AggregatedEvents != null &&
+                       team.AggregatedStats != null &&
+                       team.Name.Value.IsValidName(true) &&
+                       team.playerIds != null &&
+                       team.ArenaName.Value.IsValidArenaName(true) &&
+                       team.Email.Value.IsValidEmailAddress(true) &&
+                       team.MatchSchedules != null &&
+                       team.ShirtNumbers != null;
+            }
+            catch (NullReferenceException)
+            {
+                return false;
+            }
+        }
+        public static bool IsTeamValid(this IExposableTeam exposableTeam)
+        {
+            var team = (Team)exposableTeam;
+            try
+            {
+                return team.Id != Guid.Empty &&
+                       team.AggregatedEvents != null &&
+                       team.AggregatedStats != null &&
                        team.Name.Value.IsValidName(true) &&
                        team.playerIds != null &&
                        team.ArenaName.Value.IsValidArenaName(true) &&
@@ -81,8 +101,9 @@ namespace Domain.Helper_Classes
             }
         }
 
-        public static bool IsValidPlayer(this IExposablePlayer player)
+        public static bool IsValidPlayer(this IExposablePlayer exposablePlayer)
         {
+            var player = (Player)exposablePlayer;
             try
             {
                 return player.Id != null &&

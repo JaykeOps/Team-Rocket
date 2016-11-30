@@ -110,12 +110,13 @@ namespace DomainTests.Services
         [TestMethod]
         public void MatchSearchCanReturnMatchesBelongingToSpecifiedSeries()
         {
+            var series = new DummySeries();
             var matches = this.service.Search("The Dummy Series").ToList();
             Assert.IsNotNull(matches);
             Assert.AreNotEqual(matches.Count, 0);
             foreach (var match in matches)
             {
-                Assert.AreEqual(DomainService.FindSeriesById(match.SeriesId).SeriesName,
+                Assert.AreEqual(DomainService.FindSeriesById(match.SeriesId).SeriesName.ToString(),
                     "The Dummy Series");
             }
         }
@@ -123,7 +124,8 @@ namespace DomainTests.Services
         [TestMethod]
         public void MatchSearchCanReturnMatchesContainingSpecifiedTeam()
         {
-            //TODO: Gets screwed because matches has no dates!
+            
+            var series = new DummySeries();
             var matches = this.service.Search("Dummy TeamThree").ToList();
             Assert.IsNotNull(matches);
             Assert.AreNotEqual(matches, 0);
@@ -141,6 +143,7 @@ namespace DomainTests.Services
         public void MatchSearchCanReturnMatchesContainingSpecifiedArena()
         {
             //TODO: Gets screwed since matches has no dates!
+            var series = new DummySeries();
             var matches = this.service.Search("Dummy ArenaTwo").ToList();
             Assert.IsNotNull(matches);
             Assert.AreNotEqual(matches.Count, 0);

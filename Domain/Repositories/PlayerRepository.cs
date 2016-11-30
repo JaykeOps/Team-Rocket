@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -108,6 +109,20 @@ namespace Domain.Repositories
         {
             repositoryPlayer = this.FindById(player.Id);
             return repositoryPlayer != null;
+        }
+
+        public void RemovePlayer(Guid playerId)
+        {
+            Player playerToRemove;
+
+            if (this.TryGetPlayer(DomainService.FindPlayerById(playerId), out playerToRemove))
+            {
+                this.players.Remove(playerToRemove);
+            }
+            else
+            {
+                throw new ArgumentException("Player doesn't exist.");
+            }
         }
 
         private Player FindById(Guid playerId)

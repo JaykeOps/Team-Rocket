@@ -16,6 +16,11 @@ namespace Domain.Entities
         public Guid AwayTeamId { get; set; }
         public Guid SeriesId { get; set; }
 
+        public Match()
+        {
+            
+        }
+
         public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series, MatchDateAndTime date)
         {
             this.Id = Guid.NewGuid();
@@ -38,9 +43,6 @@ namespace Domain.Entities
             this.MatchDate = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(365));
         }
 
-        public override string ToString()
-        {
-            return $"Location: {this.Location} Time: {this.MatchDate} Hometeam: {DomainService.FindTeamById(this.HomeTeamId)} Awayteam: {DomainService.FindTeamById(this.AwayTeamId)}";
-        }
+        
     }
 }
