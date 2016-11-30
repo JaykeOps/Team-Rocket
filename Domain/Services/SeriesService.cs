@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class SeriesService : ISeriesService
+    public class SeriesService
     {
         private readonly SeriesRepository repository = SeriesRepository.instance;
 

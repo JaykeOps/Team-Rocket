@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class GameService : IGameService
+    public class GameService
     {
         private readonly GameRepository repository;
 

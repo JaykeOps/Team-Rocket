@@ -10,7 +10,7 @@ using Domain.Interfaces;
 
 namespace Domain.Services
 {
-    public class TeamService : ITeamService
+    public class TeamService
     {
         private readonly TeamRepository repository;
 
