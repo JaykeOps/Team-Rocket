@@ -53,6 +53,7 @@ namespace Domain.Entities
         {
             get
             {
+                this.shirtNumber.Value = shirtNumber.Value ?? -1;
                 return this.shirtNumber;
             }
             set
