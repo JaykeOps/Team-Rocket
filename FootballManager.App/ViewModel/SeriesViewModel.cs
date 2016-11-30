@@ -25,7 +25,12 @@ namespace FootballManager.App.ViewModel
         }
 
         #region Properties
-
+        //public ObservableCollection<TeamStats> TeamStats
+        //{
+        //    get {
+        //        return seriesService.GetLeagueTablePlacement();
+        //        }
+        //}
         #endregion
 
         #region Methods
@@ -33,13 +38,10 @@ namespace FootballManager.App.ViewModel
         #endregion
 
         #region Combobox population
-
-
         public IEnumerable<SeriesName> AllSeries
         {
             get { return seriesService.GetAll().Select(s => s.SeriesName); }
         }
-
         #endregion
     }
 }
