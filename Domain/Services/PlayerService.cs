@@ -218,7 +218,5 @@ namespace Domain.Services
             return DomainService.FindPlayerById(playerId).AggregatedStats.AllStats.Values;
         }
 
-
-
     }
 }
