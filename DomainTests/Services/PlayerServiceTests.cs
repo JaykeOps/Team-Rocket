@@ -274,7 +274,7 @@ namespace Domain.Services.Tests
         public void FreeTextSearchPlayerEvents()
         {
             var series = new DummySeries();
-            var playerStats = this.playerService.GetPlayerStatsFreeTextSearch("f").ToList();
+            var playerStats = this.playerService.GetPlayerStatsFreeTextSearch("Player").ToList();
             Assert.IsNotNull(playerStats);
             Assert.AreNotEqual(playerStats.Count, 0);
             foreach (var playerStat in playerStats)
