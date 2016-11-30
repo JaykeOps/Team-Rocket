@@ -16,10 +16,7 @@ namespace Domain.Entities
         public Guid AwayTeamId { get; set; }
         public Guid SeriesId { get; set; }
 
-        public Match()
-        {
-            
-        }
+        
 
         public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series, MatchDateAndTime date)
         {

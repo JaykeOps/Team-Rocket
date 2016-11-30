@@ -8,10 +8,7 @@ namespace Domain.Value_Objects
     {
         public int Value { get; }
 
-        public NumberOfTeams()
-        {
-            
-        }
+        
 
         public NumberOfTeams(int numberOfTeams)
         {

@@ -22,10 +22,7 @@ namespace Domain.Entities
         public int GoalCount => this.seriesEvents.Goals.Count();
         public int AssistCount => this.seriesEvents.Assists.Count();
 
-        public PlayerStats()
-        {
-            
-        }
+       
 
         public int YellowCardCount
         {
