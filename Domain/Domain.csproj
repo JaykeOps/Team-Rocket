@@ -53,13 +53,10 @@
     <Compile Include="Helper Classes\StringUtilities.cs" />
     <Compile Include="Interfaces\IExposablePlayer.cs" />
     <Compile Include="Interfaces\IExposableTeam.cs" />
-    <Compile Include="Interfaces\IPresentableTeamSeriesEvents.cs" />
-    <Compile Include="Interfaces\IPresentableTeamSeriesStats.cs" />
     <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />
     <Compile Include="Services\DomainService.cs" />
-    <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Services\MatchService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\SeriesService.cs" />
@@ -89,7 +86,7 @@
     <Compile Include="Value Objects\Person and children\ShirtNumber.cs" />
     <Compile Include="Enums\PlayerPosition.cs" />
     <Compile Include="Enums\PlayerStatus.cs" />
-    <Compile Include="Helper Classes\ValidationFormat.cs" />
+    <Compile Include="Helper Classes\ValueObjectValidation.cs" />
     <Compile Include="Value Objects\Person and children\PersonContactInformation.cs" />
     <Compile Include="Value Objects\Person and children\DateOfBirth.cs" />
     <Compile Include="Value Objects\Global\EmailAddress.cs" />
@@ -112,9 +109,7 @@
     <Compile Include="Value Objects\Team\TeamStats.cs" />
     <Compile Include="Value Objects\Global\ValueObject.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\ServiceContracts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

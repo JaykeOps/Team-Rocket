@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class TeamStats
     {
         private Guid seriesId;
@@ -13,19 +14,6 @@ namespace Domain.Value_Objects
         private int wins;
         private int losses;
         private int draws;
-        private int goalsFor;
-        private int goalsAgainst;
-        private int goalDifference;
-        private int points;
-
-        /* private TeamEvents TeamEvents
-         {
-             get
-             {
-                 var thisTeam = DomainService.FindTeamById(this.teamId);
-                 return thisTeam.Events[this.seriesId];
-             }
-         }*/
 
         public string TeamName => this.teamName;
         public int GamesPlayed => this.teamEvents.Games.Count();
@@ -85,7 +73,7 @@ namespace Domain.Value_Objects
         private void UpdateSeriesEvents()
         {
             var thisTeam = DomainService.FindTeamById(this.teamId);
-            this.teamEvents = thisTeam.Events[this.seriesId];
+            this.teamEvents = thisTeam.AggregatedEvents[this.seriesId];
         }
 
         private void UpdateWins()

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class PlayerService : IPlayerService
+    public class PlayerService
     {
         private PlayerRepository repository => PlayerRepository.instance;
 
@@ -25,7 +25,33 @@ namespace Domain.Services
             }
         }
 
+        public void Add(Player player)
+        {
+            if (player.IsValidPlayer())
+            {
+                this.repository.Add(player);
+            }
+            else
+            {
+                throw new FormatException("Player cannot be added. Player carries invalid values!");
+            }
+        }
+
         public void Add(IEnumerable<Player> players)
+        {
+            if (players != null)
+            {
+                foreach (var player in players)
+                {
+                    this.Add(player);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("List of player is null");
+            }
+        }
+        public void Add(IEnumerable<IExposablePlayer> players)
         {
             if (players != null)
             {
@@ -156,7 +182,9 @@ namespace Domain.Services
             }
             catch (NullReferenceException)
             {
-                throw new NullReferenceException($"Search failed! Datasource does not contain any data related to the player id '{playerId}'");
+                throw new NullReferenceException(
+                    "Search failed! Datasource does not contain any " 
+                    + $"data related to the player id '{playerId}'");
             }
         }
 
@@ -171,5 +199,20 @@ namespace Domain.Services
             var player = this.FindById(playerId);
             return player.AggregatedStats[seriesId];
         }
+
+        public void RemovePlayer(Guid playerId)
+        {
+            this.repository.RemovePlayer(playerId);
+        }
+
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
+        {
+            var player = (Player) exposablePlayer;
+            var team = DomainService.FindTeamById(teamId);
+            player.UpdateTeamAffiliation(team);
+            team.UpdatePlayerIds();
+        }
+
+        
     }
 }

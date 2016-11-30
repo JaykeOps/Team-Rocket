@@ -56,14 +56,6 @@ namespace DomainTests.Entities
             Assert.IsTrue(this.team.Email == eamil);
         }
 
-        [TestMethod]
-        public void TeamsHashSetOFPlayersCanAdd()
-        {
-            var count = this.team.PlayerIds.Count();
-
-            this.team.AddPlayerId(Guid.NewGuid());
-
-            Assert.IsTrue(count + 1 == this.team.PlayerIds.Count());
-        }
+        
     }
 }

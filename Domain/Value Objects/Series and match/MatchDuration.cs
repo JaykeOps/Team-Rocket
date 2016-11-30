@@ -8,6 +8,11 @@ namespace Domain.Value_Objects
     {
         public TimeSpan Value { get; }
 
+        public MatchDuration()
+        {
+            
+        }
+
         public MatchDuration(TimeSpan duration)
         {
             if (duration.IsValidMatchDuration())

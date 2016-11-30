@@ -10,6 +10,10 @@ namespace Domain.Entities
 
         public int? Value { get; }
 
+        public ShirtNumber()
+        {
+            
+        }
         public ShirtNumber(Guid teamId, int? number)
         {
             this.PlayerTeamId = teamId;

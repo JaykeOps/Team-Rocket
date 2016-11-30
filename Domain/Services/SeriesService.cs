@@ -5,9 +5,6 @@ using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Domain.Helper_Classes;
-using Domain.Value_Objects;
 
 namespace Domain.Services
 {
@@ -55,7 +52,7 @@ namespace Domain.Services
             var teamIdsOfSerie = series.TeamIds;
 
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-            var teamStats = teamsOfSerie.Select(team => team.AggregatedTeamStats[series.Id]).ToList();
+            var teamStats = teamsOfSerie.Select(team => team.AggregatedStats[series.Id]).ToList();
 
             return teamStats.OrderByDescending(x => x.Points)
                 .ThenByDescending(x => x.GoalDifference)

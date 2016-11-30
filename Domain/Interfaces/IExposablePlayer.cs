@@ -11,8 +11,6 @@ namespace Domain.Interfaces
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
         ContactInformation ContactInformation { get; }
-        AggregatedPlayerEvents AggregatedEvents { get; }
-        AggregatedPlayerStats AggregatedStats { get; }
         PlayerPosition Position { get; set; }
         PlayerStatus Status { get; set; }
 

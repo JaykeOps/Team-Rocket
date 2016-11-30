@@ -8,6 +8,11 @@ namespace Domain.Value_Objects
     {
         public string Value { get; }
 
+        public EmailAddress()
+        {
+            
+        }
+
         public EmailAddress(string emailAddress)
         {
             if (emailAddress.IsValidEmailAddress(true))

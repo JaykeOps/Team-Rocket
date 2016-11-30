@@ -98,11 +98,11 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
-            var teamGoalsPriorGame = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsPriorGame = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddGoalToGame(game.Id, player.Id, 78);
             var gameGoalsAfterGame = game.Protocol.Goals.Count;
-            var teamGoalsAfterGame = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsAfterGame = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsAfterGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsPriorGame == gameGoalsAfterGame - 1);
             Assert.IsTrue(teamGoalsPriorGame == teamGoalsAfterGame - 1);
@@ -188,12 +188,12 @@ namespace Domain.Services.Tests
             var team = DomainService.FindTeamById(game.HomeTeamId);
             var player = DomainService.FindPlayerById(team.PlayerIds.First());
             var gameGoalsPriorGame = game.Protocol.Goals.Count;
-            var teamGoalsPriorGame = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsPriorGame = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsPriorGame = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             this.gameService.AddGoalToGame(game.Id, player.Id, 78);
             this.gameService.RemoveGoalFromGame(game.Id, player.Id, 78);
             var gameGoalsAfterRemove = game.Protocol.Goals.Count;
-            var teamGoalsAfterRemove = team.AggregatedTeamStats[series.SeriesDummy.Id].GoalDifference;
+            var teamGoalsAfterRemove = team.AggregatedStats[series.SeriesDummy.Id].GoalDifference;
             var playerGoalsAfterRemove = player.AggregatedStats[series.SeriesDummy.Id].GoalCount;
             Assert.IsTrue(gameGoalsAfterRemove == gameGoalsPriorGame);
             Assert.IsTrue(teamGoalsAfterRemove == teamGoalsPriorGame);
@@ -320,6 +320,7 @@ namespace Domain.Services.Tests
         [TestMethod] //Works if you run it solo!
         public void GameSearchCanReturnGamesContainingSpecifiedArenaName()
         {
+            var series = new DummySeries();
             var games = this.gameService.Search("Dummy ArenaOne");
             foreach (var game in games)
             {
@@ -330,7 +331,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void GameSearchCanReturnGamesContainingSpecifiedDate()
         {
-            //TODO: Update when default MatchDate/GameDate has been discussed - atm all games has the same date by default!
+            var series = new DummySeries();
             var games = this.gameService.Search("2017-08-22");
             foreach (var game in games)
             {
@@ -342,12 +343,13 @@ namespace Domain.Services.Tests
         public void GameSearchCanReturnGamesInSeries()
         {
             //TODO: Update when more series are available!
+            var series = new DummySeries();
             var games = this.gameService.Search("The Dummy Series").ToList();
             Assert.IsNotNull(games);
             Assert.AreNotEqual(games.Count, 0);
             foreach (var game in games)
             {
-                Assert.AreEqual(DomainService.FindSeriesById(game.SeriesId).SeriesName, "The Dummy Series");
+                Assert.AreEqual(DomainService.FindSeriesById(game.SeriesId).SeriesName.Value, "The Dummy Series");
             }
         }
 
@@ -355,6 +357,7 @@ namespace Domain.Services.Tests
         public void GameSearchCanReturnGamesContainingActivePlayer()
         {
             //TODO: Cannot be tried until games are populated with game squads!
+            var series = new DummySeries();
             var games = this.gameService.Search("Player One").ToList();
             Assert.IsNotNull(games);
             Assert.AreNotEqual(games.Count, 0);
@@ -363,7 +366,7 @@ namespace Domain.Services.Tests
                 Assert.IsTrue(
                     game.Protocol.HomeTeamActivePlayers.Any
                     (x => DomainService.FindPlayerById(x).Name.ToString() == "Player One")
-                    || 
+                    ||
                     game.Protocol.AwayTeamActivePlayers.Any
                     (x => DomainService.FindPlayerById(x).Name.ToString() == "Player One"));
             }
@@ -378,7 +381,7 @@ namespace Domain.Services.Tests
             Assert.AreNotEqual(games.Count, 0);
             foreach (var game in games)
             {
-                Assert.IsTrue(DomainService.FindTeamById(game.HomeTeamId).Name.ToString() == "Dummy TeamThree" 
+                Assert.IsTrue(DomainService.FindTeamById(game.HomeTeamId).Name.ToString() == "Dummy TeamThree"
                     || DomainService.FindTeamById(game.AwayTeamId).Name.ToString() == "Dummy TeamThree");
             }
         }
