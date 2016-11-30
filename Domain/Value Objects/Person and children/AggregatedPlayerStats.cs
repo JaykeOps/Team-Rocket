@@ -9,9 +9,19 @@ namespace Domain.Value_Objects
     {
         private readonly Dictionary<Guid, PlayerStats> allSeriesStats;
 
-        public IReadOnlyDictionary<Guid, PlayerStats> AllStats => this.allSeriesStats;
+        public IReadOnlyDictionary<Guid, PlayerStats> AllStats
+        {
+            get
+            {
+                foreach (var playerStats in this.allSeriesStats.Values)
+                {
+                    playerStats.UpdateAllStats();
+                }
+                return this.allSeriesStats;
+            }
+        }
 
-        
+
         public PlayerStats this[Guid seriesId]
         {
             get
