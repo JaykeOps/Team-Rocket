@@ -18,64 +18,70 @@ namespace FootballManager.Admin.ViewModel
     {
         private PlayerService playerService;
 
-        private ICollectionView playerStatsCollection;
-        private string searchString;
+        private ICommand searchCommand;
+        private ICollectionView playerInfoStats;
+        public ICollectionView PlayerInfoStats
+        {
+            get { return playerInfoStats; }
+        }
 
         public PlayerInfoViewModel()
         {
             this.playerService = new PlayerService();
-            PlayerStatsCollection = CollectionViewSource.GetDefaultView(LoadData());
-            PlayerStatsCollection.Filter = new Predicate<object>(Filter);
+
+            playerInfoStats = CollectionViewSource.GetDefaultView(LoadData());
+            playerInfoStats.Filter = FilterData;
         }
 
-        public ICollectionView PlayerStatsCollection
+        private bool FilterData(object obj)
         {
-            get { return playerStatsCollection; }
-            set
-            {
-                playerStatsCollection = value;
-                OnPropertyChanged();
-            }
-        }
+            var playerStats = obj as PlayerStats;
 
-        public string SearchString
-        {
-            get { return searchString; }
-            set
+            if (playerStats != null)
             {
-                searchString = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private void FilterCollection()
-        {
-            if (playerStatsCollection != null)
-            {
-                playerStatsCollection.Refresh();
-            }
-        }
-
-        private bool Filter(object obj)
-        {
-            var data = obj as PlayerStats;
-            if (data != null)
-            {
-                if (!string.IsNullOrEmpty(searchString))
+                if (!string.IsNullOrEmpty(filterString))
                 {
-                    return data.PlayerName.Contains(searchString);
+                    return playerStats.PlayerName.Contains(filterString);
                 }
                 return true;
             }
             return false;
         }
 
+        private string filterString;
+        public string FilterString
+        {
+            get { return filterString; }
+            set
+            {
+                filterString = value;
+                OnPropertyChanged();
+                PlayerInfoStats.Refresh();
+            }
+        }
 
-        public List<PlayerStats> LoadData()
+        public ICommand SearchCommand
+        {
+            get
+            {
+                if (searchCommand == null)
+                {
+                    searchCommand = new RelayCommand(Search);
+                }
+                return searchCommand;
+            }
+        }
+
+        private void Search(object param)
+        {
+            var text = (string)param;
+            FilterString = text;
+        }
+
+        public ObservableCollection<PlayerStats> LoadData()
         {
             var players = playerService.GetAllPlayers();
-            var playerInfoData = new List<PlayerStats>();
+            var playerInfoData = new ObservableCollection<PlayerStats>();
             foreach (var p in players)
             {
                 var playerStats = playerService.GetAllPlayerStats(p.Id).First();

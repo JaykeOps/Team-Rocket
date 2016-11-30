@@ -48,24 +48,25 @@
                                     VerticalAlignment="Center" 
                                     Margin="10">
                 <Label Content="Search for player:" />
-                <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Command="{Binding SearchCommand}" 
-                                    Content="Search" 
-                                    Style="{StaticResource FlatButton}" 
-                                    VerticalAlignment="Bottom" 
-                                    Margin="40,0,0,0" />
+                <TextBox x:Name="SearchTextBox" Text="{Binding FilterString, Mode=OneWay}" />
+                <Button Command="{Binding SearchCommand}"
+                        CommandParameter="{Binding Text, ElementName=SearchTextBox}"
+                        Content="Search" 
+                        Style="{StaticResource FlatButton}" 
+                        VerticalAlignment="Bottom" 
+                        Margin="40,0,0,0" />
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="0" 
-                                    Orientation="Horizontal" 
-                                    HorizontalAlignment="Right" 
-                                    VerticalAlignment="Center" 
-                                    Margin="10" 
-                                    Height="60">
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Margin="10" 
+                        Height="60">
             </StackPanel>
 
             <!--Margin: Left, Top, Right, Bottom-->
             <DataGrid Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding PlayerStatsCollection}" 
+                    ItemsSource="{Binding PlayerInfoStats}" 
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                     SelectionMode="Extended"
