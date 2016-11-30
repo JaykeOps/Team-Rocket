@@ -23,7 +23,6 @@
 
         <dragablz:TabablzControl>
             <TabItem Header="Teams">
-
                 <Grid>
                     <Grid.Resources>
                         <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
@@ -57,7 +56,6 @@
 
 
                     <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Team -->
                     <DataGrid Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding Teams}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
@@ -89,7 +87,6 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <!-- End Region Display Team -->
 
             </TabItem>
 
