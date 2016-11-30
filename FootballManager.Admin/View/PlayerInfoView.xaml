@@ -51,56 +51,13 @@
                               >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="No" />
-                <DataGridTextColumn Header="First name" />
-                <DataGridTextColumn Header="Last name" />
-                <DataGridTextColumn Header="Date of Birth" />
-
-                <DataGridTemplateColumn Header="Position">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Position}" />
-                            <!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players -->
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerInfoView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Status">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Status}" />
-                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding DataContext.PlayerStatuses, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerInfoView}}}" 
-                                                  SelectedItem="{Binding Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Team">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" />
-                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerInfoView}}}" 
-                                                  SelectedItem="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn Header="Matches" />
+                <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
+                <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
+                <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
+                <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" />
+                <DataGridTextColumn Header="Matches" Binding="{Binding AggregatedStats.AllStats.Values}" />
                 <DataGridTextColumn Header="Goals" />
                 <DataGridTextColumn Header="Assists" />
                 <DataGridTextColumn Header="Red" />
