@@ -73,19 +73,21 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0" Content="Goal" />
-                <Button Grid.Row="0" Grid.Column="1" Content="Penalty" />
-                <Button Grid.Row="0" Grid.Column="2" Content="Assist" />
-                <Button Grid.Row="0" Grid.Column="3" Content="Red" />
-                <Button Grid.Row="0" Grid.Column="4" Content="Yellow" />
-
-                <TextBox Grid.Row="1" Grid.Column="0" />
+                <Button Grid.Row="0" Grid.Column="1" Content="Goal" />
+                <Button Grid.Row="0" Grid.Column="2" Content="Penalty" />
+                <Button Grid.Row="0" Grid.Column="3" Content="Assist" />
+                <Button Grid.Row="0" Grid.Column="4" Content="Red" />
+                <Button Grid.Row="0" Grid.Column="5" Content="Yellow" />
+                
+                <Label Grid.Row="1" Grid.Column="0" Content="Time: "/>
                 <TextBox Grid.Row="1" Grid.Column="1" />
                 <TextBox Grid.Row="1" Grid.Column="2" />
                 <TextBox Grid.Row="1" Grid.Column="3" />
                 <TextBox Grid.Row="1" Grid.Column="4" />
+                <TextBox Grid.Row="1" Grid.Column="5" />
 
             </Grid>
         </Grid>
