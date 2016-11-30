@@ -12,10 +12,7 @@ namespace Domain.Value_Objects
     {
         public string Value { get; }
 
-        public SeriesName()
-        {
-            
-        }
+        
 
         public SeriesName(string seriesName)
         {

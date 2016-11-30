@@ -10,10 +10,7 @@ namespace Domain.Value_Objects
         public const string FORMAT = "yyyy-MM-dd HH:mm";
         public DateTime Value { get; }
 
-        public MatchDateAndTime()
-        {
-            
-        }
+       
 
         public MatchDateAndTime(DateTime dateTime)
         {

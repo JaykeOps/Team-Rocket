@@ -20,10 +20,7 @@ namespace Domain.Value_Objects
         public IEnumerable<Game> Games => this.games;
         public IEnumerable<Goal> Goals => this.goals;
 
-        public TeamEvents()
-        {
-            
-        }
+        
 
         private void UpdateTeamName()
         {

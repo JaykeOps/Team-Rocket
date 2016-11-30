@@ -11,10 +11,7 @@ namespace Domain.Entities
         public DateOfBirth DateOfBirth { get; set; }
         public ContactInformation ContactInformation { get; }
 
-        public Person()
-        {
-            
-        }
+       
 
         public Person(Name name, DateOfBirth dateOfBirth)
         {

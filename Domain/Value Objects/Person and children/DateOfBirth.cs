@@ -8,10 +8,7 @@ namespace Domain.Value_Objects
     {
         public DateTime Value { get; }
 
-        public DateOfBirth()
-        {
-            
-        }
+       
 
         public DateOfBirth(string dateOfbirth)
         {

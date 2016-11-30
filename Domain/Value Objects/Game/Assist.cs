@@ -9,10 +9,7 @@ namespace Domain.Value_Objects
         public MatchMinute MatchMinute { get; }
         public Guid PlayerId { get; }
 
-        public Assist()
-        {
-            
-        }
+        
 
         public Assist(MatchMinute matchMinute, Guid playerId)
         {

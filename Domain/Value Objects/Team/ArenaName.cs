@@ -8,10 +8,7 @@ namespace Domain.Value_Objects
     {
         public string Value { get; }
 
-        public ArenaName()
-        {
-            
-        }
+        
 
         public ArenaName(string arenaName)
         {

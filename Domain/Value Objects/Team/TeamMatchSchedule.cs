@@ -13,10 +13,7 @@ namespace Domain.Value_Objects
         private Guid teamId;
         private Dictionary<Guid, List<Match>> allMatches;
 
-        public TeamMatchSchedule()
-        {
-            
-        }
+        
 
         public IEnumerable<Match> this[Guid seriesId]
         {

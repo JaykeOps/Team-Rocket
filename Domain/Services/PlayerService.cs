@@ -17,7 +17,7 @@ namespace Domain.Services
         {
             if (player.IsValidPlayer())
             {
-                this.repository.Add((Player)player);
+                this.repository.Add((Player) player);
             }
             else
             {
@@ -51,6 +51,7 @@ namespace Domain.Services
                 throw new NullReferenceException("List of player is null");
             }
         }
+
         public void Add(IEnumerable<IExposablePlayer> players)
         {
             if (players != null)
@@ -68,7 +69,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopScorersForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -86,7 +87,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -104,11 +105,11 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopYellowCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
-                
+
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
@@ -123,7 +124,7 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
         {
-            var allPlayers = this.GetAllExposablePlayers();
+            var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
@@ -144,7 +145,7 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
-        public IEnumerable<Player> GetAllExposablePlayers()
+        public IEnumerable<IExposablePlayer> GetAllExposablePlayers()
         {
             return this.repository.GetAll();
         }
@@ -160,9 +161,9 @@ namespace Domain.Services
             return this.repository.GetAll().Where(x =>
                 x.Name.ToString().Contains(searchText, comparison)
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
-                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison) 
+                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison)
                 || x.AggregatedStats.AllStats.Keys.Any
-                (y => DomainService.FindSeriesById(y).SeriesName.ToString().Contains(searchText)));
+                    (y => DomainService.FindSeriesById(y).SeriesName.ToString().Contains(searchText)));
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
@@ -183,7 +184,7 @@ namespace Domain.Services
             catch (NullReferenceException)
             {
                 throw new NullReferenceException(
-                    "Search failed! Datasource does not contain any " 
+                    "Search failed! Datasource does not contain any "
                     + $"data related to the player id '{playerId}'");
             }
         }
@@ -215,8 +216,14 @@ namespace Domain.Services
 
         public IEnumerable<PlayerStats> GetAllPlayerStats(Guid playerId)
         {
-            return DomainService.FindPlayerById(playerId).AggregatedStats.AllStats.Values;
+            return this.FindById(playerId).AggregatedStats.AllStats.Values;
         }
 
+        public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
+        {
+            var expoPlayers = this.Search(searchText);
+            return expoPlayers.Cast<Player>().SelectMany(player => player.AggregatedStats.AllStats.Values);
+
+        }
     }
 }

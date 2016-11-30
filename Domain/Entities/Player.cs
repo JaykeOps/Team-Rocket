@@ -16,10 +16,7 @@ namespace Domain.Entities
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
-        public Player()
-        {
-            
-        }
+        
 
         public TeamName AffiliatedTeamName
         {
