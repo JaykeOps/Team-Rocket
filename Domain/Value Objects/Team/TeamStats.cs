@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Domain.Value_Objects
 {
+    [Serializable]
     public class TeamStats
     {
         private Guid seriesId;

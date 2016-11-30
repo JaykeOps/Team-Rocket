@@ -80,18 +80,19 @@ namespace Domain.Services
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
             Guid seriesId)
         {
-            return
+            var result =
                 from game in GetAllGames()
                 where game.SeriesId == seriesId
                 && (game.Protocol.HomeTeamId == teamId
                 || game.Protocol.AwayTeamId == teamId)
                 select game;
+            return result.ToList();
         }
 
         public static IEnumerable<Goal> GetAllTeamsGoalsForAndAgainstInSeries(Guid teamId, Guid seriesId)
         {
             return GetAllGames().Where(x => x.SeriesId == seriesId && x.HomeTeamId == teamId
-                                     || x.AwayTeamId == teamId).SelectMany(y => y.Protocol.Goals);
+                                     || x.AwayTeamId == teamId).SelectMany(y => y.Protocol.Goals).ToList();
         }
 
         public static IEnumerable<Goal> GetPlayersGoalsInSeries(Guid playerId,
@@ -140,7 +141,7 @@ namespace Domain.Services
             var allGames = GetAllGames();
             var gamesMatchingSeries = allGames.Where(game => game.SeriesId == seriesId).ToList();
             return gamesMatchingSeries.Where(game => game.Protocol.AwayTeamActivePlayers.Contains(playerId) ||
-                                                     game.Protocol.HomeTeamActivePlayers.Contains(playerId));
+                                                     game.Protocol.HomeTeamActivePlayers.Contains(playerId)).ToList();
         }
 
         public static void ScheduleGenerator(Guid seriesId)
@@ -152,40 +153,42 @@ namespace Domain.Services
         public static IEnumerable<Team> GetAllTeams()
         {
             var teamService = new TeamService();
-            return teamService.GetAll();
+            return teamService.GetAll().ToList();
         }
 
         public static IEnumerable<Match> GetAllMatches()
         {
             var matchService = new MatchService();
-            return matchService.GetAll();
+            return matchService.GetAll().ToList();
         }
 
         public static IEnumerable<Series> GetAllSeries()
         {
             var seriesService = new SeriesService();
-            return seriesService.GetAll();
+            return seriesService.GetAll().ToList();
         }
 
         public static IEnumerable<Player> GetAllPlayers()
         {
             var playerService = new PlayerService();
-            return playerService.GetAllExposablePlayers();
+            return playerService.GetAllExposablePlayers().ToList();
         }
 
         public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)
         {
-            return from match in GetAllMatches()
+            var result = from match in GetAllMatches()
                    where match.HomeTeamId == teamId || match.AwayTeamId == teamId
                    select match.Id;
+            return result.ToList();
         }
 
         public static IEnumerable<Guid> GetTeamScheduleForSeries(Guid seriesId, Guid teamId)
         {
-            return from match in GetAllMatches()
+            var result = from match in GetAllMatches()
                    where (match.HomeTeamId == teamId || match.AwayTeamId == teamId)
                    && match.SeriesId == seriesId
                    select match.Id;
+            return result.ToList();
         }
 
         public static GameResult GetGameResult(GameProtocol protocol)

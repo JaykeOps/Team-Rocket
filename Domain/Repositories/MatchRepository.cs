@@ -51,7 +51,7 @@ namespace Domain.Repositories
             }
         }
 
-        private void Load()
+        public void LoadData()
         {
             var matches = new HashSet<Match>();
 

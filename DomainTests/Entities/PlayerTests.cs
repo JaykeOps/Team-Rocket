@@ -109,20 +109,5 @@ namespace DomainTests.Entities.Tests
             this.dummyPlayer.TeamId = newTeamId;
             Assert.AreEqual(this.dummyPlayer.TeamId, newTeamId);
         }
-
-        
-
-        [TestMethod]
-        public void PlayerTeamIdBecomesIdOfTeamWhenPlayerIdIsAddedToTeam()
-        {
-            var newTeam = this.dummySeries.DummyTeams.DummyTeamTwo;
-            Assert.IsNotNull(newTeam.Id);
-            Assert.AreNotEqual(newTeam.Id, Guid.Empty);
-            Assert.IsNotNull(this.dummyPlayer.TeamId);
-            Assert.AreNotEqual(this.dummyPlayer.TeamId, Guid.Empty);
-            Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummySeries.DummyTeams.DummyTeamTwo.Id);
-            
-            Assert.AreEqual(this.dummyPlayer.TeamId, newTeam.Id);
-        }
     }
 }
