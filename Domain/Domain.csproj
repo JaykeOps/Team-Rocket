@@ -49,8 +49,6 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Enums\MatchOutcome.cs" />
     <Compile Include="Helper Classes\EntityValidation.cs" />
-    <Compile Include="Services\ValidationService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\IValidationService.cs" />
     <Compile Include="Helper Classes\Schedule.cs" />
     <Compile Include="Helper Classes\StringUtilities.cs" />
     <Compile Include="Interfaces\IExposablePlayer.cs" />
@@ -59,11 +57,6 @@
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />
     <Compile Include="Services\DomainService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\IPlayerService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\IGameService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\IMatchService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\ITeamService.cs" />
-    <Compile Include="Interfaces\ServiceContracts\ISeriesService.cs" />
     <Compile Include="Services\MatchService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\SeriesService.cs" />

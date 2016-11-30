@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Services
 {
-    public class PlayerService : IPlayerService
+    public class PlayerService
     {
         private PlayerRepository repository => PlayerRepository.instance;
 
