@@ -269,5 +269,19 @@ namespace Domain.Services.Tests
             Assert.AreEqual(this.dummyPlayer.TeamId, dummyTeamOne.Id);
             Assert.AreNotEqual(this.dummyPlayer.TeamId, this.dummyTeam.Id);
         }
+
+        [TestMethod]
+        public void FreeTextSearchPlayerEvents()
+        {
+            var series = new DummySeries();
+            var playerStats = this.playerService.GetPlayerStatsFreeTextSearch("f").ToList();
+            Assert.IsNotNull(playerStats);
+            Assert.AreNotEqual(playerStats.Count, 0);
+            foreach (var playerStat in playerStats)
+            {
+                Assert.AreEqual(playerStat.PlayerName.ToString(), "Player");
+            }
+        }
+        
     }
 }
