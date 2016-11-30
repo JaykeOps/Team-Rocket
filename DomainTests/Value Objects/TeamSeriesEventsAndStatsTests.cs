@@ -150,6 +150,7 @@ namespace Domain.Value_Objects.Tests
             Assert.IsTrue(teamStats.GoalsAgainst == preAddGoalsAgainstCount);
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
                 this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));
+            teamStats = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id];
             var postAddGoalAgainstCount = teamStats.GoalsAgainst;
             Assert.IsTrue(postAddGoalAgainstCount - preAddGoalsAgainstCount == 1);
         }
@@ -161,6 +162,7 @@ namespace Domain.Value_Objects.Tests
             var preAddGoalDiffernce = teamStats.GoalDifference;
             this.dummySeries.DummyGames.GameThree.Protocol.Goals.Add(new Goal(new MatchMinute(60),
                 this.dummySeries.DummyGames.GameThree.AwayTeamId, this.teamTwo.PlayerIds.ElementAt(0)));
+            teamStats = this.teamTwo.AggregatedStats[this.dummySeries.SeriesDummy.Id];
             var postAddGoalDifference = teamStats.GoalDifference;
             Assert.IsTrue(postAddGoalDifference - preAddGoalDiffernce == -1);
         }

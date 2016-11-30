@@ -103,7 +103,7 @@ namespace Domain.Repositories.Tests
             Assert.AreEqual(gameInRepositroy, this.dummyGameDuplicate);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void RepositoriesCanGenerateBinFiles()
         {
             new DummySeries();
@@ -122,6 +122,6 @@ namespace Domain.Repositories.Tests
             PlayerRepository.instance.LoadData();
             SeriesRepository.instance.LoadData();
             TeamRepository.instance.LoadData();
-        }
+        }*/
     }
 }
