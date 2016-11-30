@@ -271,15 +271,15 @@ namespace Domain.Services.Tests
         }
 
         [TestMethod]
-        public void FreeTextSearchPlayerEvents()
+        public void FreeTextSearchPlayerStats()
         {
             var series = new DummySeries();
-            var playerStats = this.playerService.GetPlayerStatsFreeTextSearch("Player").ToList();
+            var playerStats = this.playerService.GetPlayerStatsFreeTextSearch("Player One").ToList();
             Assert.IsNotNull(playerStats);
             Assert.AreNotEqual(playerStats.Count, 0);
             foreach (var playerStat in playerStats)
             {
-                Assert.AreEqual(playerStat.PlayerName.ToString(), "Player");
+                Assert.AreEqual(playerStat.PlayerName.ToString(), "Player One");
             }
         }
         
