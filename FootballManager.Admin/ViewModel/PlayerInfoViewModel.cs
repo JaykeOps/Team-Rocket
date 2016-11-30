@@ -17,9 +17,10 @@ namespace FootballManager.Admin.ViewModel
     public class PlayerInfoViewModel : ViewModelBase
     {
         private PlayerService playerService;
-
+        private string filterString;
         private ICommand searchCommand;
         private ICollectionView playerInfoStats;
+
         public ICollectionView PlayerInfoStats
         {
             get { return playerInfoStats; }
@@ -33,22 +34,6 @@ namespace FootballManager.Admin.ViewModel
             playerInfoStats.Filter = FilterData;
         }
 
-        private bool FilterData(object obj)
-        {
-            var playerStats = obj as PlayerStats;
-
-            if (playerStats != null)
-            {
-                if (!string.IsNullOrEmpty(filterString))
-                {
-                    return playerStats.PlayerName.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        private string filterString;
         public string FilterString
         {
             get { return filterString; }
@@ -70,6 +55,21 @@ namespace FootballManager.Admin.ViewModel
                 }
                 return searchCommand;
             }
+        }
+
+        private bool FilterData(object obj)
+        {
+            var playerStats = obj as PlayerStats;
+
+            if (playerStats != null)
+            {
+                if (!string.IsNullOrEmpty(filterString))
+                {
+                    return playerStats.PlayerName.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
+                }
+                return true;
+            }
+            return false;
         }
 
         private void Search(object param)
