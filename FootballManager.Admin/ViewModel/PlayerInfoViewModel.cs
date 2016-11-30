@@ -1,57 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
+using FootballManager.Admin.Utility;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class PlayerInfoViewModel : ViewModelBase
     {
         private PlayerService playerService;
-        private SeriesService seriesService;
-        private ObservableCollection<Player> players;
-        private ObservableCollection<PlayerStats> playersInfoStats;
+
+        private ICollectionView playerStatsCollection;
+        private string searchString;
 
         public PlayerInfoViewModel()
         {
             this.playerService = new PlayerService();
-            this.seriesService = new SeriesService();
-            this.players = new ObservableCollection<Player>();
-            this.playersInfoStats = new ObservableCollection<PlayerStats>();
-            LoadData();
+            PlayerStatsCollection = CollectionViewSource.GetDefaultView(LoadData());
+            PlayerStatsCollection.Filter = new Predicate<object>(Filter);
         }
 
-        public ObservableCollection<Player> Players
+        public ICollectionView PlayerStatsCollection
         {
-            get { return players; }
+            get { return playerStatsCollection; }
             set
             {
-                players = value;
+                playerStatsCollection = value;
                 OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<PlayerStats> PlayersInfoStats
+        public string SearchString
         {
-            get { return playersInfoStats; }
+            get { return searchString; }
             set
             {
-                playersInfoStats = value;
+                searchString = value;
                 OnPropertyChanged();
+                FilterCollection();
             }
         }
 
-        public void LoadData()
+        private void FilterCollection()
         {
-            Players = playerService.GetAllPlayers().ToObservableCollection();
+            if (playerStatsCollection != null)
+            {
+                playerStatsCollection.Refresh();
+            }
+        }
+
+        private bool Filter(object obj)
+        {
+            var data = obj as PlayerStats;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    return data.PlayerName.Contains(searchString);
+                }
+                return true;
+            }
+            return false;
+        }
 
 
-            
+        public List<PlayerStats> LoadData()
+        {
+            var players = playerService.GetAllPlayers();
+            var playerInfoData = new List<PlayerStats>();
+            foreach (var p in players)
+            {
+                var playerStats = playerService.GetAllPlayerStats(p.Id).First();
+                playerInfoData.Add(playerStats);
+            }
+            return playerInfoData;
         }
     }
 }

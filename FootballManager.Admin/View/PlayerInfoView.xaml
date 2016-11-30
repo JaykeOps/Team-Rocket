@@ -4,66 +4,83 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FootballManager.Admin.View"
+             xmlns:vm="clr-namespace:FootballManager.Admin.ViewModel"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              mc:Ignorable="d" 
-             Height="700" Width="980"
+             d:DesignHeight="700" d:DesignWidth="900"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PlayerInfoViewModel}">
+
     <Grid>
+        <Grid.Resources>
+            <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
+            <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+
+            <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
+            <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
+            <Style BasedOn="{StaticResource DataGridCellStylePlayerInfoView}" TargetType="{x:Type DataGridCell}" />
+            <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
+            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+        </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Center" 
-                                Margin="10">
-            <Label Content="Search for player:" />
-            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=LostFocus}" />
-            <Button Command="{Binding OpenPlayerAddViewCommand}" 
-                                Content="Search" 
-                                Style="{StaticResource FlatButton}" 
-                                VerticalAlignment="Bottom" 
-                                Margin="40,0,0,0" />
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="0" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Right" 
-                                VerticalAlignment="Center" 
-                                Margin="10" 
-                                Height="60">
-        </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="0" 
+                                    Orientation="Horizontal" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Center" 
+                                    Margin="10">
+                <Label Content="Search for player:" />
+                <TextBox Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Command="{Binding SearchCommand}" 
+                                    Content="Search" 
+                                    Style="{StaticResource FlatButton}" 
+                                    VerticalAlignment="Bottom" 
+                                    Margin="40,0,0,0" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="0" 
+                                    Orientation="Horizontal" 
+                                    HorizontalAlignment="Right" 
+                                    VerticalAlignment="Center" 
+                                    Margin="10" 
+                                    Height="60">
+            </StackPanel>
 
-        <!--Margin: Left, Top, Right, Bottom-->
-        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding Players}" 
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="True"
-                              >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="No" />
-                <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
-                <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
-                <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Matches" Binding="{Binding AggregatedStats.AllStats.Values}" />
-                <DataGridTextColumn Header="Goals" />
-                <DataGridTextColumn Header="Assists" />
-                <DataGridTextColumn Header="Red" />
-                <DataGridTextColumn Header="Yellow" />
-            
-            </DataGrid.Columns>
-        </DataGrid>
+            <!--Margin: Left, Top, Right, Bottom-->
+            <DataGrid Grid.Row="1" Grid.Column="0" 
+                    ItemsSource="{Binding PlayerStatsCollection}" 
+                    materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                    materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                    SelectionMode="Extended"
+                    CanUserSortColumns="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource DataGridCellStylePlayerInfoViewNames}" />
+                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource DataGridCellStylePlayerInfoViewNames}" />
+                    <DataGridTextColumn Header="Games" Binding="{Binding GamesPlayedCount, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Penalties" Binding="{Binding PenaltyCount, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount, Mode=OneWay}"  />
+                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>
