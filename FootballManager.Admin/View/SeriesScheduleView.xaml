@@ -44,7 +44,7 @@
                     Margin="10"
                     Height="60">
             <Label Content="Series:" />
-            <ComboBox ItemsSource="{Binding}" 
+            <ComboBox ItemsSource="{Binding AllSeries}" 
                     SelectedItem="" />
             <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
                                 Content="Temp: Open Edit" 

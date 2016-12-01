@@ -56,21 +56,17 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="20,20,20,12">
                             <Label Content="Search:" />
-                            <TextBox Width="150" />
+                            <TextBox Width="150" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-                        <ListBox Grid.Row="1" Grid.Column="0">
-                            <ListBoxItem>Välj lag 1</ListBoxItem>
-                            <ListBoxItem>Välj lag 2</ListBoxItem>
-                            <ListBoxItem>Välj lag 3</ListBoxItem>
+                        <ListBox Name="availableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}">
                         </ListBox>
                         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10">
-                            <Button Content="+" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
-                            <Button Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
+                            <Button CommandParameter="{Binding ElementName=teamsToAddToSeries, Path=SelectedItem}" 
+                                    Command="{Binding AddTeamCommand}" Content="+" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
+                            <Button CommandParameter="{Binding ElementName=availableTeams, Path=SelectedItem}" 
+                                    Command="{Binding DeleteTeamCommand}" Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                         </StackPanel>
-                        <ListBox Grid.Row="1" Grid.Column="2">
-                            <ListBoxItem>Valda Lag 1</ListBoxItem>
-                            <ListBoxItem>Valda Lag 2</ListBoxItem>
-                            <ListBoxItem>Valda Lag 3</ListBoxItem>
+                        <ListBox x:Name="teamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding TeamsToAddToSeries}">
                         </ListBox>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center">
@@ -95,16 +91,18 @@
                         <Label Grid.Row="1" Grid.Column="0" Content="Game duration:" />
                         <Label Grid.Row="2" Grid.Column="0" Content="Number of teams:" />
 
-                        <TextBox Grid.Row="0" Grid.Column="1" />
-                        <TextBox Grid.Row="1" Grid.Column="1" />
-                        <ComboBox Grid.Row="2" Grid.Column="1" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SeriesName}"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MatchDuration}"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" 
+                                  SelectedValue="{Binding SelectedNumberOfTeams}"
+                                  ItemsSource="{Binding NumberOfTeamsList}" />
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
                                     Orientation="Horizontal" 
                                     HorizontalAlignment="Right" 
                                     VerticalAlignment="Center"
                                     Margin="20">
-                            <Button Command="{Binding}" Content="Add Series" Style="{StaticResource FlatButton}" />
+                            <Button Command="{Binding AddSeriesCommand}" Content="Add Series" Style="{StaticResource FlatButton}" />
                         </StackPanel>
                     </Grid>
                 </Grid>

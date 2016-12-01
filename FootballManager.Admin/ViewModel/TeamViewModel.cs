@@ -19,12 +19,12 @@ namespace FootballManager.Admin.ViewModel
         private TeamService teamService;
         private Team selectedTeam;
 
+        private ICommand deleteTeamCommand;
+
         public TeamViewModel()
         {
             this.teamService = new TeamService();
 
-            this.OpenTeamAddViewCommand = new RelayCommand(OpenTeamAddView);
-            this.DeleteTeamCommand = new RelayCommand(DeleteTeam);
             LoadData();
 
             Messenger.Default.Register<Team>(this, OnTeamObjReceived);
@@ -33,7 +33,18 @@ namespace FootballManager.Admin.ViewModel
         #region Properties
 
         public ICommand OpenTeamAddViewCommand { get; }
-        public ICommand DeleteTeamCommand { get; }
+
+        public ICommand DeleteTeamCommand
+        {
+            get
+            {
+                if (deleteTeamCommand == null)
+                {
+                    deleteTeamCommand = new RelayCommand(DeleteTeam);
+                }
+                return deleteTeamCommand;
+            }
+        }
 
         public Team SelectedTeam
         {
@@ -44,6 +55,8 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
+
+
 
         public ObservableCollection<Team> Teams
         {
