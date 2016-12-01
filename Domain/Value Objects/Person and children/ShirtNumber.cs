@@ -14,7 +14,23 @@ namespace Domain.Entities
         public ShirtNumber(Guid teamId, int number)
         {
             this.PlayerTeamId = teamId;
-            this.Value = this.Value.IsAvailableShirtNumber(this.PlayerTeamId) ? number : -1;
+            try
+            {
+                if (this.Value.IsValidShirtNumber(this.PlayerTeamId))
+                {
+                    this.Value = number;
+                }
+            }
+            catch (ShirtNumberAlreadyInUseException ex)
+            {
+                this.Value = -1;
+                throw ex;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                this.Value = -1;
+                throw ex;
+            }
         }
 
         public ShirtNumber(Guid teamId)

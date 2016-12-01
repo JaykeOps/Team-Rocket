@@ -12,7 +12,6 @@ namespace Domain.Entities
         private readonly AggregatedPlayerStats aggregatedStats;
         private Guid teamId;
         private TeamName affiliatedTeamName;
-        private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
@@ -34,7 +33,7 @@ namespace Domain.Entities
             }
             set
             {
-                this.shirtNumber = new ShirtNumber(value);
+                this.ShirtNumber = new ShirtNumber(value);
                 this.teamId = value;
             }
         }
@@ -49,11 +48,7 @@ namespace Domain.Entities
             get { return this.aggregatedStats; }
         }
 
-        public ShirtNumber ShirtNumber
-        {
-            get { return this.shirtNumber; }
-            set { this.shirtNumber = value; }
-        }
+        public ShirtNumber ShirtNumber { get; set; }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
             PlayerStatus status) : base(name, dateOfBirth)
