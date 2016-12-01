@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Reflection;
 
 namespace Domain.Value_Objects
 {
@@ -127,13 +129,22 @@ namespace Domain.Value_Objects
             int hashCode = 0;
             foreach (var property in properties)
             {
-                if (property.PropertyType.Namespace != "System.Collections.Generic")
+                if (property.PropertyType.Namespace != "System.Collections.Generic" && property.GetValue(this, null) != null)
                 {
                     hashCode += property.GetValue(this, null).GetHashCode();
                 }
-                else
+                else if (property.GetValue(this, null) != null)
                 {
-                    hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
+                    if (property.PropertyType.FullName.Contains("System.Collections.Generic.HashSet"))
+                    {
+
+                        hashCode += property.GetValue(this, null).GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
+                    }
+
                 }
             }
             return hashCode;
@@ -142,10 +153,14 @@ namespace Domain.Value_Objects
         private int GetHashCodeFromAllListItems(ICollection collectionProperty)
         {
             int hashCode = 0;
-            foreach (var item in collectionProperty)
+            if (collectionProperty != null)
             {
-                hashCode += item.GetHashCode();
+                foreach (var item in collectionProperty)
+                {
+                    hashCode += item.GetHashCode();
+                }
             }
+
             return hashCode;
         }
     }
