@@ -125,6 +125,12 @@ namespace Domain.Services
             return teamsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
         }
 
+        public IEnumerable<TeamStats> TeamStatsSearch(string searchText)
+        {
+            var teams = this.Search(searchText);
+            return teams.SelectMany(x => x.AggregatedStats.AllStats.Values);
+        }
+
         public void RemoveTeam(Guid teamId)
         {
             this.repository.RemoveTeam(teamId);
