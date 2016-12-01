@@ -12,6 +12,8 @@ using System.Collections.ObjectModel;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using System.Collections;
+using System.Windows;
+using Domain.Helper_Classes;
 using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
@@ -53,7 +55,7 @@ namespace FootballManager.Admin.ViewModel
             set
             {
                 availableTeams = value;
-                OnPropertyChanged();                
+                OnPropertyChanged();
             }
         }
 
@@ -76,7 +78,7 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
                 AvailableTeams = teamService.GetAll().
                     Where(x => x.Name.Value.ToLower().
-                    Contains(searchText.ToLower())).ToObservableCollection();
+                        Contains(searchText.ToLower())).ToObservableCollection();
             }
         }
 
@@ -110,7 +112,7 @@ namespace FootballManager.Admin.ViewModel
             get { return seriesName; }
             set
             {
-                seriesName = value; 
+                seriesName = value;
                 OnPropertyChanged();
             }
         }
@@ -150,30 +152,41 @@ namespace FootballManager.Admin.ViewModel
             {
                 availableTeams.Add(selectedTeam);
                 teamsToAddToSeries.Remove(selectedTeam);
-                
+
             }
 
         }
 
         private void AddSeriesTeam(object obj)
         {
-            var seriesSeriesName = new SeriesName(this.seriesName);
-            var seriesNumberOfTeams = new NumberOfTeams(this.SelectedNumberOfTeams);
-            var seriesMatchDuration = new MatchDuration(new TimeSpan(0, this.matchDuration, 0));
+            var timeSpanMatchDuration = new TimeSpan(0, this.matchDuration, 0);
 
-            var seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
-
-            foreach (var team in teamsToAddToSeries)
+            try
             {
-                seriesToAdd.TeamIds.Add(team.Id);
+                var seriesSeriesName = new SeriesName(this.seriesName);
+                var seriesNumberOfTeams = new NumberOfTeams(this.SelectedNumberOfTeams);
+                var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
+
+                Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
+                foreach (var team in teamsToAddToSeries)
+                {
+                    seriesToAdd.TeamIds.Add(team.Id);
+                }
+                Messenger.Default.Send<Series>(seriesToAdd);
+                ResetData();
             }
-            seriesService.Add(seriesToAdd);
-            seriesService.ScheduleGenerator(seriesToAdd.Id);
-            teamsToAddToSeries.Clear();
-            this.SeriesName = "";
-            this.MatchDuration = 0;
-            this.AvailableTeams = teamService.GetAll().ToObservableCollection();
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+            
         }
+    
+
+
+
 
         public void LoadData()
         {
@@ -188,6 +201,14 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
 
+        }
+
+        public void ResetData()
+        {
+            teamsToAddToSeries.Clear();
+            this.SeriesName = "";
+            this.MatchDuration = 0;
+            this.AvailableTeams = teamService.GetAll().ToObservableCollection();
         }
 
         public static bool IsEven(int value)
