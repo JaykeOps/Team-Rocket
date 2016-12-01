@@ -15,6 +15,7 @@ namespace FootballManager.Admin.ViewModel
     public class SeriesViewModel : ViewModelBase, IDataErrorInfo
     {
         private string seriesName;
+        private string matchDuration;
 
         public SeriesViewModel()
         {
@@ -33,13 +34,32 @@ namespace FootballManager.Admin.ViewModel
                 switch (columnName)
                 {
                     case "SeriesName":
-                        if (this.SeriesName == null || this.SeriesName == "")
+                        if (string.IsNullOrEmpty(this.SeriesName))
                         {
                             return string.Empty;
                         }
                         if (!this.SeriesName.IsValidSeriesName(false)) // Parameter is 'bool ignoreCase'.
                         {
                             return "Must be 2-30 valid European characters long!";
+                        }
+                        break;
+                    case "MatchDuration":
+                        if (string.IsNullOrEmpty(this.MatchDuration))
+                        {
+                            return string.Empty;
+                        }
+                        int matchMinutes;
+                        if (!int.TryParse(this.MatchDuration, out matchMinutes))
+                        {
+                            return "Must be an integer between 10 and 90!";
+                        }
+                        else
+                        {
+                            TimeSpan timeSpan = new TimeSpan(0, matchMinutes, 0);
+                            if (!timeSpan.IsValidMatchDuration())
+                            {
+                                return "Must be an integer between 10 and 90!";
+                            }
                         }
                         break;
                 }
@@ -56,6 +76,16 @@ namespace FootballManager.Admin.ViewModel
             {
                 seriesName = value;
                 base.OnPropertyChanged("SeriesName");
+            }
+        }
+
+        public string MatchDuration
+        {
+            get { return matchDuration; }
+            set
+            {
+                matchDuration = value;
+                base.OnPropertyChanged("MatchDuration");
             }
         }
         #endregion
