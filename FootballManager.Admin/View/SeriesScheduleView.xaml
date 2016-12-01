@@ -47,9 +47,12 @@
                     Height="60">
             <Label Content="Series:" />
 
-            <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="">
+            <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectedItem="{Binding Test, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
+                
+                
             </ComboBox>
+            
             <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
                                 Content="Temp: Open Edit" 
                                 Style="{StaticResource FlatButton}" 
