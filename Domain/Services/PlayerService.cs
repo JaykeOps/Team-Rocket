@@ -161,9 +161,7 @@ namespace Domain.Services
             return this.repository.GetAll().Where(x =>
                 x.Name.ToString().Contains(searchText, comparison)
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
-                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison)
-                || x.AggregatedStats.AllStats.Keys.Any
-                    (y => DomainService.FindSeriesById(y).SeriesName.ToString().Contains(searchText)));
+                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
