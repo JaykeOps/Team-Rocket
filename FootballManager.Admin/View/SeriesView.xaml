@@ -97,6 +97,22 @@
                                   SelectedValue="{Binding SelectedNumberOfTeams}"
                                   ItemsSource="{Binding NumberOfTeamsList}" />
 
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <!-- Placeholder for the TextBox itself -->
+                                        <AdornedElementPlaceholder x:Name="setSeriesNameTextBoxPlaceholder" />
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" />
+
+
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
                                     Orientation="Horizontal" 
                                     HorizontalAlignment="Right" 

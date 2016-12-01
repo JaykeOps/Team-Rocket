@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
-using MaterialDesignThemes.Wpf;
 using Domain.Entities;
 using System.Collections.ObjectModel;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
-using System.Collections;
 using System.Windows;
-using Domain.Helper_Classes;
 using Domain.Value_Objects;
+using System.ComponentModel;
+using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class SeriesViewModel : ViewModelBase
+    public class SeriesViewModel : ViewModelBase, IDataErrorInfo
     {
+
         private ObservableCollection<Team> availableTeams;
         private ObservableCollection<Team> teamsToAddToSeries;
         private List<int> numberOfTeamsList;
@@ -211,5 +208,36 @@ namespace FootballManager.Admin.ViewModel
             return value % 2 == 0;
         }
 
+        #region IDataErrorInfo Implementation
+        public string Error
+        {
+            get { return null; }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "SeriesName":
+                        if (string.IsNullOrEmpty(this.SeriesName))
+                        {
+                            return string.Empty;
+                        }
+                        if (!this.SeriesName.IsValidSeriesName(false)) // Parameter is 'bool ignoreCase'.
+                        {
+                            return "Must be 2-30 valid European characters long!";
+                        }
+                        break;
+                }
+                return string.Empty;
+            }
+        }
+        #endregion
+
+        #region Methods
+
+        #endregion
     }
 }
