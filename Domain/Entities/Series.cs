@@ -13,7 +13,7 @@ namespace Domain.Entities
         public NumberOfTeams NumberOfTeams { get; }
         public HashSet<Guid> TeamIds { get; }
         public MatchDuration MatchDuration { get; }
-        public Dictionary<int, List<Match>> Schedule { get; set; }
+        public List<Match> Schedule { get; set; }
 
         
         public Series(MatchDuration matchDuration, NumberOfTeams numberOfTeams, SeriesName name)
@@ -23,7 +23,7 @@ namespace Domain.Entities
             this.NumberOfTeams = numberOfTeams;
             this.MatchDuration = matchDuration;
             this.TeamIds = new HashSet<Guid>();
-            this.Schedule = new Dictionary<int, List<Match>>();
+            this.Schedule = new List<Match>();
         }
 
         public override string ToString()

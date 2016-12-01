@@ -102,6 +102,7 @@ namespace Domain.Repositories
             {
                 this.matches.Add(newMatch);
             }
+            //this.SaveData();
         }
 
         private bool TryGetMatch(Match match, out Match matchInRepository)

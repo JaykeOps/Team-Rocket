@@ -25,8 +25,8 @@ namespace DomainTests.Helper_Classes
         public void MatchIsValidTest()
         {
             var series = new DummySeries();
-            var matchs = series.SeriesDummy.Schedule[1];
-            var match = matchs.First();
+            var match = series.SeriesDummy.Schedule[1];
+            
             Assert.IsTrue(match.IsMatchValid());
         }
     }

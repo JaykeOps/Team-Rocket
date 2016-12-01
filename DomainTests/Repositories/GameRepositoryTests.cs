@@ -26,7 +26,7 @@ namespace Domain.Repositories.Tests
         {
             this.dummySeries = new DummySeries();
             this.dummyGame = this.dummySeries.DummyGames.GameOne;
-            this.dummyGameDuplicate = new Game(this.dummySeries.SeriesDummy.Schedule[0].ElementAt(0))
+            this.dummyGameDuplicate = new Game(this.dummySeries.SeriesDummy.Schedule.ElementAt(0))
             {
                 Id = this.dummyGame.Id,
             };

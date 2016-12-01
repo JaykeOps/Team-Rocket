@@ -15,6 +15,7 @@ namespace Domain.Entities
         public Guid HomeTeamId { get; set; }
         public Guid AwayTeamId { get; set; }
         public Guid SeriesId { get; set; }
+        public int Round { get; set; }
 
         
 

@@ -3,6 +3,7 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Linq;
+using Domain.Repositories;
 
 namespace DomainTests.Test_Dummies
 {
@@ -184,6 +185,7 @@ namespace DomainTests.Test_Dummies
             playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTen, this.DummyTeamFour.Id);
             playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerEleven, this.DummyTeamFour.Id);
             playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTwelve, this.DummyTeamFour.Id);
+            //PlayerRepository.instance.SaveData();
             
         }
     }
@@ -243,18 +245,18 @@ namespace DomainTests.Test_Dummies
 
         public DummyGames(DummySeries dummySeries)
         {
-            this.GameOne = new Game(dummySeries.SeriesDummy.Schedule[0].ElementAt(0));
-            this.GameTwo = new Game(dummySeries.SeriesDummy.Schedule[0].ElementAt(1));
-            this.GameThree = new Game(dummySeries.SeriesDummy.Schedule[1].ElementAt(0));
-            this.GameFour = new Game(dummySeries.SeriesDummy.Schedule[1].ElementAt(1));
-            this.GameFive = new Game(dummySeries.SeriesDummy.Schedule[2].ElementAt(0));
-            this.GameSix = new Game(dummySeries.SeriesDummy.Schedule[2].ElementAt(1));
-            this.GameSeven = new Game(dummySeries.SeriesDummy.Schedule[3].ElementAt(0));
-            this.GameEight = new Game(dummySeries.SeriesDummy.Schedule[3].ElementAt(1));
-            this.GameNine = new Game(dummySeries.SeriesDummy.Schedule[4].ElementAt(0));
-            this.GameTen = new Game(dummySeries.SeriesDummy.Schedule[4].ElementAt(1));
-            this.GameEleven = new Game(dummySeries.SeriesDummy.Schedule[5].ElementAt(0));
-            this.GameTwelve = new Game(dummySeries.SeriesDummy.Schedule[5].ElementAt(1));
+            this.GameOne = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(0));
+            this.GameTwo = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(1));
+            this.GameThree = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(2));
+            this.GameFour = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(3));
+            this.GameFive = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(4));
+            this.GameSix = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(5));
+            this.GameSeven = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(6));
+            this.GameEight = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(7));
+            this.GameNine = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(8));
+            this.GameTen = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(9));
+            this.GameEleven = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(10));
+            this.GameTwelve = new Game(dummySeries.SeriesDummy.Schedule.ElementAt(11));
 
             this.GameOne.Protocol.Goals.Add(new Goal(new MatchMinute(28), this.GameOne.HomeTeamId,
                 DomainService.FindTeamById(this.GameOne.HomeTeamId).PlayerIds.ElementAt(0)));
