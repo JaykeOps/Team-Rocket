@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,14 @@ namespace FootballManager.Admin.ViewModel
     {
         private ObservableCollection<Series> allSeries;
         private SeriesService seriesService;
+        private ICommand updateComboBoxSourceCommand;
 
         public SeriesScheduleViewModel()
         {
             seriesService = new SeriesService();
+            //this.UpdateComboBoxSourceCommand = new RelayCommand(UpdateComboBoxSource);
             Load();
+            
         }
 
         public ObservableCollection<Series> AllSeries
@@ -30,7 +34,8 @@ namespace FootballManager.Admin.ViewModel
             get { return allSeries; }
             set
             {
-                allSeries = seriesService.GetAll().ToObservableCollection();
+                allSeries = value;
+                Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
                 OnPropertyChanged();
             }
         }
@@ -69,6 +74,8 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public ICommand UpdateComboBoxSourceCommand { get; }
+
         private void OpenSeriesScheduleEditView(object obj)
         {
             var view = new SeriesScheduleEditView();
@@ -78,6 +85,13 @@ namespace FootballManager.Admin.ViewModel
         private void Load()
         {
             this.allSeries = seriesService.GetAll().ToObservableCollection();
+        }
+
+        private void OnSeriesObjReceived(Series serie)
+        {
+            seriesService.Add(serie);
+            seriesService.ScheduleGenerator(serie.Id);
+            Load();
         }
     }
 }

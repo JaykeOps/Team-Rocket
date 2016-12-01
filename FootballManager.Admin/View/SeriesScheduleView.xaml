@@ -46,7 +46,11 @@
                     Margin="10"
                     Height="60">
             <Label Content="Series:" />
+<<<<<<< HEAD
             <ComboBox ItemsSource="{Binding AllSeries}" 
+=======
+            <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}"
+>>>>>>> develop-SeriesScheduleView
                     SelectedItem="">
             </ComboBox>
             <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
