@@ -21,14 +21,12 @@ namespace FootballManager.App.View
     /// </summary>
     public partial class MatchView : UserControl
     {
-        private List<Match> matches;
-        private MatchService matchService = new MatchService();
+      
 
         public MatchView()
         {
             this.InitializeComponent();
-            this.matches = matchService.GetAll().ToList();
-            DataGrid.ItemsSource = this.matches;
+            
         }
     }
 }

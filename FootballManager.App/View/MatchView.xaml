@@ -68,7 +68,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId,Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
                             <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.Assists.Count, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult.AwayTeamScore}" />
                             <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" />
                             <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay}" />
 
