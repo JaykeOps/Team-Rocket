@@ -26,9 +26,9 @@ namespace FootballManager.Admin.ViewModel
             this.playerService = new PlayerService();
             this.teamService = new TeamService();
 
-            LoadData();     
+            this.LoadData();     
 
-            Messenger.Default.Register<Player>(this, OnPlayerObjReceived);
+            Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
         }
 
 
@@ -38,11 +38,11 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (openPlayerAddViewCommand == null)
+                if (this.openPlayerAddViewCommand == null)
                 {
-                    openPlayerAddViewCommand = new RelayCommand(OpenPlayerAddView);
+                    this.openPlayerAddViewCommand = new RelayCommand(this.OpenPlayerAddView);
                 }
-                return openPlayerAddViewCommand;
+                return this.openPlayerAddViewCommand;
             }
         }
 
@@ -50,32 +50,32 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (deletePlayerCommand == null)
+                if (this.deletePlayerCommand == null)
                 {
-                    deletePlayerCommand = new RelayCommand(DeletePlayer);
+                    this.deletePlayerCommand = new RelayCommand(this.DeletePlayer);
                 }
-                return deletePlayerCommand;
+                return this.deletePlayerCommand;
             }            
         }
 
         public ObservableCollection<Player> Players
         {
-            get { return players; }
+            get { return this.players; }
             set
             {
-                players = value;
-                OnPropertyChanged();
+                this.players = value;
+                this.OnPropertyChanged();
             }
         }
 
         public string SearchText
         {
-            get { return searchText; }
+            get { return this.searchText; }
             set
             {
-                searchText = value;
-                var test = playerService.Search(SearchText).ToObservableCollection();
-                OnPropertyChanged();
+                this.searchText = value;
+                var test = this.playerService.Search(this.SearchText).ToObservableCollection();
+                this.OnPropertyChanged();
             }
         }
 
@@ -90,7 +90,7 @@ namespace FootballManager.Admin.ViewModel
 
             foreach (var player in playersSelectedList)
             {
-                players.Remove(player);
+                this.players.Remove(player);
             }
         }
 
@@ -102,13 +102,13 @@ namespace FootballManager.Admin.ViewModel
 
         private void OnPlayerObjReceived(Player player)
         {
-            playerService.Add(player);
-            LoadData();
+            this.playerService.Add(player);
+            this.LoadData();
         }
 
         public void LoadData()
         {
-            Players = playerService.GetAllPlayers().ToObservableCollection();
+            this.Players = this.playerService.GetAllPlayers().ToObservableCollection();
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace FootballManager.Admin.ViewModel
 
         public IEnumerable<string> TeamNames
         {
-            get { return teamService.GetAllTeams().Select(x => x.Name.Value); } 
+            get { return this.teamService.GetAllTeams().Select(x => x.Name.Value); } 
         }
         #endregion
     }

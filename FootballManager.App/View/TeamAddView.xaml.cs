@@ -6,7 +6,7 @@ namespace FootballManager.App.View
     {
         public TeamAddView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

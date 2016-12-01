@@ -20,7 +20,7 @@ namespace Domain.Repositories
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//games.bin";
             this.games = new HashSet<Game>();
-            LoadData();
+            this.LoadData();
         }
 
         public void SaveData()
@@ -112,7 +112,7 @@ namespace Domain.Repositories
 
         public IEnumerable<Game> GetAll()
         {
-            foreach (var game in games)
+            foreach (var game in this.games)
             {
                 game.Protocol.UpdateGameResult();
             }

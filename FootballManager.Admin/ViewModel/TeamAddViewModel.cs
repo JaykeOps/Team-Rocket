@@ -23,53 +23,53 @@ namespace FootballManager.Admin.ViewModel
 
         public TeamAddViewModel()
         {
-            this.AddCommand = new RelayCommand(Add);
+            this.AddCommand = new RelayCommand(this.Add);
         }
 
         private void Add(object obj)
         {
-            this.team = new Team(new TeamName(teamName), new ArenaName(arenaName), new EmailAddress(email));
+            this.team = new Team(new TeamName(this.teamName), new ArenaName(this.arenaName), new EmailAddress(this.email));
 
-            Messenger.Default.Send<Team>(team);
+            Messenger.Default.Send<Team>(this.team);
         }
 
 
         #region Team Properties       
         public string TeamName
         {
-            get { return teamName; }
+            get { return this.teamName; }
             set
             {
-                if (teamName != value)
+                if (this.teamName != value)
                 {
-                    teamName = value;
-                    OnPropertyChanged();
+                    this.teamName = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public string ArenaName
         {
-            get { return arenaName; }
+            get { return this.arenaName; }
             set
             {
-                if (arenaName != value)
+                if (this.arenaName != value)
                 {
-                    arenaName = value;
-                    OnPropertyChanged();
+                    this.arenaName = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public string Email
         {
-            get { return email; }
+            get { return this.email; }
             set
             {
-                if (email != value)
+                if (this.email != value)
                 {
-                    email = value;
-                    OnPropertyChanged();
+                    this.email = value;
+                    this.OnPropertyChanged();
                 }
             }
         }

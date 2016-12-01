@@ -15,39 +15,39 @@ namespace FootballManager.App.ViewModel
 
         public object SelectedViewModel
         {
-            get { return selectedViewModel; }
+            get { return this.selectedViewModel; }
             set
             {
-                selectedViewModel = value;
-                OnPropertyChanged();
+                this.selectedViewModel = value;
+                this.OnPropertyChanged();
             }
         }
 
         public MainViewModel()
         {
-            OpenPlayerCommand = new RelayCommand(PlayerCommand);
-            OpenTeamCommand = new RelayCommand(TeamCommand);
-            OpenSeriesCommand = new RelayCommand(SeriesCommand);
-            OpenMatchCommand = new RelayCommand(MatchCommand);
+            this.OpenPlayerCommand = new RelayCommand(this.PlayerCommand);
+            this.OpenTeamCommand = new RelayCommand(this.TeamCommand);
+            this.OpenSeriesCommand = new RelayCommand(this.SeriesCommand);
+            this.OpenMatchCommand = new RelayCommand(this.MatchCommand);
         }
 
         private void PlayerCommand(object obj)
         {
-            SelectedViewModel = new PlayerView();
+            this.SelectedViewModel = new PlayerView();
         }
         private void TeamCommand(object obj)
         {
-            SelectedViewModel = new TeamView();
+            this.SelectedViewModel = new TeamView();
         }
 
         private void SeriesCommand(object obj)
         {
-            SelectedViewModel = new SeriesView();
+            this.SelectedViewModel = new SeriesView();
         }
 
         private void MatchCommand(object obj)
         {
-            SelectedViewModel = new MatchView();
+            this.SelectedViewModel = new MatchView();
         }
 
     }

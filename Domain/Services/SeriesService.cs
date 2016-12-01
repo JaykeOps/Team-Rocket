@@ -48,7 +48,7 @@ namespace Domain.Services
 
         public IOrderedEnumerable<TeamStats> GetLeagueTablePlacement(Guid seriesId)
         {
-            var series = FindById(seriesId);
+            var series = this.FindById(seriesId);
             var teamIdsOfSerie = series.TeamIds;
 
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
@@ -61,12 +61,12 @@ namespace Domain.Services
 
         public void DeleteSeries(Guid seriesId)
         {
-            repository.DeleteSeries(seriesId);
+            this.repository.DeleteSeries(seriesId);
         }
 
         public void AddTeamToSeries(Guid seriesId, Guid teamId)
         {
-            var series = FindById(seriesId);
+            var series = this.FindById(seriesId);
             if (!(series.TeamIds.Contains(teamId)))
             {
                 series.TeamIds.Add(teamId);

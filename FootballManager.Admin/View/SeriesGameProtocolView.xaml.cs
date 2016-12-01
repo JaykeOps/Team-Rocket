@@ -21,7 +21,7 @@ namespace FootballManager.Admin.View
     {
         public SeriesGameProtocolView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

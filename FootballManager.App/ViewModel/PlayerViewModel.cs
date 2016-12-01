@@ -27,9 +27,9 @@ namespace FootballManager.App.ViewModel
             this.playerService = new PlayerService();
             this.teamService = new TeamService();
 
-            LoadData();     
+            this.LoadData();     
 
-            Messenger.Default.Register<Player>(this, OnPlayerObjReceived);
+            Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
         }
 
 
@@ -39,11 +39,11 @@ namespace FootballManager.App.ViewModel
         {
             get
             {
-                if (openPlayerAddViewCommand == null)
+                if (this.openPlayerAddViewCommand == null)
                 {
-                    openPlayerAddViewCommand = new RelayCommand(OpenPlayerAddView);
+                    this.openPlayerAddViewCommand = new RelayCommand(this.OpenPlayerAddView);
                 }
-                return openPlayerAddViewCommand;
+                return this.openPlayerAddViewCommand;
             }
         }
 
@@ -51,21 +51,21 @@ namespace FootballManager.App.ViewModel
         {
             get
             {
-                if (playerInfoCommand == null)
+                if (this.playerInfoCommand == null)
                 {
-                    playerInfoCommand = new RelayCommand(PlayerInfo);
+                    this.playerInfoCommand = new RelayCommand(this.PlayerInfo);
                 }
-                return playerInfoCommand;
+                return this.playerInfoCommand;
             }
         }
 
         public ObservableCollection<Player> Players
         {
-            get { return players; }
+            get { return this.players; }
             set
             {
-                players = value;
-                OnPropertyChanged();
+                this.players = value;
+                this.OnPropertyChanged();
             }
         }
         #endregion
@@ -86,12 +86,12 @@ namespace FootballManager.App.ViewModel
 
         private void OnPlayerObjReceived(Player player)
         {
-            players.Add(player);
+            this.players.Add(player);
         }
 
         public void LoadData()
         {
-            Players = playerService.GetAllPlayers().ToObservableCollection();
+            this.Players = this.playerService.GetAllPlayers().ToObservableCollection();
         }
 
         #endregion
@@ -110,7 +110,7 @@ namespace FootballManager.App.ViewModel
 
         public IEnumerable<string> TeamNames
         {
-            get { return teamService.GetAllTeams().Select(x => x.Name.Value); } 
+            get { return this.teamService.GetAllTeams().Select(x => x.Name.Value); } 
         }
         #endregion
     }

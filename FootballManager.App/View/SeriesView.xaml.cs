@@ -21,7 +21,7 @@ namespace FootballManager.App.View
     {
         public SeriesView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

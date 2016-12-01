@@ -22,7 +22,7 @@ namespace FootballManager.App
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

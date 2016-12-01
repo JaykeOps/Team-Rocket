@@ -23,25 +23,25 @@ namespace FootballManager.Admin.ViewModel
 
         public ICollectionView PlayerInfoStats
         {
-            get { return playerInfoStats; }
+            get { return this.playerInfoStats; }
         }
 
         public PlayerInfoViewModel()
         {
             this.playerService = new PlayerService();
 
-            playerInfoStats = CollectionViewSource.GetDefaultView(LoadData());
-            playerInfoStats.Filter = FilterData;
+            this.playerInfoStats = CollectionViewSource.GetDefaultView(this.LoadData());
+            this.playerInfoStats.Filter = this.FilterData;
         }
 
         public string FilterString
         {
-            get { return filterString; }
+            get { return this.filterString; }
             set
             {
-                filterString = value;
-                OnPropertyChanged();
-                PlayerInfoStats.Refresh();
+                this.filterString = value;
+                this.OnPropertyChanged();
+                this.PlayerInfoStats.Refresh();
             }
         }
 
@@ -49,11 +49,11 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (searchCommand == null)
+                if (this.searchCommand == null)
                 {
-                    searchCommand = new RelayCommand(Search);
+                    this.searchCommand = new RelayCommand(this.Search);
                 }
-                return searchCommand;
+                return this.searchCommand;
             }
         }
 
@@ -63,9 +63,9 @@ namespace FootballManager.Admin.ViewModel
 
             if (playerStats != null)
             {
-                if (!string.IsNullOrEmpty(filterString))
+                if (!string.IsNullOrEmpty(this.filterString))
                 {
-                    return playerStats.PlayerName.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
+                    return playerStats.PlayerName.IndexOf(this.filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
                 }
                 return true;
             }
@@ -75,16 +75,16 @@ namespace FootballManager.Admin.ViewModel
         private void Search(object param)
         {
             var text = (string)param;
-            FilterString = text;
+            this.FilterString = text;
         }
 
         public ObservableCollection<PlayerStats> LoadData()
         {
-            var players = playerService.GetAllPlayers();
+            var players = this.playerService.GetAllPlayers();
             var playerInfoData = new ObservableCollection<PlayerStats>();
             foreach (var p in players)
             {
-                var collectionOfPlayerStats = playerService.GetPlayerStatsFreeTextSearch(p.Name.ToString());
+                var collectionOfPlayerStats = this.playerService.GetPlayerStatsFreeTextSearch(p.Name.ToString());
                 foreach (var playerStats in collectionOfPlayerStats)
                 {
                     playerInfoData.Add(playerStats);

@@ -27,7 +27,7 @@ namespace FootballManager.App.ViewModel
         {           
             this.teamService = new TeamService();
 
-            this.PlayerAddCommand = new RelayCommand(PlayerAdd);
+            this.PlayerAddCommand = new RelayCommand(this.PlayerAdd);
         }
 
 
@@ -36,52 +36,52 @@ namespace FootballManager.App.ViewModel
 
         public int ShirtNumber
         {
-            get { return shirtNumber; }
+            get { return this.shirtNumber; }
             set
             {
-                if (shirtNumber != value)
+                if (this.shirtNumber != value)
                 {
-                    shirtNumber = value;
-                    OnPropertyChanged();
+                    this.shirtNumber = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public string FirstName
         {
-            get { return firstName; }
+            get { return this.firstName; }
             set
             {
-                if (firstName != value)
+                if (this.firstName != value)
                 {
-                    firstName = value;
-                    OnPropertyChanged();
+                    this.firstName = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public string LastName
         {
-            get { return lastName; }
+            get { return this.lastName; }
             set
             {
-                if (lastName != value)
+                if (this.lastName != value)
                 {
-                    lastName = value;
-                    OnPropertyChanged();
+                    this.lastName = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public string DateOfBirth
         {
-            get { return dateOfBirth; }
+            get { return this.dateOfBirth; }
             set
             {
-                if (dateOfBirth != value)
+                if (this.dateOfBirth != value)
                 {
-                    dateOfBirth = value;
-                    OnPropertyChanged();
+                    this.dateOfBirth = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
@@ -91,39 +91,39 @@ namespace FootballManager.App.ViewModel
 
         public PlayerPosition SelectedPlayerPosition
         {
-            get { return selectedPlayerPosition; }
+            get { return this.selectedPlayerPosition; }
             set
             {
-                if (selectedPlayerPosition != value)
+                if (this.selectedPlayerPosition != value)
                 {
-                    selectedPlayerPosition = value;
-                    OnPropertyChanged();
+                    this.selectedPlayerPosition = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public PlayerStatus SelectedPlayerStatus
         {
-            get { return selectedPlayerStatus; }
+            get { return this.selectedPlayerStatus; }
             set
             {
-                if (selectedPlayerStatus != value)
+                if (this.selectedPlayerStatus != value)
                 {
-                    selectedPlayerStatus = value;
-                    OnPropertyChanged();
+                    this.selectedPlayerStatus = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public Team SelectedTeam
         {
-            get { return selectedTeam; }
+            get { return this.selectedTeam; }
             set
             {
-                if (selectedTeam != value)
+                if (this.selectedTeam != value)
                 {
-                    selectedTeam = value;
-                    OnPropertyChanged();
+                    this.selectedTeam = value;
+                    this.OnPropertyChanged();
                 }
             }
         }
@@ -142,18 +142,18 @@ namespace FootballManager.App.ViewModel
 
         public IEnumerable<Team> PlayerTeams
         {
-            get { return teamService.GetAllTeams(); }
+            get { return this.teamService.GetAllTeams(); }
         }
         #endregion
 
         #region Methods
         private void PlayerAdd(object obj)
         {
-            this.player = new Player(new Name(firstName, lastName), new DateOfBirth(dateOfBirth), selectedPlayerPosition, selectedPlayerStatus);
-            player.TeamId = selectedTeam.Id;
-            player.ShirtNumber = new ShirtNumber(player.TeamId, shirtNumber);
+            this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
+            this.player.TeamId = this.selectedTeam.Id;
+            this.player.ShirtNumber = new ShirtNumber(this.player.TeamId, this.shirtNumber);
 
-            Messenger.Default.Send<Player>(player);
+            Messenger.Default.Send<Player>(this.player);
         }
         #endregion
     }

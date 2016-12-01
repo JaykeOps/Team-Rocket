@@ -21,7 +21,7 @@ namespace FootballManager.App.View
     {
         public MatchProtocolView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

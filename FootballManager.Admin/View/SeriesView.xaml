@@ -58,16 +58,14 @@
                             <Label Content="Search:" />
                             <TextBox Width="150" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-                        <ListBox Name="availableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}">
-                        </ListBox>
+                        <ListBox Name="availableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}" />
                         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10">
                             <Button CommandParameter="{Binding ElementName=teamsToAddToSeries, Path=SelectedItem}" 
                                     Command="{Binding AddTeamCommand}" Content="+" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                             <Button CommandParameter="{Binding ElementName=availableTeams, Path=SelectedItem}" 
                                     Command="{Binding DeleteTeamCommand}" Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                         </StackPanel>
-                        <ListBox x:Name="teamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding TeamsToAddToSeries}">
-                        </ListBox>
+                        <ListBox x:Name="teamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding TeamsToAddToSeries}" />
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center">
                         <Grid.Resources>
@@ -115,3 +113,6 @@
         </dragablz:TabablzControl>
     </Grid>
 </UserControl>
+
+
+

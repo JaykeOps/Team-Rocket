@@ -61,8 +61,7 @@
                         HorizontalAlignment="Right" 
                         VerticalAlignment="Center" 
                         Margin="10" 
-                        Height="60">
-            </StackPanel>
+                        Height="60" />
 
             <!--Margin: Left, Top, Right, Bottom-->
             <DataGrid Grid.Row="1" Grid.Column="0" 
@@ -85,3 +84,4 @@
         </Grid>
     </Grid>
 </UserControl>
+

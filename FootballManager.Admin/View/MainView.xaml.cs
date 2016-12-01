@@ -9,7 +9,7 @@ namespace FootballManager.Admin.View
     {
         public MainView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

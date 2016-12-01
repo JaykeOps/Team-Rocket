@@ -25,9 +25,9 @@ namespace FootballManager.Admin.ViewModel
         {
             this.teamService = new TeamService();
 
-            LoadData();
+            this.LoadData();
 
-            Messenger.Default.Register<Team>(this, OnTeamObjReceived);
+            Messenger.Default.Register<Team>(this, this.OnTeamObjReceived);
         }
 
         #region Properties
@@ -38,21 +38,21 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (deleteTeamCommand == null)
+                if (this.deleteTeamCommand == null)
                 {
-                    deleteTeamCommand = new RelayCommand(DeleteTeam);
+                    this.deleteTeamCommand = new RelayCommand(this.DeleteTeam);
                 }
-                return deleteTeamCommand;
+                return this.deleteTeamCommand;
             }
         }
 
         public Team SelectedTeam
         {
-            get { return selectedTeam; }
+            get { return this.selectedTeam; }
             set
             {
-                selectedTeam = value;
-                OnPropertyChanged();
+                this.selectedTeam = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -60,11 +60,11 @@ namespace FootballManager.Admin.ViewModel
 
         public ObservableCollection<Team> Teams
         {
-            get { return teams; }
+            get { return this.teams; }
             set
             {
-                teams = value;
-                OnPropertyChanged();
+                this.teams = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -74,7 +74,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void DeleteTeam(object obj)
         {
-            teams.Remove(selectedTeam);
+            this.teams.Remove(this.selectedTeam);
 
         }
 
@@ -86,12 +86,12 @@ namespace FootballManager.Admin.ViewModel
 
         private void OnTeamObjReceived(Team team)
         {
-            teams.Add(team);
+            this.teams.Add(team);
         }
 
         public void LoadData()
         {
-            Teams = teamService.GetAllTeams().ToObservableCollection();
+            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
         }
 
         #endregion

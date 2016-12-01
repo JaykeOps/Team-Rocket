@@ -29,7 +29,7 @@ namespace FootballManager.App.Utility
 
         public void Execute(object parameter)
         {
-            execute(parameter);
+            this.execute(parameter);
         }
 
         public event EventHandler CanExecuteChanged

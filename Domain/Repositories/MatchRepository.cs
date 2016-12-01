@@ -20,7 +20,7 @@ namespace Domain.Repositories
             this.matches = new HashSet<Match>(); ;
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//matchs.bin";
-            LoadData();
+            this.LoadData();
         }
 
         public void SaveData()

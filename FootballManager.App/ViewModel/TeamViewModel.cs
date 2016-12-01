@@ -20,11 +20,11 @@ namespace FootballManager.App.ViewModel
         {
             this.teamService = new TeamService();
 
-            this.OpenTeamAddViewCommand = new RelayCommand(OpenTeamAddView);
-            this.DeleteTeamCommand = new RelayCommand(DeleteTeam);
-            LoadData();
+            this.OpenTeamAddViewCommand = new RelayCommand(this.OpenTeamAddView);
+            this.DeleteTeamCommand = new RelayCommand(this.DeleteTeam);
+            this.LoadData();
 
-            Messenger.Default.Register<Team>(this, OnTeamObjReceived);
+            Messenger.Default.Register<Team>(this, this.OnTeamObjReceived);
         }
 
         #region Properties
@@ -36,32 +36,32 @@ namespace FootballManager.App.ViewModel
         {
             get
             {
-                if (teamInfoCommand == null)
+                if (this.teamInfoCommand == null)
                 {
-                    teamInfoCommand = new RelayCommand(TeamInfo);
+                    this.teamInfoCommand = new RelayCommand(this.TeamInfo);
                 }
-                return teamInfoCommand;
+                return this.teamInfoCommand;
             }
         }
 
 
         public Team SelectedTeam
         {
-            get { return selectedTeam; }
+            get { return this.selectedTeam; }
             set
             {
-                selectedTeam = value;
-                OnPropertyChanged();
+                this.selectedTeam = value;
+                this.OnPropertyChanged();
             }
         }
 
         public ObservableCollection<Team> Teams
         {
-            get { return teams; }
+            get { return this.teams; }
             set
             {
-                teams = value;
-                OnPropertyChanged();
+                this.teams = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -71,7 +71,7 @@ namespace FootballManager.App.ViewModel
 
         private void DeleteTeam(object obj)
         {
-            teams.Remove(selectedTeam);
+            this.teams.Remove(this.selectedTeam);
 
         }
 
@@ -89,12 +89,12 @@ namespace FootballManager.App.ViewModel
 
         private void OnTeamObjReceived(Team team)
         {
-            teams.Add(team);
+            this.teams.Add(team);
         }
 
         public void LoadData()
         {
-            Teams = teamService.GetAllTeams().ToObservableCollection();
+            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
         }
 
         #endregion

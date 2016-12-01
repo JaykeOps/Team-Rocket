@@ -20,7 +20,7 @@ namespace Domain.Repositories
             this.series = new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
-            LoadData();
+            this.LoadData();
         }
 
         public void SaveData()
@@ -117,7 +117,7 @@ namespace Domain.Repositories
 
         public void DeleteSeries(Guid seriesId)
         {
-            series.RemoveWhere(s => s.Id == seriesId);
+            this.series.RemoveWhere(s => s.Id == seriesId);
         }
     }
 }

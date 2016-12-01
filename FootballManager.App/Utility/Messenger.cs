@@ -54,7 +54,7 @@ namespace FootballManager.App.Utility
         /// <param name="action"></param>
         public void Register<T>(object recipient, Action<T> action)
         {
-            Register(recipient, action, null);
+            this.Register(recipient, action, null);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace FootballManager.App.Utility
         /// <param name="recipient"></param>
         public void Unregister(object recipient)
         {
-            Unregister(recipient, null);
+            this.Unregister(recipient, null);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace FootballManager.App.Utility
         /// <param name="message"></param>
         public void Send<T>(T message)
         {
-            Send(message, null);
+            this.Send(message, null);
         }
 
         /// <summary>
@@ -146,8 +146,8 @@ namespace FootballManager.App.Utility
             /// <param name="context"></param>
             public MessengerKey(object recipient, object context)
             {
-                Recipient = recipient;
-                Context = context;
+                this.Recipient = recipient;
+                this.Context = context;
             }
 
             /// <summary>
@@ -157,7 +157,7 @@ namespace FootballManager.App.Utility
             /// <returns></returns>
             protected bool Equals(MessengerKey other)
             {
-                return Equals(Recipient, other.Recipient) && Equals(Context, other.Context);
+                return Equals(this.Recipient, other.Recipient) && Equals(this.Context, other.Context);
             }
 
             /// <summary>
@@ -169,9 +169,9 @@ namespace FootballManager.App.Utility
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;   // Should switch place with
-                if (obj.GetType() != GetType()) return false;  // <-- that statement?
+                if (obj.GetType() != this.GetType()) return false;  // <-- that statement?
 
-                return Equals((MessengerKey)obj);
+                return this.Equals((MessengerKey)obj);
             }
 
             /// <summary>
@@ -182,7 +182,7 @@ namespace FootballManager.App.Utility
             {
                 unchecked
                 {
-                    return ((Recipient != null ? Recipient.GetHashCode() : 0) * 397) ^ (Context != null ? Context.GetHashCode() : 0);
+                    return ((this.Recipient != null ? this.Recipient.GetHashCode() : 0) * 397) ^ (this.Context != null ? this.Context.GetHashCode() : 0);
                 }
             }
         }

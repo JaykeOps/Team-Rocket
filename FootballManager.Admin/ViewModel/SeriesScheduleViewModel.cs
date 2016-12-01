@@ -21,17 +21,17 @@ namespace FootballManager.Admin.ViewModel
 
         public SeriesScheduleViewModel()
         {
-            seriesService = new SeriesService();
-            Load();
+            this.seriesService = new SeriesService();
+            this.Load();
         }
 
         public ObservableCollection<Series> AllSeries
         {
-            get { return allSeries; }
+            get { return this.allSeries; }
             set
             {
-                allSeries = seriesService.GetAll().ToObservableCollection();
-                OnPropertyChanged();
+                this.allSeries = this.seriesService.GetAll().ToObservableCollection();
+                this.OnPropertyChanged();
             }
         }
 
@@ -41,11 +41,11 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (openSeriesGameProtocolViewCommand == null)
+                if (this.openSeriesGameProtocolViewCommand == null)
                 {
-                    openSeriesGameProtocolViewCommand = new RelayCommand(OpenSeriesGameProtocolView);
+                    this.openSeriesGameProtocolViewCommand = new RelayCommand(this.OpenSeriesGameProtocolView);
                 }
-                return openSeriesGameProtocolViewCommand;
+                return this.openSeriesGameProtocolViewCommand;
             }
         }
 
@@ -61,11 +61,11 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (openSeriesScheduleEditViewCommand == null)
+                if (this.openSeriesScheduleEditViewCommand == null)
                 {
-                    openSeriesScheduleEditViewCommand = new RelayCommand(OpenSeriesScheduleEditView);
+                    this.openSeriesScheduleEditViewCommand = new RelayCommand(this.OpenSeriesScheduleEditView);
                 }
-                return openSeriesScheduleEditViewCommand;
+                return this.openSeriesScheduleEditViewCommand;
             }
         }
 
@@ -77,7 +77,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void Load()
         {
-            this.allSeries = seriesService.GetAll().ToObservableCollection();
+            this.allSeries = this.seriesService.GetAll().ToObservableCollection();
         }
     }
 }

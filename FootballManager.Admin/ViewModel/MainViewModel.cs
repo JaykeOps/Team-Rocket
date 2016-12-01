@@ -22,33 +22,33 @@ namespace FootballManager.Admin.ViewModel
 
         public object SelectedViewModel
         {
-            get { return selectedViewModel; }
+            get { return this.selectedViewModel; }
             set
             {
-                selectedViewModel = value;
-                OnPropertyChanged();
+                this.selectedViewModel = value;
+                this.OnPropertyChanged();
             }
         }
 
         public MainViewModel()
         {
-            OpenSeriesCommand = new RelayCommand(SeriesCommand);
-            OpenPlayerCommand = new RelayCommand(PlayerCommand);
-            OpenTeamCommand = new RelayCommand(TeamCommand);
+            this.OpenSeriesCommand = new RelayCommand(this.SeriesCommand);
+            this.OpenPlayerCommand = new RelayCommand(this.PlayerCommand);
+            this.OpenTeamCommand = new RelayCommand(this.TeamCommand);
         }
 
         private void SeriesCommand(object obj)
         {
-            SelectedViewModel = new SeriesView();
+            this.SelectedViewModel = new SeriesView();
         }
 
         private void PlayerCommand(object obj)
         {
-            SelectedViewModel = new PlayerView();
+            this.SelectedViewModel = new PlayerView();
         }
         private void TeamCommand(object obj)
         {
-            SelectedViewModel = new TeamView();
+            this.SelectedViewModel = new TeamView();
         }
 
 

@@ -12,7 +12,7 @@ namespace FootballManager.Admin.Converters
         TeamService teamService = new TeamService();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var teams = teamService.GetAllTeams();
+            var teams = this.teamService.GetAllTeams();
 
             var teamName = teams.Where(x => x.Id == (Guid) value).Select(x => x.Name).FirstOrDefault();
             return teamName;
@@ -21,7 +21,7 @@ namespace FootballManager.Admin.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var teams = teamService.GetAllTeams();
+            var teams = this.teamService.GetAllTeams();
 
             var result = teams.First(x => x == (Team)value).Id;
 
