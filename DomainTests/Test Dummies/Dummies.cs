@@ -3,6 +3,7 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Linq;
+using Domain.Repositories;
 
 namespace DomainTests.Test_Dummies
 {
@@ -184,6 +185,7 @@ namespace DomainTests.Test_Dummies
             playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTen, this.DummyTeamFour.Id);
             playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerEleven, this.DummyTeamFour.Id);
             playerService.AssignPlayerToTeam(dummyPlayers.DummyPlayerTwelve, this.DummyTeamFour.Id);
+            //PlayerRepository.instance.SaveData();
             
         }
     }
