@@ -39,7 +39,7 @@ namespace FootballManager.Admin.ViewModel
                         }
                         if (!this.SeriesName.IsValidSeriesName(false)) // Parameter is 'bool ignoreCase'.
                         {
-                            return "Must be 2-30 characters long!";
+                            return "Must be 2-30 valid European characters long!";
                         }
                         break;
                 }
