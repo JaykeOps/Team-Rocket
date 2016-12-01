@@ -91,7 +91,7 @@ namespace FootballManager.Admin.ViewModel
 
         public void LoadData()
         {
-            Teams = teamService.GetAll().ToObservableCollection();
+            Teams = teamService.GetAllTeams().ToObservableCollection();
         }
 
         #endregion
