@@ -1,4 +1,5 @@
-﻿using Domain.Value_Objects;
+﻿using Domain.Helper_Classes;
+using Domain.Value_Objects;
 using System;
 
 namespace Domain.Entities
@@ -8,21 +9,18 @@ namespace Domain.Entities
     {
         public Guid PlayerTeamId { get; }
 
-        public int? Value { get; }
+        public int Value { get; }
 
-        public ShirtNumber()
-        {
-            
-        }
-        public ShirtNumber(Guid teamId, int? number)
+        public ShirtNumber(Guid teamId, int number)
         {
             this.PlayerTeamId = teamId;
-            this.Value = number;
+            this.Value = this.Value.IsAvailableShirtNumber(this.PlayerTeamId) ? number : -1;
         }
 
-        public ShirtNumber(int? number)
+        public ShirtNumber(Guid teamId)
         {
-            this.Value = number;
+            this.PlayerTeamId = teamId;
+            this.Value = -1;
         }
     }
 }

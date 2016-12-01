@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Domain.Entities;
+using Domain.Services;
 
 namespace Domain.Helper_Classes
 {
@@ -136,6 +139,15 @@ namespace Domain.Helper_Classes
         public static bool IsScoreValid(this int score)
         {
             return score >= 0 && score <= 50;
+        }
+
+        public static bool IsAvailableShirtNumber(this int value, Guid teamId)
+        {
+            var isAlreadyInUse =
+                DomainService.FindTeamById(teamId)
+                    .playerIds.Any(x => DomainService.FindPlayerById(x).ShirtNumber.Value == value);
+            return value >= 0 && value <= 100 && !isAlreadyInUse;
+
         }
     }
 }

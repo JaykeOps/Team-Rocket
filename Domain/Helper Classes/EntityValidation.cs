@@ -55,8 +55,8 @@ namespace Domain.Helper_Classes
                        team.playerIds != null &&
                        team.ArenaName.Value.IsValidArenaName(true) &&
                        team.Email.Value.IsValidEmailAddress(true) &&
-                       team.MatchSchedules != null &&
-                       team.ShirtNumbers != null;
+                       team.MatchSchedules != null;
+
             }
             catch (NullReferenceException)
             {
@@ -75,8 +75,7 @@ namespace Domain.Helper_Classes
                        team.playerIds != null &&
                        team.ArenaName.Value.IsValidArenaName(true) &&
                        team.Email.Value.IsValidEmailAddress(true) &&
-                       team.MatchSchedules != null &&
-                       team.ShirtNumbers != null;
+                       team.MatchSchedules != null;
             }
             catch (NullReferenceException)
             {

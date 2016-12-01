@@ -11,6 +11,6 @@ namespace Domain.Interfaces
         IEnumerable<Guid> PlayerIds { get; }
         ArenaName ArenaName { get; }
         EmailAddress Email { get; }
-        ShirtNumbers ShirtNumbers { get; }
+        
     }
 }

@@ -34,7 +34,7 @@ namespace Domain.Entities
             }
             set
             {
-                this.shirtNumber = new ShirtNumber(value, null);
+                this.shirtNumber = new ShirtNumber(value);
                 this.teamId = value;
             }
         }
@@ -51,23 +51,8 @@ namespace Domain.Entities
 
         public ShirtNumber ShirtNumber
         {
-            get
-            {
-                return this.shirtNumber;
-            }
-            set
-            {
-                var team = DomainService.FindTeamById(this.teamId);
-                try
-                {
-                    value = team.ShirtNumbers[value.Value];
-                }
-                catch (ShirtNumberAlreadyInUseException ex)
-                {
-                    throw ex;
-                }
-                this.shirtNumber = value ?? new ShirtNumber(this.teamId, null);
-            }
+            get { return this.shirtNumber; }
+            set { this.shirtNumber = value; }
         }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
