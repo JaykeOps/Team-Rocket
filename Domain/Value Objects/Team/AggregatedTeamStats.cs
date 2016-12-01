@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -11,9 +10,16 @@ namespace Domain.Value_Objects
         private Dictionary<Guid, TeamStats> seriesStats;
         private Guid teamId;
 
-        public AggregatedTeamStats()
+        public IReadOnlyDictionary<Guid, TeamStats> AllStats
         {
-            
+            get
+            {
+                foreach (var teamStats in this.seriesStats.Values)
+                {
+                    teamStats.UpdateAllStats();
+                }
+                return this.seriesStats;
+            }
         }
 
         public TeamStats this[Guid seriesId]

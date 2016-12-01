@@ -52,7 +52,7 @@ namespace DomainTests.Entities.Tests
         {
             this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 55);
             Assert.IsTrue(this.dummyPlayerOne.ShirtNumber.Value == 55);
-            
+
             this.dummyPlayerOne.TeamId = Guid.Empty;
             this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(this.dummyPlayerTwo.TeamId, 55);
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == 55);
@@ -73,20 +73,13 @@ namespace DomainTests.Entities.Tests
         }
 
         [TestMethod]
-        public void ShirtNumberGetPropertyCanReturnNull()
-        {
-            this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyTeamOne.Id, null);
-            Assert.IsNull(this.dummyPlayerOne.ShirtNumber.Value);
-        }
-
-        [TestMethod]
         public void ShirtNumberTeamIdCanChangeWhenPlayerTeamIdChange()
         {
             this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(this.dummyTeamOne.Id, 7);
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == 7);
             this.dummyPlayerTwo.TeamId = this.dummyTeamTwo.Id;
-            Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == null);
-            this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(9);
+            Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == -1);
+            this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(this.dummyPlayerTwo.TeamId, 9);
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == 9);
         }
 
@@ -95,11 +88,11 @@ namespace DomainTests.Entities.Tests
         {
             try
             {
-                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(3);
-                this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(7);
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 3);
+                this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(this.dummyPlayerTwo.TeamId, 7);
                 Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 3);
                 Assert.AreEqual(this.dummyPlayerTwo.ShirtNumber.Value, 7);
-                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(7);
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 7);
             }
             catch (ShirtNumberAlreadyInUseException)
             {
@@ -112,9 +105,9 @@ namespace DomainTests.Entities.Tests
         {
             try
             {
-                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(5);
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 5);
                 Assert.AreEqual(this.dummyPlayerOne.ShirtNumber.Value, 5);
-                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(100);
+                this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 100);
             }
             catch (IndexOutOfRangeException)
             {

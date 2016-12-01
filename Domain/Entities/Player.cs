@@ -12,7 +12,6 @@ namespace Domain.Entities
         private readonly AggregatedPlayerStats aggregatedStats;
         private Guid teamId;
         private TeamName affiliatedTeamName;
-        private ShirtNumber shirtNumber;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
 
@@ -31,7 +30,7 @@ namespace Domain.Entities
             }
             set
             {
-                this.shirtNumber = new ShirtNumber(value, null);
+                this.ShirtNumber = new ShirtNumber(value);
                 this.teamId = value;
             }
         }
@@ -46,26 +45,7 @@ namespace Domain.Entities
             get { return this.aggregatedStats; }
         }
 
-        public ShirtNumber ShirtNumber
-        {
-            get
-            {
-                return this.shirtNumber;
-            }
-            set
-            {
-                var team = DomainService.FindTeamById(this.teamId);
-                try
-                {
-                    value = team.ShirtNumbers[value.Value];
-                }
-                catch (ShirtNumberAlreadyInUseException ex)
-                {
-                    throw ex;
-                }
-                this.shirtNumber = value ?? new ShirtNumber(this.teamId, null);
-            }
-        }
+        public ShirtNumber ShirtNumber { get; set; }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
             PlayerStatus status) : base(name, dateOfBirth)

@@ -139,8 +139,7 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerCanBeAssignedNewShirtNumberThroughReference()
         {
-            Assert.IsNull(this.dummyPlayer.ShirtNumber.Value);
-            this.playerService.SetShirtNumber(this.dummyPlayer.Id, new ShirtNumber(9));
+            this.playerService.SetShirtNumber(this.dummyPlayer.Id, new ShirtNumber(this.dummyPlayer.TeamId, 9));
             var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
             Assert.IsNotNull(this.dummyPlayer.ShirtNumber.Value);
             Assert.AreEqual(this.dummyPlayer.ShirtNumber, repositoryPlayer.ShirtNumber);
@@ -236,19 +235,7 @@ namespace Domain.Services.Tests
             }
         }
 
-        [TestMethod]
-        public void PlayerSearchCanReturnPlayersPlayingInSpecifiedSeries()
-        {
-            var players = this.playerService.Search("The Dummy Series").ToList();
-            Assert.IsNotNull(players);
-            Assert.AreNotEqual(players.Count, 0);
-            foreach (var player in players)
-            {
-                var temporaryPlayer = (Player)player;
-                Assert.IsTrue(temporaryPlayer.AggregatedStats.AllStats.Keys.Any(x =>
-                    DomainService.FindSeriesById(x).SeriesName.ToString() == "The Dummy Series"));
-            }
-        }
+        
 
         [TestMethod]
         public void RemovePlayerWorks()
