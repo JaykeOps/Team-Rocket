@@ -33,7 +33,6 @@ namespace FootballManager.App.ViewModel
         }
 
 
-
         #region Properties
         public ICommand OpenPlayerAddViewCommand
         {
