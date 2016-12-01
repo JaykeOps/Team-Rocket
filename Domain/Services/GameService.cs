@@ -214,10 +214,6 @@ namespace Domain.Services
             ||
             DomainService.FindSeriesById(x.SeriesId).SeriesName.ToString().Contains(searchText, comparison)
             ||
-            x.Protocol.Goals.Count.ToString().Contains(searchText, comparison)
-            ||
-            x.Protocol.GameResult.ToString().Contains(searchText, comparison)
-            ||
             DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
             ||
             DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
