@@ -16,19 +16,18 @@ namespace Domain.Entities
             this.PlayerTeamId = teamId;
             try
             {
-                if (this.Value.IsValidShirtNumber(this.PlayerTeamId))
+                if (this.PlayerTeamId == Guid.Empty)
                 {
-                    this.Value = number;
+                    this.Value = -1;
                 }
+                this.Value = number.IsValidShirtNumber(this.PlayerTeamId) ? number : -1;
             }
             catch (ShirtNumberAlreadyInUseException ex)
             {
-                this.Value = -1;
                 throw ex;
             }
             catch (IndexOutOfRangeException ex)
             {
-                this.Value = -1;
                 throw ex;
             }
         }

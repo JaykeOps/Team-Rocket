@@ -139,7 +139,6 @@ namespace Domain.Services.Tests
         [TestMethod]
         public void PlayerCanBeAssignedNewShirtNumberThroughReference()
         {
-            Assert.IsNull(this.dummyPlayer.ShirtNumber.Value);
             this.playerService.SetShirtNumber(this.dummyPlayer.Id, new ShirtNumber(this.dummyPlayer.TeamId, 9));
             var repositoryPlayer = this.playerService.FindById(this.dummyPlayer.Id);
             Assert.IsNotNull(this.dummyPlayer.ShirtNumber.Value);

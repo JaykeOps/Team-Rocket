@@ -52,7 +52,7 @@ namespace DomainTests.Entities.Tests
         {
             this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, 55);
             Assert.IsTrue(this.dummyPlayerOne.ShirtNumber.Value == 55);
-            
+
             this.dummyPlayerOne.TeamId = Guid.Empty;
             this.dummyPlayerTwo.ShirtNumber = new ShirtNumber(this.dummyPlayerTwo.TeamId, 55);
             Assert.IsTrue(this.dummyPlayerTwo.ShirtNumber.Value == 55);
@@ -70,13 +70,6 @@ namespace DomainTests.Entities.Tests
         public void ShirtNumberThrowsIndexOutOfRangeExceptionIfNumberIsLessThanZero()
         {
             this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyPlayerOne.TeamId, -1);
-        }
-
-        [TestMethod]
-        public void ShirtNumberGetPropertyCanReturnNull()
-        {
-            this.dummyPlayerOne.ShirtNumber = new ShirtNumber(this.dummyTeamOne.Id);
-            Assert.IsNull(this.dummyPlayerOne.ShirtNumber.Value);
         }
 
         [TestMethod]
