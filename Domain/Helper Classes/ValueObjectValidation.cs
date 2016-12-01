@@ -117,7 +117,7 @@ namespace Domain.Helper_Classes
             return value > DateTime.Now && value < DateTime.Now + TimeSpan.FromDays(365 * 2);
         }
 
-        public static bool IsValidBirthOfDate(this string value)
+        public static bool IsValidDateOfBirth(this string value)
         {
             DateTime result;
             if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
