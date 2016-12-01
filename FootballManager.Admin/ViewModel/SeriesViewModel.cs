@@ -38,7 +38,7 @@ namespace FootballManager.Admin.ViewModel
                         {
                             return string.Empty;
                         }
-                        if (!this.SeriesName.IsValidSeriesName(false)) // Parameter is 'bool ignoreCase'.
+                        if (!this.SeriesName.IsValidSeriesName(false)) // Parameter 'bool ignoreCase' set to false.
                         {
                             return "Must be 2-30 valid European characters long!";
                         }
@@ -74,8 +74,11 @@ namespace FootballManager.Admin.ViewModel
             get { return seriesName; }
             set
             {
-                seriesName = value;
-                base.OnPropertyChanged("SeriesName");
+                if (seriesName != value)
+                {
+                    seriesName = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -84,8 +87,11 @@ namespace FootballManager.Admin.ViewModel
             get { return matchDuration; }
             set
             {
-                matchDuration = value;
-                base.OnPropertyChanged("MatchDuration");
+                if (matchDuration != value)
+                {
+                    matchDuration = value;
+                    OnPropertyChanged();
+                }
             }
         }
         #endregion

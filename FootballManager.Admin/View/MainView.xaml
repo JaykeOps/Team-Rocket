@@ -31,8 +31,8 @@
                     HorizontalAlignment="Right"
                     Margin="20">
             <Button Content="Series" Command="{Binding OpenSeriesCommand}" />
-            <Button Content="Player" Command="{Binding OpenPlayerCommand}" /> 
             <Button Content="Team" Command="{Binding OpenTeamCommand}" />
+            <Button Content="Player" Command="{Binding OpenPlayerCommand}" />
         </StackPanel>
         <ContentControl DockPanel.Dock="Bottom" Content="{Binding SelectedViewModel}" />
     </DockPanel>
