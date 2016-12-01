@@ -96,6 +96,7 @@ namespace Domain.Repositories
                 newGame.Protocol.UpdateGameResult();
                 this.games.Add(newGame);
             }
+            //this.SaveData();
         }
 
         private bool TryGetGame(Game game, out Game gameInRepository)
