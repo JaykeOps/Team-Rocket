@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FootballManager.App"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid />
+    <Grid>
+        
+    </Grid>
 </Window>
-

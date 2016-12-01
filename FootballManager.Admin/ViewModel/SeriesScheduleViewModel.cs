@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,19 +22,22 @@ namespace FootballManager.Admin.ViewModel
 
         public SeriesScheduleViewModel()
         {
-            this.seriesService = new SeriesService();
-            this.Load();
+            seriesService = new SeriesService();
+            Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
+            Load();            
         }
 
         public ObservableCollection<Series> AllSeries
         {
-            get { return this.allSeries; }
+            get { return allSeries; }
             set
             {
-                this.allSeries = this.seriesService.GetAll().ToObservableCollection();
-                this.OnPropertyChanged();
+                allSeries = value;
+                OnPropertyChanged();
             }
         }
+
+        #region Protocol
 
         private ICommand openSeriesGameProtocolViewCommand;
 
@@ -41,11 +45,11 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (this.openSeriesGameProtocolViewCommand == null)
+                if (openSeriesGameProtocolViewCommand == null)
                 {
-                    this.openSeriesGameProtocolViewCommand = new RelayCommand(this.OpenSeriesGameProtocolView);
+                    openSeriesGameProtocolViewCommand = new RelayCommand(OpenSeriesGameProtocolView);
                 }
-                return this.openSeriesGameProtocolViewCommand;
+                return openSeriesGameProtocolViewCommand;
             }
         }
 
@@ -61,13 +65,16 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (this.openSeriesScheduleEditViewCommand == null)
+                if (openSeriesScheduleEditViewCommand == null)
                 {
-                    this.openSeriesScheduleEditViewCommand = new RelayCommand(this.OpenSeriesScheduleEditView);
+                    openSeriesScheduleEditViewCommand = new RelayCommand(OpenSeriesScheduleEditView);
                 }
-                return this.openSeriesScheduleEditViewCommand;
+                return openSeriesScheduleEditViewCommand;
             }
         }
+
+        #endregion
+
 
         private void OpenSeriesScheduleEditView(object obj)
         {
@@ -77,7 +84,14 @@ namespace FootballManager.Admin.ViewModel
 
         private void Load()
         {
-            this.allSeries = this.seriesService.GetAll().ToObservableCollection();
+            this.allSeries = seriesService.GetAll().ToObservableCollection();
+        }
+
+        private void OnSeriesObjReceived(Series serie)
+        {
+            seriesService.Add(serie);
+            seriesService.ScheduleGenerator(serie.Id);
+            AllSeries = seriesService.GetAll().ToObservableCollection();
         }
     }
 }

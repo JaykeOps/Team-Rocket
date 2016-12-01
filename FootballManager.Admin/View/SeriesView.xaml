@@ -58,14 +58,16 @@
                             <Label Content="Search:" />
                             <TextBox Width="150" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-                        <ListBox Name="availableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}" />
+                        <ListBox Name="availableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}">
+                        </ListBox>
                         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10">
                             <Button CommandParameter="{Binding ElementName=teamsToAddToSeries, Path=SelectedItem}" 
                                     Command="{Binding AddTeamCommand}" Content="+" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                             <Button CommandParameter="{Binding ElementName=availableTeams, Path=SelectedItem}" 
                                     Command="{Binding DeleteTeamCommand}" Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                         </StackPanel>
-                        <ListBox x:Name="teamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding TeamsToAddToSeries}" />
+                        <ListBox x:Name="teamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding TeamsToAddToSeries}">
+                        </ListBox>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center">
                         <Grid.Resources>
@@ -95,6 +97,22 @@
                                   SelectedValue="{Binding SelectedNumberOfTeams}"
                                   ItemsSource="{Binding NumberOfTeamsList}" />
 
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <!-- Placeholder for the TextBox itself -->
+                                        <AdornedElementPlaceholder x:Name="setSeriesNameTextBoxPlaceholder" />
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" />
+
+
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
                                     Orientation="Horizontal" 
                                     HorizontalAlignment="Right" 
@@ -113,6 +131,3 @@
         </dragablz:TabablzControl>
     </Grid>
 </UserControl>
-
-
-

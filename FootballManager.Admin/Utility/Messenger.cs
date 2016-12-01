@@ -56,7 +56,7 @@ namespace FootballManager.Admin.Utility
         /// <param name="action"></param>
         public void Register<T>(object recipient, Action<T> action)
         {
-            this.Register(recipient, action, null);
+            Register(recipient, action, null);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace FootballManager.Admin.Utility
         /// <param name="recipient"></param>
         public void Unregister(object recipient)
         {
-            this.Unregister(recipient, null);
+            Unregister(recipient, null);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace FootballManager.Admin.Utility
         /// <param name="message"></param>
         public void Send<T>(T message)
         {
-            this.Send(message, null);
+            Send(message, null);
         }
 
         /// <summary>
@@ -148,8 +148,8 @@ namespace FootballManager.Admin.Utility
             /// <param name="context"></param>
             public MessengerKey(object recipient, object context)
             {
-                this.Recipient = recipient;
-                this.Context = context;
+                Recipient = recipient;
+                Context = context;
             }
 
             /// <summary>
@@ -159,7 +159,7 @@ namespace FootballManager.Admin.Utility
             /// <returns></returns>
             protected bool Equals(MessengerKey other)
             {
-                return Equals(this.Recipient, other.Recipient) && Equals(this.Context, other.Context);
+                return Equals(Recipient, other.Recipient) && Equals(Context, other.Context);
             }
 
             /// <summary>
@@ -171,9 +171,9 @@ namespace FootballManager.Admin.Utility
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != this.GetType()) return false;
+                if (obj.GetType() != GetType()) return false;
 
-                return this.Equals((MessengerKey)obj);
+                return Equals((MessengerKey)obj);
             }
 
             /// <summary>
@@ -184,7 +184,7 @@ namespace FootballManager.Admin.Utility
             {
                 unchecked
                 {
-                    return ((this.Recipient != null ? this.Recipient.GetHashCode() : 0) * 397) ^ (this.Context != null ? this.Context.GetHashCode() : 0);
+                    return ((Recipient != null ? Recipient.GetHashCode() : 0) * 397) ^ (Context != null ? Context.GetHashCode() : 0);
                 }
             }
         }

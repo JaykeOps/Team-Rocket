@@ -22,7 +22,7 @@ namespace FootballManager.Admin.View
     {
         public PlayerInfoView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

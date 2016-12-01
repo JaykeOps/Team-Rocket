@@ -25,7 +25,6 @@
             <Style BasedOn="{StaticResource DataGridCellStylePlayerInfoView}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -48,24 +47,19 @@
                                     VerticalAlignment="Center" 
                                     Margin="10">
                 <Label Content="Search for player:" />
-                <TextBox x:Name="SearchTextBox" Text="{Binding FilterString, Mode=OneWay}" />
-                <Button Command="{Binding SearchCommand}"
-                        CommandParameter="{Binding Text, ElementName=SearchTextBox}"
-                        Content="Search" 
-                        Style="{StaticResource FlatButton}" 
-                        VerticalAlignment="Bottom" 
-                        Margin="40,0,0,0" />
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="0" 
                         Orientation="Horizontal" 
                         HorizontalAlignment="Right" 
                         VerticalAlignment="Center" 
                         Margin="10" 
-                        Height="60" />
+                        Height="60">
+            </StackPanel>
 
             <!--Margin: Left, Top, Right, Bottom-->
             <DataGrid Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding PlayerInfoStats}" 
+                    ItemsSource="{Binding PlayerStats}" 
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                     SelectionMode="Extended"
@@ -84,4 +78,3 @@
         </Grid>
     </Grid>
 </UserControl>
-

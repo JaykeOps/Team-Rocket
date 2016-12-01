@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
-using MaterialDesignThemes.Wpf;
 using Domain.Entities;
 using System.Collections.ObjectModel;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
-using System.Collections;
+using System.Windows;
 using Domain.Value_Objects;
+using System.ComponentModel;
+using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class SeriesViewModel : ViewModelBase
+    public class SeriesViewModel : ViewModelBase, IDataErrorInfo
     {
+
         private ObservableCollection<Team> availableTeams;
         private ObservableCollection<Team> teamsToAddToSeries;
         private List<int> numberOfTeamsList;
@@ -35,10 +34,10 @@ namespace FootballManager.Admin.ViewModel
             this.numberOfTeamsList = new List<int>();
             this.teamService = new TeamService();
             this.seriesService = new SeriesService();
-            this.AddTeamCommand = new RelayCommand(this.AddTeam);
-            this.DeleteTeamCommand = new RelayCommand(this.DeleteTeam);
-            this.AddSeriesCommand = new RelayCommand(this.AddSeriesTeam);
-            this.LoadData();
+            this.AddTeamCommand = new RelayCommand(AddTeam);
+            this.DeleteTeamCommand = new RelayCommand(DeleteTeam);
+            this.AddSeriesCommand = new RelayCommand(AddSeriesTeam);
+            LoadData();
         }
 
         public ICommand DeleteTeamCommand { get; }
@@ -49,145 +48,159 @@ namespace FootballManager.Admin.ViewModel
 
         public ObservableCollection<Team> AvailableTeams
         {
-            get { return this.availableTeams; }
+            get { return availableTeams; }
             set
             {
-                this.availableTeams = value;
-                this.OnPropertyChanged();                
+                availableTeams = value;
+                OnPropertyChanged();
             }
         }
 
         public ObservableCollection<Team> TeamsToAddToSeries
         {
-            get { return this.teamsToAddToSeries; }
+            get { return teamsToAddToSeries; }
             set
             {
-                this.teamsToAddToSeries = value;
-                this.OnPropertyChanged();
+                teamsToAddToSeries = value;
+                OnPropertyChanged();
             }
         }
 
         public string SearchText
         {
-            get { return this.searchText; }
+            get { return searchText; }
             set
             {
-                this.searchText = value;
-                this.OnPropertyChanged();
-                this.AvailableTeams = this.teamService.GetAllTeams().
+                searchText = value;
+                OnPropertyChanged();
+                AvailableTeams = teamService.GetAllTeams().
                     Where(x => x.Name.Value.ToLower().
-                    Contains(this.searchText.ToLower())).ToObservableCollection();
+                        Contains(searchText.ToLower())).ToObservableCollection();
             }
         }
 
         public int SelectedNumberOfTeams
         {
-            get { return this.selectedNumberOfTeams; }
+            get { return selectedNumberOfTeams; }
             set
             {
-                if (this.selectedNumberOfTeams != value)
+                if (selectedNumberOfTeams != value)
                 {
-                    this.selectedNumberOfTeams = value;
-                    this.OnPropertyChanged();
+                    selectedNumberOfTeams = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
-
-
         public Team SelectedTeam
         {
-            get { return this.selectedTeam; }
+            get { return selectedTeam; }
             set
             {
-                this.selectedTeam = value;
-                this.OnPropertyChanged();
+                selectedTeam = value;
+                OnPropertyChanged();
             }
         }
 
         public string SeriesName
         {
-            get { return this.seriesName; }
+            get { return seriesName; }
             set
             {
-                this.seriesName = value;
-                this.OnPropertyChanged();
+                seriesName = value;
+                OnPropertyChanged();
             }
         }
 
         public int MatchDuration
         {
-            get { return this.matchDuration; }
+            get { return matchDuration; }
             set
             {
-                this.matchDuration = value;
-                this.OnPropertyChanged();
+                matchDuration = value;
+                OnPropertyChanged();
             }
         }
 
         public List<int> NumberOfTeamsList
         {
-            get { return this.numberOfTeamsList; }
+            get { return numberOfTeamsList; }
             set
             {
-                this.numberOfTeamsList = value;
-                this.OnPropertyChanged();
+                numberOfTeamsList = value;
+                OnPropertyChanged();
             }
         }
 
         private void AddTeam(object obj)
         {
-            if (this.selectedTeam != null && !(this.teamsToAddToSeries.Contains(this.selectedTeam)))
+            if (selectedTeam != null && !(teamsToAddToSeries.Contains(selectedTeam)))
             {
-                this.teamsToAddToSeries.Add(this.selectedTeam);
-                this.availableTeams.Remove(this.selectedTeam);
+                teamsToAddToSeries.Add(selectedTeam);
+                availableTeams.Remove(selectedTeam);
             }
         }
 
         private void DeleteTeam(object obj)
         {
-            if (this.selectedTeam != null && !(this.availableTeams.Contains(this.selectedTeam)))
+            if (selectedTeam != null && !(availableTeams.Contains(selectedTeam)))
             {
-                this.availableTeams.Add(this.selectedTeam);
-                this.teamsToAddToSeries.Remove(this.selectedTeam);
-                
+                availableTeams.Add(selectedTeam);
+                teamsToAddToSeries.Remove(selectedTeam);
+
             }
 
         }
 
         private void AddSeriesTeam(object obj)
         {
-            var seriesSeriesName = new SeriesName(this.seriesName);
-            var seriesNumberOfTeams = new NumberOfTeams(this.SelectedNumberOfTeams);
-            var seriesMatchDuration = new MatchDuration(new TimeSpan(0, this.matchDuration, 0));
+            var timeSpanMatchDuration = new TimeSpan(0, this.matchDuration, 0);
 
-            var seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
-
-            foreach (var team in this.teamsToAddToSeries)
+            try
             {
-                seriesToAdd.TeamIds.Add(team.Id);
+                var seriesSeriesName = new SeriesName(this.seriesName);
+                var seriesNumberOfTeams = new NumberOfTeams(this.SelectedNumberOfTeams);
+                var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
+
+                Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
+                foreach (var team in teamsToAddToSeries)
+                {
+                    seriesToAdd.TeamIds.Add(team.Id);
+                }
+                Messenger.Default.Send<Series>(seriesToAdd);
+                ResetData();
             }
-            this.seriesService.Add(seriesToAdd);
-            this.seriesService.ScheduleGenerator(seriesToAdd.Id);
-            this.teamsToAddToSeries.Clear();
-            this.SeriesName = "";
-            this.MatchDuration = 0;
-            this.AvailableTeams = this.teamService.GetAllTeams().ToObservableCollection();
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+            
         }
+   
 
         public void LoadData()
         {
-            this.AvailableTeams = this.teamService.GetAllTeams().ToObservableCollection();
+            this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
 
-            var teamLengths = this.teamService.GetAllTeams().Count();
+            var teamLengths = teamService.GetAllTeams().Count();
             for (int i = 0; i <= teamLengths; i++)
             {
                 if (IsEven(i) && i != 0 && i != 2)
                 {
-                    this.NumberOfTeamsList.Add(i);
+                    NumberOfTeamsList.Add(i);
                 }
             }
 
+        }
+
+        public void ResetData()
+        {
+            teamsToAddToSeries.Clear();
+            this.SeriesName = "";
+            this.MatchDuration = 0;
+            this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
         }
 
         public static bool IsEven(int value)
@@ -195,5 +208,36 @@ namespace FootballManager.Admin.ViewModel
             return value % 2 == 0;
         }
 
+        #region IDataErrorInfo Implementation
+        public string Error
+        {
+            get { return null; }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "SeriesName":
+                        if (string.IsNullOrEmpty(this.SeriesName))
+                        {
+                            return string.Empty;
+                        }
+                        if (!this.SeriesName.IsValidSeriesName(false)) // Parameter is 'bool ignoreCase'.
+                        {
+                            return "Must be 2-30 valid European characters long!";
+                        }
+                        break;
+                }
+                return string.Empty;
+            }
+        }
+        #endregion
+
+        #region Methods
+
+        #endregion
     }
 }
