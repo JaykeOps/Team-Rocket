@@ -77,17 +77,67 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Row="0" Grid.Column="1" Content="Goal" />
-                <Button Grid.Row="0" Grid.Column="2" Content="Penalty" />
-                <Button Grid.Row="0" Grid.Column="3" Content="Assist" />
-                <Button Grid.Row="0" Grid.Column="4" Content="Red" />
-                <Button Grid.Row="0" Grid.Column="5" Content="Yellow" />
-                
-                <Label Grid.Row="1" Grid.Column="0" Content="Time: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" />
-                <TextBox Grid.Row="1" Grid.Column="2" />
-                <TextBox Grid.Row="1" Grid.Column="3" />
-                <TextBox Grid.Row="1" Grid.Column="4" />
-                <TextBox Grid.Row="1" Grid.Column="5" />
+                <Button Grid.Row="0" Grid.Column="2" Content="Assist" />
+                <Button Grid.Row="0" Grid.Column="3" Content="Penalty" />
+                <Button Grid.Row="0" Grid.Column="4" Content="Yellow card" />
+                <Button Grid.Row="0" Grid.Column="5" Content="Red card" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Match minute: "/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.GoalMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding DataContext.AssistMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding DataContext.PenaltyMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding DataContext.YellowCardMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding DataContext.RedCardMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
 
             </Grid>
         </Grid>
@@ -197,7 +247,7 @@
             </ListBox>
         </Grid>
 
-        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Save Game Protocol" Margin="10"  HorizontalAlignment="Right"/>
+        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Save Match Protocol" Margin="10"  HorizontalAlignment="Right"/>
         
     </Grid>
 </Window>

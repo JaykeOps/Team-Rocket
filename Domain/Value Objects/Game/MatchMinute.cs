@@ -12,7 +12,7 @@ namespace Domain.Value_Objects
 
         public MatchMinute(int value)
         {
-            if (value.IsMatchMinute())
+            if (value.IsValidMatchMinute())
             {
                 this.Value = value;
             }

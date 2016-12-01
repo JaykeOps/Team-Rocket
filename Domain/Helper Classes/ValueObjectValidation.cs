@@ -131,12 +131,12 @@ namespace Domain.Helper_Classes
             }
         }
 
-        public static bool IsMatchMinute(this int value)
+        public static bool IsValidMatchMinute(this int value)
         {
             return value >= 1 && value <= 90 + 30;
         }
 
-        public static bool IsScoreValid(this int score)
+        public static bool IsValidScore(this int score)
         {
             return score >= 0 && score <= 50;
         }
