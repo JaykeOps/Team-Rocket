@@ -55,7 +55,7 @@
             <Label Grid.Row="5" Grid.Column="0" Content="Status:" />
             <Label Grid.Row="6" Grid.Column="0" Content="Team:" />
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay}" />
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, Mode=TwoWay}" />
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LastName, Mode=TwoWay}" />
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DateOfBirth, Mode=TwoWay}" />

@@ -76,7 +76,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 searchText = value;
                 OnPropertyChanged();
-                AvailableTeams = teamService.GetAll().
+                AvailableTeams = teamService.GetAllTeams().
                     Where(x => x.Name.Value.ToLower().
                         Contains(searchText.ToLower())).ToObservableCollection();
             }
@@ -181,16 +181,13 @@ namespace FootballManager.Admin.ViewModel
 
             
         }
-    
-
-
-
+   
 
         public void LoadData()
         {
-            this.AvailableTeams = teamService.GetAll().ToObservableCollection();
+            this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
 
-            var teamLengths = teamService.GetAll().Count();
+            var teamLengths = teamService.GetAllTeams().Count();
             for (int i = 0; i <= teamLengths; i++)
             {
                 if (IsEven(i) && i != 0 && i != 2)
@@ -206,7 +203,7 @@ namespace FootballManager.Admin.ViewModel
             teamsToAddToSeries.Clear();
             this.SeriesName = "";
             this.MatchDuration = 0;
-            this.AvailableTeams = teamService.GetAll().ToObservableCollection();
+            this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
         }
 
         public static bool IsEven(int value)

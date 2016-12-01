@@ -133,7 +133,7 @@ namespace FootballManager.Admin.ViewModel
 
         public IEnumerable<string> TeamNames
         {
-            get { return teamService.GetAll().Select(x => x.Name.Value); } 
+            get { return teamService.GetAllTeams().Select(x => x.Name.Value); } 
         }
         #endregion
     }

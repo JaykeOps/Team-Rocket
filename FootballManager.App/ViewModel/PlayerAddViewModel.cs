@@ -142,7 +142,7 @@ namespace FootballManager.App.ViewModel
 
         public IEnumerable<Team> PlayerTeams
         {
-            get { return teamService.GetAll(); }
+            get { return teamService.GetAllTeams(); }
         }
         #endregion
 
