@@ -29,10 +29,8 @@ namespace Domain.Services
             var schedule = new Schedule();
             var series = DomainService.FindSeriesById(seriesId);
             schedule.GenerateSchedule(series);
-            foreach (var values in series.Schedule.Values)
-            {
-                DomainService.AddMatches(values);
-            }
+            DomainService.AddMatches(series.Schedule);
+
         }
 
         public IEnumerable<Series> GetAll()
@@ -78,7 +76,7 @@ namespace Domain.Services
             {
                 throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
             }
-            
+
         }
 
         public IEnumerable<Series> Search(string searchText, StringComparison comparison

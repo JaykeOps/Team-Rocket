@@ -31,7 +31,7 @@ namespace DomainTests.Entities
         public void SeriesScheduleCanAddMatch()
         {
             var match = new Match(new ArenaName("Ullevi"), Guid.NewGuid(), Guid.NewGuid(), this.series);
-            this.series.Schedule.Add(1, new List<Match> { match });
+            this.series.Schedule.Add( match );
             Assert.IsTrue(this.series.Schedule.Count == 1);
         }
     }
