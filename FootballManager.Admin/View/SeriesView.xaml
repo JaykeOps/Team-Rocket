@@ -95,7 +95,18 @@
                         <Label Grid.Row="1" Grid.Column="0" Content="Game duration:" />
                         <Label Grid.Row="2" Grid.Column="0" Content="Number of teams:" />
 
-                        <TextBox Grid.Row="0" Grid.Column="1" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <!-- Placeholder for the TextBox itself -->
+                                        <AdornedElementPlaceholder x:Name="setSeriesNameTextBoxPlaceholder" />
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                         <TextBox Grid.Row="1" Grid.Column="1" />
                         <ComboBox Grid.Row="2" Grid.Column="1" />
 

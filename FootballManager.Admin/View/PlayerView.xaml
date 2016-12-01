@@ -71,8 +71,7 @@
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
-                              CanUserSortColumns="True"
-                              >
+                              CanUserSortColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="No" />
                             <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
