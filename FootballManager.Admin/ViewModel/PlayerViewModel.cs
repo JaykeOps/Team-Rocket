@@ -113,7 +113,7 @@ namespace FootballManager.Admin.ViewModel
 
         public void LoadData()
         {
-            var exposedPlayers = (IEnumerable<IExposablePlayer>) playerService.GetAllPlayers();
+            var exposedPlayers = playerService.GetAllExposablePlayers();
 
             Players = exposedPlayers.ToObservableCollection();
         }

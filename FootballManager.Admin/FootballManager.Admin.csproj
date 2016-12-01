@@ -144,7 +144,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\DoNothingConverter.cs" />
-    <Compile Include="Converters\TeamIdToStringConverter.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="Utility\Messenger.cs" />

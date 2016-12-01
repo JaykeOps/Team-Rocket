@@ -11,7 +11,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <conv:DoNothingConverter x:Key="DoNothingConverter" />
-            <conv:TeamIdToStringConverter x:Key="TeamIdToStringConverter" />
             <local:ViewModelLocator x:Key="ViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- Custom -->
