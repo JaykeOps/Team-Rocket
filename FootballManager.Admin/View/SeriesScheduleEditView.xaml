@@ -51,7 +51,7 @@
 
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Save" Command="" />
+                <Button Content="Save" />
             </StackPanel>
         </Grid>
 
