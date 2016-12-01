@@ -37,7 +37,6 @@ namespace FootballManager.Admin.ViewModel
             this.PlayerAddCommand = new RelayCommand(this.PlayerAdd);
         }
 
-
         #region Properties
         public ICommand PlayerAddCommand { get; }
 
