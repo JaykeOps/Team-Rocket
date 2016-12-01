@@ -25,8 +25,7 @@ namespace FootballManager.Admin.ViewModel
         {
             seriesService = new SeriesService();
             //this.UpdateComboBoxSourceCommand = new RelayCommand(UpdateComboBoxSource);
-            Load();
-            
+            Load();            
         }
 
         public ObservableCollection<Series> AllSeries
@@ -35,10 +34,13 @@ namespace FootballManager.Admin.ViewModel
             set
             {
                 allSeries = value;
-                Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
                 OnPropertyChanged();
+                Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
             }
         }
+
+
+        #region Protocol
 
         private ICommand openSeriesGameProtocolViewCommand;
 
@@ -73,6 +75,9 @@ namespace FootballManager.Admin.ViewModel
                 return openSeriesScheduleEditViewCommand;
             }
         }
+
+        #endregion
+
 
         public ICommand UpdateComboBoxSourceCommand { get; }
 
