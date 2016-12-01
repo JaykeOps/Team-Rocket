@@ -84,8 +84,11 @@ namespace FootballManager.Admin.ViewModel
             var playerInfoData = new ObservableCollection<PlayerStats>();
             foreach (var p in players)
             {
-                var playerStats = playerService.GetAllPlayerStats(p.Id).First();
-                playerInfoData.Add(playerStats);
+                var collectionOfPlayerStats = playerService.GetPlayerStatsFreeTextSearch(p.Name.ToString());
+                foreach (var playerStats in collectionOfPlayerStats)
+                {
+                    playerInfoData.Add(playerStats);
+                }
             }
             return playerInfoData;
         }
