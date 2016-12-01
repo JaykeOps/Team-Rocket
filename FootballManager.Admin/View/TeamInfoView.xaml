@@ -43,7 +43,7 @@
                     Margin="10"
                     Height="60">
             <Label Content="Series:" />
-            <ComboBox />
+            <ComboBox ItemsSource="{Binding SeriesCollection}"/>
             <Label Content="Team:" Padding="40,0,0,0"/>
             <ComboBox />
             <Label Content="Arena name:" Padding="40,0,0,0"/>
