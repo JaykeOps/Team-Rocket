@@ -17,7 +17,7 @@ namespace Domain.Services
         {
             if (player.IsValidPlayer())
             {
-                this.repository.Add((Player) player);
+                this.repository.Add((Player)player);
             }
             else
             {
@@ -109,7 +109,6 @@ namespace Domain.Services
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
-
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
@@ -208,22 +207,16 @@ namespace Domain.Services
 
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
         {
-            var player = (Player) exposablePlayer;
+            var player = (Player)exposablePlayer;
             var team = DomainService.FindTeamById(teamId);
             player.UpdateTeamAffiliation(team);
             team.UpdatePlayerIds();
-        }
-
-        public IEnumerable<PlayerStats> GetAllPlayerStats(Guid playerId)
-        {
-            return this.FindById(playerId).AggregatedStats.AllStats.Values;
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
         {
             var expoPlayers = this.Search(searchText);
             return expoPlayers.Cast<Player>().SelectMany(player => player.AggregatedStats.AllStats.Values);
-
         }
     }
 }
