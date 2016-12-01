@@ -93,8 +93,6 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-
-
         public Team SelectedTeam
         {
             get { return selectedTeam; }

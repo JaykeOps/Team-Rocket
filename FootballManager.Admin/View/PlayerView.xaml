@@ -74,54 +74,13 @@
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="No" />
+                            <!-- Binding="{Binding ShirtNumber.Value, Mode=OneWay, Converter={StaticResource ConverterNamnet}}" -->
                             <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
-
-                            <DataGridTemplateColumn Header="Position">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Position}" />
-                                        <!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players -->
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Status">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Status}" />
-                                        <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.PlayerStatuses, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Team">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" />
-                                        <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" />
 
                             <DataGridTemplateColumn Header="Edit">
                                 <DataGridTemplateColumn.CellTemplate>

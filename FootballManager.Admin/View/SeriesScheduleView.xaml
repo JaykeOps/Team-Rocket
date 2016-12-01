@@ -7,6 +7,8 @@
             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             xmlns:vm="clr-namespace:FootballManager.Admin.ViewModel"
+            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:is="http://schemas.microsoft.com/expression/2010/interactions"
             mc:Ignorable="d" 
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
@@ -45,7 +47,8 @@
                     Height="60">
             <Label Content="Series:" />
             <ComboBox ItemsSource="{Binding AllSeries}" 
-                    SelectedItem="" />
+                    SelectedItem="">
+            </ComboBox>
             <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
                                 Content="Temp: Open Edit" 
                                 Style="{StaticResource FlatButton}" 

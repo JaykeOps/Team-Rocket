@@ -16,78 +16,48 @@ namespace FootballManager.Admin.ViewModel
 {
     public class PlayerInfoViewModel : ViewModelBase
     {
-        private PlayerService playerService;
-        private string filterString;
-        private ICommand searchCommand;
-        private ICollectionView playerInfoStats;
+        //TODO: Validering av sökfältet
 
-        public ICollectionView PlayerInfoStats
-        {
-            get { return playerInfoStats; }
-        }
+        private PlayerService playerService;
+        private ObservableCollection<PlayerStats> playerStats;
+        private string searchText;
 
         public PlayerInfoViewModel()
         {
             this.playerService = new PlayerService();
-
-            playerInfoStats = CollectionViewSource.GetDefaultView(LoadData());
-            playerInfoStats.Filter = FilterData;
+            this.playerStats = new ObservableCollection<PlayerStats>();
+            LoadData();
         }
 
-        public string FilterString
+        public ObservableCollection<PlayerStats> PlayerStats
         {
-            get { return filterString; }
+            get { return playerStats; }
             set
             {
-                filterString = value;
+                playerStats = value;
                 OnPropertyChanged();
-                PlayerInfoStats.Refresh();
             }
         }
 
-        public ICommand SearchCommand
+        public string SearchText
         {
-            get
+            get { return searchText; }
+            set
             {
-                if (searchCommand == null)
-                {
-                    searchCommand = new RelayCommand(Search);
-                }
-                return searchCommand;
+                searchText = value;
+                OnPropertyChanged();
+                FilterData();
             }
         }
 
-        private bool FilterData(object obj)
+        public void FilterData()
         {
-            var playerStats = obj as PlayerStats;
-
-            if (playerStats != null)
-            {
-                if (!string.IsNullOrEmpty(filterString))
-                {
-                    return playerStats.PlayerName.IndexOf(filterString, StringComparison.InvariantCultureIgnoreCase) >= 0;
-                }
-                return true;
-            }
-            return false;
+            PlayerStats = playerService.GetPlayerStatsFreeTextSearch(SearchText).ToObservableCollection();
         }
 
-        private void Search(object param)
+        public void LoadData()
         {
-            var text = (string)param;
-            FilterString = text;
-        }
-
-        public ObservableCollection<PlayerStats> LoadData()
-        {
-            var players = playerService.GetAllPlayers();
-            var playerInfoData = new ObservableCollection<PlayerStats>();
-            foreach (var p in players)
-            {
-                var playerStats = playerService.GetAllPlayerStats(p.Id).First();
-                playerInfoData.Add(playerStats);
-            }
-            return playerInfoData;
+            PlayerStats = playerService.GetPlayerStatsFreeTextSearch("").ToObservableCollection();          
         }
     }
 }

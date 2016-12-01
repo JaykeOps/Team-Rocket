@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
@@ -14,7 +15,7 @@ namespace FootballManager.Admin.ViewModel
 {
     public class PlayerViewModel : ViewModelBase
     {
-        private ObservableCollection<Player> players;
+        private ObservableCollection<IExposablePlayer> players;
         private PlayerService playerService;
         private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
@@ -30,7 +31,6 @@ namespace FootballManager.Admin.ViewModel
 
             Messenger.Default.Register<Player>(this, OnPlayerObjReceived);
         }
-
 
 
         #region Properties
@@ -58,7 +58,7 @@ namespace FootballManager.Admin.ViewModel
             }            
         }
 
-        public ObservableCollection<Player> Players
+        public ObservableCollection<IExposablePlayer> Players
         {
             get { return players; }
             set
@@ -74,15 +74,20 @@ namespace FootballManager.Admin.ViewModel
             set
             {
                 searchText = value;
-                var test = playerService.Search(SearchText).ToObservableCollection();
                 OnPropertyChanged();
+                FilterData();
             }
         }
-
 
         #endregion
 
         #region Methods
+
+        public void FilterData()
+        {
+            Players = playerService.Search(SearchText).ToObservableCollection();
+        }
+
         private void DeletePlayer(object obj)
         {
             IList playersSelectedIList = (IList)obj;
@@ -108,7 +113,9 @@ namespace FootballManager.Admin.ViewModel
 
         public void LoadData()
         {
-            Players = playerService.GetAllPlayers().ToObservableCollection();
+            var exposedPlayers = (IEnumerable<IExposablePlayer>) playerService.GetAllPlayers();
+
+            Players = exposedPlayers.ToObservableCollection();
         }
         #endregion
 
