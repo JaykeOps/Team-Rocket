@@ -35,7 +35,7 @@ namespace DomainTests.Entities.Tests
         public void PlayerCanHoldValidEntries()
         {
             var service = new TeamService();
-            var team = service.GetAll().First();
+            var team = service.GetAllTeams().First();
             this.testPlayer.TeamId = team.Id;
             this.testPlayer.ShirtNumber = new ShirtNumber(this.testPlayer.TeamId, 25);
 

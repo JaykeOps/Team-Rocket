@@ -13,18 +13,6 @@ namespace Domain.Services
     {
         private PlayerRepository repository => PlayerRepository.instance;
 
-        public void Add(IExposablePlayer player)
-        {
-            if (player.IsValidPlayer())
-            {
-                this.repository.Add((Player)player);
-            }
-            else
-            {
-                throw new FormatException("Player cannot be added. Player carries invalid values!");
-            }
-        }
-
         public void Add(Player player)
         {
             if (player.IsValidPlayer())
@@ -38,21 +26,6 @@ namespace Domain.Services
         }
 
         public void Add(IEnumerable<Player> players)
-        {
-            if (players != null)
-            {
-                foreach (var player in players)
-                {
-                    this.Add(player);
-                }
-            }
-            else
-            {
-                throw new NullReferenceException("List of player is null");
-            }
-        }
-
-        public void Add(IEnumerable<IExposablePlayer> players)
         {
             if (players != null)
             {

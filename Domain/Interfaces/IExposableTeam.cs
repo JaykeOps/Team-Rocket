@@ -7,6 +7,7 @@ namespace Domain.Interfaces
 {
     public interface IExposableTeam
     {
+        Guid Id { get; }
         TeamName Name { get; }
         IEnumerable<Guid> PlayerIds { get; }
         ArenaName ArenaName { get; }

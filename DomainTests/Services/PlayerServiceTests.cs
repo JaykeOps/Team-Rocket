@@ -235,19 +235,7 @@ namespace Domain.Services.Tests
             }
         }
 
-        [TestMethod]
-        public void PlayerSearchCanReturnPlayersPlayingInSpecifiedSeries()
-        {
-            var players = this.playerService.Search("The Dummy Series").ToList();
-            Assert.IsNotNull(players);
-            Assert.AreNotEqual(players.Count, 0);
-            foreach (var player in players)
-            {
-                var temporaryPlayer = (Player)player;
-                Assert.IsTrue(temporaryPlayer.AggregatedStats.AllStats.Keys.Any(x =>
-                    DomainService.FindSeriesById(x).SeriesName.ToString() == "The Dummy Series"));
-            }
-        }
+        
 
         [TestMethod]
         public void RemovePlayerWorks()
