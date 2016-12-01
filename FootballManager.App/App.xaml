@@ -5,13 +5,14 @@
              xmlns:conv="clr-namespace:FootballManager.App.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mahapps="clr-namespace:MahApps.Metro;assembly=MahApps.Metro"
-             
+             xmlns:converters="clr-namespace:FootballManager.Admin.Converters"
+
              StartupUri="View/MainView.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
             <conv:DoNothingConverter x:Key="DoNothingConverter" />
-            <conv:TeamIdToStringConverter x:Key="TeamIdToStringConverter" />
+            <converters:TeamIdToStringConverter x:Key="TeamIdToStringConverter" />
             <local:ViewModelLocator x:Key="ViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- Custom -->
