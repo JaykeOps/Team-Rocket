@@ -47,7 +47,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Home Team" HorizontalAlignment="Center" FontSize="30"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Home Team" HorizontalAlignment="Center" FontSize="30" Margin="0,0,0,1" VerticalAlignment="Bottom"/>
                 <Label Grid.Row="0" Grid.Column="1" Content="   -   " HorizontalAlignment="Center" FontSize="30"/>
                 <Label Grid.Row="0" Grid.Column="2" Content="Away Team" HorizontalAlignment="Center" FontSize="30"/>
                 
