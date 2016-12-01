@@ -1,9 +1,9 @@
 ﻿using Domain.Interfaces;
+using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Services;
 
 namespace Domain.Entities
 {
@@ -21,7 +21,6 @@ namespace Domain.Entities
 
         public ArenaName ArenaName { get; set; }
         public EmailAddress Email { get; set; }
-        public ShirtNumbers ShirtNumbers { get; }
 
         
 
@@ -64,7 +63,6 @@ namespace Domain.Entities
             this.ArenaName = arenaName;
             this.Email = email;
             this.matchSchedules = new TeamMatchSchedule(this.Id);
-            this.ShirtNumbers = new ShirtNumbers(this.Id);
         }
 
         public void UpdatePlayerIds()
