@@ -48,7 +48,8 @@ namespace Domain.Helper_Classes
                 this.AllMatches.AddRange(this.AllMatchesAscending);
 
                 //Generate dictionary with roundnumber as key(int) and matches for each round as value(List<Match>)
-                series.Schedule = this.GenerateRoundsWithMatches(numberOfTeams);
+                this.GenerateRoundsWithMatches(numberOfTeams);
+                series.Schedule = this.AllMatches;
             }
             else
             {
@@ -132,6 +133,15 @@ namespace Domain.Helper_Classes
                     this.AllMatchesWithRounds.Add(i, this.AllMatches.GetRange(i, upperCounter));
                 }
             }
+            for (int i = 0; i < AllMatchesWithRounds.Values.Count; i++)
+            {
+                var matchs = AllMatchesWithRounds[i];
+                foreach (var match in matchs)
+                {
+                    match.Round = i + 1;
+                }
+            }
+          
 
             return this.AllMatchesWithRounds;
         }
