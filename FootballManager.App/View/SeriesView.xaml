@@ -51,7 +51,7 @@
                         <Label Content="Choose Series: " />
                         <ComboBox x:Name="chooseSeriesComboBox" ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
                                                   SelectedItem="{Binding Series, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                  DisplayMemberPath="SeriesName"
+                                                  
                                                   SelectedValue="{Binding SelectedSeries, Mode=TwoWay}"/>
                     </StackPanel>
 
