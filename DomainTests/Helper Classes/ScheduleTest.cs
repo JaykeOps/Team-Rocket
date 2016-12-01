@@ -34,7 +34,7 @@ namespace DomainTests.Helper_Classes
         public void ScheduleCanGenerateMatchesWithRounds()
         {
             var series = new DummySeries();
-            var teams = this.teamService.GetAll();
+            var teams = this.teamService.GetAllTeams();
             foreach (var team in teams)
             {
                 this.series.TeamIds.Add(team.Id);
@@ -55,7 +55,7 @@ namespace DomainTests.Helper_Classes
             this.teamService.Add(this.testTeamSeven);
             this.teamService.Add(this.testTeamEight);
 
-            var teams = this.teamService.GetAll();
+            var teams = this.teamService.GetAllTeams();
             foreach (var team in teams)
             {
                 this.series.TeamIds.Add(team.Id);
@@ -71,7 +71,7 @@ namespace DomainTests.Helper_Classes
         {
             this.teamService.Add(this.testTeamOne);
 
-            var teams = this.teamService.GetAll();
+            var teams = this.teamService.GetAllTeams();
             foreach (var team in teams)
             {
                 this.series.TeamIds.Add(team.Id);

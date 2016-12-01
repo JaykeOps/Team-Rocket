@@ -25,20 +25,20 @@ namespace DomainTests.Services
         [TestMethod]
         public void GetAllIsReturningIEnumerable()
         {
-            Assert.IsInstanceOfType(this.service.GetAll(), typeof(IEnumerable<Team>));
+            Assert.IsInstanceOfType(this.service.GetAllTeams(), typeof(IEnumerable<Team>));
         }
 
         [TestMethod]
         public void GetAllTeamsNotReturningNull()
         {
-            Assert.IsNotNull(this.service.GetAll());
+            Assert.IsNotNull(this.service.GetAllTeams());
         }
 
         [TestMethod]
         public void AddTeamIsWorking()
         {
             this.service.Add(this.team);
-            var teams = this.service.GetAll();
+            var teams = this.service.GetAllTeams();
             Assert.IsTrue(teams.Contains(this.team));
             Assert.IsFalse(teams.Contains(this.team2));
         }
@@ -49,16 +49,16 @@ namespace DomainTests.Services
             var service1 = new TeamService();
             var service2 = new TeamService();
             service1.Add(this.team);
-            var teams = service2.GetAll();
+            var teams = service2.GetAllTeams();
             Assert.IsTrue(teams.Contains(this.team));
         }
 
         [TestMethod]
         public void FindTeamByIdIsWorking()
         {
-            Assert.IsFalse(this.service.FindById(this.team.Id) == this.team);
+            Assert.IsFalse(this.service.FindTeamById(this.team.Id) == this.team);
             this.service.Add(this.team);
-            Assert.IsTrue(this.service.FindById(this.team.Id) == this.team);
+            Assert.IsTrue(this.service.FindTeamById(this.team.Id) == this.team);
         }
 
         [TestMethod]
@@ -166,7 +166,7 @@ namespace DomainTests.Services
             var teamToRemove = DomainService.FindTeamById(series.SeriesDummy.
                 TeamIds.ElementAt(0));
             service.RemoveTeam(teamToRemove.Id);
-            Assert.IsFalse(service.GetAll().ToList().Contains(teamToRemove));
+            Assert.IsFalse(service.GetAllTeams().ToList().Contains(teamToRemove));
         }
     }
 }

@@ -202,32 +202,8 @@ namespace DomainTests.Services
             }
         }
 
-        [TestMethod]
-        public void SeriesSearchCanReturnSeriesContainingSpecifiedArenaName()
-        {
-            var matchingSeries = this.seriesService.Search("Dummy ArenaOne").ToList();
-            Assert.IsNotNull(matchingSeries);
-            Assert.AreNotEqual(matchingSeries.Count, 0);
-            foreach (var series in matchingSeries)
-            {
-                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.Location.ToString()
-                == "Dummy ArenaOne")));
-            }
-        }
+       
 
-        [TestMethod]
-        public void SeriesSearchCanReturnSeriesContainingSpecifiedMatchDate()
-        {
-            //TODO: Update when matches has dates!
-            var seriesDummy = new DummySeries();
-            var matchingSeries = this.seriesService.Search((DateTime.Now + TimeSpan.FromDays(365)).ToShortTimeString()).ToList();
-            Assert.IsNotNull(matchingSeries);
-            Assert.AreNotEqual(matchingSeries.Count, 0);
-            foreach (var series in matchingSeries)
-            {
-                Assert.IsTrue(series.Schedule.Values.Any(x => x.Any(y => y.MatchDate.Value.ToShortTimeString()
-                == (DateTime.Now + TimeSpan.FromDays(365)).ToShortTimeString())));
-            }
-        }
+        
     }
 }
