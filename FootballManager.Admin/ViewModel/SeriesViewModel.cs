@@ -1,32 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using FootballManager.Admin.Utility;
-using Domain.Entities;
-using System.Collections.ObjectModel;
-using Domain.Services;
-using FootballManager.Admin.Extensions;
-using System.Windows;
-using Domain.Value_Objects;
+using FootballManager.Admin.View;
+using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
+using System.Windows;
+using Domain.Entities;
 using Domain.Helper_Classes;
+using Domain.Services;
+using Domain.Value_Objects;
+using FootballManager.Admin.Extensions;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class SeriesViewModel : ViewModelBase, IDataErrorInfo
     {
-
         private ObservableCollection<Team> availableTeams;
         private ObservableCollection<Team> teamsToAddToSeries;
         private List<int> numberOfTeamsList;
         private TeamService teamService;
         private SeriesService seriesService;
         private Team selectedTeam;
-        private string seriesName;
-        private int matchDuration;
         private string searchText;
         private int selectedNumberOfTeams;
+        private string seriesName;
+        private string matchDuration;
 
         public SeriesViewModel()
         {
@@ -107,18 +110,24 @@ namespace FootballManager.Admin.ViewModel
             get { return seriesName; }
             set
             {
-                seriesName = value;
-                OnPropertyChanged();
+                if (seriesName != value)
+                {
+                    seriesName = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
-        public int MatchDuration
+        public string MatchDuration
         {
             get { return matchDuration; }
             set
             {
-                matchDuration = value;
-                OnPropertyChanged();
+                if (matchDuration != value)
+                {
+                    matchDuration = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -153,7 +162,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddSeriesTeam(object obj)
         {
-            var timeSpanMatchDuration = new TimeSpan(0, this.matchDuration, 0);
+            var timeSpanMatchDuration = new TimeSpan(0, Convert.ToInt32(matchDuration), 0);
 
             try
             {
@@ -175,9 +184,9 @@ namespace FootballManager.Admin.ViewModel
                 MessageBox.Show(ex.Message);
             }
 
-            
+
         }
-   
+
 
         public void LoadData()
         {
@@ -198,7 +207,7 @@ namespace FootballManager.Admin.ViewModel
         {
             teamsToAddToSeries.Clear();
             this.SeriesName = "";
-            this.MatchDuration = 0;
+            this.MatchDuration = "";
             this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
         }
 
@@ -207,7 +216,7 @@ namespace FootballManager.Admin.ViewModel
             return value % 2 == 0;
         }
 
-        #region IDataErrorInfo Implementation
+        #region IDataErrorInfo implementation
         public string Error
         {
             get { return null; }
@@ -224,15 +233,34 @@ namespace FootballManager.Admin.ViewModel
                         {
                             return string.Empty;
                         }
-                        if (!this.SeriesName.IsValidSeriesName(false)) // Parameter is 'bool ignoreCase'.
+                        if (!this.SeriesName.IsValidSeriesName(false)) // Parameter 'bool ignoreCase' set to false.
                         {
                             return "Must be 2-30 valid European characters long!";
+                        }
+                        break;
+                    case "MatchDuration":
+                        if (string.IsNullOrEmpty(this.MatchDuration))
+                        {
+                            return string.Empty;
+                        }
+                        int matchMinutes;
+                        if (!int.TryParse(this.MatchDuration, out matchMinutes))
+                        {
+                            return "Must be an integer between 10 and 90!";
+                        }
+                        else
+                        {
+                            TimeSpan timeSpan = new TimeSpan(0, matchMinutes, 0);
+                            if (!timeSpan.IsValidMatchDuration())
+                            {
+                                return "Must be an integer between 10 and 90!";
+                            }
                         }
                         break;
                 }
                 return string.Empty;
             }
         }
-        #endregion
     }
+        #endregion
 }

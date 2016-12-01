@@ -32,7 +32,6 @@ namespace FootballManager.App.ViewModel
             Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
         }
 
-
         #region Properties
         public ICommand OpenPlayerAddViewCommand
         {
