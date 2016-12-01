@@ -147,7 +147,6 @@ namespace FootballManager.Admin.ViewModel
             {
                 availableTeams.Add(selectedTeam);
                 teamsToAddToSeries.Remove(selectedTeam);
-
             }
 
         }
@@ -234,10 +233,6 @@ namespace FootballManager.Admin.ViewModel
                 return string.Empty;
             }
         }
-        #endregion
-
-        #region Methods
-
         #endregion
     }
 }

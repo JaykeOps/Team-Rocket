@@ -18,7 +18,7 @@ namespace FootballManager.Admin.ViewModel
         private ObservableCollection<Team> teams;
         private TeamService teamService;
         private Team selectedTeam;
-
+        private ICommand openTeamAddView;
         private ICommand deleteTeamCommand;
 
         public TeamViewModel()
@@ -32,7 +32,17 @@ namespace FootballManager.Admin.ViewModel
 
         #region Properties
 
-        public ICommand OpenTeamAddViewCommand { get; }
+        public ICommand OpenTeamAddViewCommand
+        {
+            get
+            {
+                if (this.openTeamAddView == null)
+                {
+                    this.openTeamAddView = new RelayCommand(this.OpenTeamAddView);
+                }
+                return this.openTeamAddView;
+            }
+        }
 
         public ICommand DeleteTeamCommand
         {

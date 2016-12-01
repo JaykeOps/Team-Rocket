@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
@@ -14,7 +15,7 @@ namespace FootballManager.Admin.ViewModel
 {
     public class PlayerViewModel : ViewModelBase
     {
-        private ObservableCollection<Player> players;
+        private ObservableCollection<IExposablePlayer> players;
         private PlayerService playerService;
         private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
@@ -58,24 +59,24 @@ namespace FootballManager.Admin.ViewModel
             }            
         }
 
-        public ObservableCollection<Player> Players
+        public ObservableCollection<IExposablePlayer> Players
         {
-            get { return this.players; }
+            get { return players; }
             set
             {
-                this.players = value;
-                this.OnPropertyChanged();
+                players = value;
+                OnPropertyChanged();
             }
         }
 
         public string SearchText
         {
-            get { return this.searchText; }
+            get { return searchText; }
             set
             {
-                this.searchText = value;
-                var test = this.playerService.Search(this.SearchText).ToObservableCollection();
-                this.OnPropertyChanged();
+                searchText = value;
+                OnPropertyChanged();
+                FilterData();
             }
         }
 
@@ -83,6 +84,12 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
         #region Methods
+
+        public void FilterData()
+        {
+            Players = playerService.Search(SearchText).ToObservableCollection();
+        }
+
         private void DeletePlayer(object obj)
         {
             IList playersSelectedIList = (IList)obj;
@@ -108,7 +115,9 @@ namespace FootballManager.Admin.ViewModel
 
         public void LoadData()
         {
-            this.Players = this.playerService.GetAllPlayers().ToObservableCollection();
+            var exposedPlayers = playerService.GetAllExposablePlayers();
+
+            Players = exposedPlayers.ToObservableCollection();
         }
         #endregion
 

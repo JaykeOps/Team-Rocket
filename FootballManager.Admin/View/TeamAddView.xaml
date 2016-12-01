@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamAddViewModel}">
-    <Grid Margin="20">
+    <Grid Margin="100">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
