@@ -86,11 +86,7 @@ namespace Domain.Services
         {
             return this.GetAll().Where(x => x.TeamIds.Any
             (y => DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
-            || x.MatchDuration.ToString().Contains(searchText, comparison)
-            || x.NumberOfTeams.ToString().Contains(searchText, comparison)
-            || x.SeriesName.ToString().Contains(searchText, comparison))
-            || x.Schedule.Values.Any(z => z.Any(p => p.Location.ToString().Contains(searchText)
-            || x.Schedule.Values.Any(o => o.Any(s => s.MatchDate.ToString().Contains(searchText))))));
+            || x.SeriesName.ToString().Contains(searchText, comparison)));
         }
 
         public void RemoveTeamFromSeries(Guid seriesId, Guid teamId)

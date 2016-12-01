@@ -18,7 +18,7 @@ namespace Domain.Services
         public static Team FindTeamById(Guid id)
         {
             var teamService = new TeamService();
-            return teamService.FindById(id);
+            return teamService.FindTeamById(id);
         }
 
         public static Game FindGameById(Guid id)
@@ -153,7 +153,7 @@ namespace Domain.Services
         public static IEnumerable<Team> GetAllTeams()
         {
             var teamService = new TeamService();
-            return teamService.GetAll().ToList();
+            return teamService.GetAllTeams().ToList();
         }
 
         public static IEnumerable<Match> GetAllMatches()

@@ -13,18 +13,6 @@ namespace Domain.Services
     {
         private PlayerRepository repository => PlayerRepository.instance;
 
-        public void Add(IExposablePlayer player)
-        {
-            if (player.IsValidPlayer())
-            {
-                this.repository.Add((Player) player);
-            }
-            else
-            {
-                throw new FormatException("Player cannot be added. Player carries invalid values!");
-            }
-        }
-
         public void Add(Player player)
         {
             if (player.IsValidPlayer())
@@ -38,21 +26,6 @@ namespace Domain.Services
         }
 
         public void Add(IEnumerable<Player> players)
-        {
-            if (players != null)
-            {
-                foreach (var player in players)
-                {
-                    this.Add(player);
-                }
-            }
-            else
-            {
-                throw new NullReferenceException("List of player is null");
-            }
-        }
-
-        public void Add(IEnumerable<IExposablePlayer> players)
         {
             if (players != null)
             {
@@ -109,7 +82,6 @@ namespace Domain.Services
             var playerStats = new List<PlayerStats>();
             foreach (var player in allPlayers)
             {
-
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
@@ -161,9 +133,7 @@ namespace Domain.Services
             return this.repository.GetAll().Where(x =>
                 x.Name.ToString().Contains(searchText, comparison)
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
-                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison)
-                || x.AggregatedStats.AllStats.Keys.Any
-                    (y => DomainService.FindSeriesById(y).SeriesName.ToString().Contains(searchText)));
+                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
@@ -208,22 +178,16 @@ namespace Domain.Services
 
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
         {
-            var player = (Player) exposablePlayer;
+            var player = (Player)exposablePlayer;
             var team = DomainService.FindTeamById(teamId);
             player.UpdateTeamAffiliation(team);
             team.UpdatePlayerIds();
-        }
-
-        public IEnumerable<PlayerStats> GetAllPlayerStats(Guid playerId)
-        {
-            return this.FindById(playerId).AggregatedStats.AllStats.Values;
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
         {
             var expoPlayers = this.Search(searchText);
             return expoPlayers.Cast<Player>().SelectMany(player => player.AggregatedStats.AllStats.Values);
-
         }
     }
 }
