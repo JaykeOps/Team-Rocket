@@ -8,21 +8,18 @@ using Domain.Services;
 namespace FootballManager.Admin.Converters
 {
     public class TeamIdToStringConverter : IValueConverter
-    {
-        private readonly TeamService teamService = new TeamService();
-
+    {                
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            TeamService teamService = new TeamService();
+            
+            if (value != null)
             {
-                return null;
+                var id = (Guid) value;
+                var team = teamService.FindTeamById(id);
+                return team.Name.Value;
             }
-            else
-            {
-                var team = teamService.FindTeamById((Guid)value);
-                return team == null ? null : team.Name.Value;
-            }
-
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

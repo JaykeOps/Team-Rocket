@@ -7,6 +7,7 @@
             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:conv="clr-namespace:FootballManager.Admin.Converters"
             mc:Ignorable="d" 
             Height="700" Width="980"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"

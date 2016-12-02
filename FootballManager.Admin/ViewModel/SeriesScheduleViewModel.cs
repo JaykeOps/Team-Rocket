@@ -18,27 +18,22 @@ namespace FootballManager.Admin.ViewModel
 {
     public class SeriesScheduleViewModel : ViewModelBase
     {
-        private ObservableCollection<Series> allSeries;
-        private ObservableCollection<Match> selectedSeriesSchedule;
-        private Series selectedSeries;
+        private ObservableCollection<Series> seriesCollection;
+        private ObservableCollection<Match> matchesBySeriesCollection;
+
         private SeriesService seriesService;
+
+        private Series selectedSeries;
 
         public SeriesScheduleViewModel()
         {
-            selectedSeriesSchedule = new ObservableCollection<Match>();
-            seriesService = new SeriesService();
-            Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
-            Load();            
-        }
+            matchesBySeriesCollection = new ObservableCollection<Match>();
 
-        public ObservableCollection<Series> AllSeries
-        {
-            get { return allSeries; }
-            set
-            {
-                allSeries = value;
-                OnPropertyChanged();
-            }
+            seriesService = new SeriesService();
+
+            Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
+
+            LoadData();            
         }
 
         public Series SelectedSeries
@@ -48,19 +43,31 @@ namespace FootballManager.Admin.ViewModel
             {
                 selectedSeries = value;
                 OnPropertyChanged();
-                SelectedSeriesSchedule = selectedSeries.Schedule.ToObservableCollection();
+                FilterMatchesBySeries();
             }
         }
 
-        public ObservableCollection<Match> SelectedSeriesSchedule
+        #region Collections               
+        public ObservableCollection<Series> SeriesCollection
         {
-            get { return selectedSeriesSchedule; }
+            get { return seriesCollection; }
             set
             {
-                selectedSeriesSchedule = value;
+                seriesCollection = value;
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<Match> MatchesBySeriesCollection
+        {
+            get { return matchesBySeriesCollection; }
+            set
+            {
+                matchesBySeriesCollection = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
 
         #region Protocol
 
@@ -101,22 +108,29 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
 
+        public void FilterMatchesBySeries()
+        {
+            var t = SelectedSeries.Schedule;
+
+            MatchesBySeriesCollection = t.ToObservableCollection();
+        }
+
         private void OpenSeriesScheduleEditView(object obj)
         {
             var view = new SeriesScheduleEditView();
             view.ShowDialog();
         }
 
-        private void Load()
+        private void LoadData()
         {
-            this.allSeries = seriesService.GetAll().ToObservableCollection();
+            this.seriesCollection = seriesService.GetAll().ToObservableCollection();
         }
 
         private void OnSeriesObjReceived(Series serie)
         {
             seriesService.Add(serie);
             seriesService.ScheduleGenerator(serie.Id);
-            AllSeries = seriesService.GetAll().ToObservableCollection();
+            SeriesCollection = seriesService.GetAll().ToObservableCollection();
         }
     }
 }

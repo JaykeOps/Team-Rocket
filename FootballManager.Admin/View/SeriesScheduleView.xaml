@@ -15,8 +15,6 @@
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
             Height="700" Width="980"
             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleViewModel}">
-
-
     <Grid>
         <Grid.Resources>
             <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
@@ -29,7 +27,6 @@
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -47,11 +44,8 @@
                     Height="60">
             <Label Content="Series:" />
 
-            <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}" 
-                    SelectedItem="{Binding SelectedSeries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
-                
-                
-            </ComboBox>
+            <ComboBox ItemsSource="{Binding SeriesCollection}" 
+                    SelectedItem="{Binding SelectedSeries}" />
             
             <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
                                 Content="Temp: Open Edit" 
@@ -68,18 +62,18 @@
 
         <!--Margin: Left, Top, Right, Bottom-->
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding SelectedSeriesSchedule, UpdateSourceTrigger=PropertyChanged}"                    
+                    ItemsSource="{Binding MatchesBySeriesCollection}"                    
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                     SelectionMode="Extended"
                     CanUserSortColumns="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" />
-                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
-                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
-                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
+                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
+                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
