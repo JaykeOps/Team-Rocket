@@ -16,6 +16,7 @@ namespace FootballManager.App.ViewModel
         private ObservableCollection<Game> games;
         private GameService gameService;
         private MatchService matchService;
+        private string searchText;
 
         public ObservableCollection<Match> Matches => this.matches;
         public ObservableCollection<Game> Games => this.games;

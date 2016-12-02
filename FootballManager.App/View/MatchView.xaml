@@ -66,9 +66,9 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId,Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult.AwayTeamScore}" />
+                            <!--DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId,Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" /-->
+                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult}" />
                             <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" />
                             <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay}" />
 
@@ -126,10 +126,10 @@
                     <!--Margin: Left, Top, Right, Bottom-->
                     <!-- Region Display Team -->
                     <DataGrid Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding Teams}" 
+                              ItemsSource="{Binding Games}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectedItem="{Binding SelectedTeam, Mode=TwoWay}">
+                              SelectedItem="{Binding Games, Mode=TwoWay}">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Home team" Binding="{Binding Name.Value, Mode=OneWay}" />
