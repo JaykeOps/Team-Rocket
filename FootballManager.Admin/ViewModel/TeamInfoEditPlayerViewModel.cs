@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Domain.Interfaces;
+using Domain.Services;
+using FootballManager.Admin.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Interfaces;
-using Domain.Services;
 using System.Windows.Input;
-using Domain.Entities;
-using Domain.Value_Objects;
-using FootballManager.Admin.Utility;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -29,7 +27,7 @@ namespace FootballManager.Admin.ViewModel
 
         public string Name
         {
-            get { return this.player?.Name?.ToString() ?? "suck..."; }
+            get { return this.player?.Name?.ToString() ?? "Player name unknown"; }
             set
             {
                 if (this.name != value)
@@ -39,6 +37,7 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
+
         public int ShirtNumber
         {
             get { return this.shirtNumber; }
@@ -92,8 +91,8 @@ namespace FootballManager.Admin.ViewModel
         {
             this.player = player;
             this.Name = player.Name.ToString();
+            this.SelectedPlayerPosition = player.Position;
+            this.SelectedPlayerStatus = player.Status;
         }
-
-        
     }
 }

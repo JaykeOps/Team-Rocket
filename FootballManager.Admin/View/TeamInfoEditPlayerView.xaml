@@ -47,15 +47,15 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name, Mode=OneWay}"  />
-            <Label Grid.Row="2" Grid.Column="0" Content="Last name:" />
-            <Label Grid.Row="4" Grid.Column="0" Content="Position:" />
-            <Label Grid.Row="5" Grid.Column="0" Content="Status:" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LastName, Mode=TwoWay}" />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DateOfBirth, Mode=TwoWay}" />
-            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerPosition}" 
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name, Mode=OneWay}" FontSize="24" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Shirt number:" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
+            <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber.Value, 
+                Converter={StaticResource ShirtNumberConverter}}" />
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPosition}" 
                       SelectedValue="{Binding SelectedPlayerPosition, Mode=TwoWay}" />
-            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding PlayerStatus}"
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatus}"
                       SelectedValue="{Binding SelectedPlayerStatus, Mode=TwoWay}" />
 
             <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
