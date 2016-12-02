@@ -35,16 +35,25 @@ namespace FootballManager.Admin.ViewModel
         private string awayTeamResult;
 
         private ICommand addPlayerToActivePlayersCommand;
+        private ICommand removePlayerFromActivePlayersCommand;
 
         public SeriesGameProtocolViewModel()
         {
             this.teamService = new TeamService();
             this.gameService = new GameService();
             this.playerService = new PlayerService();
+
+            homeTeamPlayerCollection = new ObservableCollection<Player>();
+            awayTeamPlayerCollection = new ObservableCollection<Player>();
+            homeTeamActivePlayerCollection = new ObservableCollection<Player>();
+            awayTeamActivePlayerCollection = new ObservableCollection<Player>();
+
             Messenger.Default.Register<Match>(this, this.OnMatchObjReceived);
         }
 
-        #region Protocol top section
+
+
+        #region Properties
         public string HomeTeamName
         {
             get { return this.homeTeamName; }
@@ -82,6 +91,31 @@ namespace FootballManager.Admin.ViewModel
             {
                 this.awayTeamResult = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public ICommand AddPlayerToActivePlayersCommand
+        {
+            get
+            {
+                if (this.addPlayerToActivePlayersCommand == null)
+                {
+                    this.addPlayerToActivePlayersCommand = new RelayCommand(AddPlayerToActivePlayers);
+                }
+                return this.addPlayerToActivePlayersCommand;
+            }
+        }
+
+        public ICommand RemovePlayerFromActivePlayersCommand
+        {
+            get
+            {
+                if (this.removePlayerFromActivePlayersCommand == null)
+                {
+                    this.removePlayerFromActivePlayersCommand = new RelayCommand(RemovePlayerFromActivePlayers);
+                }
+                return removePlayerFromActivePlayersCommand;
+
             }
         }
         #endregion
@@ -128,20 +162,7 @@ namespace FootballManager.Admin.ViewModel
         }
         #endregion
 
-
-
-        public ICommand AddPlayerToActivePlayersCommand
-        {
-            get
-            {
-                if (this.addPlayerToActivePlayersCommand == null)
-                { 
-                    this.addPlayerToActivePlayersCommand = new RelayCommand(AddPlayerToActivePlayers);
-                }
-                return this.addPlayerToActivePlayersCommand;
-            }
-        }
-
+        #region Methods 
         private void AddPlayerToActivePlayers(object playerObj)
         {
             if (playerObj == null) return;
@@ -151,15 +172,29 @@ namespace FootballManager.Admin.ViewModel
                 HomeTeamPlayerCollection.Remove(player);
                 HomeTeamActivePlayerCollection.Add(player);                                              
             }
-            else if (player.TeamId == newGame.AwayTeamId)
+            if (player.TeamId == newGame.AwayTeamId)
             {
                 AwayTeamPlayerCollection.Remove(player);
                 AwayTeamActivePlayerCollection.Add(player);
             }           
         }
 
-
-        #region Methods              
+        private void RemovePlayerFromActivePlayers(object playerObj)
+        {
+            if (playerObj == null) return;
+            Player player = (Player)playerObj;
+            if (player.TeamId == newGame.HomeTeamId)
+            {                
+                HomeTeamActivePlayerCollection.Remove(player);
+                HomeTeamPlayerCollection.Add(player);
+            }
+            if (player.TeamId == newGame.AwayTeamId)
+            {
+                AwayTeamActivePlayerCollection.Remove(player);
+                AwayTeamPlayerCollection.Add(player);                
+            }
+        }
+                     
         private void OnMatchObjReceived(Match match)
         {            
             this.newGame = new Game(match);
