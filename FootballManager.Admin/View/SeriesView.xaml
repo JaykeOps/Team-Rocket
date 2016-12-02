@@ -93,9 +93,6 @@
 
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SeriesName}"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MatchDuration}"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" 
-                                  SelectedValue="{Binding SelectedNumberOfTeams}"
-                                  ItemsSource="{Binding NumberOfTeamsList}" />
 
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
@@ -121,7 +118,9 @@
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </TextBox>
-                        <ComboBox Grid.Row="2" Grid.Column="1" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" 
+                                  SelectedValue="{Binding SelectedNumberOfTeams}"
+                                  ItemsSource="{Binding NumberOfTeamsList}" />
 
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
