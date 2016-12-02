@@ -64,10 +64,8 @@
                 <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Converter={StaticResource ShirtNumberConverter}}" />
                 <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
                 <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
-                <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
