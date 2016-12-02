@@ -189,10 +189,17 @@ namespace Domain.Services
             var expoPlayers = this.Search(searchText);
             return expoPlayers.Cast<Player>().SelectMany(player => player.AggregatedStats.AllStats.Values);
         }
-        public IEnumerable<IExposablePlayer> GetAllPlayersInTeam(Guid teamId)
+
+        public IEnumerable<IExposablePlayer> GetAllExposablePlayersInTeam(Guid teamId)
         {
             var players = GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
         }
+        public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
+        {
+            var players = GetAllPlayers();
+            return players.Where(player => player.TeamId == teamId).ToList();
+        }
+
     }
 }
