@@ -45,9 +45,42 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Date:" />
             <Label Grid.Row="2" Grid.Column="0" Content="Time:" />
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            
+            <!--<DatePicker Grid.Row="1" Grid.Column="1" DisplayDateStart="{Binding DataContext.Today, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleEditView}}}" />-->
+            
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.MatchDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.MatchTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
