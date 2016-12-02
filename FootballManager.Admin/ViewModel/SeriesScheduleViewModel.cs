@@ -12,16 +12,20 @@ using FootballManager.Admin.View;
 using Domain.Entities;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
+using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class SeriesScheduleViewModel : ViewModelBase
     {
         private ObservableCollection<Series> allSeries;
+        private ObservableCollection<Match> selectedSeriesSchedule;
+        private Series selectedSeries;
         private SeriesService seriesService;
 
         public SeriesScheduleViewModel()
         {
+            selectedSeriesSchedule = new ObservableCollection<Match>();
             seriesService = new SeriesService();
             Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
             Load();            
@@ -33,6 +37,27 @@ namespace FootballManager.Admin.ViewModel
             set
             {
                 allSeries = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Series SelectedSeries
+        {
+            get { return selectedSeries; }
+            set
+            {
+                selectedSeries = value;
+                OnPropertyChanged();
+                SelectedSeriesSchedule = selectedSeries.Schedule.ToObservableCollection();
+            }
+        }
+
+        public ObservableCollection<Match> SelectedSeriesSchedule
+        {
+            get { return selectedSeriesSchedule; }
+            set
+            {
+                selectedSeriesSchedule = value;
                 OnPropertyChanged();
             }
         }

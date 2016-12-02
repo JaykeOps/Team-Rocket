@@ -48,7 +48,7 @@
             <Label Content="Series:" />
 
             <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}" 
-                    SelectedItem="{Binding Test, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
+                    SelectedItem="{Binding SelectedSeries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                 
                 
             </ComboBox>
@@ -68,17 +68,18 @@
 
         <!--Margin: Left, Top, Right, Bottom-->
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding}"                    
+                    ItemsSource="{Binding SelectedSeriesSchedule, UpdateSourceTrigger=PropertyChanged}"                    
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                     SelectionMode="Extended"
                     CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Round" Binding="{Binding}" />
-                <DataGridTextColumn Header="Match" Binding="{Binding}" />
-                <DataGridTextColumn Header="Arena" Binding="{Binding}" />
-                <DataGridTextColumn Header="Date" Binding="{Binding StringFormat=yyyy-MM-dd}" />
-                <DataGridTextColumn Header="Time" Binding="{Binding StringFormat=yyyy-MM-dd}" />
+                <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" />
+                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
+                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
+                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
