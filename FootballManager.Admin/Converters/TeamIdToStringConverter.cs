@@ -9,10 +9,11 @@ namespace FootballManager.Admin.Converters
 {
     public class TeamIdToStringConverter : IValueConverter
     {
-        private readonly TeamService teamService = new TeamService();
+        
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            TeamService teamService = new TeamService();
             if (value == null)
             {
                 return null;
@@ -20,18 +21,14 @@ namespace FootballManager.Admin.Converters
             else
             {
                 var team = teamService.FindTeamById((Guid) value);
-                return team == null ? null : team.Name.Value;
+                return team?.Name.Value;
             }
 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var teams = teamService.GetAllTeams();
-
-            var result = teams.First(x => x == (Team) value).Id; // Isn't value supposed to be of type teamName?
-
-            return result;
+            throw new NotImplementedException();
         }
     }
 }
