@@ -116,7 +116,9 @@
 
             <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
                 <Label Content="Home team" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Content="+" Margin="10,5,10,5" HorizontalAlignment="Right"/>
+                <Button Command="{Binding AddPlayerToActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamPlayerListBox, Path=SelectedValue}"
+                    Content="+" Margin="10,5,10,5" HorizontalAlignment="Right"/>
             </DockPanel>
 
             <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
@@ -124,16 +126,19 @@
                 <Button Content="-" Margin="10,5,10,5" HorizontalAlignment="Right"/>
             </DockPanel>
 
-            <ListBox Grid.Row="1" Grid.Column="0" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
-            </ListBox>
-            <ListBox Grid.Row="1" Grid.Column="1" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
-            </ListBox>
+            <ListBox Grid.Row="1" Grid.Column="0"
+                     x:Name="HomeTeamPlayerListBox"
+                     ItemsSource="{Binding HomeTeamPlayerCollection}"                     
+                     Width="150" 
+                     Height="400" 
+                     Margin="2,0,2,0" />
+
+            <ListBox Grid.Row="1" Grid.Column="1" 
+                     x:Name="HomeTeamActivePlayer"
+                     ItemsSource="{Binding HomeTeamActivePlayerCollection}"
+                     Width="150" 
+                     Height="400" 
+                     Margin="2,0,2,0" />
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2,0,2,0">
@@ -191,16 +196,16 @@
             </DockPanel>
 
             <ListBox Grid.Row="1" Grid.Column="0" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
+                <ListBoxItem>Aktiv Spelare 1</ListBoxItem>
+                <ListBoxItem>Aktiv Spelare 2</ListBoxItem>
+                <ListBoxItem>Aktiv Spelare 3</ListBoxItem>
             </ListBox>
 
-            <ListBox Grid.Row="1" Grid.Column="1" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
-            </ListBox>
+            <ListBox Grid.Row="1" Grid.Column="1"
+                     ItemsSource="{Binding AwayTeamPlayerCollection}"
+                     Width="150" 
+                     Height="400" 
+                     Margin="2,0,2,0" />
         </Grid>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />

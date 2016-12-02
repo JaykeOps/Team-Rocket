@@ -9,6 +9,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using Domain.Value_Objects;
+using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 
 namespace FootballManager.Admin.ViewModel
@@ -19,10 +20,10 @@ namespace FootballManager.Admin.ViewModel
         private GameService gameService;
         private PlayerService playerService;
 
-        private ObservableCollection<IExposablePlayer> homeTeamPlayerCollection;
-        private ObservableCollection<IExposablePlayer> awayTeamPlayerCollection;
-        private ObservableCollection<IExposablePlayer> homeTeamActivePlayerCollection;
-        private ObservableCollection<IExposablePlayer> awayTeamActivePlayerCollection;
+        private ObservableCollection<Player> homeTeamPlayerCollection;
+        private ObservableCollection<Player> awayTeamPlayerCollection;
+        private ObservableCollection<Player> homeTeamActivePlayerCollection;
+        private ObservableCollection<Player> awayTeamActivePlayerCollection;
 
         private ObservableCollection<string> eventsCollection;
 
@@ -32,6 +33,8 @@ namespace FootballManager.Admin.ViewModel
         private string awayTeamName;
         private string homeTeamResult;
         private string awayTeamResult;
+
+        private ICommand addPlayerToActivePlayersCommand;
 
         public SeriesGameProtocolViewModel()
         {
@@ -83,14 +86,76 @@ namespace FootballManager.Admin.ViewModel
         }
         #endregion
 
-        public ObservableCollection<IExposablePlayer> HomeTeamPlayerCollection
+        #region Collections        
+        public ObservableCollection<Player> HomeTeamPlayerCollection
         {
-            get { return homeTeamPlayerCollection; }
+            get { return this.homeTeamPlayerCollection; }
             set
             {
-                homeTeamPlayerCollection = value;
+                this.homeTeamPlayerCollection = value;
                 OnPropertyChanged();
             }
+        }
+
+        public ObservableCollection<Player> AwayTeamPlayerCollection
+        {
+            get { return this.awayTeamPlayerCollection; }
+            set
+            {
+                this.awayTeamPlayerCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Player> HomeTeamActivePlayerCollection
+        {
+            get { return homeTeamActivePlayerCollection; }
+            set
+            {
+                homeTeamActivePlayerCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Player> AwayTeamActivePlayerCollection
+        {
+            get { return awayTeamActivePlayerCollection; }
+            set
+            {
+                awayTeamActivePlayerCollection = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+
+
+        public ICommand AddPlayerToActivePlayersCommand
+        {
+            get
+            {
+                if (this.addPlayerToActivePlayersCommand == null)
+                { 
+                    this.addPlayerToActivePlayersCommand = new RelayCommand(AddPlayerToActivePlayers);
+                }
+                return this.addPlayerToActivePlayersCommand;
+            }
+        }
+
+        private void AddPlayerToActivePlayers(object playerObj)
+        {
+            if (playerObj == null) return;
+            Player player = (Player)playerObj;
+            if (player.TeamId == newGame.HomeTeamId)
+            {
+                HomeTeamPlayerCollection.Remove(player);
+                HomeTeamActivePlayerCollection.Add(player);                                              
+            }
+            else if (player.TeamId == newGame.AwayTeamId)
+            {
+                AwayTeamPlayerCollection.Remove(player);
+                AwayTeamActivePlayerCollection.Add(player);
+            }           
         }
 
 
@@ -98,11 +163,11 @@ namespace FootballManager.Admin.ViewModel
         private void OnMatchObjReceived(Match match)
         {            
             this.newGame = new Game(match);
-            HomeTeamName = this.teamService.FindTeamById(newGame.Protocol.HomeTeamId).Name.Value;
-            AwayTeamName = this.teamService.FindTeamById(newGame.Protocol.AwayTeamId).Name.Value;
+            HomeTeamName = this.teamService.FindTeamById(newGame.HomeTeamId).Name.Value;
+            AwayTeamName = this.teamService.FindTeamById(newGame.AwayTeamId).Name.Value;
             
-            //Fyll team listan med spelare - hemma/borta lagen
-            
+            HomeTeamPlayerCollection = playerService.GetAllPlayersInTeam(newGame.HomeTeamId).ToObservableCollection();
+            AwayTeamPlayerCollection = playerService.GetAllPlayersInTeam(newGame.AwayTeamId).ToObservableCollection();
 
             // Får flyttas till add goal kommandot för annars hämtar man null
             //HomeTeamResult = newGame.Protocol.GameResult.HomeTeamScore.ToString();

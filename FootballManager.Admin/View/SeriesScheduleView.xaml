@@ -91,7 +91,7 @@
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
                                     Command="{Binding Path=DataContext.OpenCreateSeriesGameProtocolViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
-                                <materialDesign:PackIcon Kind="Delete" />
+                                <materialDesign:PackIcon Kind="PlusBox" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
