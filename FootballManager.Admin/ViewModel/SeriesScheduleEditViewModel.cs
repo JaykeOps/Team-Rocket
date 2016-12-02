@@ -114,18 +114,5 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-
-        //public DateTime Today
-        //{
-        //    get { return today; }
-        //    set
-        //    {
-        //        if (today != DateTime.Today)
-        //        {
-        //            today = DateTime.Today;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
     }
 }
