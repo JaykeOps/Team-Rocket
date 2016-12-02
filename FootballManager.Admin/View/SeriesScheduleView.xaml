@@ -62,7 +62,8 @@
 
         <!--Margin: Left, Top, Right, Bottom-->
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding MatchesBySeriesCollection}"                    
+                    ItemsSource="{Binding MatchesBySeriesCollection}"
+                    SelectedItem="{Binding SelectedMatch}"
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                     SelectionMode="Extended"
@@ -71,15 +72,15 @@
                 <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" />
                 <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
                 <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay}" />
-                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay}" />
-                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay}" />
+                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.EditRound, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                    Command="{Binding Path=DataContext.OpenSeriesScheduleEditViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
                             </Button>
                         </DataTemplate>
