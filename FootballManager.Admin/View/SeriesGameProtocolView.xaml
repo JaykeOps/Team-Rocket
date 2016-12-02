@@ -82,14 +82,18 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="1" Content="Goal" />
+                <Button Grid.Row="0" Grid.Column="1"
+                        Command="{Binding AddGoalToGameCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamActivePlayerListBox, Path=SelectedValue}"
+                        Content="Goal" />
                 <Button Grid.Row="0" Grid.Column="2" Content="Penalty" />
                 <Button Grid.Row="0" Grid.Column="3" Content="Assist" />
                 <Button Grid.Row="0" Grid.Column="4" Content="Red" />
                 <Button Grid.Row="0" Grid.Column="5" Content="Yellow" />
                 
                 <Label Grid.Row="1" Grid.Column="0" Content="Time: "/>
-                <TextBox Grid.Row="1" Grid.Column="1" />
+                <TextBox Grid.Row="1" Grid.Column="1"
+                         Text="{Binding GetGoalMatchMinute}" />
                 <TextBox Grid.Row="1" Grid.Column="2" />
                 <TextBox Grid.Row="1" Grid.Column="3" />
                 <TextBox Grid.Row="1" Grid.Column="4" />
@@ -142,6 +146,7 @@
             <ListBox Grid.Row="1" Grid.Column="1" 
                      x:Name="HomeTeamActivePlayerListBox"
                      ItemsSource="{Binding HomeTeamActivePlayerCollection}"
+                     SelectedItem="{Binding SelectedHomeTeamActivePlayer}"
                      Width="150" 
                      Height="400" 
                      Margin="2,0,2,0" />
@@ -212,6 +217,7 @@
             <ListBox Grid.Row="1" Grid.Column="0"
                      x:Name="AwayTeamActivePlayerListBox"
                      ItemsSource="{Binding AwayTeamActivePlayerCollection}"
+                     SelectedItem="{Binding SelectedAwayTeamActivePlayer}"
                      Width="150" Height="400" Margin="2,0,2,0" />
 
             <ListBox Grid.Row="1" Grid.Column="1"
