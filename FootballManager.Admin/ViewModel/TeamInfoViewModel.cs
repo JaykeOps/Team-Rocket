@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+using FootballManager.Admin.Utility;
+using FootballManager.Admin.View;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -16,6 +16,7 @@ namespace FootballManager.Admin.ViewModel
         private ObservableCollection<Series> seriesCollection;
         private ObservableCollection<IExposableTeam> teamsBySeriesCollection;
         private ObservableCollection<IExposablePlayer> playersByTeamCollection;
+        private ICommand openTeamInfoEditPlayerViewCommand;
 
         private SeriesService seriesService;
         private TeamService teamService;
@@ -41,6 +42,24 @@ namespace FootballManager.Admin.ViewModel
         }
 
         #region Properties
+
+        public ICommand OpenTeamInfoEditPlayerViewCommand
+        {
+            get
+            {
+                return this.openTeamInfoEditPlayerViewCommand ??
+                  (this.openTeamInfoEditPlayerViewCommand = new RelayCommand(this.OpenTeamInfoEditPlayerView));
+            }
+        }
+
+        private void OpenTeamInfoEditPlayerView(object obj)
+        {
+            var player = (IExposablePlayer) obj;
+            var teamInfoPlayerEditView = new TeamInfoEditPlayerView();
+            Messenger.Default.Send(player);
+            teamInfoPlayerEditView.ShowDialog();
+        }
+
         public string ArenaName
         {
             get { return this.arenaName; }
@@ -88,9 +107,11 @@ namespace FootballManager.Admin.ViewModel
                 FilterPlayersByTeam();
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Collections
+
         public ObservableCollection<Series> SeriesCollection
         {
             get { return this.seriesCollection; }
@@ -120,9 +141,11 @@ namespace FootballManager.Admin.ViewModel
                 this.OnPropertyChanged();
             }
         }
-        #endregion
 
-        #region Methods              
+        #endregion Collections
+
+        #region Methods
+
         private void FilterTeamsBySeries()
         {
             var teams = new List<IExposableTeam>();
@@ -136,7 +159,7 @@ namespace FootballManager.Admin.ViewModel
                     teams.Add(team);
                 }
             }
-            TeamsBySeriesCollection = teams.ToObservableCollection();            
+            TeamsBySeriesCollection = teams.ToObservableCollection();
         }
 
         private void FilterPlayersByTeam()
@@ -149,20 +172,21 @@ namespace FootballManager.Admin.ViewModel
                 foreach (var id in playerIds)
                 {
                     //TODO Behöver ha IExposablePlayerById
-                    var player = (IExposablePlayer) playerService.FindById(id);
+                    var player = (IExposablePlayer)playerService.FindById(id);
                     players.Add(player);
                 }
 
                 PlayersByTeamCollection = players.ToObservableCollection();
                 ArenaName = SelectedTeam.ArenaName.Value;
                 Email = SelectedTeam.Email.Value;
-            }            
+            }
         }
 
         public void LoadData()
         {
             this.SeriesCollection = this.seriesService.GetAll().ToObservableCollection();
         }
-        #endregion
+
+        #endregion Methods
     }
 }

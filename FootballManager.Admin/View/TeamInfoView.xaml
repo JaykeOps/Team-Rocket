@@ -70,8 +70,9 @@
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}">
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                Command="{Binding Path=DataContext.OpenTeamInfoEditPlayerViewCommand, 
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
                             </Button>
                         </DataTemplate>
@@ -81,8 +82,7 @@
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}">
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}">
                                 <materialDesign:PackIcon Kind="Delete" />
                             </Button>
                         </DataTemplate>

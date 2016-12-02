@@ -43,5 +43,6 @@ namespace FootballManager.App
         {
             get { return new MatchProtocolViewModel(); }
         }
+
     }
 }
