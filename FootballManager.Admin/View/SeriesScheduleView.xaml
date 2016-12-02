@@ -79,7 +79,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.EditRound, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                    Command="{Binding Path=DataContext.OpenSeriesScheduleEditViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
                             </Button>
                         </DataTemplate>
@@ -89,8 +89,8 @@
                 <DataGridTemplateColumn Header="Create Protocol">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.CreateProtocol, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
+                                    Command="{Binding Path=DataContext.OpenCreateSeriesGameProtocolViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
                                 <materialDesign:PackIcon Kind="Delete" />
                             </Button>
                         </DataTemplate>

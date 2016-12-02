@@ -13,6 +13,12 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesGameProtocolViewModel}">
     <Grid Margin="5" HorizontalAlignment="Center">
+        <Grid.Resources>
+            <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+            <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+            <Style BasedOn="{StaticResource GameProtocolListBoxStyle}" TargetType="{x:Type ListBox}" />
+            <Style BasedOn="{StaticResource GameListFlatButton}" TargetType="{x:Type Button}" />
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -47,13 +53,13 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Home Team" HorizontalAlignment="Center" FontSize="30"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="{Binding HomeTeamName, FallbackValue=Home Team}" HorizontalAlignment="Center" FontSize="30"/>
                 <Label Grid.Row="0" Grid.Column="1" Content="   -   " HorizontalAlignment="Center" FontSize="30"/>
-                <Label Grid.Row="0" Grid.Column="2" Content="Away Team" HorizontalAlignment="Center" FontSize="30"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="{Binding AwayTeamName, FallbackValue=Away Team}" HorizontalAlignment="Center" FontSize="30"/>
                 
-                <Label Grid.Row="1" Grid.Column="0" Content="0" HorizontalAlignment="Center" FontSize="30"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="{Binding HomeTeamResult, FallbackValue=0}" HorizontalAlignment="Center" FontSize="30"/>
                 <Label Grid.Row="1" Grid.Column="1" Content="   -   " HorizontalAlignment="Center" FontSize="30"/>
-                <Label Grid.Row="1" Grid.Column="2" Content="0" HorizontalAlignment="Center" FontSize="30"/>
+                <Label Grid.Row="1" Grid.Column="2" Content="{Binding AwayTeamResult, FallbackValue=0}" HorizontalAlignment="Center" FontSize="30"/>
 
             </Grid>
 
@@ -196,8 +202,10 @@
                 <ListBoxItem>Spelare 3</ListBoxItem>
             </ListBox>
         </Grid>
-
-        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Save Game Protocol" Margin="10"  HorizontalAlignment="Right"/>
-        
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
+            <TextBox VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}"/>
+            <Button  Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+        </StackPanel>
     </Grid>
 </Window>
