@@ -249,6 +249,15 @@ namespace Domain.Services
             oldTeam?.UpdatePlayerIds();
         }
 
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
+        {
+            var player = (Player)exposablePlayer;
+            var newteam = DomainService.FindTeamById(newTeamId);
+            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
+            player.UpdateTeamAffiliation(newteam);
+            oldTeam?.UpdatePlayerIds();
+        }
+
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
         {
             var expoPlayers = this.Search(searchText);
@@ -257,13 +266,20 @@ namespace Domain.Services
 
         public IEnumerable<IExposablePlayer> GetAllExposablePlayersInTeam(Guid teamId)
         {
-            var players = GetAllPlayers();
+            var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
         }
         public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
         {
-            var players = GetAllPlayers();
+            var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
+        }
+
+        public IEnumerable<IExposablePlayer> SearchForTeamlessPlayers(string searchText)
+        {
+            var players = this.GetAllPlayers().ToList();
+            return players.Where(x => x.TeamId == Guid.Empty);
+
         }
 
     }
