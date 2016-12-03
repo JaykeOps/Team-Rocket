@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Domain.Entities;
+using Domain.Services;
 
 namespace FootballManager.App.View
 {
@@ -19,9 +21,12 @@ namespace FootballManager.App.View
     /// </summary>
     public partial class MatchView : UserControl
     {
+      
+
         public MatchView()
         {
             this.InitializeComponent();
+            
         }
     }
 }

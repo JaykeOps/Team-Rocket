@@ -26,7 +26,7 @@
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+           
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -35,7 +35,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--<ItemsControl Grid.Row="0" Grid.Column="0">-->
+        
         <dragablz:TabablzControl>
             <TabItem Header="Series Table">
                 <Grid>
@@ -49,111 +49,34 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series:" />
-                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox x:Name="CbLeagueTable"  IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
+                                  ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                  SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
-                    <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
-                    </StackPanel>-->
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Player -->
+                   
 
-                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding }" 
+                    <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0" 
+                              ItemsSource="{Binding LeagueTable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                              
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Matches Played" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Wins" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Draws" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Losses" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Goals For" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Goals Against" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Points" Binding="{Binding }" />
-
-                            <!--<DataGridTemplateColumn Header="Position">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Position}" />
-                                        -->
-                            <!-- Bugg i Datagrid, Position funkar här ändå, kommer från Players -->
-                            <!--
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Status">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Status}" />
-                                        -->
-                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
-                            <!--
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.PlayerStatuses, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Team">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" />
-                                        -->
-                            <!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players -->
-                            <!--
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Edit">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                                Command="{Binding Path=DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                            <materialDesign:PackIcon Kind="Pen" />
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTemplateColumn Header="Delete">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                                Command="{Binding Path=DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                            <materialDesign:PackIcon Kind="Delete" />
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>-->
-
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Wins" Binding="{Binding Wins, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Draws" Binding="{Binding Draws, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Losses" Binding="{Binding Losses, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goals For" Binding="{Binding GoalsFor, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference, Mode =OneWay}" />
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points, Mode=OneWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <!-- End Region Display Player -->
+               
             </TabItem>
             <TabItem Header="Series Stats">
                 <Grid>
@@ -165,9 +88,10 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
-                        <Label Content="Choose Series:" />
-                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Label Content="Series:" />
+                        <ComboBox IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
+                                  ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <Grid x:Name="multiDataGridContainer" Grid.Column="0" Grid.Row="1">
                         <Grid.RowDefinitions>
@@ -189,17 +113,17 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Scorers" TextAlignment="Center"/>
-                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="10" 
-                              ItemsSource="{Binding }" 
+                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
+                              ItemsSource="{Binding TopScorers}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Goals" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -214,16 +138,16 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Assists" TextAlignment="Center"/>
                             <DataGrid x:Name="topAssistsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding }" 
+                              ItemsSource="{Binding TopAssists}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Assists" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay }" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding  TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -238,16 +162,16 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Yellow Cards" TextAlignment="Center"/>
                             <DataGrid x:Name="topYellowCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding }" 
+                              ItemsSource="{Binding TopYellowCards }" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -262,16 +186,16 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Red Cards" TextAlignment="Center"/>
                             <DataGrid x:Name="topRedCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding }" 
+                              ItemsSource="{Binding TopRedCards}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding }" />
-                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding }" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -279,7 +203,6 @@
                 </Grid>
             </TabItem>
         </dragablz:TabablzControl>
-        <!--</ItemsControl>-->
     </Grid>
 </UserControl>
 

@@ -15,6 +15,8 @@
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
             Height="700" Width="980"
             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleViewModel}">
+
+
     <Grid>
         <Grid.Resources>
             <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
@@ -27,6 +29,7 @@
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -44,8 +47,11 @@
                     Height="60">
             <Label Content="Series:" />
 
-            <ComboBox ItemsSource="{Binding SeriesCollection}" 
-                    SelectedItem="{Binding SelectedSeries}" />
+            <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectedItem="{Binding test, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
+                
+                
+            </ComboBox>
             
             <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
                                 Content="Temp: Open Edit" 
@@ -62,24 +68,23 @@
 
         <!--Margin: Left, Top, Right, Bottom-->
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding MatchesBySeriesCollection}"                    
+                    ItemsSource="{Binding}"                    
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                     SelectionMode="Extended"
                     CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" />
-                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay}" />
-                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay}" />
-                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay}" />
+                <DataGridTextColumn Header="Round" Binding="{Binding}" />
+                <DataGridTextColumn Header="Match" Binding="{Binding}" />
+                <DataGridTextColumn Header="Arena" Binding="{Binding}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding StringFormat=yyyy-MM-dd}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding StringFormat=yyyy-MM-dd}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.OpenSeriesScheduleEditViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                    Command="{Binding Path=DataContext.EditRound, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
                             </Button>
                         </DataTemplate>
@@ -89,9 +94,9 @@
                 <DataGridTemplateColumn Header="Create Protocol">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
-                                    Command="{Binding Path=DataContext.OpenCreateSeriesGameProtocolViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
-                                <materialDesign:PackIcon Kind="PlusBox" />
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
+                                    Command="{Binding Path=DataContext.CreateProtocol, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                <materialDesign:PackIcon Kind="Delete" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
