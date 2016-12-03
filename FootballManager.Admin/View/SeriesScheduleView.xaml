@@ -46,17 +46,6 @@
 
             <ComboBox ItemsSource="{Binding SeriesCollection}" 
                     SelectedItem="{Binding SelectedSeries}" />
-            
-            <Button Command="{Binding OpenSeriesScheduleEditViewCommand}" 
-                                Content="Temp: Open Edit" 
-                                Style="{StaticResource FlatButton}" 
-                                VerticalAlignment="Center" 
-                                Margin="40,0,0,0" />
-            <Button Command="{Binding OpenSeriesGameProtocolViewCommand}" 
-                                Content="Temp: Open Create Protocol" 
-                                Style="{StaticResource FlatButton}" 
-                                VerticalAlignment="Center" 
-                                Margin="40,0,0,0" />
         </StackPanel>
 
 
