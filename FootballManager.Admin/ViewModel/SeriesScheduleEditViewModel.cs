@@ -60,50 +60,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void SaveEditMatch(object obj)
         {
-            
-            
-            if (NewLocation == null)
-            {
-                this.matchToEdit.Location = this.matchToEdit.Location;
-            }
-            else
-            {
-                this.matchToEdit.Location = new ArenaName(newLocation);
-            }
-
-            if (NewTime == null)
-            {
-                var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
-                var matchOldTime = matchDateAndTime.ToString("HH:mm");
-                var matchDateToSet = Convert.ToDateTime(this.newDate + " " + matchOldTime);
-                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
-            }
-            else
-            {
-                this.matchToEdit.MatchDate = this.matchToEdit.MatchDate;
-            }
-
-            if (NewDate == null)
-            {
-                var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
-                var matchOldDate = matchDateAndTime.ToString("yyyy-MM-dd");
-                var matchDateToSet = Convert.ToDateTime(matchOldDate + " " + this.newTime);
-                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
-            }
-            else
-            {
-                this.matchToEdit.MatchDate = this.matchToEdit.MatchDate;
-            }
-
-            if (NewDate != null && NewTime != null)
-            {
-                DateTime matchDateToSet = Convert.ToDateTime(this.newDate + " " + this.newTime);
-                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
-            }
-            else
-            {
-                this.matchToEdit.MatchDate = this.matchToEdit.MatchDate;
-            }
+            InputCheck();
 
             Window window = Application.Current.Windows.OfType<Window>()
                 .Where(w => w.Title == "Edit match").FirstOrDefault();
@@ -116,6 +73,42 @@ namespace FootballManager.Admin.ViewModel
         private void OnMatchObjReceived(Match obj)
         {
             this.matchToEdit = obj;
+        }
+
+        private void InputCheck()
+        {
+            if (NewLocation == null)
+            {
+                this.matchToEdit.Location = this.matchToEdit.Location;
+            }
+            else
+            {
+                this.matchToEdit.Location = new ArenaName(newLocation);
+            }
+
+            if (NewDate == null && NewTime == null)
+            {
+                this.matchToEdit.MatchDate = this.matchToEdit.MatchDate;
+            }
+            else if (NewTime == null)
+            {
+                var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
+                var matchOldTime = matchDateAndTime.ToString("HH:mm");
+                var matchDateToSet = Convert.ToDateTime(this.newDate + " " + matchOldTime);
+                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
+            }
+            else if (NewDate == null)
+            {
+                var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
+                var matchOldDate = matchDateAndTime.ToString("yyyy-MM-dd");
+                var matchDateToSet = Convert.ToDateTime(matchOldDate + " " + this.newTime);
+                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
+            }
+            else
+            {
+                var matchDateToSet = Convert.ToDateTime(this.newDate + " " + this.newTime);
+                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
+            }
         }
     }
 }
