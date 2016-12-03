@@ -26,7 +26,7 @@
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+           
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -35,7 +35,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--<ItemsControl Grid.Row="0" Grid.Column="0">-->
+        
         <dragablz:TabablzControl>
             <TabItem Header="Series Table">
                 <Grid>
@@ -49,14 +49,12 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series:" />
-                        <ComboBox x:Name="CbLeagueTable" ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
-                                                  SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox x:Name="CbLeagueTable"  IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
+                                  ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                  SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
-                    <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
-                    </StackPanel>-->
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Player -->
+                   
 
                     <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding LeagueTable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
@@ -66,8 +64,6 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <!--DataGridTextColumn Header="Ranking" Binding="{Binding }" /-->
                             <DataGridTextColumn Header="Team" Binding="{Binding TeamName}" />
                             <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed}" />
                             <DataGridTextColumn Header="Wins" Binding="{Binding Wins}" />
@@ -77,8 +73,6 @@
                             <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst}" />
                             <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference}" />
                             <DataGridTextColumn Header="Points" Binding="{Binding Points}" />
-
-                           
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -94,9 +88,10 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
-                        <Label Content="Choose Series:" />
-                        <ComboBox x:Name="CbPlayerStats" ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
-                                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Label Content="Series:" />
+                        <ComboBox IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
+                                  ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <Grid x:Name="multiDataGridContainer" Grid.Column="0" Grid.Row="1">
                         <Grid.RowDefinitions>

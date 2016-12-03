@@ -50,8 +50,6 @@ namespace FootballManager.App.ViewModel
 
                 this.topScorers = value;
                 OnPropertyChanged();
-
-
             }
         }
 
