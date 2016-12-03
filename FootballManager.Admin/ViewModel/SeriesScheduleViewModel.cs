@@ -13,6 +13,7 @@ using Domain.Entities;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using Domain.Helper_Classes;
+using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -20,6 +21,7 @@ namespace FootballManager.Admin.ViewModel
     {
         private ObservableCollection<Series> seriesCollection;
         private ObservableCollection<Match> matchesBySeriesCollection;
+        private Match selectedMatch;
 
         private SeriesService seriesService;
 
@@ -35,7 +37,6 @@ namespace FootballManager.Admin.ViewModel
             seriesService = new SeriesService();
 
             Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
-
             LoadData();            
         }
 
@@ -76,6 +77,16 @@ namespace FootballManager.Admin.ViewModel
         }
         #endregion
 
+        public Match SelectedMatch
+        {
+            get { return selectedMatch; }
+            set
+            {
+                selectedMatch = value;
+                OnPropertyChanged();
+            }
+        }
+
         #region Collections               
         public ObservableCollection<Series> SeriesCollection
         {
@@ -94,6 +105,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 matchesBySeriesCollection = value;
                 OnPropertyChanged();
+                matchesBySeriesCollection = value;
             }
         }
         #endregion
@@ -119,7 +131,10 @@ namespace FootballManager.Admin.ViewModel
         private void OpenSeriesScheduleEditView(object obj)
         {
             var view = new SeriesScheduleEditView();
+            Messenger.Default.Send<Match>(this.selectedMatch);
             view.ShowDialog();
+
+            this.MatchesBySeriesCollection = this.SelectedSeries.Schedule.ToObservableCollection();
         }
 
         private void OnSeriesObjReceived(Series serie)
