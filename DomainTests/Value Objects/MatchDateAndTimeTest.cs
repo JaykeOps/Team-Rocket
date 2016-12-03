@@ -44,7 +44,7 @@ namespace DomainTests.Value_Objects
         public void MatchDateAndTimeTryParseCanReturnTrue()
         {
             MatchDateAndTime result;
-            Assert.IsTrue(MatchDateAndTime.TryParse("2016-12-02 19:30", out result));
+            Assert.IsTrue(MatchDateAndTime.TryParse("2016-12-30 19:30", out result));
         }
 
         [TestMethod]
@@ -58,8 +58,8 @@ namespace DomainTests.Value_Objects
         public void MatchDateAndTimeCanOutValidResult()
         {
             MatchDateAndTime result;
-            MatchDateAndTime.TryParse("2016-12-02 19:30", out result);
-            Assert.IsTrue($"{result.Value:yyyy-MM-dd HH:mm}" == "2016-12-02 19:30");
+            MatchDateAndTime.TryParse("2016-12-30 19:30", out result);
+            Assert.IsTrue($"{result.Value:yyyy-MM-dd HH:mm}" == "2016-12-30 19:30");
         }
 
         [TestMethod]

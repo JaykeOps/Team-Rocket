@@ -77,8 +77,8 @@ namespace Domain.Entities
 
         public void UpdateTeamAffiliation(Team newTeam)
         {
-            this.TeamId = newTeam.Id;
-            this.affiliatedTeamName = newTeam.Name;
+            this.TeamId = newTeam?.Id ?? Guid.Empty;
+            this.affiliatedTeamName = newTeam?.Name ?? new TeamName("Unaffiliated");
         }
 
        

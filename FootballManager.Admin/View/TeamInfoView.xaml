@@ -61,19 +61,18 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Converter={StaticResource ShirtNumberConverter}}" />
+                <DataGridTextColumn Header="Shirt No." Binding="{Binding ShirtNumber.Value, Converter={StaticResource ShirtNumberConverter}}" />
                 <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
                 <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
                 <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
-                <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.EditPlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}">
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                Command="{Binding Path=DataContext.OpenTeamInfoEditPlayerViewCommand, 
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
                             </Button>
                         </DataTemplate>
@@ -83,8 +82,9 @@
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.DeletePlayerCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}">
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
+                                    Command="{Binding Path=DataContext.RemovePlayerFromTeamCommand, 
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
                                 <materialDesign:PackIcon Kind="Delete" />
                             </Button>
                         </DataTemplate>

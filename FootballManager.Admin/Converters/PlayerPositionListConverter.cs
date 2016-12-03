@@ -8,24 +8,18 @@ using System.Windows.Data;
 
 namespace FootballManager.Admin.Converters
 {
-    public class ShirtNumberConverter : IValueConverter
+    public class PlayerPositionListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var number = (int) value;
-            if (number == -1)
-            {
-                return "n/a";
-            }
-            else
-            {
-                return number;
-            }
+            var positions = (IEnumerable<PlayerPosition>) value;
+            return positions.Select(playerPosition =>
+                    playerPosition == PlayerPosition.NotAssigned ? "n/a" : playerPosition.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            throw new NotImplementedException();
         }
     }
 }
