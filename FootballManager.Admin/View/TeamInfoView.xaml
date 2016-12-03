@@ -61,7 +61,7 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Converter={StaticResource ShirtNumberConverter}}" />
+                <DataGridTextColumn Header="Shirt No." Binding="{Binding ShirtNumber.Value, Converter={StaticResource ShirtNumberConverter}}" />
                 <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
@@ -82,7 +82,9 @@
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}">
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
+                                    Command="{Binding Path=DataContext.RemovePlayerFromTeamCommand, 
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
                                 <materialDesign:PackIcon Kind="Delete" />
                             </Button>
                         </DataTemplate>

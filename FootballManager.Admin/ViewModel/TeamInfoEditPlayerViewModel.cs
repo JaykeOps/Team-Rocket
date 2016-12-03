@@ -11,7 +11,7 @@ namespace FootballManager.Admin.ViewModel
 {
     public class TeamInfoEditPlayerViewModel : ViewModelBase
     {
-        private PlayerService playerService;
+        private readonly PlayerService playerService;
         private IExposablePlayer selectedPlayer;
         private Name name;
         private int shirtNumber;
