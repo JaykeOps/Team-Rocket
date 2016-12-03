@@ -20,13 +20,19 @@ namespace FootballManager.Admin.ViewModel
         private string teamName;
         private string arenaName;
         private string email;
-
-        public ICommand AddCommand { get; }
+        private bool allPropertiesValid;
+        private Dictionary<string, bool> validProperties;
 
         public TeamAddViewModel()
         {
             this.AddCommand = new RelayCommand(Add);
+            this.validProperties = new Dictionary<string, bool>();
+            this.validProperties.Add("TeamName", false);
+            this.validProperties.Add("ArenaName", false);
+            this.validProperties.Add("Email", false);
         }
+
+        public ICommand AddCommand { get; }
 
         private void Add(object obj)
         {
@@ -50,34 +56,48 @@ namespace FootballManager.Admin.ViewModel
                     case "TeamName":
                         if (string.IsNullOrEmpty(this.TeamName))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.TeamName.IsValidTeamName(false)) // Parameter 'bool ignoreCase' set to false.
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be 2-40 valid European characters long!";
                         }
                         break;
                     case "ArenaName":
                         if (string.IsNullOrEmpty(this.ArenaName))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.ArenaName.IsValidArenaName(false)) 
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be 2-40 valid European characters long!";
                         }
                         break;
                     case "Email":
                         if (string.IsNullOrEmpty(this.Email))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.Email.IsValidEmailAddress(false))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Email address does not have a valid format.";
                         }
                         break;
                 }
+                validProperties[columnName] = true;
+                ValidateProperties();
                 return string.Empty;
             }
         }
@@ -122,7 +142,32 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-
         #endregion
+
+        public bool AllPropertiesValid
+        {
+            get { return allPropertiesValid; }
+            set
+            {
+                if (allPropertiesValid != value)
+                {
+                    allPropertiesValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ValidateProperties()
+        {
+            foreach (var isValid in validProperties.Values)
+            {
+                if (isValid == false)
+                {
+                    this.AllPropertiesValid = false;
+                    return;
+                }
+            }
+            this.AllPropertiesValid = true;
+        }
     }
 }

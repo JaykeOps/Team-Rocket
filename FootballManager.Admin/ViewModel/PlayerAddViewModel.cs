@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Windows.Media;
 using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
+using Domain.Helper_Classes;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 using FootballManager.Admin.View;
@@ -16,7 +18,7 @@ using FootballManager.Admin.View;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class PlayerAddViewModel : ViewModelBase
+    public class PlayerAddViewModel : ViewModelBase, IDataErrorInfo
     {
         private TeamService teamService;
         private PlayerService playerService;
@@ -160,6 +162,57 @@ namespace FootballManager.Admin.ViewModel
 
             Messenger.Default.Send<Player>(this.player);
             this.playerService.Add(this.player);
+        }
+        #endregion
+
+        #region IDataErrorInfo implementation
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "FirstName":
+                        if (string.IsNullOrEmpty(this.FirstName))
+                        {
+                            return string.Empty;
+                        }
+                        if (!this.FirstName.IsValidName(false)) // Parameter 'bool ignoreCase' set to false.
+                        {
+                            return "Must be 2-20 valid European characters long!";
+                        }
+                        break;
+                    case "LastName":
+                        if (string.IsNullOrEmpty(this.LastName))
+                        {
+                            return string.Empty;
+                        }
+                        if (!this.LastName.IsValidName(false))
+                        {
+                            return "Must be 2-20 valid European characters long!";
+                        }
+                        break;
+                    case "DateOfBirth":
+                        if (string.IsNullOrEmpty(this.DateOfBirth))
+                        {
+                            return string.Empty;
+                        }
+                        if (!this.DateOfBirth.IsValidDateOfBirth())
+                        {
+                            return "Must be valid date in format \"yyyy-MM-dd\"";
+                        }
+                        break;
+                }
+                return string.Empty;
+            }
         }
         #endregion
     }

@@ -12,7 +12,7 @@ namespace Domain.Value_Objects
 
         public DateOfBirth(string dateOfbirth)
         {
-            if (dateOfbirth.IsValidBirthOfDate())
+            if (dateOfbirth.IsValidDateOfBirth())
             {
                 this.Value = Convert.ToDateTime(dateOfbirth);
             }

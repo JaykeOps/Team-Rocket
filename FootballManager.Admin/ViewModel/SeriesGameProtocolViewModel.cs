@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,34 +12,18 @@ using Domain.Services;
 using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
+using Domain.Helper_Classes;
+
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class SeriesGameProtocolViewModel : ViewModelBase
+    public class SeriesGameProtocolViewModel : ViewModelBase, IDataErrorInfo
     {
         private TeamService teamService;
         private GameService gameService;
         private PlayerService playerService;
 
-        private ObservableCollection<Player> homeTeamPlayerCollection;
-        private ObservableCollection<Player> awayTeamPlayerCollection;
-        private ObservableCollection<Player> homeTeamActivePlayerCollection;
-        private ObservableCollection<Player> awayTeamActivePlayerCollection;
-
         private Game newGame;
-
-        private string homeTeamName;
-        private string awayTeamName;
-        private string homeTeamResult;
-        private string awayTeamResult;
-
-        private Player selectedActivePlayer;
-
-        private ICommand addPlayerToActivePlayersCommand;
-        private ICommand removePlayerFromActivePlayersCommand;
-
-
-
 
         public SeriesGameProtocolViewModel()
         {
@@ -55,14 +40,14 @@ namespace FootballManager.Admin.ViewModel
         }
 
         #region Goal
-        private int? getGoalMatchMinute;
+        private string goalMatchMinute;
         private ICommand addGoalToGameCommand;
-        public int? GetGoalMatchMinute
+        public string GoalMatchMinute
         {
-            get { return getGoalMatchMinute; }
+            get { return goalMatchMinute; }
             set
             {
-                getGoalMatchMinute = value;
+                goalMatchMinute = value;
                 OnPropertyChanged();                
             }
         }
@@ -85,29 +70,29 @@ namespace FootballManager.Admin.ViewModel
             {
                 if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
                 {
-                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, GetGoalMatchMinute.GetValueOrDefault());
+                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
                     HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
                 }
                 else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
                 {
-                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, GetGoalMatchMinute.GetValueOrDefault());
+                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
                     AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
                 }
-                GetGoalMatchMinute = DateTime.Now.Minute;
+                GoalMatchMinute = DateTime.Now.Minute.ToString();
             }
         }
         #endregion
 
         #region Penalty
-        private int getPenaltyMatchMinute;
+        private string penaltyMatchMinute;
         private ICommand addPentalyToGameCommand;
         private bool getIsGoal;
-        public int GetPenaltyMatchMinute
+        public string PenaltyMatchMinute
         {
-            get { return getPenaltyMatchMinute; }
+            get { return penaltyMatchMinute; }
             set
             {
-                getPenaltyMatchMinute = value;
+                penaltyMatchMinute = value;
                 OnPropertyChanged();
             }
         }
@@ -140,19 +125,23 @@ namespace FootballManager.Admin.ViewModel
             {
                 if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
                 {
-                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, GetPenaltyMatchMinute, GetIsGoal);
+                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
                     HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
                 }
                 else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
                 {
-                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, GetPenaltyMatchMinute, GetIsGoal);
+                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
                     AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
                 }
             }
         }
         #endregion
 
-        #region Properties
+        #region Teams and Results
+        private string homeTeamName;
+        private string awayTeamName;
+        private string homeTeamResult;
+        private string awayTeamResult;
         public string HomeTeamName
         {
             get { return this.homeTeamName; }
@@ -192,44 +181,13 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        public Player SelectedActivePlayer
-        {
-            get { return this.selectedActivePlayer; }
-            set
-            {
-                this.selectedActivePlayer = value;                
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand AddPlayerToActivePlayersCommand
-        {
-            get
-            {
-                if (this.addPlayerToActivePlayersCommand == null)
-                {
-                    this.addPlayerToActivePlayersCommand = new RelayCommand(this.AddPlayerToActivePlayers);
-                }
-                return this.addPlayerToActivePlayersCommand;
-            }
-        }
-
-        public ICommand RemovePlayerFromActivePlayersCommand
-        {
-            get
-            {
-                if (this.removePlayerFromActivePlayersCommand == null)
-                {
-                    this.removePlayerFromActivePlayersCommand = new RelayCommand(this.RemovePlayerFromActivePlayers);
-                }
-                return this.removePlayerFromActivePlayersCommand;
-
-            }
-        }
         #endregion
 
-        #region Collections        
+        #region Collections
+        private ObservableCollection<Player> homeTeamPlayerCollection;
+        private ObservableCollection<Player> awayTeamPlayerCollection;
+        private ObservableCollection<Player> homeTeamActivePlayerCollection;
+        private ObservableCollection<Player> awayTeamActivePlayerCollection;
         public ObservableCollection<Player> HomeTeamPlayerCollection
         {
             get { return this.homeTeamPlayerCollection; }
@@ -267,6 +225,90 @@ namespace FootballManager.Admin.ViewModel
             {
                 this.awayTeamActivePlayerCollection = value;
                 OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Lists and dependencies
+        private Player selectedActivePlayer;
+        private ICommand addPlayerToActivePlayersCommand;
+        private ICommand removePlayerFromActivePlayersCommand;
+        public Player SelectedActivePlayer
+        {
+            get { return this.selectedActivePlayer; }
+            set
+            {
+                this.selectedActivePlayer = value;                
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand AddPlayerToActivePlayersCommand
+        {
+            get
+            {
+                if (this.addPlayerToActivePlayersCommand == null)
+                {
+                    this.addPlayerToActivePlayersCommand = new RelayCommand(this.AddPlayerToActivePlayers);
+                }
+                return this.addPlayerToActivePlayersCommand;
+            }
+        }
+
+        public ICommand RemovePlayerFromActivePlayersCommand
+        {
+            get
+            {
+                if (this.removePlayerFromActivePlayersCommand == null)
+                {
+                    this.removePlayerFromActivePlayersCommand = new RelayCommand(this.RemovePlayerFromActivePlayers);
+                }
+                return this.removePlayerFromActivePlayersCommand;
+            }           
+        }
+        #endregion
+
+        #region Button Properties
+        private string assistMatchMinute;
+        private string yellowCardMatchMinute;
+        private string redCardMatchMinute;
+
+        public string AssistMatchMinute
+        {
+            get { return assistMatchMinute; }
+            set
+            {
+                if (assistMatchMinute != value)
+                {
+                    assistMatchMinute = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string YellowCardMatchMinute
+        {
+            get { return yellowCardMatchMinute; }
+            set
+            {
+                if (yellowCardMatchMinute != value)
+                {
+                    yellowCardMatchMinute = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string RedCardMatchMinute
+        {
+            get { return redCardMatchMinute; }
+            set
+            {
+                if (redCardMatchMinute != value)
+                {
+                    redCardMatchMinute = value;
+                    OnPropertyChanged();
+                }
             }
         }
         #endregion
@@ -318,6 +360,193 @@ namespace FootballManager.Admin.ViewModel
         private Game GetNewGameData(Guid gameId)
         {
             return gameService.FindById(gameId);
+        }
+        #endregion
+
+        #region Validaiton Properties
+        private bool goalMatchMinuteValid;
+        private bool assistMatchMinuteValid;
+        private bool penaltyMatchMinuteValid;
+        private bool yellowCardMatchMinuteValid;
+        private bool redCardMatchMinuteValid;
+        public bool GoalMatchMinuteValid
+        {
+            get { return goalMatchMinuteValid; }
+            set
+            {
+                if (goalMatchMinuteValid != value)
+                {
+                    goalMatchMinuteValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool AssistMatchMinuteValid
+        {
+            get { return assistMatchMinuteValid; }
+            set
+            {
+                if (assistMatchMinuteValid != value)
+                {
+                    assistMatchMinuteValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool PenaltyMatchMinuteValid
+        {
+            get { return penaltyMatchMinuteValid; }
+            set
+            {
+                if (penaltyMatchMinuteValid != value)
+                {
+                    penaltyMatchMinuteValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool YellowCardMatchMinuteValid
+        {
+            get { return yellowCardMatchMinuteValid; }
+            set
+            {
+                if (yellowCardMatchMinuteValid != value)
+                {
+                    yellowCardMatchMinuteValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool RedCardMatchMinuteValid
+        {
+            get { return redCardMatchMinuteValid; }
+            set
+            {
+                if (redCardMatchMinuteValid != value)
+                {
+                    redCardMatchMinuteValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #region IDataErrorInfo implemetation
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "GoalMatchMinute":
+                        this.GoalMatchMinuteValid = true;
+                        if (string.IsNullOrEmpty(this.GoalMatchMinute))
+                        {
+                            this.GoalMatchMinuteValid = false;
+                            return string.Empty;
+                        }
+                        int goalMatchMinute;
+                        if (!int.TryParse(this.GoalMatchMinute, out goalMatchMinute))
+                        {
+                            this.GoalMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
+                        }
+                        if (!goalMatchMinute.IsValidMatchMinute())
+                        {
+                            this.GoalMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        break;
+                    case "AssistMatchMinute":
+                        this.AssistMatchMinuteValid = true;
+                        if (string.IsNullOrEmpty(this.AssistMatchMinute))
+                        {
+                            this.AssistMatchMinuteValid = false;
+                            return string.Empty;
+                        }
+                        int assistMatchMinute;
+                        if (!int.TryParse(this.AssistMatchMinute, out assistMatchMinute))
+                        {
+                            this.AssistMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        if (!assistMatchMinute.IsValidMatchMinute())
+                        {
+                            this.AssistMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        break;
+                    case "PenaltyMatchMinute":
+                        this.PenaltyMatchMinuteValid = true;
+                        if (string.IsNullOrEmpty(this.PenaltyMatchMinute))
+                        {
+                            this.PenaltyMatchMinuteValid = false;
+                            return string.Empty;
+                        }
+                        int penaltyMatchMinute;
+                        if (!int.TryParse(this.PenaltyMatchMinute, out penaltyMatchMinute))
+                        {
+                            this.PenaltyMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        if (!penaltyMatchMinute.IsValidMatchMinute())
+                        {
+                            this.PenaltyMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        break;
+                    case "YellowCardMatchMinute":
+                        this.YellowCardMatchMinuteValid = true;
+                        if (string.IsNullOrEmpty(this.YellowCardMatchMinute))
+                        {
+                            this.YellowCardMatchMinuteValid = false;
+                            return string.Empty;
+                        }
+                        int yellowCardMatchMinute;
+                        if (!int.TryParse(this.YellowCardMatchMinute, out yellowCardMatchMinute))
+                        {
+                            this.YellowCardMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        if (!yellowCardMatchMinute.IsValidMatchMinute())
+                        {
+                            this.YellowCardMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        break;
+                    case "RedCardMatchMinute":
+                        this.RedCardMatchMinuteValid = true;
+                        if (string.IsNullOrEmpty(this.RedCardMatchMinute))
+                        {
+                            this.RedCardMatchMinuteValid = false;
+                            return string.Empty;
+                        }
+                        int redCardMatchMinute;
+                        if (!int.TryParse(this.RedCardMatchMinute, out redCardMatchMinute))
+                        {
+                            this.RedCardMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        if (!redCardMatchMinute.IsValidMatchMinute())
+                        {
+                            this.RedCardMatchMinuteValid = false;
+                            return "Must be a number between 1 and 120!";
+                        }
+                        break;
+                }
+                return string.Empty;
+            }
         }
         #endregion
     }

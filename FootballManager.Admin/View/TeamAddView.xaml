@@ -87,7 +87,7 @@
 
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Add Team" Command="{Binding AddCommand}" />
+                <Button Content="Add Team" Command="{Binding AddCommand}" IsEnabled="{Binding AllPropertiesValid}" />
             </StackPanel>
         </Grid>
 

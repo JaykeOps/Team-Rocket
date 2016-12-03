@@ -119,17 +119,17 @@
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </TextBox>
-                        <ComboBox Grid.Row="2" Grid.Column="1" 
-                                  SelectedValue="{Binding SelectedNumberOfTeams}"
-                                  ItemsSource="{Binding NumberOfTeamsList}" />
 
+                        <!-- SelectedValue="{Binding SelectedNumberOfTeams}" detta kanske behöver komma in-->
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding NumberOfTeamsList}" SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                        ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"/>
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
                                     Orientation="Horizontal" 
                                     HorizontalAlignment="Right" 
                                     VerticalAlignment="Center"
                                     Margin="20">
-                            <Button Command="{Binding AddSeriesCommand}" Content="Add Series" Style="{StaticResource FlatButton}" />
+                            <Button Command="{Binding AddSeriesCommand}" Content="Add Series" IsEnabled="{Binding AllPropertiesValid}" Style="{StaticResource FlatButton}" />
                         </StackPanel>
                     </Grid>
                 </Grid>

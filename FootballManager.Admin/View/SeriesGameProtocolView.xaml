@@ -84,19 +84,69 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="1" Command="{Binding AddGoalToGameCommand}" Content="Goal" />
-                <Button Grid.Row="0" Grid.Column="2" Command="{Binding AddPenaltyToGameCommand}" Content="Penalty" />
-                <Button Grid.Row="0" Grid.Column="3" Content="Assist" />
-                <Button Grid.Row="0" Grid.Column="4" Content="Red" />
-                <Button Grid.Row="0" Grid.Column="5" Content="Yellow" />
-                
-                <Label Grid.Row="1" Grid.Column="0" Content="Time: "/>
-                
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding GetGoalMatchMinute}" />
-                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding GetPenaltyMatchMinute}" />
-                <TextBox Grid.Row="1" Grid.Column="3" />
-                <TextBox Grid.Row="1" Grid.Column="4" />
-                <TextBox Grid.Row="1" Grid.Column="5" />
+                <Button x:Name="GoalButton" Grid.Row="0" Grid.Column="1" Content="Goal" Command="{Binding AddGoalToGameCommand}" IsEnabled="{Binding GoalMatchMinuteValid}" />
+                <Button x:Name="AssistButton" Grid.Row="0" Grid.Column="2" Content="Assist" IsEnabled="{Binding AssistMatchMinuteValid}" />
+                <Button x:Name="PenaltyButton" Grid.Row="0" Grid.Column="3" Content="Penalty" Command="{Binding AddPenaltyToGameCommand}" IsEnabled="{Binding PenaltyMatchMinuteValid}" />
+                <Button x:Name="YellowCardButton" Grid.Row="0" Grid.Column="4" Content="Yellow card" IsEnabled="{Binding YellowCardMatchMinuteValid}" />
+                <Button x:Name="RedCardButton" Grid.Row="0" Grid.Column="5" Content="Red card" IsEnabled="{Binding RedCardMatchMinuteValid}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Match minute: "/>
+    
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.GoalMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding DataContext.AssistMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding DataContext.PenaltyMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding DataContext.YellowCardMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding DataContext.RedCardMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
 
                 <CheckBox Grid.Row="2" Grid.Column="2"
                           Content="Goal?"
@@ -237,10 +287,14 @@
                      Width="150"  
                      Margin="2,0,2,0" />
         </Grid>
+
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
             <TextBox VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}"/>
             <Button  Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
         </StackPanel>
+
+        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Save Match Protocol" Margin="10"  HorizontalAlignment="Right"/>
+        
     </Grid>
 </Window>
