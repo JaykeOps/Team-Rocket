@@ -49,13 +49,13 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            var topStat= playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            var topStat = playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -83,7 +83,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -117,7 +117,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -151,13 +151,13 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            var topStat= playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            var topStat = playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -240,13 +240,12 @@ namespace Domain.Services
             this.repository.RemovePlayer(playerId);
         }
 
-        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
         {
             var player = (Player)exposablePlayer;
-            var newTeam = DomainService.FindTeamById(newTeamId);
-            var oldTeam = DomainService.FindTeamById(oldTeamId);
-            player.UpdateTeamAffiliation(newTeam);
-            oldTeam.UpdatePlayerIds();
+            var team = DomainService.FindTeamById(teamId);
+            player.UpdateTeamAffiliation(team);
+            team.UpdatePlayerIds();
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
