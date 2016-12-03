@@ -292,12 +292,12 @@ namespace FootballManager.Admin.ViewModel
 
         public bool AllPropertiesValid
         {
-            get { return allPropertiesValid; }
+            get { return this.allPropertiesValid; }
             set
             {
-                if (allPropertiesValid != value)
+                if (this.allPropertiesValid != value)
                 {
-                    allPropertiesValid = value;
+                    this.allPropertiesValid = value;
                     OnPropertyChanged();
                 }
             }
@@ -305,12 +305,12 @@ namespace FootballManager.Admin.ViewModel
 
         public object SelectedItem
         {
-            get { return selectedItem; }
+            get { return this.selectedItem; }
             set
             {
-                if (selectedItem != value)
+                if (this.selectedItem != value)
                 {
-                    selectedItem = value;
+                    this.selectedItem = value;
                     OnPropertyChanged();
                 }
             }

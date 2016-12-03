@@ -31,21 +31,30 @@ namespace FootballManager.Admin.ViewModel
         private PlayerPosition selectedPlayerPosition;
         private PlayerStatus selectedPlayerStatus;
         private Team selectedTeam;
+        private bool allPropertiesValid;
+        private Dictionary<string, bool> validProperties;
+        private object selectedItemPlayerPosition;
+        private object selectedItemPlayerStatus;
+        private object selectedItemTeam;
 
         public PlayerAddViewModel()
         {           
             this.teamService = new TeamService();
             this.playerService = new PlayerService();
             this.PlayerAddCommand = new RelayCommand(this.PlayerAdd);
+            this.validProperties = new Dictionary<string, bool>();
+            this.validProperties.Add("FirstName", false);
+            this.validProperties.Add("LastName", false);
+            this.validProperties.Add("DateOfBirth", false);
+            this.validProperties.Add("SelectedItemPlayerPosition", false);
+            this.validProperties.Add("SelectedItemPlayerStatus", false);
+            this.validProperties.Add("SelectedItemTeam", false);
         }
 
         #region IDataErrorInfo implementation
         public string Error
         {
-            get
-            {
-                return null;
-            }
+            get { return null; }
         }
 
         public string this[string columnName]
@@ -57,39 +66,79 @@ namespace FootballManager.Admin.ViewModel
                     case "FirstName":
                         if (string.IsNullOrEmpty(this.FirstName))
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.FirstName.IsValidName(false)) // Parameter 'bool ignoreCase' set to false.
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be 2-20 valid European characters long!";
                         }
                         break;
                     case "LastName":
                         if (string.IsNullOrEmpty(this.LastName))
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.LastName.IsValidName(false))
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be 2-20 valid European characters long!";
                         }
                         break;
                     case "DateOfBirth":
                         if (string.IsNullOrEmpty(this.DateOfBirth))
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         DateTime dateOfBirth;
                         if (!DateTime.TryParse(this.DateOfBirth, out dateOfBirth))
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be valid date in format \"yyyy-MM-dd\"!";
                         }
                         if (!this.DateOfBirth.IsValidDateOfBirth())
                         {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Earliest year = 1936, latest year = [current year - 4]!";
                         }
                         break;
+                    case "SelectedItemPlayerPosition":
+                        if (this.SelectedItemPlayerPosition == null)
+                        {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
+                            return string.Empty;
+                        }
+                        break;
+                    case "SelectedItemPlayerStatus":
+                        if (this.SelectedItemPlayerStatus == null)
+                        {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
+                            return string.Empty;
+                        }
+                        break;
+                    case "SelectedItemTeam":
+                        if (this.SelectedItemTeam == null)
+                        {
+                            this.validProperties[columnName] = false;
+                            ValidateProperties();
+                            return string.Empty;
+                        }
+                        break;
                 }
+                this.validProperties[columnName] = true;
+                ValidateProperties();
                 return string.Empty;
             }
         }
@@ -149,6 +198,19 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
+
+        public bool AllPropertiesValid
+        {
+            get { return this.allPropertiesValid; }
+            set
+            {
+                if (this.allPropertiesValid != value)
+                {
+                    this.allPropertiesValid = true;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region ComboBox properties
@@ -191,6 +253,45 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
+
+        public object SelectedItemPlayerPosition
+        {
+            get { return this.selectedItemPlayerPosition; }
+            set
+            {
+                if (this.selectedItemPlayerPosition != value)
+                {
+                    this.selectedItemPlayerPosition = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+
+        public object SelectedItemPlayerStatus
+        {
+            get { return this.selectedItemPlayerStatus; }
+            set
+            {
+                if (this.selectedItemPlayerStatus != value)
+                {
+                    this.selectedItemPlayerStatus = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+
+        public object SelectedItemTeam
+        {
+            get { return this.selectedItemTeam; }
+            set
+            {
+                if (this.selectedItemTeam != value)
+                {
+                    this.selectedItemTeam = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region ComboBox population
@@ -218,6 +319,19 @@ namespace FootballManager.Admin.ViewModel
 
             Messenger.Default.Send<Player>(this.player);
             this.playerService.Add(this.player);
+        }
+
+        private void ValidateProperties()
+        {
+            foreach (var isValid in validProperties.Values)
+            {
+                if (isValid == false)
+                {
+                    this.AllPropertiesValid = false;
+                    return;
+                }
+            }
+            this.AllPropertiesValid = true;
         }
         #endregion
     }

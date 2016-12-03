@@ -89,17 +89,22 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
+
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerPosition}" SelectedValue="{Binding SelectedPlayerPosition, Mode=TwoWay}" 
+                      SelectedItem="{Binding DataContext.SelectedItemPlayerPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}" />
             
-            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerPosition}" 
-                      SelectedValue="{Binding SelectedPlayerPosition, Mode=TwoWay}" />
-            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding PlayerStatus}"
-                      SelectedValue="{Binding SelectedPlayerStatus, Mode=TwoWay}" />
-            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding PlayerTeams}"
-                      SelectedValue="{Binding SelectedTeam, Mode=TwoWay}" />
+            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding PlayerStatus}"   SelectedValue="{Binding SelectedPlayerStatus, Mode=TwoWay}" 
+                      SelectedItem="{Binding DataContext.SelectedItemPlayerStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}"/>
+
+            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding PlayerTeams}" SelectedValue="{Binding SelectedTeam, Mode=TwoWay}" 
+                      SelectedItem="{Binding DataContext.SelectedItemTeam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}"/>
 
             <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Add Player" Command="{Binding PlayerAddCommand}" />
+                <Button Content="Add Player" Command="{Binding PlayerAddCommand}" IsEnabled="{Binding AllPropertiesValid}" />
             </StackPanel>
         </Grid>
         
