@@ -240,14 +240,14 @@ namespace Domain.Services
             this.repository.RemovePlayer(playerId);
         }
 
-        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId = new Guid())
-        {
-            var player = (Player)exposablePlayer;
-            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
-            var newTeam = DomainService.FindTeamById(newTeamId);
-            player.UpdateTeamAffiliation(newTeam);
-            oldTeam?.UpdatePlayerIds();
-        }
+        //public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId = new Guid())
+        //{
+        //    var player = (Player)exposablePlayer;
+        //    var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
+        //    var newTeam = DomainService.FindTeamById(newTeamId);
+        //    player.UpdateTeamAffiliation(newTeam);
+        //    oldTeam?.UpdatePlayerIds();
+        //}
 
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
         {
