@@ -79,9 +79,14 @@ namespace FootballManager.Admin.ViewModel
                         {
                             return string.Empty;
                         }
+                        DateTime dateOfBirth;
+                        if (!DateTime.TryParse(this.DateOfBirth, out dateOfBirth))
+                        {
+                            return "Must be valid date in format \"yyyy-MM-dd\"!";
+                        }
                         if (!this.DateOfBirth.IsValidDateOfBirth())
                         {
-                            return "Must be valid date in format \"yyyy-MM-dd\"";
+                            return "Earliest year = 1936, latest year = [current year - 4]!";
                         }
                         break;
                 }
