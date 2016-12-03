@@ -3,6 +3,7 @@ using Domain.Services;
 using Domain.Value_Objects;
 using System;
 using System.Linq;
+using Domain.Repositories;
 
 namespace DomainTests.Test_Dummies
 {
@@ -213,6 +214,13 @@ namespace DomainTests.Test_Dummies
             this.GeneratDummySeriesSchedual();
             this.DummyGames = new DummyGames(this);
             DomainService.AddSeriesToTeam(this.SeriesDummy);
+
+            //TODO: Un-comment and run first test in PlayerService to generate bin-files!
+            //PlayerRepository.instance.SaveData();
+            //TeamRepository.instance.SaveData();
+            //GameRepository.instance.SaveData();
+            //MatchRepository.instance.SaveData();
+            //SeriesRepository.instance.SaveData();
         }
 
         private void GeneratDummySeriesSchedual()
