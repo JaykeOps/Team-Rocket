@@ -223,7 +223,7 @@ namespace FootballManager.Admin.ViewModel
         public void RemovePlayerFromTeam(object obj)
         {
             var player = (IExposablePlayer) obj;
-            this.playerService.AssignPlayerToTeam(player, player.TeamId);
+            this.playerService.AssignPlayerToTeam(player, new Guid(), player.TeamId);
             this.FilterPlayersByTeam();
         }
         #endregion Methods
