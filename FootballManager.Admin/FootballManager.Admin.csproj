@@ -81,6 +81,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\PlayerPositionConverter.cs" />
     <Compile Include="Converters\PlayerPositionListConverter.cs" />
+    <Compile Include="Converters\PlayerStatusConverter.cs" />
+    <Compile Include="Converters\PlayerStatusListConverter.cs" />
     <Compile Include="Converters\ShirtNumberConverter.cs" />
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
     <Compile Include="ViewModel\PlayerInfoViewModel.cs" />

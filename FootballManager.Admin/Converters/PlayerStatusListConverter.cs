@@ -8,13 +8,13 @@ using System.Windows.Data;
 
 namespace FootballManager.Admin.Converters
 {
-    public class PlayerPositionListConverter : IValueConverter
+    public class PlayerStatusListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var positions = (IEnumerable<PlayerPosition>) value;
-            return positions.Select(playerPosition =>
-                    playerPosition == PlayerPosition.NotAssigned ? "n/a" : playerPosition.ToString());
+            var statuses = (IEnumerable<PlayerStatus>) value;
+            return statuses.Select(playerStatus =>
+                    playerStatus == PlayerStatus.NotAssigned ? "n/a" : playerStatus.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

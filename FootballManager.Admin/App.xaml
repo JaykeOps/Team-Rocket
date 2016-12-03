@@ -15,6 +15,8 @@
             <conv:ShirtNumberConverter x:Key="ShirtNumberConverter" />
             <conv:PlayerPositionConverter x:Key="PlayerPositionConverter" />
             <conv:PlayerPositionListConverter x:Key="PlayerPositionListConverter" />
+            <conv:PlayerStatusConverter x:Key="PlayerStatusConverter" />
+            <conv:PlayerStatusListConverter x:Key="PlayerStatusListConverter" />
             <local:ViewModelLocator x:Key="ViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- Custom -->
