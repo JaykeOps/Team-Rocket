@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Domain.Entities;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class TeamInfoEditPlayerViewModel : ViewModelBase
     {
         private PlayerService playerService;
-        private IExposablePlayer player;
+        private IExposablePlayer selectedPlayer;
         private string name;
-        private int shirtNumber;
+        private ShirtNumber shirtNumber;
         private PlayerPosition selectedPlayerPosition;
         private PlayerStatus selectedPlayerStatus;
 
@@ -27,7 +28,7 @@ namespace FootballManager.Admin.ViewModel
 
         public string Name
         {
-            get { return this.player?.Name?.ToString() ?? "Player name unknown"; }
+            get { return this.selectedPlayer?.Name?.ToString() ?? "Player name unknown"; }
             set
             {
                 if (this.name != value)
@@ -38,7 +39,20 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public int ShirtNumber
+        public IExposablePlayer SelectedPlayer
+        {
+            get { return this.selectedPlayer; }
+            set
+            {
+                if (this.selectedPlayer != value)
+                {
+                    this.selectedPlayer = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+
+        public ShirtNumber ShirtNumber
         {
             get { return this.shirtNumber; }
             set
@@ -89,8 +103,9 @@ namespace FootballManager.Admin.ViewModel
 
         public void OnPlayerObjectRecieved(IExposablePlayer player)
         {
-            this.player = player;
+            this.SelectedPlayer = player;
             this.Name = player.Name.ToString();
+            this.ShirtNumber = player.ShirtNumber;
             this.SelectedPlayerPosition = player.Position;
             this.SelectedPlayerStatus = player.Status;
         }

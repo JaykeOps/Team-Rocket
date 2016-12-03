@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\PlayerPositionConverter.cs" />
     <Compile Include="Converters\ShirtNumberConverter.cs" />
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
     <Compile Include="ViewModel\PlayerInfoViewModel.cs" />
