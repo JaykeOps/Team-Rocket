@@ -91,7 +91,23 @@ namespace Domain.Services
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
+            var topFive = playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
+            var bufferPlayer = topFive.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topFive.Count(); i++)
+            {
+                var player = topFive.ElementAt(i);
+                if (bufferPlayer.YellowCardCount != player.YellowCardCount)
+                {
+                    player.Ranking = i + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topFive;
         }
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)

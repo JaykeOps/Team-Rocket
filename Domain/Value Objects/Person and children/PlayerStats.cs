@@ -17,11 +17,12 @@ namespace Domain.Entities
 
         private PlayerEvents seriesEvents;
 
+        public int Ranking { get; set; }
         public string PlayerName => this.playerName;
         public string TeamName => this.teamName;
         public int GoalCount => this.seriesEvents.Goals.Count();
         public int AssistCount => this.seriesEvents.Assists.Count();
-        public int Ranking { get; set; }
+        
        
 
         public int YellowCardCount
