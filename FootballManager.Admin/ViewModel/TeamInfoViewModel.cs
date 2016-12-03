@@ -88,7 +88,7 @@ namespace FootballManager.Admin.ViewModel
                 if (this.selectedPlayer != value)
                 {
                     this.selectedPlayer = value;
-                    OnPropertyChanged();
+                    this.OnPropertyChanged();
                 }
             }
         }
@@ -98,10 +98,10 @@ namespace FootballManager.Admin.ViewModel
             get { return this.arenaName; }
             set
             {
-                if (arenaName != value)
+                if (this.arenaName != value)
                 {
                     this.arenaName = value;
-                    OnPropertyChanged();
+                    this.OnPropertyChanged();
                 }
             }
         }
@@ -111,33 +111,33 @@ namespace FootballManager.Admin.ViewModel
             get { return this.email; }
             set
             {
-                if (arenaName != value)
+                if (this.arenaName != value)
                 {
                     this.email = value;
-                    OnPropertyChanged();
+                    this.OnPropertyChanged();
                 }
             }
         }
 
         public Series SelectedSeries
         {
-            get { return selectedSeries; }
+            get { return this.selectedSeries; }
             set
             {
-                selectedSeries = value;
-                OnPropertyChanged();
-                FilterTeamsBySeries();
+                this.selectedSeries = value;
+                this.OnPropertyChanged();
+                this.FilterTeamsBySeries();
             }
         }
 
         public Team SelectedTeam
         {
-            get { return selectedTeam; }
+            get { return this.selectedTeam; }
             set
             {
-                selectedTeam = value;
-                OnPropertyChanged();
-                FilterPlayersByTeam();
+                this.selectedTeam = value;
+                this.OnPropertyChanged();
+                this.FilterPlayersByTeam();
             }
         }
 
@@ -183,35 +183,35 @@ namespace FootballManager.Admin.ViewModel
         {
             var teams = new List<IExposableTeam>();
 
-            if (SelectedSeries != null)
+            if (this.SelectedSeries != null)
             {
-                var teamsIds = SelectedSeries.TeamIds.ToList();
+                var teamsIds = this.SelectedSeries.TeamIds.ToList();
                 foreach (var id in teamsIds)
                 {
-                    var team = teamService.FindIExposableTeamById(id);
+                    var team = this.teamService.FindIExposableTeamById(id);
                     teams.Add(team);
                 }
             }
-            TeamsBySeriesCollection = teams.ToObservableCollection();
+            this.TeamsBySeriesCollection = teams.ToObservableCollection();
         }
 
         private void FilterPlayersByTeam()
         {
             var players = new List<IExposablePlayer>();
 
-            if (SelectedTeam != null)
+            if (this.SelectedTeam != null)
             {
-                var playerIds = SelectedTeam.PlayerIds.ToList();
+                var playerIds = this.SelectedTeam.PlayerIds.ToList();
                 foreach (var id in playerIds)
                 {
                     //TODO Behöver ha IExposablePlayerById
-                    var player = (IExposablePlayer)playerService.FindById(id);
+                    var player = (IExposablePlayer) this.playerService.FindById(id);
                     players.Add(player);
                 }
 
-                PlayersByTeamCollection = players.ToObservableCollection();
-                ArenaName = SelectedTeam.ArenaName.Value;
-                Email = SelectedTeam.Email.Value;
+                this.PlayersByTeamCollection = players.ToObservableCollection();
+                this.ArenaName = this.SelectedTeam.ArenaName.Value;
+                this.Email = this.SelectedTeam.Email.Value;
             }
         }
 
