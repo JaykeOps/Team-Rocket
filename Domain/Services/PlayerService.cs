@@ -240,13 +240,12 @@ namespace Domain.Services
             this.repository.RemovePlayer(playerId);
         }
 
-        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId = new Guid())
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
         {
             var player = (Player)exposablePlayer;
-            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
-            var newTeam = DomainService.FindTeamById(newTeamId);
-            player.UpdateTeamAffiliation(newTeam);
-            oldTeam?.UpdatePlayerIds();
+            var team = DomainService.FindTeamById(teamId);
+            player.UpdateTeamAffiliation(team);
+            team.UpdatePlayerIds();
         }
 
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
@@ -269,6 +268,7 @@ namespace Domain.Services
             var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
         }
+
         public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
         {
             var players = this.GetAllPlayers();
@@ -279,8 +279,6 @@ namespace Domain.Services
         {
             var players = this.GetAllPlayers().ToList();
             return players.Where(x => x.TeamId == Guid.Empty);
-
         }
-
     }
 }
