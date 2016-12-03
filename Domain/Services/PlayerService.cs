@@ -256,13 +256,20 @@ namespace Domain.Services
 
         public IEnumerable<IExposablePlayer> GetAllExposablePlayersInTeam(Guid teamId)
         {
-            var players = GetAllPlayers();
+            var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
         }
         public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
         {
-            var players = GetAllPlayers();
+            var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
+        }
+
+        public IEnumerable<IExposablePlayer> SearchForTeamlessPlayers(string searchText)
+        {
+            var players = this.GetAllPlayers().ToList();
+            return players.Where(x => x.TeamId == Guid.Empty);
+
         }
 
     }
