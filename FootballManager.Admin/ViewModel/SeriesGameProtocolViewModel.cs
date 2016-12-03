@@ -25,8 +25,6 @@ namespace FootballManager.Admin.ViewModel
         private ObservableCollection<Player> homeTeamActivePlayerCollection;
         private ObservableCollection<Player> awayTeamActivePlayerCollection;
 
-        private ObservableCollection<string> eventsCollection;
-
         private Game newGame;
 
         private string homeTeamName;
@@ -34,14 +32,12 @@ namespace FootballManager.Admin.ViewModel
         private string homeTeamResult;
         private string awayTeamResult;
 
-        private Player selectedHomeTeamActivePlayer;
-        private Player selectedAwayTeamActivePlayer;
+        private Player selectedActivePlayer;
 
         private ICommand addPlayerToActivePlayersCommand;
         private ICommand removePlayerFromActivePlayersCommand;
 
-        private string getGoalMatchMinute;
-        private ICommand addGoalToGameCommand;
+
 
 
         public SeriesGameProtocolViewModel()
@@ -58,13 +54,16 @@ namespace FootballManager.Admin.ViewModel
             Messenger.Default.Register<Match>(this, this.OnMatchObjReceived);
         }
 
-        public string GetGoalMatchMinute
+        #region Goal
+        private int? getGoalMatchMinute;
+        private ICommand addGoalToGameCommand;
+        public int? GetGoalMatchMinute
         {
             get { return getGoalMatchMinute; }
             set
             {
                 getGoalMatchMinute = value;
-                OnPropertyChanged();
+                OnPropertyChanged();                
             }
         }
 
@@ -82,9 +81,76 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddGoalToGame(object obj)
         {
-            throw new NotImplementedException();
+            if (SelectedActivePlayer != null)
+            {
+                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                {
+                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, GetGoalMatchMinute.GetValueOrDefault());
+                    HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
+                }
+                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                {
+                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, GetGoalMatchMinute.GetValueOrDefault());
+                    AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
+                }
+                GetGoalMatchMinute = DateTime.Now.Minute;
+            }
+        }
+        #endregion
+
+        #region Penalty
+        private int getPenaltyMatchMinute;
+        private ICommand addPentalyToGameCommand;
+        private bool getIsGoal;
+        public int GetPenaltyMatchMinute
+        {
+            get { return getPenaltyMatchMinute; }
+            set
+            {
+                getPenaltyMatchMinute = value;
+                OnPropertyChanged();
+            }
         }
 
+        public bool GetIsGoal
+        {
+            get { return getIsGoal; }
+            set
+            {
+                getIsGoal = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand AddPenaltyToGameCommand
+        {
+            get
+            {
+                if (this.addPentalyToGameCommand == null)
+                {
+                    this.addPentalyToGameCommand = new RelayCommand(this.AddPentalyToGame);
+                }
+                return this.addPentalyToGameCommand;
+            }
+        }
+
+        private void AddPentalyToGame(object obj)
+        {
+            if (SelectedActivePlayer != null)
+            {
+                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                {
+                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, GetPenaltyMatchMinute, GetIsGoal);
+                    HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
+                }
+                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                {
+                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, GetPenaltyMatchMinute, GetIsGoal);
+                    AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
+                }
+            }
+        }
+        #endregion
 
         #region Properties
         public string HomeTeamName
@@ -127,22 +193,12 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public Player SelectedHomeTeamActivePlayer
+        public Player SelectedActivePlayer
         {
-            get { return this.selectedHomeTeamActivePlayer; }
+            get { return this.selectedActivePlayer; }
             set
             {
-                this.selectedHomeTeamActivePlayer = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Player SelectedAwayTeamActivePlayer
-        {
-            get { return this.selectedAwayTeamActivePlayer; }
-            set
-            {
-                this.selectedAwayTeamActivePlayer = value;
+                this.selectedActivePlayer = value;                
                 OnPropertyChanged();
             }
         }
@@ -251,15 +307,17 @@ namespace FootballManager.Admin.ViewModel
         private void OnMatchObjReceived(Match match)
         {            
             this.newGame = new Game(match);
+            gameService.Add(newGame);
             HomeTeamName = this.teamService.FindTeamById(this.newGame.HomeTeamId).Name.Value;
             AwayTeamName = this.teamService.FindTeamById(this.newGame.AwayTeamId).Name.Value;
             
             HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.newGame.HomeTeamId).ToObservableCollection();
             AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.newGame.AwayTeamId).ToObservableCollection();
+        }
 
-            // Får flyttas till add goal kommandot för annars hämtar man null
-            //HomeTeamResult = newGame.Protocol.GameResult.HomeTeamScore.ToString();
-            //AwayTeamResult = newGame.Protocol.GameResult.AwayTeamScore.ToString();
+        private Game GetNewGameData(Guid gameId)
+        {
+            return gameService.FindById(gameId);
         }
         #endregion
     }
