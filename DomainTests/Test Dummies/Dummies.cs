@@ -41,21 +41,21 @@ namespace DomainTests.Test_Dummies
                 (
                 new Name("Player", "Three"),
                 new DateOfBirth("1995-01-02"),
-                PlayerPosition.MidFielder,
+                PlayerPosition.Midfielder,
                 PlayerStatus.Available
                 );
             this.DummyPlayerFour = new Player
                 (
                 new Name("Player", "Four"),
                 new DateOfBirth("1999-12-25"),
-                PlayerPosition.MidFielder,
+                PlayerPosition.Midfielder,
                 PlayerStatus.Available
                 );
             this.DummyPlayerFive = new Player
                 (
                 new Name("Player", "Five"),
                 new DateOfBirth("1994-10-10"),
-                PlayerPosition.GoalKeeper,
+                PlayerPosition.Goalkeeper,
                 PlayerStatus.Available
                 );
 
@@ -91,7 +91,7 @@ namespace DomainTests.Test_Dummies
                 (
                 new Name("Player", "Ten"),
                 new DateOfBirth("1988-11-17"),
-                PlayerPosition.GoalKeeper,
+                PlayerPosition.Goalkeeper,
                 PlayerStatus.Available
                 );
             this.DummyPlayerEleven = new Player
