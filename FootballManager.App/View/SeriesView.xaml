@@ -49,8 +49,8 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series:" />
-                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox x:Name="CbLeagueTable" ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                                  SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
@@ -58,24 +58,25 @@
                     <!--Margin: Left, Top, Right, Bottom-->
                     <!-- Region Display Player -->
 
-                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding }" 
+                    <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0" 
+                              ItemsSource="{Binding LeagueTable}" 
+                              
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
                             <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <DataGridTextColumn Header="Ranking" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Matches Played" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Wins" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Draws" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Losses" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Goals For" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Goals Against" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding }" />
-                            <DataGridTextColumn Header="Points" Binding="{Binding }" />
+                            <!--DataGridTextColumn Header="Ranking" Binding="{Binding }" /-->
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=TwoWay}" />
+                            <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed}" />
+                            <DataGridTextColumn Header="Wins" Binding="{Binding Wins}" />
+                            <DataGridTextColumn Header="Draws" Binding="{Binding Draws}" />
+                            <DataGridTextColumn Header="Losses" Binding="{Binding Losses}" />
+                            <DataGridTextColumn Header="Goals For" Binding="{Binding GoalsFor}" />
+                            <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst}" />
+                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference}" />
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points}" />
 
                             <!--<DataGridTemplateColumn Header="Position">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -166,8 +167,8 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Choose Series:" />
-                        <ComboBox ItemsSource="{Binding DataContext.PlayerPositions, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding Position, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox x:Name="CbPlayerStats" ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
+                                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <Grid x:Name="multiDataGridContainer" Grid.Column="0" Grid.Row="1">
                         <Grid.RowDefinitions>

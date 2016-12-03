@@ -48,7 +48,7 @@
             <Label Content="Series:" />
 
             <ComboBox ItemsSource="{Binding AllSeries, UpdateSourceTrigger=PropertyChanged}" 
-                    SelectedItem="{Binding Test, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
+                    SelectedItem="{Binding test, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
                 
                 
             </ComboBox>
