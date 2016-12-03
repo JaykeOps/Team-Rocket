@@ -66,7 +66,7 @@
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
                             <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
-                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay }" />
                             <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
                             <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True"/>
