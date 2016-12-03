@@ -64,15 +64,15 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName}" />
-                            <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed}" />
-                            <DataGridTextColumn Header="Wins" Binding="{Binding Wins}" />
-                            <DataGridTextColumn Header="Draws" Binding="{Binding Draws}" />
-                            <DataGridTextColumn Header="Losses" Binding="{Binding Losses}" />
-                            <DataGridTextColumn Header="Goals For" Binding="{Binding GoalsFor}" />
-                            <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst}" />
-                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference}" />
-                            <DataGridTextColumn Header="Points" Binding="{Binding Points}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Wins" Binding="{Binding Wins, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Draws" Binding="{Binding Draws, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Losses" Binding="{Binding Losses, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goals For" Binding="{Binding GoalsFor, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference, Mode =OneWay}" />
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points, Mode=OneWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -113,17 +113,17 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Scorers" TextAlignment="Center"/>
-                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="10" 
+                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
                               ItemsSource="{Binding TopScorers}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneTime}" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneTime}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneTime}" />
-                                    <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneTime}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -144,10 +144,10 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking }" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding  TeamName}" />
-                                    <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay }" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding  TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -168,10 +168,10 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking}" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName}" />
-                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -192,10 +192,10 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking}" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName}" />
-                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount, Mode=OneWay}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -203,7 +203,6 @@
                 </Grid>
             </TabItem>
         </dragablz:TabablzControl>
-        <!--</ItemsControl>-->
     </Grid>
 </UserControl>
 
