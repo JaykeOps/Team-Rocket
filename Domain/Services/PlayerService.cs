@@ -55,7 +55,23 @@ namespace Domain.Services
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            var topStat= playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.GoalCount != player.GoalCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
@@ -73,7 +89,23 @@ namespace Domain.Services
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
+            var topStat = playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.AssistCount != player.AssistCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<PlayerStats> GetTopYellowCardsForSeries(Guid seriesId)
@@ -91,15 +123,15 @@ namespace Domain.Services
                 {
                 }
             }
-            var topFive = playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
-            var bufferPlayer = topFive.First();
+            var topStat = playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
+            var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
-            for (var i = 0; i < topFive.Count(); i++)
+            for (var i = 0; i < topStat.Count(); i++)
             {
-                var player = topFive.ElementAt(i);
+                var player = topStat.ElementAt(i);
                 if (bufferPlayer.YellowCardCount != player.YellowCardCount)
                 {
-                    player.Ranking = i + 1;
+                    player.Ranking = bufferPlayer.Ranking + 1;
                 }
                 else
                 {
@@ -107,7 +139,7 @@ namespace Domain.Services
                 }
                 bufferPlayer = player;
             }
-            return topFive;
+            return topStat;
         }
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
@@ -125,7 +157,23 @@ namespace Domain.Services
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            var topStat= playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.RedCardCount != player.RedCardCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<Player> GetAllPlayers()
