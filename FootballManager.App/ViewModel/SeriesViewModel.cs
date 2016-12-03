@@ -47,7 +47,6 @@ namespace FootballManager.App.ViewModel
             { return this.topScorers; }
             set
             {
-
                 this.topScorers = value;
                 OnPropertyChanged();
             }
