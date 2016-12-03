@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace Domain.Entities
 {
     [Serializable]
-    public class PlayerStats : ValueObject<PlayerStats>
+    public class PlayerStats : ValueObject<PlayerStats>,ICloneable
     {
         private readonly Guid seriesId;
         private readonly Guid playerId;
@@ -73,6 +73,11 @@ namespace Domain.Entities
             this.playerId = player.Id;
             this.teamId = teamId;
             this.seriesEvents = player.AggregatedEvents[this.seriesId];
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

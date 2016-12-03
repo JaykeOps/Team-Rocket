@@ -38,6 +38,7 @@ namespace FootballManager.Admin.ViewModel
             this.seriesCollection = new ObservableCollection<Series>();
             this.teamsBySeriesCollection = new ObservableCollection<IExposableTeam>();
             this.playersByTeamCollection = new ObservableCollection<IExposablePlayer>();
+            this.teamlessPlayers = new ObservableCollection<IExposablePlayer>();
 
             this.seriesService = new SeriesService();
             this.teamService = new TeamService();
@@ -242,11 +243,8 @@ namespace FootballManager.Admin.ViewModel
 
         private void FilterData()
         {
-            var teamlessPlayers = this.playerService.Search(this.playerSearchText).
-                Where(x => x.Name.ToString().Contains(this.playerSearchText) 
-                && x.AffiliatedTeamName.ToString() == "Unaffiliated").ToObservableCollection();
-            this.TeamlessPlayers = teamlessPlayers;
-
+            this.TeamlessPlayers = this.playerService.SearchForTeamlessPlayers(
+                this.PlayerSearchText).ToObservableCollection();
         }
 
         private void OpenTeamInfoEditPlayerView(object obj)

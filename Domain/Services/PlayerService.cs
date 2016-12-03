@@ -49,13 +49,13 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            var topStat= playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            var topStat = playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -83,7 +83,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -117,7 +117,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -151,13 +151,13 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            var topStat= playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            var topStat = playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -240,13 +240,21 @@ namespace Domain.Services
             this.repository.RemovePlayer(playerId);
         }
 
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
+        {
+            var player = (Player)exposablePlayer;
+            var team = DomainService.FindTeamById(teamId);
+            player.UpdateTeamAffiliation(team);
+            team.UpdatePlayerIds();
+        }
+
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
         {
             var player = (Player)exposablePlayer;
-            var newTeam = DomainService.FindTeamById(newTeamId);
-            var oldTeam = DomainService.FindTeamById(oldTeamId);
-            player.UpdateTeamAffiliation(newTeam);
-            oldTeam.UpdatePlayerIds();
+            var newteam = DomainService.FindTeamById(newTeamId);
+            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
+            player.UpdateTeamAffiliation(newteam);
+            oldTeam?.UpdatePlayerIds();
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
@@ -257,14 +265,24 @@ namespace Domain.Services
 
         public IEnumerable<IExposablePlayer> GetAllExposablePlayersInTeam(Guid teamId)
         {
-            var players = GetAllPlayers();
-            return players.Where(player => player.TeamId == teamId).ToList();
-        }
-        public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
-        {
-            var players = GetAllPlayers();
+            var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
         }
 
+        public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
+        {
+            var players = this.GetAllPlayers();
+            return players.Where(player => player.TeamId == teamId).ToList();
+        }
+
+        public IEnumerable<IExposablePlayer> SearchForTeamlessPlayers(string searchText)
+        {
+            var players = this.GetAllPlayers().ToList();
+            return players.Where(x => x.TeamId == Guid.Empty && 
+            (x.Name.ToString().Contains(searchText) 
+            || x.Position.ToString().Contains(searchText) 
+            || x.Status.ToString().Contains(searchText) 
+            || x.DateOfBirth.ToString().Contains(searchText)));
+        }
     }
 }
