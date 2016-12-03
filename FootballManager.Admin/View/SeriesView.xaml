@@ -121,7 +121,7 @@
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </TextBox>
-                        <ComboBox Grid.Row="2" Grid.Column="1" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>
 
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
@@ -129,7 +129,7 @@
                                     HorizontalAlignment="Right" 
                                     VerticalAlignment="Center"
                                     Margin="20">
-                            <Button Command="{Binding AddSeriesCommand}" Content="Add Series" Style="{StaticResource FlatButton}" />
+                            <Button Command="{Binding AddSeriesCommand}" Content="Add Series" IsEnabled="{Binding AllPropertiesValid}" Style="{StaticResource FlatButton}" />
                         </StackPanel>
                     </Grid>
                 </Grid>

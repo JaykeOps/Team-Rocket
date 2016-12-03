@@ -30,6 +30,9 @@ namespace FootballManager.Admin.ViewModel
         private int selectedNumberOfTeams;
         private string seriesName;
         private string matchDuration;
+        private object selectedItem;
+        private bool allPropertiesValid;
+        private Dictionary<string, bool> validProperties;
 
         public SeriesViewModel()
         {
@@ -41,6 +44,10 @@ namespace FootballManager.Admin.ViewModel
             this.DeleteTeamCommand = new RelayCommand(DeleteTeam);
             this.AddSeriesCommand = new RelayCommand(AddSeriesTeam);
             LoadData();
+            validProperties = new Dictionary<string, bool>();
+            validProperties.Add("SeriesName", false);
+            validProperties.Add("MatchDuration", false);
+            validProperties.Add("SelectedItem", false);
         }
 
         public ICommand DeleteTeamCommand { get; }
@@ -231,21 +238,29 @@ namespace FootballManager.Admin.ViewModel
                     case "SeriesName":
                         if (string.IsNullOrEmpty(this.SeriesName))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.SeriesName.IsValidSeriesName(false)) // Parameter 'bool ignoreCase' set to false.
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be 2-30 valid European characters long!";
                         }
                         break;
                     case "MatchDuration":
                         if (string.IsNullOrEmpty(this.MatchDuration))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return string.Empty;
                         }
                         int matchMinutes;
                         if (!int.TryParse(this.MatchDuration, out matchMinutes))
                         {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
                             return "Must be an integer between 10 and 90!";
                         }
                         else
@@ -253,14 +268,65 @@ namespace FootballManager.Admin.ViewModel
                             TimeSpan timeSpan = new TimeSpan(0, matchMinutes, 0);
                             if (!timeSpan.IsValidMatchDuration())
                             {
+                                validProperties[columnName] = false;
+                                ValidateProperties();
                                 return "Must be an integer between 10 and 90!";
                             }
                         }
                         break;
+                    case "SelectedItem":
+                        if (this.SelectedItem == null)
+                        {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
+                            return string.Empty;
+                        }
+                        break;
                 }
+                validProperties[columnName] = true;
+                ValidateProperties();
                 return string.Empty;
             }
         }
-    }
         #endregion
+
+        public bool AllPropertiesValid
+        {
+            get { return allPropertiesValid; }
+            set
+            {
+                if (allPropertiesValid != value)
+                {
+                    allPropertiesValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public object SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                if (selectedItem != value)
+                {
+                    selectedItem = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void ValidateProperties()
+        {
+            foreach (var isValid in validProperties.Values)
+            {
+                if (isValid == false)
+                {
+                    this.AllPropertiesValid = false;
+                    return;
+                }
+            }
+            this.AllPropertiesValid = true;
+        }
+    }
 }
