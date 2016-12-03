@@ -13,6 +13,7 @@ using Domain.Entities;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using Domain.Helper_Classes;
+using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -33,7 +34,6 @@ namespace FootballManager.Admin.ViewModel
             seriesService = new SeriesService();
 
             Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
-            Messenger.Default.Register<Match>(this, OnMatchObjReceived);
             LoadData();            
         }
 
@@ -76,6 +76,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 matchesBySeriesCollection = value;
                 OnPropertyChanged();
+                matchesBySeriesCollection = value;
             }
         }
         #endregion
@@ -129,8 +130,10 @@ namespace FootballManager.Admin.ViewModel
         private void OpenSeriesScheduleEditView(object obj)
         {
             var view = new SeriesScheduleEditView();
-            Messenger.Default.Send<Match>(selectedMatch);
+            Messenger.Default.Send<Match>(this.selectedMatch);
             view.ShowDialog();
+
+            this.MatchesBySeriesCollection = this.SelectedSeries.Schedule.ToObservableCollection();
         }
 
         private void LoadData()
@@ -143,18 +146,6 @@ namespace FootballManager.Admin.ViewModel
             seriesService.Add(serie);
             seriesService.ScheduleGenerator(serie.Id);
             SeriesCollection = seriesService.GetAll().ToObservableCollection();
-        }
-
-        private void OnMatchObjReceived(Match obj)
-        {
-            var t = SelectedSeries.Schedule;
-
-            foreach (var match in t)
-            {
-                matchesBySeriesCollection.Remove(match);
-                matchesBySeriesCollection.Add(match);
-            }
-            MatchesBySeriesCollection = t.ToObservableCollection();
         }
     }
 }

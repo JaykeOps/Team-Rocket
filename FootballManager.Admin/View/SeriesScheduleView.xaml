@@ -62,7 +62,7 @@
 
         <!--Margin: Left, Top, Right, Bottom-->
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                    ItemsSource="{Binding MatchesBySeriesCollection}"
+                    ItemsSource="{Binding MatchesBySeriesCollection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedMatch}"
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"

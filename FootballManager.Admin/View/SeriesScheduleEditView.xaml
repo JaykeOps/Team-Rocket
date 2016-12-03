@@ -10,6 +10,7 @@
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Edit match"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleEditViewModel}">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -46,11 +47,11 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Time:" />
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NewLocation}" />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NewDate}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding NewTime}" />
 
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                <Button Content="Close" IsCancel="True" />
+                <!--<Button Content="Close" IsCancel="True" />-->
                 <Button Content="Save" Command="{Binding SaveEditMatchCommand}" />
             </StackPanel>
         </Grid>
