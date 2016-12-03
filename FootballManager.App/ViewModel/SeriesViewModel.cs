@@ -33,20 +33,66 @@ namespace FootballManager.App.ViewModel
         public ObservableCollection<TeamStats> LeagueTable
         {
             get
-            {
-                return this.leagueTable;
-            }
+            { return this.leagueTable; }
             set
             {
                 this.leagueTable = value;
-                OnPropertyChanged("LeagueTableGrid");
+                OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<PlayerStats> TopScorers { get { return this.topScorers; } set { } }
-        public ObservableCollection<PlayerStats> TopAssists { get { return this.topAssists; } set { } }
-        public ObservableCollection<PlayerStats> TopYellowCards { get { return this.TopYellowCards; } set { } }
-        public ObservableCollection<PlayerStats> TopRedCards { get { return this.topRedCards; } set {} }
+        public ObservableCollection<PlayerStats> TopScorers
+        {
+            get
+            { return this.topScorers; }
+            set
+            {
+
+                this.topScorers = value;
+                OnPropertyChanged();
+
+
+            }
+        }
+
+        public ObservableCollection<PlayerStats> TopAssists
+        {
+            get
+            {
+                return this.topAssists;
+            }
+            set
+            {
+                this.topAssists = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<PlayerStats> TopYellowCards
+        {
+            get
+            {
+                return this.topYellowCards;
+            }
+            set
+            {
+                this.topYellowCards = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<PlayerStats> TopRedCards
+        {
+            get
+            {
+                return this.topRedCards;
+            }
+            set
+            {
+                this.topRedCards = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Series SeriesForLeagueTable
         {
@@ -65,6 +111,7 @@ namespace FootballManager.App.ViewModel
             {
                 this.seriesForPlayerStats = value;
                 OnPropertyChanged("CbPlayerStats");
+                this.LoadPlayersTables();
             }
         }
         public SeriesViewModel()
@@ -72,11 +119,21 @@ namespace FootballManager.App.ViewModel
             this.playerService = new PlayerService();
             this.seriesService = new SeriesService();
             this.allSeries = seriesService.GetAll().ToObservableCollection();
+
+        }
+
+        public void LoadPlayersTables()
+        {
+            this.TopScorers = playerService.GetTopScorersForSeries(seriesForPlayerStats.Id).ToObservableCollection();
+            this.TopAssists = playerService.GetTopAssistsForSeries(seriesForPlayerStats.Id).ToObservableCollection();
+            this.TopYellowCards =
+            playerService.GetTopYellowCardsForSeries(seriesForPlayerStats.Id).ToObservableCollection();
+            this.TopRedCards = playerService.GetTopRedCardsForSeries(seriesForPlayerStats.Id).ToObservableCollection();
         }
 
         public void LoadLeagueTable()
         {
-            var test= seriesService.GetLeagueTablePlacement(seriesForLeagueTable.Id).ToObservableCollection();
+            var test = seriesService.GetLeagueTablePlacement(seriesForLeagueTable.Id).ToObservableCollection();
             this.LeagueTable = test;
 
         }

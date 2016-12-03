@@ -49,7 +49,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -83,7 +83,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -117,7 +117,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -151,7 +151,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
