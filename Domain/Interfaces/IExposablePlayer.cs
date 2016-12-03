@@ -7,6 +7,7 @@ namespace Domain.Interfaces
     public interface IExposablePlayer
     {
         Guid Id { get; }
+        Guid TeamId { get; }
         TeamName AffiliatedTeamName { get; }
         Name Name { get; set; }
         DateOfBirth DateOfBirth { get; set; }
@@ -14,6 +15,6 @@ namespace Domain.Interfaces
         PlayerPosition Position { get; set; }
         PlayerStatus Status { get; set; }
 
-        ShirtNumber ShirtNumber { get; }
+        ShirtNumber ShirtNumber { get; set; }
     }
 }

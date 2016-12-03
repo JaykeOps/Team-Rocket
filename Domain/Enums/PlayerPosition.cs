@@ -1,7 +1,8 @@
 ﻿public enum PlayerPosition
 {
+    NotAssigned,
     Forward,
-    MidFielder,
+    Midfielder,
     Defender,
-    GoalKeeper,
+    Goalkeeper,
 }

@@ -16,9 +16,9 @@ namespace DomainTests.Value_Objects
         public AssistTests()
         {
             var player = new Player(new Name("Arne", "Anka"), new DateOfBirth("1985-05-20"),
-                PlayerPosition.MidFielder, PlayerStatus.Available);
+                PlayerPosition.Midfielder, PlayerStatus.Available);
             var playerTwo = new Player(new Name("Arne", "Anka"), new DateOfBirth("1985-05-20"),
-                PlayerPosition.MidFielder, PlayerStatus.Available);
+                PlayerPosition.Midfielder, PlayerStatus.Available);
             this.assistOne = new Assist(new MatchMinute(30), player.Id);
             this.assistTwo = new Assist(new MatchMinute(30), player.Id);
             this.assistThree = new Assist(new MatchMinute(30), playerTwo.Id);

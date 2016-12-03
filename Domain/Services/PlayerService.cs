@@ -49,13 +49,29 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            var topStat = playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.GoalCount != player.GoalCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<PlayerStats> GetTopAssistsForSeries(Guid seriesId)
@@ -67,13 +83,29 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
+            var topStat = playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.AssistCount != player.AssistCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<PlayerStats> GetTopYellowCardsForSeries(Guid seriesId)
@@ -85,13 +117,29 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
+            var topStat = playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.YellowCardCount != player.YellowCardCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<PlayerStats> GetTopRedCardsForSeries(Guid seriesId)
@@ -103,13 +151,29 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add(p);
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
-            return playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            var topStat = playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            var bufferPlayer = topStat.First();
+            bufferPlayer.Ranking = 1;
+            for (var i = 0; i < topStat.Count(); i++)
+            {
+                var player = topStat.ElementAt(i);
+                if (bufferPlayer.RedCardCount != player.RedCardCount)
+                {
+                    player.Ranking = bufferPlayer.Ranking + 1;
+                }
+                else
+                {
+                    player.Ranking = bufferPlayer.Ranking;
+                }
+                bufferPlayer = player;
+            }
+            return topStat;
         }
 
         public IEnumerable<Player> GetAllPlayers()
@@ -184,10 +248,38 @@ namespace Domain.Services
             team.UpdatePlayerIds();
         }
 
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
+        {
+            var player = (Player)exposablePlayer;
+            var newteam = DomainService.FindTeamById(newTeamId);
+            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
+            player.UpdateTeamAffiliation(newteam);
+            oldTeam?.UpdatePlayerIds();
+        }
+
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
         {
             var expoPlayers = this.Search(searchText);
             return expoPlayers.Cast<Player>().SelectMany(player => player.AggregatedStats.AllStats.Values);
         }
+
+        public IEnumerable<IExposablePlayer> GetAllExposablePlayersInTeam(Guid teamId)
+        {
+            var players = this.GetAllPlayers();
+            return players.Where(player => player.TeamId == teamId).ToList();
+        }
+        public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
+        {
+            var players = this.GetAllPlayers();
+            return players.Where(player => player.TeamId == teamId).ToList();
+        }
+
+        public IEnumerable<IExposablePlayer> SearchForTeamlessPlayers(string searchText)
+        {
+            var players = this.GetAllPlayers().ToList();
+            return players.Where(x => x.TeamId == Guid.Empty);
+
+        }
+
     }
 }
