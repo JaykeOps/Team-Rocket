@@ -51,14 +51,14 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Shirt number:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber.Value,
-                Converter={StaticResource ShirtNumberConverter}, Mode=OneWay}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber,
+                Converter={StaticResource ShirtNumberConverter}, Mode=TwoWay}" />
             
-            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPosition,
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPositions,
                 Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}" 
                       SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" /> 
             
-            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatus, 
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatuses, 
                 Converter={StaticResource PlayerStatusListConverter}, Mode=OneWay}"
                       SelectedValue="{Binding SelectedPlayerStatus, Converter={StaticResource PlayerStatusConverter}, Mode=TwoWay}" />
 

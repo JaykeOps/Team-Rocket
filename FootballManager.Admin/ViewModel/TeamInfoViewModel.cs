@@ -58,6 +58,7 @@ namespace FootballManager.Admin.ViewModel
             var teamInfoPlayerEditView = new TeamInfoEditPlayerView();
             Messenger.Default.Send(player);
             teamInfoPlayerEditView.ShowDialog();
+            this.FilterPlayersByTeam();
         }
 
         public string ArenaName
