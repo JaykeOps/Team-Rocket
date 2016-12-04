@@ -48,7 +48,7 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for player:" />
-                        <TextBox />
+                        <TextBox Text="{Binding PlayerViewSearchText, UpdateSourceTrigger=PropertyChanged}" />
                         <!--<Button Command="{Binding OpenPlayerAddViewCommand}" Content="Add New Player" Style="{StaticResource FlatButton}" VerticalAlignment="Bottom" Margin="40,0,0,0" />-->
                     </StackPanel>
                     <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
@@ -65,7 +65,7 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <!-- <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" /> Bugg in ValueObjects.cs causes the crash -->
+
                             <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay }" />
                             <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
@@ -108,10 +108,41 @@
             </TabItem>
 
             <TabItem Header="Player info">
-                <StackPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50">Reserverat</TextBlock>
-                <ComboBox ItemsSource="{Binding DataContext.TeamNames, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" Width="100" />
-                </StackPanel>
+
+                <Grid>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                        <Label Content="Search for player:" />
+                        <TextBox Text="{Binding PlayerInfoSearchText, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="1" Grid.Column="0" 
+                    ItemsSource="{Binding PlayerStats}" 
+                    materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                    materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                    SelectionMode="Extended"
+                    CanUserSortColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
+                                <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Games" Binding="{Binding GamesPlayedCount, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Penalties" Binding="{Binding PenaltyCount, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount, Mode=OneWay}"  />
+                            <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    </Grid>
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>

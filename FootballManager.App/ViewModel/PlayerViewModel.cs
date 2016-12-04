@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
@@ -16,22 +17,27 @@ namespace FootballManager.App.ViewModel
 {
     public class PlayerViewModel : ViewModelBase
     {
-        private ObservableCollection<Player> players;
+        private ObservableCollection<IExposablePlayer> players;
+        private ObservableCollection<PlayerStats> playerStats;
         private PlayerService playerService;
         private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
         private ICommand playerInfoCommand;
+        private string playerViewSearchText;
+        private string playerInfoSearchText;
 
         public PlayerViewModel()
         {
+            this.playerStats = new ObservableCollection<PlayerStats>();
             this.playerService = new PlayerService();
             this.teamService = new TeamService();
+            this.playerViewSearchText = "";
+            this.playerInfoSearchText = "";
 
             this.LoadData();     
 
             Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
         }
-
 
         #region Properties
         public ICommand OpenPlayerAddViewCommand
@@ -58,7 +64,7 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        public ObservableCollection<Player> Players
+        public ObservableCollection<IExposablePlayer> Players
         {
             get { return this.players; }
             set
@@ -67,6 +73,50 @@ namespace FootballManager.App.ViewModel
                 this.OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<PlayerStats> PlayerStats
+        {
+            get { return this.playerStats; }
+            set
+            {
+                this.playerStats = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public string PlayerViewSearchText
+        {
+            get { return this.playerViewSearchText;}
+            set
+            {
+                this.playerViewSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadPlayerViewData();
+            }
+        }
+
+        public string PlayerInfoSearchText
+        {
+            get { return this.playerInfoSearchText; }
+            set
+            {
+                this.playerInfoSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadPlayerInfoData();
+            }
+        }
+
+        private void LoadPlayerInfoData()
+        {
+            this.PlayerStats = this.playerService.GetPlayerStatsFreeTextSearch(
+                this.playerInfoSearchText).ToObservableCollection();
+        }
+
+        private void LoadPlayerViewData()
+        {
+            this.Players = this.playerService.Search(this.playerViewSearchText).ToObservableCollection();
+        }
+
         #endregion
 
         #region Methods
@@ -90,7 +140,8 @@ namespace FootballManager.App.ViewModel
 
         public void LoadData()
         {
-            this.Players = this.playerService.GetAllPlayers().ToObservableCollection();
+            this.Players = this.playerService.GetAllExposablePlayers().ToObservableCollection();
+            this.playerStats = this.playerService.GetPlayerStatsFreeTextSearch(this.playerViewSearchText).ToObservableCollection();
         }
 
         #endregion

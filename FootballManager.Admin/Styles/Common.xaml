@@ -14,11 +14,18 @@
     </ResourceDictionary.MergedDictionaries>
 
 
+    <Style x:Key="ProtocolMatchLabel" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
 
     <Style x:Key="GameProtocolListBoxStyle" TargetType="{x:Type ListBox}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="MaxHeight" Value="500" />
     </Style>
 
     <Style x:Key="GameProtocolCustomLabelStyle" TargetType="{x:Type Label}">

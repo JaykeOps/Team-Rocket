@@ -17,9 +17,7 @@ namespace Domain.Entities
         public ArenaName Location { get; set; }
         public MatchDateAndTime MatchDate { get; set; }
         public GameProtocol Protocol { get; }
-
         
-
         public Game(Match match)
         {
             if (match.HomeTeamId != match.AwayTeamId)
@@ -39,8 +37,6 @@ namespace Domain.Entities
             {
                 throw new GameContainsSameTeamTwiceException();
             }
-        }
-
-        
+        }        
     }
 }

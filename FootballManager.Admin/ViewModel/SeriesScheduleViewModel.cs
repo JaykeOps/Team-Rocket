@@ -12,54 +12,46 @@ using FootballManager.Admin.View;
 using Domain.Entities;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
+using Domain.Helper_Classes;
+using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class SeriesScheduleViewModel : ViewModelBase
     {
-        private ObservableCollection<Series> allSeries;
+        private ObservableCollection<Series> seriesCollection;
+        private ObservableCollection<Match> matchesBySeriesCollection;
+        private Match selectedMatch;
+
         private SeriesService seriesService;
+
+        private Series selectedSeries;
+
+        private ICommand openCreateSeriesGameProtocolViewCommand;
+        private ICommand openSeriesScheduleEditViewCommand;
 
         public SeriesScheduleViewModel()
         {
+            matchesBySeriesCollection = new ObservableCollection<Match>();
+
             seriesService = new SeriesService();
+
             Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
-            Load();            
+            LoadData();            
         }
 
-        public ObservableCollection<Series> AllSeries
-        {
-            get { return allSeries; }
-            set
-            {
-                allSeries = value;
-                OnPropertyChanged();
-            }
-        }
-
-        #region Protocol
-
-        private ICommand openSeriesGameProtocolViewCommand;
-
-        public ICommand OpenSeriesGameProtocolViewCommand
+        #region Properties
+        public ICommand OpenCreateSeriesGameProtocolViewCommand
         {
             get
             {
-                if (openSeriesGameProtocolViewCommand == null)
+                if (openCreateSeriesGameProtocolViewCommand == null)
                 {
-                    openSeriesGameProtocolViewCommand = new RelayCommand(OpenSeriesGameProtocolView);
+                    openCreateSeriesGameProtocolViewCommand = new RelayCommand(OpenCreateSeriesGameProtocolView);
                 }
-                return openSeriesGameProtocolViewCommand;
+                return openCreateSeriesGameProtocolViewCommand;
             }
         }
-
-        private void OpenSeriesGameProtocolView(object obj)
-        {
-            var view = new SeriesGameProtocolView();
-            view.ShowDialog();
-        }
-
-        private ICommand openSeriesScheduleEditViewCommand;
 
         public ICommand OpenSeriesScheduleEditViewCommand
         {
@@ -73,25 +65,88 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public Series SelectedSeries
+        {
+            get { return selectedSeries; }
+            set
+            {
+                selectedSeries = value;
+                OnPropertyChanged();
+                FilterMatchesBySeries();
+            }
+        }
         #endregion
 
+        public Match SelectedMatch
+        {
+            get { return selectedMatch; }
+            set
+            {
+                selectedMatch = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #region Collections               
+        public ObservableCollection<Series> SeriesCollection
+        {
+            get { return seriesCollection; }
+            set
+            {
+                seriesCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Match> MatchesBySeriesCollection
+        {
+            get { return matchesBySeriesCollection; }
+            set
+            {
+                matchesBySeriesCollection = value;
+                OnPropertyChanged();
+                matchesBySeriesCollection = value;
+            }
+        }
+        #endregion
+
+        #region Methods               
+        private void OpenCreateSeriesGameProtocolView(object param)
+        {
+            var view = new SeriesGameProtocolView();
+            if (param != null)
+            {
+                Messenger.Default.Send<Match>((Match)param);
+            }
+            view.ShowDialog();
+        }
+
+        public void FilterMatchesBySeries()
+        {
+            var t = SelectedSeries.Schedule;
+
+            MatchesBySeriesCollection = t.ToObservableCollection();
+        }
 
         private void OpenSeriesScheduleEditView(object obj)
         {
             var view = new SeriesScheduleEditView();
+            Messenger.Default.Send<Match>(this.selectedMatch);
             view.ShowDialog();
-        }
 
-        private void Load()
-        {
-            this.allSeries = seriesService.GetAll().ToObservableCollection();
+            this.MatchesBySeriesCollection = this.SelectedSeries.Schedule.ToObservableCollection();
         }
 
         private void OnSeriesObjReceived(Series serie)
         {
             seriesService.Add(serie);
             seriesService.ScheduleGenerator(serie.Id);
-            AllSeries = seriesService.GetAll().ToObservableCollection();
+            SeriesCollection = seriesService.GetAll().ToObservableCollection();
         }
+        private void LoadData()
+        {
+            this.seriesCollection = seriesService.GetAll().ToObservableCollection();
+        }
+        #endregion
     }
 }

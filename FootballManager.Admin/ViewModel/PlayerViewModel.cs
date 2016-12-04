@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 using FootballManager.Admin.View;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -27,14 +27,13 @@ namespace FootballManager.Admin.ViewModel
             this.playerService = new PlayerService();
             this.teamService = new TeamService();
 
-            this.LoadData();     
+            this.LoadData();
 
             Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
         }
 
-
-
         #region Properties
+
         public ICommand OpenPlayerAddViewCommand
         {
             get
@@ -56,7 +55,7 @@ namespace FootballManager.Admin.ViewModel
                     this.deletePlayerCommand = new RelayCommand(this.DeletePlayer);
                 }
                 return this.deletePlayerCommand;
-            }            
+            }
         }
 
         public ObservableCollection<IExposablePlayer> Players
@@ -80,8 +79,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -119,9 +117,11 @@ namespace FootballManager.Admin.ViewModel
 
             Players = exposedPlayers.ToObservableCollection();
         }
-        #endregion
+
+        #endregion Methods
 
         #region Combobox population
+
         public IEnumerable<PlayerPosition> PlayerPositions
         {
             get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
@@ -130,13 +130,13 @@ namespace FootballManager.Admin.ViewModel
         public IEnumerable<PlayerStatus> PlayerStatuses
         {
             get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
-
         }
 
         public IEnumerable<string> TeamNames
         {
-            get { return this.teamService.GetAllTeams().Select(x => x.Name.Value); } 
+            get { return this.teamService.GetAllTeams().Select(x => x.Name.Value); }
         }
-        #endregion
+
+        #endregion Combobox population
     }
 }

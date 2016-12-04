@@ -43,7 +43,7 @@ namespace DomainTests.Repositories
         [TestMethod]
         public void AddPlayerWorking()
         {
-            var newPlayer = new Player(new Name("Manuel", "Neuer"), new DateOfBirth("1986-03-27"), PlayerPosition.GoalKeeper, PlayerStatus.Available);
+            var newPlayer = new Player(new Name("Manuel", "Neuer"), new DateOfBirth("1986-03-27"), PlayerPosition.Goalkeeper, PlayerStatus.Available);
             var play = newPlayer;
             PlayerRepository.instance.Add(newPlayer);
             var allPlayers = PlayerRepository.instance.GetAll();

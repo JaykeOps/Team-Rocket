@@ -13,9 +13,15 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesGameProtocolViewModel}">
     <Grid Margin="5" HorizontalAlignment="Center">
+        <Grid.Resources>
+            <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+            <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+            <Style BasedOn="{StaticResource GameProtocolListBoxStyle}" TargetType="{x:Type ListBox}" />
+            <Style BasedOn="{StaticResource GameListFlatButton}" TargetType="{x:Type Button}" />
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -24,7 +30,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="0,0,0,40">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="0,0,0,20">
             <Grid.Resources>
                 <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
                 <Style BasedOn="{StaticResource GameProtocolMainCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
@@ -38,6 +44,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                <Grid.Resources>
+                    <Style BasedOn="{StaticResource ProtocolMatchLabel}" TargetType="{x:Type Label}" />
+                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -47,14 +56,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Home Team" HorizontalAlignment="Center" FontSize="30"/>
-                <Label Grid.Row="0" Grid.Column="1" Content="   -   " HorizontalAlignment="Center" FontSize="30"/>
-                <Label Grid.Row="0" Grid.Column="2" Content="Away Team" HorizontalAlignment="Center" FontSize="30"/>
-                
-                <Label Grid.Row="1" Grid.Column="0" Content="0" HorizontalAlignment="Center" FontSize="30"/>
-                <Label Grid.Row="1" Grid.Column="1" Content="   -   " HorizontalAlignment="Center" FontSize="30"/>
-                <Label Grid.Row="1" Grid.Column="2" Content="0" HorizontalAlignment="Center" FontSize="30"/>
-
+                <Label Grid.Row="0" Grid.Column="0" Content="{Binding HomeTeamName, FallbackValue=Home Team}" />
+                <Label Grid.Row="0" Grid.Column="1" Content="   -   " />
+                <Label Grid.Row="0" Grid.Column="2" Content="{Binding AwayTeamName, FallbackValue=Away Team}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="{Binding HomeTeamResult, Mode=TwoWay, TargetNullValue=0}" />
+                <Label Grid.Row="1" Grid.Column="1" Content="   -   " />
+                <Label Grid.Row="1" Grid.Column="2" Content="{Binding AwayTeamResult, Mode=TwoWay, TargetNullValue=0 }" />
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="0">
@@ -66,6 +73,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -76,20 +84,21 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="goalButton" Grid.Row="0" Grid.Column="1" Content="Goal" IsEnabled="{Binding GoalMatchMinuteValid}" />
-                <Button x:Name="assistButton" Grid.Row="0" Grid.Column="2" Content="Assist" IsEnabled="{Binding AssistMatchMinuteValid}" />
-                <Button x:Name="penaltyButton" Grid.Row="0" Grid.Column="3" Content="Penalty" IsEnabled="{Binding PenaltyMatchMinuteValid}" />
-                <Button x:Name="yellowCardButton" Grid.Row="0" Grid.Column="4" Content="Yellow card" IsEnabled="{Binding YellowCardMatchMinuteValid}" />
-                <Button x:Name="redCardButton" Grid.Row="0" Grid.Column="5" Content="Red card" IsEnabled="{Binding RedCardMatchMinuteValid}" />
+                <Button x:Name="GoalButton" Grid.Row="0" Grid.Column="1" Content="Goal" Command="{Binding AddGoalToGameCommand}" IsEnabled="{Binding GoalMatchMinuteValid}" />
+                <Button x:Name="AssistButton" Grid.Row="0" Grid.Column="2" Content="Assist" IsEnabled="{Binding AssistMatchMinuteValid}" />
+                <Button x:Name="PenaltyButton" Grid.Row="0" Grid.Column="3" Content="Penalty" Command="{Binding AddPenaltyToGameCommand}" IsEnabled="{Binding PenaltyMatchMinuteValid}" />
+                <Button x:Name="YellowCardButton" Grid.Row="0" Grid.Column="4" Content="Yellow card" IsEnabled="{Binding YellowCardMatchMinuteValid}" />
+                <Button x:Name="RedCardButton" Grid.Row="0" Grid.Column="5" Content="Red card" IsEnabled="{Binding RedCardMatchMinuteValid}" />
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Match minute: "/>
+    
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.GoalMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
                     <Validation.ErrorTemplate>
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -100,7 +109,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -111,7 +120,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -122,7 +131,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -133,16 +142,20 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
 
+                <CheckBox Grid.Row="1" Grid.Column="3"
+                          Content=""
+                          IsChecked="{Binding GetIsGoal}" 
+                          HorizontalAlignment="Right" Padding="0,0,10,0"/>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom">
+        <Grid x:Name="HomeGrid" Grid.Row="1" Grid.Column="0">
             <Grid.Resources>
                 <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
                 <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
@@ -160,27 +173,73 @@
 
             <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
                 <Label Content="Home team" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Content="+" Margin="10,5,10,5" HorizontalAlignment="Right"/>
+                <Button Command="{Binding AddPlayerToActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamPlayerListBox, Path=SelectedValue}"
+                        Content="+" 
+                        Margin="10,5,10,5" 
+                        HorizontalAlignment="Right"/>
             </DockPanel>
+            <ListBox Grid.Row="1" Grid.Column="0"
+                     x:Name="HomeTeamPlayerListBox"
+                     ItemsSource="{Binding HomeTeamPlayerCollection}"                     
+                     Width="150" 
+                     Margin="2,0,2,0" />
 
-            <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
+            <DockPanel Grid.Row="0" Grid.Column="1" 
+                       Margin="10,0,10,0">
                 <Label Content="Active players" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Content="-" Margin="10,5,10,5" HorizontalAlignment="Right"/>
+                <Button Command="{Binding RemovePlayerFromActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamActivePlayerListBox, Path=SelectedValue}"
+                        Content="-" 
+                        Margin="10,5,10,5" 
+                        HorizontalAlignment="Right"/>
+            </DockPanel>
+            <ListBox Grid.Row="1" Grid.Column="1" 
+                     x:Name="HomeTeamActivePlayerListBox"
+                     IsSynchronizedWithCurrentItem="True"
+                     ItemsSource="{Binding HomeTeamActivePlayerCollection}"
+                     SelectedValue="{Binding SelectedActivePlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Width="150" 
+                     Margin="2,0,2,0" />
+        </Grid>
+
+        <Grid x:Name="EventGrid" Grid.Row="1" Grid.Column="1" 
+              HorizontalAlignment="Center" 
+              Margin="2,0,2,0">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+                <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+                <Style BasedOn="{StaticResource GameProtocolListBoxStyle}" TargetType="{x:Type ListBox}" />
+                <Style BasedOn="{StaticResource GameListFlatButton}" TargetType="{x:Type Button}" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.Column="0" 
+                       Margin="10,0,10,0">
+                <Label Content="Events" 
+                       Margin="10,0,10,0" 
+                       HorizontalAlignment="Left"/>
+                <Button Content="-" 
+                        Margin="10,5,10,5" 
+                        HorizontalAlignment="Right"/>
             </DockPanel>
 
-            <ListBox Grid.Row="1" Grid.Column="0" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
-            </ListBox>
-            <ListBox Grid.Row="1" Grid.Column="1" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
+            <ListBox Grid.Row="1" Grid.Column="0" 
+                     Width="230">
+                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
+                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
+                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
             </ListBox>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2,0,2,0">
+        <Grid x:Name="AwayGrid" Grid.Row="1" Grid.Column="2">
             <Grid.Resources>
                 <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
                 <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
@@ -197,57 +256,43 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
-                <Label Content="Events" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Content="-" Margin="10,5,10,5" HorizontalAlignment="Right"/>
-            </DockPanel>
-
-            <ListBox Grid.Row="1" Grid.Column="0" Width="230" Height="400">
-                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
-                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
-                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
-            </ListBox>
-        </Grid>
-
-        <Grid Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom">
-            <Grid.Resources>
-                <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
-                <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
-                <Style BasedOn="{StaticResource GameProtocolListBoxStyle}" TargetType="{x:Type ListBox}" />
-                <Style BasedOn="{StaticResource GameListFlatButton}" TargetType="{x:Type Button}" />
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
                 <Label Content="Active players" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Content="-" Margin="10,5,10,5" HorizontalAlignment="Right"/>
+                <Button Command="{Binding RemovePlayerFromActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=AwayTeamActivePlayerListBox, Path=SelectedValue}"
+                        Content="-" 
+                        Margin="10,5,10,5" 
+                        HorizontalAlignment="Right"/>
             </DockPanel>
+
+            <ListBox Grid.Row="1" Grid.Column="0"
+                     x:Name="AwayTeamActivePlayerListBox"
+                     IsSynchronizedWithCurrentItem="True"
+                     ItemsSource="{Binding AwayTeamActivePlayerCollection}"
+                     SelectedValue="{Binding SelectedActivePlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Width="150" 
+                     Margin="2,0,2,0" />
 
             <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
                 <Label Content="Away team" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Content="+" Margin="10,5,10,5" HorizontalAlignment="Right"/>
+                <Button Command="{Binding AddPlayerToActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=AwayTeamPlayerListBox, Path=SelectedValue}"                        
+                        Content="+" 
+                        Margin="10,5,10,5" 
+                        HorizontalAlignment="Right"/>
             </DockPanel>
 
-            <ListBox Grid.Row="1" Grid.Column="0" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
-            </ListBox>
-
-            <ListBox Grid.Row="1" Grid.Column="1" Width="150" Height="400" Margin="2,0,2,0">
-                <ListBoxItem>Spelare 1</ListBoxItem>
-                <ListBoxItem>Spelare 2</ListBoxItem>
-                <ListBoxItem>Spelare 3</ListBoxItem>
-            </ListBox>
+            <ListBox Grid.Row="1" Grid.Column="1"
+                     x:Name="AwayTeamPlayerListBox"
+                     ItemsSource="{Binding AwayTeamPlayerCollection}"
+                     Width="150"  
+                     Margin="2,0,2,0" />
         </Grid>
 
-        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Save Match Protocol" Margin="10"  HorizontalAlignment="Right"/>
-        
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
+            <TextBox VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}"/>
+            <Button  Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+        </StackPanel>
+
     </Grid>
 </Window>

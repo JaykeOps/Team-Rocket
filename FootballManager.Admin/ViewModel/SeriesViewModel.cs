@@ -199,12 +199,12 @@ namespace FootballManager.Admin.ViewModel
         {
             this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
 
-            var teamLengths = teamService.GetAllTeams().Count();
-            for (int i = 0; i <= teamLengths; i++)
+            var teamLengths = AvailableTeams.Count();
+            for (int i = 4; i <= teamLengths; i++)
             {
-                if (IsEven(i) && i != 0 && i != 2)
+                if (IsEven(i))
                 {
-                    NumberOfTeamsList.Add(i);
+                    this.NumberOfTeamsList.Add(i);
                 }
             }
 
@@ -222,7 +222,7 @@ namespace FootballManager.Admin.ViewModel
         {
             return value % 2 == 0;
         }
-
+        
         #region IDataErrorInfo implementation
         public string Error
         {

@@ -145,5 +145,6 @@ namespace Domain.Services
         {
             this.repository.RemoveTeam(teamId);
         }
+        
     }
 }

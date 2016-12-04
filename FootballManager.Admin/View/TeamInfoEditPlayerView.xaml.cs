@@ -11,22 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Domain.Entities;
-using Domain.Services;
 
-namespace FootballManager.App.View
+namespace FootballManager.Admin.View
 {
     /// <summary>
-    /// Interaction logic for MatchView.xaml
+    /// Interaction logic for TeamInfoPlayerEditView.xaml
     /// </summary>
-    public partial class MatchView : UserControl
+    public partial class TeamInfoEditPlayerView : Window
     {
-      
-
-        public MatchView()
+        public TeamInfoEditPlayerView()
         {
             this.InitializeComponent();
-            
         }
     }
 }

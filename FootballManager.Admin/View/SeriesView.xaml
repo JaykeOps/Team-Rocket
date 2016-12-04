@@ -7,6 +7,7 @@
             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:conv="clr-namespace:FootballManager.Admin.Converters"
             mc:Ignorable="d" 
             Height="700" Width="980"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -93,9 +94,6 @@
 
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SeriesName}"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MatchDuration}"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" 
-                                  SelectedValue="{Binding SelectedNumberOfTeams}"
-                                  ItemsSource="{Binding NumberOfTeamsList}" />
 
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
@@ -121,9 +119,10 @@
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </TextBox>
-                        <ComboBox Grid.Row="2" Grid.Column="1" SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
-                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"/>
 
+                        <!-- SelectedValue="{Binding SelectedNumberOfTeams}" detta kanske behöver komma in-->
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding NumberOfTeamsList}" SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                        ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"/>
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
                                     Orientation="Horizontal" 

@@ -1,29 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
-using Domain.Entities;
-using Domain.Services;
-
 
 namespace FootballManager.App.Converters
 {
-    public class TeamIdToStringConverter : IValueConverter
+    public class ShirtNumberConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TeamService teamService = new TeamService();
-            if (value == null)
+            var number = (int) value;
+            if (number == -1)
             {
-                return null;
+                return "n/a";
             }
             else
             {
-                var team = teamService.FindTeamById((Guid)value);
-                return team?.Name.Value;
+                return number;
             }
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
