@@ -551,6 +551,7 @@ namespace FootballManager.Admin.ViewModel
         {
             gameService.RemoveEvent(SelectedEvent, game.Id);
             GetNewEventsData();
+            
         }
         #endregion
 
