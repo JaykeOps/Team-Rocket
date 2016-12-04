@@ -110,7 +110,8 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" MinWidth="200" 
                    HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14"/>
 
-            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0" Text="{Binding PlayerSearchText, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0" 
+                     Text="{Binding PlayerSearchText, UpdateSourceTrigger=PropertyChanged}"
                      MinWidth="200"/>
 
             <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}" MinWidth="200">
