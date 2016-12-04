@@ -7,7 +7,8 @@ namespace Domain.Value_Objects
     [Serializable]
     public class Assist : ValueObject<Assist>, IGameEvent
     {
-        public const string EventType = "Assist";
+        public const string eventType = "Assist";
+        public string EventType => eventType;
         public MatchMinute MatchMinute { get; }
         public Guid PlayerId { get; }
         public Guid TeamId { get; }
@@ -23,7 +24,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{EventType}, {DomainService.FindPlayerById(this.PlayerId)}, {DomainService.FindTeamById(this.TeamId)}, {MatchMinute}";
+            return $"{eventType}, {DomainService.FindPlayerById(this.PlayerId)}, {DomainService.FindTeamById(this.TeamId)}, {MatchMinute}";
         }
     }
 }
