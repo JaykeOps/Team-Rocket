@@ -115,7 +115,11 @@ namespace FootballManager.Admin.ViewModel
         {
             this.SelectedPlayer.Position = this.playerPosition;
             this.SelectedPlayer.Status = this.playerStatus;
-            this.SelectedPlayer.ShirtNumber = new ShirtNumber(this.SelectedPlayer.TeamId, this.shirtNumber);
+            if (this.shirtNumber != -1)
+            {
+                this.SelectedPlayer.ShirtNumber = 
+                    new ShirtNumber(this.SelectedPlayer.TeamId, this.shirtNumber);
+            }
             this.playerService.Add((Player)this.SelectedPlayer);
         }
     }

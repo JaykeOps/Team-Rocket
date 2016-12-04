@@ -281,10 +281,10 @@ namespace Domain.Services
             return searchText == string.Empty
                 ? new List<Player>()
                 : players.Where(x => x.TeamId == Guid.Empty &&
-                                     (x.Name.ToString().Contains(searchText)
-                                      || x.Position.ToString().Contains(searchText)
-                                      || x.Status.ToString().Contains(searchText)
-                                      || x.DateOfBirth.ToString().Contains(searchText)));
+                (x.Name.ToString().Contains(searchText)
+                || x.Position.ToString().Contains(searchText)
+                || x.Status.ToString().Contains(searchText)
+                || x.DateOfBirth.ToString().Contains(searchText)));
         }
     }
 }
