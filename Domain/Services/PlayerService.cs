@@ -186,6 +186,8 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
+
+
         public Player FindById(Guid playerId)
         {
             return this.repository.GetAll().ToList().Find(p => p.Id.Equals(playerId));
@@ -199,6 +201,7 @@ namespace Domain.Services
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
                 || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
         }
+
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
         {
@@ -249,12 +252,12 @@ namespace Domain.Services
         //    oldTeam?.UpdatePlayerIds();
         //}
 
-        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
+        public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer)
         {
             var player = (Player)exposablePlayer;
-            var newteam = DomainService.FindTeamById(newTeamId);
-            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
-            player.UpdateTeamAffiliation(newteam);
+            var oldTeam = exposablePlayer.TeamId != Guid.Empty ? 
+                DomainService.FindTeamById(exposablePlayer.TeamId) : null;
+            player.UpdateTeamAffiliation(null);
             oldTeam?.UpdatePlayerIds();
         }
 
@@ -278,8 +281,13 @@ namespace Domain.Services
         public IEnumerable<IExposablePlayer> SearchForTeamlessPlayers(string searchText)
         {
             var players = this.GetAllPlayers().ToList();
-            return players.Where(x => x.TeamId == Guid.Empty);
-
+            return searchText == string.Empty
+                ? new List<Player>()
+                : players.Where(x => x.TeamId == Guid.Empty &&
+                (x.Name.ToString().Contains(searchText)
+                || x.Position.ToString().Contains(searchText)
+                || x.Status.ToString().Contains(searchText)
+                || x.DateOfBirth.ToString().Contains(searchText)));
         }
 
     }
