@@ -251,9 +251,7 @@ namespace Domain.Services
 
         public void RemoveEvent(object _event, Guid gameId)
         {
-
-
-            if (_event != null)
+            if (_event!=null)
             {
                 switch (_event.GetType().ToString())
                 {
@@ -285,7 +283,6 @@ namespace Domain.Services
 
                 }
             }
-
         }
     }
 }
