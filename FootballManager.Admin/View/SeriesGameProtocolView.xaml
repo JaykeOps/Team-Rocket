@@ -85,10 +85,10 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="GoalButton" Grid.Row="0" Grid.Column="1" Content="Goal" Command="{Binding AddGoalToGameCommand}" IsEnabled="{Binding GoalMatchMinuteValid}" />
-                <Button x:Name="AssistButton" Grid.Row="0" Grid.Column="2" Content="Assist" IsEnabled="{Binding AssistMatchMinuteValid}" />
+                <Button x:Name="AssistButton" Grid.Row="0" Grid.Column="2" Content="Assist" Command="{Binding AddAssistToGameCommand}" IsEnabled="{Binding AssistMatchMinuteValid}" />
                 <Button x:Name="PenaltyButton" Grid.Row="0" Grid.Column="3" Content="Penalty" Command="{Binding AddPenaltyToGameCommand}" IsEnabled="{Binding PenaltyMatchMinuteValid}" />
-                <Button x:Name="YellowCardButton" Grid.Row="0" Grid.Column="4" Content="Yellow card" IsEnabled="{Binding YellowCardMatchMinuteValid}" />
-                <Button x:Name="RedCardButton" Grid.Row="0" Grid.Column="5" Content="Red card" IsEnabled="{Binding RedCardMatchMinuteValid}" />
+                <Button x:Name="YellowCardButton" Grid.Row="0" Grid.Column="4" Content="Yellow card" Command="{Binding AddYellowCardToGameCommand}" IsEnabled="{Binding YellowCardMatchMinuteValid}" />
+                <Button x:Name="RedCardButton" Grid.Row="0" Grid.Column="5" Content="Red card" Command="{Binding AddRedCardToGameCommand}" IsEnabled="{Binding RedCardMatchMinuteValid}" />
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Match minute: "/>
     
