@@ -408,5 +408,25 @@ namespace Domain.Services.Tests
             Assert.IsTrue(events!=null);
            
         }
+
+        [TestMethod]
+        public void RemoveEventWorks()
+        {
+            var game = dummySeries.DummyGames.GameFive;
+            var events = gameService.GetAllEventsFromGame(game);
+            foreach (var _event in events)
+            {
+                var eventCountPriorRemove = gameService.GetAllEventsFromGame(game).Count();
+                gameService.RemoveEvent(_event, game.Id);
+                var eventsAfterRemove = gameService.GetAllEventsFromGame(game);
+                Assert.IsTrue(eventCountPriorRemove == eventsAfterRemove.Count() + 1);
+                if (events.Count()==1)
+                {
+                    break;
+                }
+            }
+                
+
+        }
     }
 }
