@@ -498,7 +498,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void GetNewEventsData()
         {
-            //TODO Get Events data.
+            EventsCollection = gameService.GetAllEventsFromGame(newGame).ToObservableCollection();
         }
 
         #endregion
