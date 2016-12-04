@@ -35,12 +35,12 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedPlayerEvents AggregatedEvents //Will be internal
+        public AggregatedPlayerEvents AggregatedEvents 
         {
             get { return this.aggregatedEvents; }
         }
 
-        public AggregatedPlayerStats AggregatedStats //Will be internal
+        public AggregatedPlayerStats AggregatedStats 
         {
             get { return this.aggregatedStats; }
         }
