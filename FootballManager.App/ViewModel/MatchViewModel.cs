@@ -4,9 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
 using FootballManager.App.Extensions;
+using FootballManager.App.Utility;
+using FootballManager.App.View;
 
 namespace FootballManager.App.ViewModel
 {
@@ -17,6 +20,7 @@ namespace FootballManager.App.ViewModel
         private ObservableCollection<Match> matches;
         private ObservableCollection<Game> games;
         private string searchText;
+        private ICommand openMatchProtocolCommand;
 
         public ObservableCollection<Match> Matches
         {
@@ -49,6 +53,18 @@ namespace FootballManager.App.ViewModel
             }
         }
 
+        public ICommand OpenMatchProtocolCommand
+        {
+            get
+            {
+                if (this.openMatchProtocolCommand == null)
+                {
+                    this.openMatchProtocolCommand = new RelayCommand(OpenMatchProtocolView);
+                }
+                return this.openMatchProtocolCommand;
+            }
+        }
+
         public MatchViewModel()
         {
             this.gameService = new GameService();
@@ -71,5 +87,10 @@ namespace FootballManager.App.ViewModel
             this.Games = gameService.Search(SearchText).ToObservableCollection();
         }
 
+        private void OpenMatchProtocolView(object obj)
+        {
+            var matchProtocolView = new MatchProtocolView();
+            matchProtocolView.ShowDialog();
+        }
     }
 }

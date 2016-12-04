@@ -67,7 +67,9 @@
                             <DataGridTemplateColumn Header="Match protocol">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Command="{Binding OpenMatchProtocolCommand}">
+                                        <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                                Command="{Binding Path=DataContext.OpenMatchProtocolCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MatchView}}}"
+>
                                             <materialDesign:PackIcon Kind="FileDocument" />
                                         </Button>
                                         
