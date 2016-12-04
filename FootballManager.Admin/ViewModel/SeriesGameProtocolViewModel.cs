@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -14,6 +16,8 @@ using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 using Domain.Helper_Classes;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 
 namespace FootballManager.Admin.ViewModel
@@ -24,7 +28,7 @@ namespace FootballManager.Admin.ViewModel
         private GameService gameService;
         private PlayerService playerService;
 
-        private Game newGame;
+        private Game game;
 
         public SeriesGameProtocolViewModel()
         {
@@ -117,15 +121,15 @@ namespace FootballManager.Admin.ViewModel
         {
             if (SelectedActivePlayer != null)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                if (SelectedActivePlayer.TeamId == game.HomeTeamId)
                 {
-                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
-                    HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
+                    this.gameService.AddGoalToGame(game.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
+                    HomeTeamResult = this.GetNewGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
                 }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                else if (SelectedActivePlayer.TeamId == game.AwayTeamId)
                 {
-                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
-                    AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
+                    this.gameService.AddGoalToGame(game.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
+                    AwayTeamResult = this.GetNewGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
                 }                
             }
             GetNewEventsData();
@@ -167,13 +171,13 @@ namespace FootballManager.Admin.ViewModel
         {
             if (SelectedActivePlayer != null)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                if (SelectedActivePlayer.TeamId == game.HomeTeamId)
                 {
-                    this.gameService.AddAssistToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
+                    this.gameService.AddAssistToGame(game.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
                 }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                else if (SelectedActivePlayer.TeamId == game.AwayTeamId)
                 {
-                    this.gameService.AddAssistToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
+                    this.gameService.AddAssistToGame(game.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
                 }
             }
             GetNewEventsData();
@@ -222,15 +226,15 @@ namespace FootballManager.Admin.ViewModel
         {
             if (SelectedActivePlayer != null)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                if (SelectedActivePlayer.TeamId == game.HomeTeamId)
                 {
-                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
-                    HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
+                    this.gameService.AddPenaltyToGame(game.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
+                    HomeTeamResult = this.GetNewGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
                 }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                else if (SelectedActivePlayer.TeamId == game.AwayTeamId)
                 {
-                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
-                    AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
+                    this.gameService.AddPenaltyToGame(game.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
+                    AwayTeamResult = this.GetNewGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
                 }
             }
             GetNewEventsData();
@@ -272,13 +276,13 @@ namespace FootballManager.Admin.ViewModel
         {
             if (SelectedActivePlayer != null)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                if (SelectedActivePlayer.TeamId == game.HomeTeamId)
                 {
-                    this.gameService.AddYellowCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
+                    this.gameService.AddYellowCardToGame(game.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
                 }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                else if (SelectedActivePlayer.TeamId == game.AwayTeamId)
                 {
-                    this.gameService.AddYellowCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
+                    this.gameService.AddYellowCardToGame(game.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
                 }
             }
             GetNewEventsData();
@@ -320,13 +324,13 @@ namespace FootballManager.Admin.ViewModel
         {
             if (SelectedActivePlayer != null)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                if (SelectedActivePlayer.TeamId == game.HomeTeamId)
                 {
-                    this.gameService.AddRedCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
+                    this.gameService.AddRedCardToGame(game.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
                 }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
+                else if (SelectedActivePlayer.TeamId == game.AwayTeamId)
                 {
-                    this.gameService.AddRedCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
+                    this.gameService.AddRedCardToGame(game.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
                 }
             }
             GetNewEventsData();
@@ -355,7 +359,7 @@ namespace FootballManager.Admin.ViewModel
         {
             if (Overtime != null)
             {
-                newGame.Protocol.OverTime = new OverTime(int.Parse(overtime));
+                game.Protocol.OverTime = new OverTime(int.Parse(overtime));
             }
         }
         #endregion
@@ -378,7 +382,7 @@ namespace FootballManager.Admin.ViewModel
         private void SaveGameProtocol(object obj)
         {
             SaveOvertime();
-            gameService.Add(newGame);
+            gameService.Add(game);            
         }
         #endregion
 
@@ -472,15 +476,19 @@ namespace FootballManager.Admin.ViewModel
         {
             if (playerObj == null) return;
             Player player = (Player)playerObj;
-            if (player.TeamId == this.newGame.HomeTeamId)
+            if (player.TeamId == this.game.HomeTeamId)
             {
                 HomeTeamPlayerCollection.Remove(player);
                 HomeTeamActivePlayerCollection.Add(player);
+
+                game.Protocol.HomeTeamActivePlayers.Add(player.Id);
             }
-            if (player.TeamId == this.newGame.AwayTeamId)
+            if (player.TeamId == this.game.AwayTeamId)
             {
                 AwayTeamPlayerCollection.Remove(player);
                 AwayTeamActivePlayerCollection.Add(player);
+
+                game.Protocol.AwayTeamActivePlayers.Add(player.Id);
             }
         }
 
@@ -500,15 +508,19 @@ namespace FootballManager.Admin.ViewModel
         {
             if (playerObj == null) return;
             Player player = (Player)playerObj;
-            if (player.TeamId == this.newGame.HomeTeamId)
+            if (player.TeamId == this.game.HomeTeamId)
             {
                 HomeTeamActivePlayerCollection.Remove(player);
                 HomeTeamPlayerCollection.Add(player);
+
+                game.Protocol.HomeTeamActivePlayers.Remove(player.Id);
             }
-            if (player.TeamId == this.newGame.AwayTeamId)
+            if (player.TeamId == this.game.AwayTeamId)
             {
                 AwayTeamActivePlayerCollection.Remove(player);
                 AwayTeamPlayerCollection.Add(player);
+
+                game.Protocol.AwayTeamActivePlayers.Remove(player.Id);
             }
         }
 
@@ -526,20 +538,41 @@ namespace FootballManager.Admin.ViewModel
 
         private void RemoveEvent(object obj)
         {
-            //TODO: Implement event remove
+            //TODO Remove events service.
         }
         #endregion
 
         #region Methods                      
         private void OnMatchObjReceived(Match match)
-        {            
-            this.newGame = new Game(match);
-            gameService.Add(newGame);
-            HomeTeamName = this.teamService.FindTeamById(this.newGame.HomeTeamId).Name.Value;
-            AwayTeamName = this.teamService.FindTeamById(this.newGame.AwayTeamId).Name.Value;
-            
-            HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.newGame.HomeTeamId).ToObservableCollection();
-            AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.newGame.AwayTeamId).ToObservableCollection();
+        {                    
+            if (match != null)
+            {
+                game = gameService.GetGameFromMatch(match);
+                if (game != null)
+                {
+                    HomeTeamName = this.teamService.FindTeamById(game.HomeTeamId).ToString();
+                    AwayTeamName = this.teamService.FindTeamById(game.AwayTeamId).ToString();
+                    HomeTeamResult = game.Protocol.GameResult.HomeTeamScore.ToString();
+                    AwayTeamResult = game.Protocol.GameResult.AwayTeamScore.ToString();
+                    HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(game.HomeTeamId).ToObservableCollection();
+                    AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(game.AwayTeamId).ToObservableCollection();
+
+                    HomeTeamActivePlayerCollection = this.GetActivePlayers(game.Protocol.HomeTeamActivePlayers);
+                    AwayTeamActivePlayerCollection = this.GetActivePlayers(game.Protocol.AwayTeamActivePlayers);
+
+                    EventsCollection = gameService.GetAllEventsFromGame(game).ToObservableCollection();
+                }
+                else if (game == null)
+                {
+                    this.game = new Game(match);
+                    gameService.Add(game);
+                    HomeTeamName = this.teamService.FindTeamById(this.game.HomeTeamId).Name.Value;
+                    AwayTeamName = this.teamService.FindTeamById(this.game.AwayTeamId).Name.Value;
+
+                    HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.game.HomeTeamId).ToObservableCollection();
+                    AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.game.AwayTeamId).ToObservableCollection();
+                }               
+            }
         }
 
         private Game GetNewGameData(Guid gameId)
@@ -549,7 +582,17 @@ namespace FootballManager.Admin.ViewModel
 
         private void GetNewEventsData()
         {
-            EventsCollection = gameService.GetAllEventsFromGame(newGame).ToObservableCollection();            
+            EventsCollection = gameService.GetAllEventsFromGame(game).ToObservableCollection();            
+        }
+
+        private ObservableCollection<Player> GetActivePlayers(HashSet<Guid> ids)
+        {
+            ObservableCollection<Player> activePlayers = new ObservableCollection<Player>();
+            foreach (var id in ids)
+            {                
+                activePlayers.Add(playerService.FindById(id));
+            }
+            return activePlayers;
         }
         #endregion
 
