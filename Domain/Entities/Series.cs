@@ -8,7 +8,7 @@ namespace Domain.Entities
     [Serializable]
     public class Series : IGameDuration
     {
-        public Guid Id { get; set; } //TODO: Set is only for tests!
+        public Guid Id { get; set; }
         public SeriesName SeriesName { get; set; }
         public NumberOfTeams NumberOfTeams { get; }
         public HashSet<Guid> TeamIds { get; }
