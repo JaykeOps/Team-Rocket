@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using System;
+using Domain.Services;
 
 namespace Domain.Value_Objects
 {
@@ -11,7 +12,16 @@ namespace Domain.Value_Objects
         public Guid TeamId { get; }
         public CardType CardType { get; } // Enum: Yellow or Red.
 
-      
+        public string EventType
+        {
+            get
+            {
+                return this.CardType.Equals(CardType.Red) ? "Red card" : "Yellow card";
+                
+            }
+            
+        }
+
 
         public Card(MatchMinute matchMinute, Guid teamId, Guid playerId, CardType cardType)
         {
@@ -23,14 +33,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            if (this.CardType.Equals(CardType.Red))
-            {
-                return "Red card";
-            }
-            else
-            {
-                return "Yellow card";
-            }
+            return $"{EventType} {DomainService.FindPlayerById(this.PlayerId)} {DomainService.FindTeamById(this.TeamId)} {MatchMinute}";
         }
     }
 }

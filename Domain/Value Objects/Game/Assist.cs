@@ -1,11 +1,13 @@
 ﻿using Domain.Interfaces;
 using System;
+using Domain.Services;
 
 namespace Domain.Value_Objects
 {
     [Serializable]
     public class Assist : ValueObject<Assist>, IGameEvent
     {
+        public const string EventType = "Assist";
         public MatchMinute MatchMinute { get; }
         public Guid PlayerId { get; }
         public Guid TeamId { get; }
@@ -21,7 +23,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return "Assist";
+            return $"{EventType} {DomainService.FindPlayerById(this.PlayerId)} {DomainService.FindTeamById(this.TeamId)} {MatchMinute}";
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using System;
+using Domain.Services;
 
 namespace Domain.Value_Objects
 {
     [Serializable]
     public class Penalty : ValueObject<Penalty>, IGameEvent
     {
+        public const string EventName = "Penalty";
         public MatchMinute MatchMinute { get; }
         public bool IsGoal { get; }
         public Guid PlayerId { get; }
@@ -29,7 +31,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return "Penalty";
+            return $"{EventName} {DomainService.FindPlayerById(this.PlayerId)} {DomainService.FindTeamById(this.TeamId)} {MatchMinute}";
         }
     }
 }
