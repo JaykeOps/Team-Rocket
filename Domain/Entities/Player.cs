@@ -59,7 +59,7 @@ namespace Domain.Entities
         }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
-            PlayerStatus status, Guid id) : base(name, dateOfBirth, id) //Id for tests!
+            PlayerStatus status, Guid id) : base(name, dateOfBirth, id)
         {
             this.Position = position;
             this.Status = status;
