@@ -105,21 +105,21 @@ namespace Domain.Services
         public void AddAssistToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var assist = new Assist(new MatchMinute(matchMinute), playerId);
+            var assist = new Assist(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId);
             game.Protocol.Assists.Add(assist);
         }
 
         public void AddRedCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Red);
+            var card = new Card(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId, CardType.Red);
             game.Protocol.Cards.Add(card);
         }
 
         public void AddYellowCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Yellow);
+            var card = new Card(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId, CardType.Yellow);
             game.Protocol.Cards.Add(card);
         }
 

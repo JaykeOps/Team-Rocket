@@ -1,14 +1,15 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
-using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Navigation;
+using FootballManager.Admin.Utility;
+using FootballManager.Admin.View;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -17,11 +18,8 @@ namespace FootballManager.Admin.ViewModel
         private ObservableCollection<Series> seriesCollection;
         private ObservableCollection<IExposableTeam> teamsBySeriesCollection;
         private ObservableCollection<IExposablePlayer> playersByTeamCollection;
-        private ObservableCollection<IExposablePlayer> teamlessPlayers;
         private ICommand openTeamInfoEditPlayerViewCommand;
         private ICommand removePlayerFromTeamCommand;
-        private ICommand addPlayerToTeamCommand;
-        private string playerSearchText;
 
         private SeriesService seriesService;
         private TeamService teamService;
@@ -30,7 +28,6 @@ namespace FootballManager.Admin.ViewModel
         private Series selectedSeries;
         private Team selectedTeam;
         private IExposablePlayer selectedPlayer;
-        private IExposablePlayer selectedTeamlessPlayer;
 
         private string arenaName;
         private string email;
@@ -40,7 +37,6 @@ namespace FootballManager.Admin.ViewModel
             this.seriesCollection = new ObservableCollection<Series>();
             this.teamsBySeriesCollection = new ObservableCollection<IExposableTeam>();
             this.playersByTeamCollection = new ObservableCollection<IExposablePlayer>();
-            this.teamlessPlayers = new ObservableCollection<IExposablePlayer>();
 
             this.seriesService = new SeriesService();
             this.teamService = new TeamService();
@@ -48,6 +44,11 @@ namespace FootballManager.Admin.ViewModel
             Messenger.Default.Register<IExposablePlayer>(this, this.OnPlayerObjectRecieved);
 
             this.LoadData();
+        }
+
+        private void OnPlayerObjectRecieved(IExposablePlayer obj)
+        {
+            this.SelectedPlayer = obj;
         }
 
         #region Properties
@@ -70,34 +71,13 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public ICommand AddPlayerToTeamCommand
-        {
-            get
-            {
-                return this.addPlayerToTeamCommand ??
-                       (this.addPlayerToTeamCommand = new RelayCommand(this.AddPlayerToTeam));
-            }
-        }
-
-        private void AddPlayerToTeam(object obj)
+        private void OpenTeamInfoEditPlayerView(object obj)
         {
             var player = (IExposablePlayer) obj;
-            this.playerService.AssignPlayerToTeam(player,
-                this.SelectedTeam.Id);
-            this.PlayerSearchText = this.playerSearchText;
+            var teamInfoPlayerEditView = new TeamInfoEditPlayerView();
+            Messenger.Default.Send(player);
+            teamInfoPlayerEditView.ShowDialog();
             this.FilterPlayersByTeam();
-
-        }
-
-        public string PlayerSearchText
-        {
-            get { return this.playerSearchText; }
-            set
-            {
-                this.playerSearchText = value;
-                this.OnPropertyChanged();
-                this.FilterData();
-            }
         }
 
         public IExposablePlayer SelectedPlayer
@@ -108,19 +88,6 @@ namespace FootballManager.Admin.ViewModel
                 if (this.selectedPlayer != value)
                 {
                     this.selectedPlayer = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
-        public IExposablePlayer SelectedTeamlessPlayer
-        {
-            get { return this.selectedTeamlessPlayer; }
-            set
-            {
-                if (this.selectedTeamlessPlayer != value)
-                {
-                    this.selectedTeamlessPlayer = value;
                     this.OnPropertyChanged();
                 }
             }
@@ -177,16 +144,6 @@ namespace FootballManager.Admin.ViewModel
         #endregion Properties
 
         #region Collections
-
-        public ObservableCollection<IExposablePlayer> TeamlessPlayers
-        {
-            get { return this.teamlessPlayers; }
-            set
-            {
-                this.teamlessPlayers = value;
-                this.OnPropertyChanged();
-            }
-        }
 
         public ObservableCollection<Series> SeriesCollection
         {
@@ -247,7 +204,8 @@ namespace FootballManager.Admin.ViewModel
                 var playerIds = this.SelectedTeam.PlayerIds.ToList();
                 foreach (var id in playerIds)
                 {
-                    var player = (IExposablePlayer)this.playerService.FindById(id);
+                    //TODO Behöver ha IExposablePlayerById
+                    var player = (IExposablePlayer) this.playerService.FindById(id);
                     players.Add(player);
                 }
 
@@ -268,27 +226,6 @@ namespace FootballManager.Admin.ViewModel
             this.playerService.DismissPlayerFromTeam(player);
             this.FilterPlayersByTeam();
         }
-
-        private void FilterData()
-        {
-            this.TeamlessPlayers = this.playerService.SearchForTeamlessPlayers(
-                this.PlayerSearchText).ToObservableCollection();
-        }
-
-        private void OpenTeamInfoEditPlayerView(object obj)
-        {
-            var player = (IExposablePlayer)obj;
-            var teamInfoPlayerEditView = new TeamInfoEditPlayerView();
-            Messenger.Default.Send(player);
-            teamInfoPlayerEditView.ShowDialog();
-            this.FilterPlayersByTeam();
-        }
-
-        private void OnPlayerObjectRecieved(IExposablePlayer obj)
-        {
-            this.SelectedPlayer = obj;
-        }
-
         #endregion Methods
     }
 }

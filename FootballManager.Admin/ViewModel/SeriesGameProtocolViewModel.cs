@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -35,6 +36,7 @@ namespace FootballManager.Admin.ViewModel
             awayTeamPlayerCollection = new ObservableCollection<Player>();
             homeTeamActivePlayerCollection = new ObservableCollection<Player>();
             awayTeamActivePlayerCollection = new ObservableCollection<Player>();
+            eventsCollection = new ObservableCollection<object>();
 
             Messenger.Default.Register<Match>(this, this.OnMatchObjReceived);
         }
@@ -126,6 +128,7 @@ namespace FootballManager.Admin.ViewModel
                     AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
                 }                
             }
+            GetNewEventsData();
             GoalMatchMinute = string.Empty;
             SelectedActivePlayer = null;
         }
@@ -333,6 +336,7 @@ namespace FootballManager.Admin.ViewModel
         private ObservableCollection<Player> awayTeamPlayerCollection;
         private ObservableCollection<Player> homeTeamActivePlayerCollection;
         private ObservableCollection<Player> awayTeamActivePlayerCollection;
+        private ObservableCollection<object> eventsCollection;
 
         public ObservableCollection<Player> HomeTeamPlayerCollection
         {
@@ -373,12 +377,23 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<object> EventsCollection
+        {
+            get { return this.eventsCollection; }
+            set
+            {
+                this.eventsCollection = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Lists and dependencies
         private Player selectedActivePlayer;
         private ICommand addPlayerToActivePlayersCommand;
         private ICommand removePlayerFromActivePlayersCommand;
+        private ICommand removeEventCommand;
 
         public Player SelectedActivePlayer
         {
@@ -445,6 +460,23 @@ namespace FootballManager.Admin.ViewModel
                 AwayTeamPlayerCollection.Add(player);
             }
         }
+
+        public ICommand RemoveEventCommand
+        {
+            get
+            {
+                if (this.removeEventCommand == null)
+                {
+                    this.removeEventCommand = new RelayCommand(this.RemoveEvent);
+                }
+                return this.removeEventCommand;
+            }
+        }
+
+        private void RemoveEvent(object obj)
+        {
+            //TODO: Implement event remove
+        }
         #endregion
 
         #region Methods                      
@@ -463,6 +495,12 @@ namespace FootballManager.Admin.ViewModel
         {
             return gameService.FindById(gameId);
         }
+
+        private void GetNewEventsData()
+        {
+            EventsCollection = gameService.GetAllEventsFromGame(newGame).ToObservableCollection();
+        }
+
         #endregion
 
         #region Validaiton Properties
