@@ -226,17 +226,15 @@
                 <Label Content="Events" 
                        Margin="10,0,10,0" 
                        HorizontalAlignment="Left"/>
-                <Button Content="-" 
+                <Button Content="-"
+                        Command="{Binding RemoveEventCommand}"
                         Margin="10,5,10,5" 
                         HorizontalAlignment="Right"/>
             </DockPanel>
 
-            <ListBox Grid.Row="1" Grid.Column="0" 
-                     Width="230">
-                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
-                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
-                <ListBoxItem>Goal, Min, Player, Team</ListBoxItem>
-            </ListBox>
+            <ListBox Grid.Row="1" Grid.Column="0"
+                    ItemsSource="{Binding EventsCollection}"
+                    Width="230" />
         </Grid>
 
         <Grid x:Name="AwayGrid" Grid.Row="1" Grid.Column="2">

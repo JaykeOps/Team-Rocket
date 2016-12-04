@@ -205,7 +205,7 @@ namespace FootballManager.Admin.ViewModel
                         {
                             return string.Empty;
                         }
-                        if (!this.DateOfBirth.IsValidDateOfBirth())
+                        if (!this.DateOfBirth.IsValidBirthOfDate())
                         {
                             return "Must be valid date in format \"yyyy-MM-dd\"";
                         }
