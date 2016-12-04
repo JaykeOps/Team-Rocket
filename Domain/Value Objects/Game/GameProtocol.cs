@@ -18,7 +18,9 @@ namespace Domain.Value_Objects
         public List<Assist> Assists { get; }
         public List<Penalty> Penalties { get; }
         public List<Card> Cards { get; }
-        public GameResult GameResult => this.gameResult;      
+        public GameResult GameResult => this.gameResult;
+
+      
 
         public GameProtocol(Guid homeTeamId, Guid awayTeamId)
         {

@@ -564,7 +564,7 @@ namespace FootballManager.Admin.ViewModel
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
                         }
-                        if (!goalMatchMinute.IsValidMatchMinute())
+                        if (!goalMatchMinute.IsMatchMinute())
                         {
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
@@ -583,7 +583,7 @@ namespace FootballManager.Admin.ViewModel
                             this.AssistMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        if (!assistMatchMinute.IsValidMatchMinute())
+                        if (!assistMatchMinute.IsMatchMinute())
                         {
                             this.AssistMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
@@ -602,7 +602,7 @@ namespace FootballManager.Admin.ViewModel
                             this.PenaltyMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        if (!penaltyMatchMinute.IsValidMatchMinute())
+                        if (!penaltyMatchMinute.IsMatchMinute())
                         {
                             this.PenaltyMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
@@ -621,7 +621,7 @@ namespace FootballManager.Admin.ViewModel
                             this.YellowCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        if (!yellowCardMatchMinute.IsValidMatchMinute())
+                        if (!yellowCardMatchMinute.IsMatchMinute())
                         {
                             this.YellowCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
@@ -640,7 +640,7 @@ namespace FootballManager.Admin.ViewModel
                             this.RedCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        if (!redCardMatchMinute.IsValidMatchMinute())
+                        if (!redCardMatchMinute.IsMatchMinute())
                         {
                             this.RedCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";

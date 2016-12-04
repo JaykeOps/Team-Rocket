@@ -30,31 +30,34 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" 
+        <Grid Grid.Row="0" Grid.Column="0" Height="70" Width="900">
+            <StackPanel Grid.Row="0" Grid.Column="0" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Center" 
-                    Margin="10"
+                    Margin="0"
                     Height="60">
-            <Label Content="Series:" />
-            <ComboBox ItemsSource="{Binding SeriesCollection}"
+                <Label Content="Series:" />
+                <ComboBox ItemsSource="{Binding SeriesCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedSeries}" />
-            <Label Content="Team:" Padding="40,0,0,0"/>
-            <ComboBox x:Name="TeamComboBox" ItemsSource="{Binding TeamsBySeriesCollection}"
+                <Label Content="Team:" Padding="40,0,0,0"/>
+                <ComboBox x:Name="TeamComboBox" ItemsSource="{Binding TeamsBySeriesCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedTeam}" />
-            <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0"/>
-            
-            <Label Content="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0"/>
-        </StackPanel>
+                <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45"/>
+
+                <Label Content="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45"/>
+            </StackPanel>
+        </Grid>
 
         <!--Margin: Left, Top, Right, Bottom-->
-        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
+        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" MinHeight="500" MaxHeight="600" MaxWidth="600" Margin="10,0,346,0"
                               ItemsSource="{Binding PlayersByTeamCollection}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
@@ -64,8 +67,10 @@
                 <DataGridTextColumn Header="Shirt No." Binding="{Binding ShirtNumber.Value, Converter={StaticResource ShirtNumberConverter}}" />
                 <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
+                <DataGridTextColumn Header="Position" Binding="{Binding Position, Converter={StaticResource PlayerPositionConverter},
+                    Mode=OneWay}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource PlayerStatusConverter}, 
+                    Mode=OneWay}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
@@ -79,7 +84,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Delete">
+                <DataGridTemplateColumn Header="Dismiss">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
@@ -92,5 +97,42 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Grid MinWidth="40" Margin="667,70,159,2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" MinWidth="200" 
+                   HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14"/>
+
+            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0" 
+                     Text="{Binding PlayerSearchText, UpdateSourceTrigger=PropertyChanged}"
+                     MinWidth="200"/>
+
+            <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}" MinWidth="200">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Button CommandParameter="{Binding}"
+                                Command="{Binding Path=DataContext.AddPlayerToTeamCommand,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}" 
+                                Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
+                                    Margin="0, 0, 4, 0"/>
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                            
+                        
+                        
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </Grid>
     </Grid>
 </UserControl>

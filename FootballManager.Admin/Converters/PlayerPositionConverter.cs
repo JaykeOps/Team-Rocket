@@ -9,12 +9,12 @@ namespace FootballManager.Admin.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var position = (PlayerPosition)value;
-            return position == PlayerPosition.NotAssigned ? "n/a" : position.ToString();
+            return position.ToString() == "NotAssigned" ? "n/a" : position.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (string) value == "n/a" ? "NotAssigned" : value;
+            return (string) value == "n/a" ? PlayerPosition.NotAssigned : value;
         }
     }
 }

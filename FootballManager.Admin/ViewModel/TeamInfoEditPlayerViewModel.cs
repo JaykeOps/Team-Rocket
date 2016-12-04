@@ -5,6 +5,7 @@ using FootballManager.Admin.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
@@ -115,8 +116,23 @@ namespace FootballManager.Admin.ViewModel
         {
             this.SelectedPlayer.Position = this.playerPosition;
             this.SelectedPlayer.Status = this.playerStatus;
-            this.SelectedPlayer.ShirtNumber = new ShirtNumber(this.SelectedPlayer.TeamId, this.shirtNumber);
+            if (this.shirtNumber != -1)
+            {
+                this.SelectedPlayer.ShirtNumber =
+                    new ShirtNumber(this.SelectedPlayer.TeamId, this.shirtNumber);
+            }
             this.playerService.Add((Player)this.SelectedPlayer);
+            this.CloseDialog();
+        }
+
+        private void CloseDialog()
+        {
+            var window = Application.Current.Windows.OfType<Window>()
+                .Where(w => w.Name == "TeamInfoEditPlayerViewDialog").FirstOrDefault();
+            if (window != null)
+            {
+                window.Close();
+            }
         }
     }
 }

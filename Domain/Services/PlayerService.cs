@@ -240,21 +240,20 @@ namespace Domain.Services
             this.repository.RemovePlayer(playerId);
         }
 
-        //public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId = new Guid())
-        //{
-        //    var player = (Player)exposablePlayer;
-        //    var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
-        //    var newTeam = DomainService.FindTeamById(newTeamId);
-        //    player.UpdateTeamAffiliation(newTeam);
-        //    oldTeam?.UpdatePlayerIds();
-        //}
-
-        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
+        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
         {
             var player = (Player)exposablePlayer;
-            var newteam = DomainService.FindTeamById(newTeamId);
-            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
-            player.UpdateTeamAffiliation(newteam);
+            var team = DomainService.FindTeamById(teamId);
+            player.UpdateTeamAffiliation(team);
+            team.UpdatePlayerIds();
+        }
+
+        public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer)
+        {
+            var player = (Player)exposablePlayer;
+            var oldTeam = exposablePlayer.TeamId != Guid.Empty ?
+                DomainService.FindTeamById(exposablePlayer.TeamId) : null;
+            player.UpdateTeamAffiliation(null);
             oldTeam?.UpdatePlayerIds();
         }
 
@@ -269,6 +268,7 @@ namespace Domain.Services
             var players = this.GetAllPlayers();
             return players.Where(player => player.TeamId == teamId).ToList();
         }
+
         public IEnumerable<Player> GetAllPlayersInTeam(Guid teamId)
         {
             var players = this.GetAllPlayers();
@@ -278,9 +278,13 @@ namespace Domain.Services
         public IEnumerable<IExposablePlayer> SearchForTeamlessPlayers(string searchText)
         {
             var players = this.GetAllPlayers().ToList();
-            return players.Where(x => x.TeamId == Guid.Empty);
-
+            return searchText == string.Empty
+                ? new List<Player>()
+                : players.Where(x => x.TeamId == Guid.Empty &&
+                (x.Name.ToString().Contains(searchText)
+                || x.Position.ToString().Contains(searchText)
+                || x.Status.ToString().Contains(searchText)
+                || x.DateOfBirth.ToString().Contains(searchText)));
         }
-
     }
 }

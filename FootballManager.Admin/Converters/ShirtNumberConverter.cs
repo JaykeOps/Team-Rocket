@@ -25,7 +25,7 @@ namespace FootballManager.Admin.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            return value = (string)value == "n/a" ? "-1" : value;
         }
     }
 }
