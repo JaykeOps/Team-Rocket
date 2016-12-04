@@ -8,9 +8,9 @@ namespace Domain.Value_Objects
     public class Card : ValueObject<Card>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
-        public Guid PlayerId { get; } // The player who got the card.
+        public Guid PlayerId { get; } 
         public Guid TeamId { get; }
-        public CardType CardType { get; } // Enum: Yellow or Red.
+        public CardType CardType { get; } 
 
         public string EventType
         {
