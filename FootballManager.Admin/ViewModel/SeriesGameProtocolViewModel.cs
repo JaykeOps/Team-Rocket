@@ -590,12 +590,17 @@ namespace FootballManager.Admin.ViewModel
 
         private Game GetNewGameData(Guid gameId)
         {
-            return gameService.FindById(gameId);
+            return this.gameService.FindById(gameId);
         }
 
         private void GetNewEventsData()
         {
-            EventsCollection = gameService.GetAllEventsFromGame(game).ToObservableCollection();            
+            EventsCollection = this.gameService.GetAllEventsFromGame(game).ToObservableCollection();          
+        }
+
+        private void GetNewResultData()
+        {
+            HomeTeamResult = this.GetNewGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
         }
 
         private ObservableCollection<Player> GetActivePlayers(HashSet<Guid> ids)
