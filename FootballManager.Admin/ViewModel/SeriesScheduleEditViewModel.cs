@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Input;
 using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class SeriesScheduleEditViewModel : ViewModelBase, IDataErrorInfo
     {
+        private Match matchToEdit;
         private string arenaName;
         private string matchDate;
         private string matchTime;
@@ -25,6 +28,8 @@ namespace FootballManager.Admin.ViewModel
             validProperties.Add("ArenaName", false);
             validProperties.Add("MatchDate", false);
             validProperties.Add("MatchTime", false);
+            this.SaveEditMatchCommand = new RelayCommand(SaveEditMatch);
+            Messenger.Default.Register<Match>(this, OnMatchObjReceived);
         }
 
         #region IDataErrorInfo implementation
@@ -100,6 +105,7 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
         #region Properties              
+        public ICommand SaveEditMatchCommand { get; }
 
         public string ArenaName
         {
@@ -166,108 +172,58 @@ namespace FootballManager.Admin.ViewModel
             this.AllPropertiesValid = true;
         }
         #endregion
+
+        private void SaveEditMatch(object obj)
+        {
+            InputCheck();
+
+            Window window = Application.Current.Windows.OfType<Window>()
+                .Where(w => w.Name == "EditMatchWindow").FirstOrDefault();
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
+
+        private void OnMatchObjReceived(Match obj)
+        {
+            this.matchToEdit = obj;
+        }
+
+        private void InputCheck()
+        {
+            if (ArenaName == null)
+            {
+                this.matchToEdit.Location = this.matchToEdit.Location;
+            }
+            else
+            {
+                this.matchToEdit.Location = new ArenaName(arenaName);
+            }
+
+            if (MatchDate == null && MatchTime == null)
+            {
+                this.matchToEdit.MatchDate = this.matchToEdit.MatchDate;
+            }
+            else if (MatchTime == null)
+            {
+                var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
+                var matchOldTime = matchDateAndTime.ToString("HH:mm");
+                var matchDateToSet = Convert.ToDateTime(this.matchDate + " " + matchOldTime);
+                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
+            }
+            else if (MatchDate == null)
+            {
+                var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
+                var matchOldDate = matchDateAndTime.ToString("yyyy-MM-dd");
+                var matchDateToSet = Convert.ToDateTime(matchOldDate + " " + this.matchTime);
+                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
+            }
+            else
+            {
+                var matchDateToSet = Convert.ToDateTime(this.matchDate + " " + this.matchTime);
+                this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
+            }
+        }
     }
 }
-
-
-
-
-    #region Sebbes kod
-    //private Match matchToEdit;
-    //private string newLocation;
-    //private string newDate;
-    //private string newTime;
-
-    //public SeriesScheduleEditViewModel()
-    //{
-    //    this.SaveEditMatchCommand = new RelayCommand(SaveEditMatch);
-    //    Messenger.Default.Register<Match>(this, OnMatchObjReceived);
-    //}
-
-    //public string NewLocation
-    //{
-    //    get { return this.newLocation; }
-    //    set
-    //    {
-    //        newLocation = value;
-    //        OnPropertyChanged();
-    //    }
-    //}
-
-    //public string NewDate
-    //{
-    //    get { return this.newDate; }
-    //    set
-    //    {
-    //        newDate = value;
-    //        OnPropertyChanged();
-    //    }
-    //}
-
-    //public string NewTime
-    //{
-    //    get { return this.newTime; }
-    //    set
-    //    {
-    //        newTime = value;
-    //        OnPropertyChanged();
-    //    }
-    //}
-
-    //public ICommand SaveEditMatchCommand { get; }
-
-    //private void SaveEditMatch(object obj)
-    //{
-    //    InputCheck();
-
-    //    Window window = Application.Current.Windows.OfType<Window>()
-    //        .Where(w => w.Title == "Edit match").FirstOrDefault();
-    //    if (window != null)
-    //    {
-    //        window.Close();
-    //    }
-    //}
-
-    //private void OnMatchObjReceived(Match obj)
-    //{
-    //    this.matchToEdit = obj;
-    //}
-
-    //private void InputCheck()
-    //{
-    //    if (NewLocation == null)
-    //    {
-    //        this.matchToEdit.Location = this.matchToEdit.Location;
-    //    }
-    //    else
-    //    {
-    //        this.matchToEdit.Location = new ArenaName(newLocation);
-    //    }
-
-    //    if (NewDate == null && NewTime == null)
-    //    {
-    //        this.matchToEdit.MatchDate = this.matchToEdit.MatchDate;
-    //    }
-    //    else if (NewTime == null)
-    //    {
-    //        var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
-    //        var matchOldTime = matchDateAndTime.ToString("HH:mm");
-    //        var matchDateToSet = Convert.ToDateTime(this.newDate + " " + matchOldTime);
-    //        this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
-    //    }
-    //    else if (NewDate == null)
-    //    {
-    //        var matchDateAndTime = Convert.ToDateTime(matchToEdit.MatchDate.ToString());
-    //        var matchOldDate = matchDateAndTime.ToString("yyyy-MM-dd");
-    //        var matchDateToSet = Convert.ToDateTime(matchOldDate + " " + this.newTime);
-    //        this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
-    //    }
-    //    else
-    //    {
-    //        var matchDateToSet = Convert.ToDateTime(this.newDate + " " + this.newTime);
-    //        this.matchToEdit.MatchDate = new MatchDateAndTime(matchDateToSet);
-    //    }
-    //}
-
-        #endregion
-

@@ -11,6 +11,7 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Edit match"
+        Name="EditMatchWindow"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleEditViewModel}">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -82,8 +83,9 @@
             </TextBox>
 
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                <Button Content="Close" IsCancel="True" />
-                <Button Content="Save" IsEnabled="{Binding AllPropertiesValid}"/>
+                <Button Content="Save" 
+                        Command="{Binding SaveEditMatchCommand}"
+                        IsEnabled="{Binding AllPropertiesValid}"/>
             </StackPanel>
                
             <!-- Sebbes kod    
