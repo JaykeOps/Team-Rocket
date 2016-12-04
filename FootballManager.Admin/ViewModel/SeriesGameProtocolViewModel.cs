@@ -176,6 +176,7 @@ namespace FootballManager.Admin.ViewModel
                     this.gameService.AddAssistToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
                 }
             }
+            GetNewEventsData();
             AssistMatchMinute = string.Empty;
             SelectedActivePlayer = null;
         }
@@ -232,6 +233,7 @@ namespace FootballManager.Admin.ViewModel
                     AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
                 }
             }
+            GetNewEventsData();
             PenaltyMatchMinute = string.Empty;
             SelectedActivePlayer = null;
         }
@@ -279,6 +281,7 @@ namespace FootballManager.Admin.ViewModel
                     this.gameService.AddYellowCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
                 }
             }
+            GetNewEventsData();
             YellowCardMatchMinute = string.Empty;
             SelectedActivePlayer = null;
         }
@@ -326,8 +329,56 @@ namespace FootballManager.Admin.ViewModel
                     this.gameService.AddRedCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
                 }
             }
+            GetNewEventsData();
             RedCardMatchMinute = string.Empty;
             SelectedActivePlayer = null;
+        }
+        #endregion
+
+        #region Overtime
+        private string overtime;
+
+        public string Overtime
+        {
+            get { return overtime; }
+            set
+            {
+                if (overtime != value)
+                {
+                    overtime = value;
+                    OnPropertyChanged();                     
+                }
+            }
+        }
+
+        private void SaveOvertime()
+        {
+            if (Overtime != null)
+            {
+                newGame.Protocol.OverTime = new OverTime(int.Parse(overtime));
+            }
+        }
+        #endregion
+
+        #region Save Game Protocol
+        private ICommand saveGameProtocolCommand;
+
+        public ICommand SaveGameProtocolCommand
+        {
+            get
+            {
+                if (this.saveGameProtocolCommand == null)
+                {
+                    this.saveGameProtocolCommand = new RelayCommand(this.SaveGameProtocol);
+                }
+                return this.saveGameProtocolCommand;
+            }
+        }
+
+        private void SaveGameProtocol(object obj)
+        {
+            SaveOvertime();
+            gameService.Add(newGame);
         }
         #endregion
 
@@ -498,9 +549,8 @@ namespace FootballManager.Admin.ViewModel
 
         private void GetNewEventsData()
         {
-            EventsCollection = gameService.GetAllEventsFromGame(newGame).ToObservableCollection();
+            EventsCollection = gameService.GetAllEventsFromGame(newGame).ToObservableCollection();            
         }
-
         #endregion
 
         #region Validaiton Properties

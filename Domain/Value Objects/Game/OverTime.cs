@@ -7,9 +7,7 @@ namespace Domain.Value_Objects
     public class OverTime : ValueObject<OverTime>
     {
         public int Value { get; }
-
         
-
         public OverTime(int value)
         {
             if (value.IsValidOverTime())

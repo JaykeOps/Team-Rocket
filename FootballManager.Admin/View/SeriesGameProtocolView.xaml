@@ -288,8 +288,8 @@
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
-            <TextBox VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}"/>
-            <Button  Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+            <TextBox Text="{Binding Overtime}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}"/>
+            <Button Command="{Binding SaveGameProtocolCommand}" Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
         </StackPanel>
 
     </Grid>
