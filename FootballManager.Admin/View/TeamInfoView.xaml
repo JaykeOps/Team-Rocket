@@ -95,8 +95,9 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Row="1" MinWidth="40" Margin="640,5,183,-4">
+        <Grid MinWidth="40" Margin="667,70,159,2" Grid.RowSpan="2">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -104,9 +105,14 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding PlayerSearchText, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" MinWidth="200" 
+                   HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14"/>
 
-            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}">
+            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0" Text="{Binding PlayerSearchText, UpdateSourceTrigger=PropertyChanged}"
+                     MinWidth="200"/>
+
+            <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}" MinWidth="200">
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
