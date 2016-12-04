@@ -460,12 +460,12 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.GoalMatchMinute, out goalMatchMinute))
                         {
                             this.GoalMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
+                            return "Only 1-120 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
                         }
                         if (!goalMatchMinute.IsValidMatchMinute())
                         {
                             this.GoalMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         break;
                     case "AssistMatchMinute":
@@ -479,12 +479,12 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.AssistMatchMinute, out assistMatchMinute))
                         {
                             this.AssistMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         if (!assistMatchMinute.IsValidMatchMinute())
                         {
                             this.AssistMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         break;
                     case "PenaltyMatchMinute":
@@ -498,12 +498,12 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.PenaltyMatchMinute, out penaltyMatchMinute))
                         {
                             this.PenaltyMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         if (!penaltyMatchMinute.IsValidMatchMinute())
                         {
                             this.PenaltyMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         break;
                     case "YellowCardMatchMinute":
@@ -517,12 +517,12 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.YellowCardMatchMinute, out yellowCardMatchMinute))
                         {
                             this.YellowCardMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         if (!yellowCardMatchMinute.IsValidMatchMinute())
                         {
                             this.YellowCardMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         break;
                     case "RedCardMatchMinute":
@@ -536,12 +536,12 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.RedCardMatchMinute, out redCardMatchMinute))
                         {
                             this.RedCardMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         if (!redCardMatchMinute.IsValidMatchMinute())
                         {
                             this.RedCardMatchMinuteValid = false;
-                            return "Must be a number between 1 and 120!";
+                            return "Only 1-120 are valid!";
                         }
                         break;
                 }

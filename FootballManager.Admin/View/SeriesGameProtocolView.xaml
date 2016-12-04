@@ -98,7 +98,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -109,7 +109,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -120,7 +120,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -131,7 +131,7 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
@@ -142,16 +142,16 @@
                         <ControlTemplate>
                             <StackPanel>
                                 <AdornedElementPlaceholder />
-                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
 
-                <CheckBox Grid.Row="2" Grid.Column="2"
-                          Content="Goal?"
+                <CheckBox Grid.Row="1" Grid.Column="3"
+                          Content=""
                           IsChecked="{Binding GetIsGoal}" 
-                          HorizontalAlignment="Center" />
+                          HorizontalAlignment="Right" Padding="0,0,10,0"/>
             </Grid>
         </Grid>
 
@@ -294,7 +294,5 @@
             <Button  Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
         </StackPanel>
 
-        <Button Grid.Row="2" Grid.ColumnSpan="3" Content="Save Match Protocol" Margin="10"  HorizontalAlignment="Right"/>
-        
     </Grid>
 </Window>

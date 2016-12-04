@@ -47,9 +47,7 @@
                     Height="60">
             <Label Content="Series:" />
 
-
-            <ComboBox ItemsSource="{Binding SeriesCollection}" 
-                    SelectedItem="{Binding SelectedSeries}" />
+            <ComboBox ItemsSource="{Binding SeriesCollection}" SelectedItem="{Binding SelectedSeries}" />
         </StackPanel>
 
 
@@ -72,9 +70,20 @@
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
                                     Command="{Binding Path=DataContext.OpenSeriesScheduleEditViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Edit Protocol">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                    Command="{Binding Path=DataContext.OpenCreateSeriesGameProtocolViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                <materialDesign:PackIcon Kind="TableEdit" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -83,9 +92,9 @@
                 <DataGridTemplateColumn Header="Create Protocol">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
-                                    Command="{Binding Path=DataContext.CreateProtocol, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
-                                <materialDesign:PackIcon Kind="Delete" />
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                    Command="{Binding Path=DataContext.OpenCreateSeriesGameProtocolViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                <materialDesign:PackIcon Kind="EmoticonDevil" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
