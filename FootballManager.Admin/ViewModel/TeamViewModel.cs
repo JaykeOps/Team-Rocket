@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
@@ -20,6 +21,7 @@ namespace FootballManager.Admin.ViewModel
         private Team selectedTeam;
         private ICommand openTeamAddView;
         private ICommand deleteTeamCommand;
+        private ICommand openEditTeamCommand;
 
         public TeamViewModel()
         {
@@ -42,6 +44,12 @@ namespace FootballManager.Admin.ViewModel
                 }
                 return this.openTeamAddView;
             }
+        }
+
+        public ICommand OpenEditTeamCommand
+        {
+            get { return this.openEditTeamCommand ?? 
+                    (this.openEditTeamCommand = new RelayCommand(this.OpenEditTeamDialog)); }
         }
 
         public ICommand DeleteTeamCommand
@@ -82,6 +90,11 @@ namespace FootballManager.Admin.ViewModel
 
         #region Methods
 
+        public void LoadData()
+        {
+            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
+        }
+
         private void DeleteTeam(object obj)
         {
             this.teams.Remove(this.selectedTeam);
@@ -99,9 +112,12 @@ namespace FootballManager.Admin.ViewModel
             this.teams.Add(team);
         }
 
-        public void LoadData()
+        private void OpenEditTeamDialog(object obj)
         {
-            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
+            var team = (IExposableTeam) obj;
+            var teamEditView = new TeamEditView();
+            Messenger.Default.Send(team);
+            teamEditView.ShowDialog();
         }
 
         #endregion
