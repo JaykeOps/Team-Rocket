@@ -10,11 +10,14 @@ namespace Domain.Value_Objects
         public MatchMinute MatchMinute { get; }
         public bool IsGoal { get; }
         public Guid PlayerId { get; }
+        public Guid TeamId { get; }
 
-        
+
+
         public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal, Game game, Guid teamId)
         {
             this.MatchMinute = matchMinute;
+            this.TeamId = teamId;
             this.PlayerId = playerId;
             this.IsGoal = isGoal;
 
@@ -22,6 +25,11 @@ namespace Domain.Value_Objects
             {
                 game.Protocol.Goals.Add(new Goal(matchMinute, teamId, playerId));
             }
+        }
+
+        public override string ToString()
+        {
+            return "Penalty";
         }
     }
 }

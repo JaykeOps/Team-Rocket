@@ -8,13 +8,20 @@ namespace Domain.Value_Objects
     {
         public MatchMinute MatchMinute { get; }
         public Guid PlayerId { get; }
+        public Guid TeamId { get; }
 
-        
 
-        public Assist(MatchMinute matchMinute, Guid playerId)
+
+        public Assist(MatchMinute matchMinute,Guid teamId, Guid playerId)
         {
             this.MatchMinute = matchMinute;
+            this.TeamId = teamId;
             this.PlayerId = playerId;
+        }
+
+        public override string ToString()
+        {
+            return "Assist";
         }
     }
 }

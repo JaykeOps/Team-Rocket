@@ -25,5 +25,10 @@ namespace Domain.Value_Objects
                 this.PlayerId = playerId;
             }
         }
+
+        public override string ToString()
+        {
+            return "Goal";
+        }
     }
 }
