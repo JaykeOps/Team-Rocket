@@ -265,7 +265,7 @@ namespace FootballManager.Admin.ViewModel
         public void RemovePlayerFromTeam(object obj)
         {
             var player = (IExposablePlayer)obj;
-            this.playerService.DismissPlayerFromTeam(player, Guid.Empty);
+            this.playerService.DismissPlayerFromTeam(player);
             this.FilterPlayersByTeam();
         }
 
