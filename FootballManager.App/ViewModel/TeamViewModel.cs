@@ -15,6 +15,8 @@ namespace FootballManager.App.ViewModel
         private TeamService teamService;
         private Team selectedTeam;
         private ICommand teamInfoCommand;
+        private string playerViewSearchText;
+        private string playerInfoSearchText;
 
         public TeamViewModel()
         {
