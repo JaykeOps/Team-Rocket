@@ -12,15 +12,7 @@ namespace Domain.Value_Objects
         public Guid TeamId { get; }
         public CardType CardType { get; } 
 
-        public string EventType
-        {
-            get
-            {
-                return this.CardType.Equals(CardType.Red) ? "Red card" : "Yellow card";
-                
-            }
-            
-        }
+        public string EventType => this.CardType.Equals(CardType.Red) ? "Red card" : "Yellow card";
 
         public Card(MatchMinute matchMinute, Guid teamId, Guid playerId, CardType cardType)
         {
