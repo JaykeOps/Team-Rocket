@@ -251,13 +251,12 @@ namespace Domain.Services
             team.UpdatePlayerIds();
         }
 
-        public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer, Guid newTeamId)
+        public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer)
         {
             var player = (Player)exposablePlayer;
-            var newteam = DomainService.FindTeamById(newTeamId);
             var oldTeam = exposablePlayer.TeamId != Guid.Empty ? 
                 DomainService.FindTeamById(exposablePlayer.TeamId) : null;
-            player.UpdateTeamAffiliation(newteam);
+            player.UpdateTeamAffiliation(null);
             oldTeam?.UpdatePlayerIds();
         }
 
