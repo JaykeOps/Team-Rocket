@@ -11,6 +11,7 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="Edit match"
+        Name="EditMatchWindow"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleEditViewModel}">
     <Grid Margin="20">
         <Grid.RowDefinitions>

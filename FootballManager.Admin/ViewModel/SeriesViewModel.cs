@@ -171,10 +171,8 @@ namespace FootballManager.Admin.ViewModel
         {
             var timeSpanMatchDuration = new TimeSpan(0, Convert.ToInt32(matchDuration), 0);
 
-            try
-            {
                 var seriesSeriesName = new SeriesName(this.seriesName);
-                var seriesNumberOfTeams = new NumberOfTeams(this.SelectedNumberOfTeams);
+                var seriesNumberOfTeams = new NumberOfTeams(this.selectedNumberOfTeams);
                 var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
 
                 Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
@@ -184,13 +182,6 @@ namespace FootballManager.Admin.ViewModel
                 }
                 Messenger.Default.Send<Series>(seriesToAdd);
                 ResetData();
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-
 
         }
 

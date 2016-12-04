@@ -178,7 +178,7 @@ namespace FootballManager.Admin.ViewModel
             InputCheck();
 
             Window window = Application.Current.Windows.OfType<Window>()
-                .Where(w => w.Title == "Edit match").FirstOrDefault();
+                .Where(w => w.Name == "EditMatchWindow").FirstOrDefault();
             if (window != null)
             {
                 window.Close();
