@@ -24,7 +24,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{EventType} {DomainService.FindPlayerById(this.PlayerId)} {DomainService.FindTeamById(this.TeamId)} {MatchMinute}";
+            return $"{EventType}, {DomainService.FindPlayerById(this.PlayerId)}, {DomainService.FindTeamById(this.TeamId)}, {MatchMinute}";
         }
     }
 }
