@@ -11,7 +11,8 @@
             SizeToContent="WidthAndHeight"
             WindowStartupLocation="CenterScreen"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamInfoEditPlayerViewModel}">
+            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamInfoEditPlayerViewModel}"
+            x:Name="TeamInfoEditPlayerViewDialog">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
