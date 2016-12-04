@@ -115,7 +115,13 @@
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}" Margin="0, 0, 4, 0"/>
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                            
+                        
+                        
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
