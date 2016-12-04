@@ -449,6 +449,7 @@ namespace FootballManager.Admin.ViewModel
         private ICommand addPlayerToActivePlayersCommand;
         private ICommand removePlayerFromActivePlayersCommand;
         private ICommand removeEventCommand;
+        private object selectedEvent;
 
         public Player SelectedActivePlayer
         {
@@ -524,6 +525,16 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public object SelectedEvent
+        {
+            get { return this.selectedEvent; }
+            set
+            {
+                this.selectedEvent = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand RemoveEventCommand
         {
             get
@@ -538,7 +549,8 @@ namespace FootballManager.Admin.ViewModel
 
         private void RemoveEvent(object obj)
         {
-            //TODO Remove events service.
+            gameService.RemoveEvent(SelectedEvent, game.Id);
+            GetNewEventsData();
         }
         #endregion
 

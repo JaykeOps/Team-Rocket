@@ -234,6 +234,7 @@
 
             <ListBox Grid.Row="1" Grid.Column="0"
                     ItemsSource="{Binding EventsCollection}"
+                    SelectedValue="{Binding SelectedEvent, UpdateSourceTrigger=PropertyChanged}"
                     Width="230" />
         </Grid>
 
