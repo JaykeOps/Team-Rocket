@@ -23,9 +23,9 @@
 
             <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
-            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
+            <Style BasedOn="{StaticResource SeriesDataGridCell}" TargetType="{x:Type DataGridCell}"/>
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <Style BasedOn="{StaticResource SeriesDataGridColumHeader}" TargetType="{x:Type DataGridColumnHeader}" />
            
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -48,13 +48,11 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
-                        <Label Content="Choose Series:" />
+                        <Label Content="Choose Series:" Padding="0,0,20,0" />
                         <ComboBox x:Name="CbLeagueTable"  IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
                                   ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" 
                                   SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
-
-                   
 
                     <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding LeagueTable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
@@ -64,7 +62,7 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
                             <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed, Mode=OneWay}" />
                             <DataGridTextColumn Header="Wins" Binding="{Binding Wins, Mode=OneWay}" />
                             <DataGridTextColumn Header="Draws" Binding="{Binding Draws, Mode=OneWay}" />
