@@ -55,8 +55,7 @@
                     </StackPanel>
 
                     <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding LeagueTable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
-                              
+                              ItemsSource="{Binding LeagueTable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"                               
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
