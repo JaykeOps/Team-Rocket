@@ -22,7 +22,6 @@ namespace Domain.Value_Objects
             
         }
 
-
         public Card(MatchMinute matchMinute, Guid teamId, Guid playerId, CardType cardType)
         {
             this.MatchMinute = matchMinute;
