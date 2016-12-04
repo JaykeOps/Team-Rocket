@@ -209,7 +209,7 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Location.ToString().Contains(searchText, comparison)
-            || 
+            ||
             x.MatchDate.ToString().Contains(searchText, comparison)
             ||
             DomainService.FindSeriesById(x.SeriesId).SeriesName.ToString().Contains(searchText, comparison)
@@ -217,13 +217,21 @@ namespace Domain.Services
             DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
             ||
             DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
-            || 
+            ||
             x.Protocol.HomeTeamActivePlayers.Any(y => DomainService.FindPlayerById(y).Name.ToString()
                 .Contains(searchText, comparison)
             ||
             x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).Name.ToString()
                 .Contains(searchText, comparison))));
-            
+
+        }
+
+        public Game GetGameFromMatch(Match match)
+        {
+            var allGames = GetAll();
+            var game = allGames.ToList().Find(g => g.MatchId == match.Id);
+            return game;
+
         }
     }
 }
