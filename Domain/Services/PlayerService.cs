@@ -186,6 +186,8 @@ namespace Domain.Services
             return this.repository.GetAll();
         }
 
+
+
         public Player FindById(Guid playerId)
         {
             return this.repository.GetAll().ToList().Find(p => p.Id.Equals(playerId));
@@ -199,6 +201,7 @@ namespace Domain.Services
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
                 || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
         }
+
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
         {
@@ -248,11 +251,12 @@ namespace Domain.Services
             team.UpdatePlayerIds();
         }
 
-        public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid newTeamId, Guid oldTeamId)
+        public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer, Guid newTeamId)
         {
             var player = (Player)exposablePlayer;
             var newteam = DomainService.FindTeamById(newTeamId);
-            var oldTeam = oldTeamId != Guid.Empty ? DomainService.FindTeamById(oldTeamId) : null;
+            var oldTeam = exposablePlayer.TeamId != Guid.Empty ? 
+                DomainService.FindTeamById(exposablePlayer.TeamId) : null;
             player.UpdateTeamAffiliation(newteam);
             oldTeam?.UpdatePlayerIds();
         }
