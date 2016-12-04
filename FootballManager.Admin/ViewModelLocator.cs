@@ -65,5 +65,10 @@ namespace FootballManager.Admin
             get { return new TeamInfoEditPlayerViewModel(); }
         }
 
+        public static TeamEditViewModel TeamEditViewModel
+        {
+            get { return new TeamEditViewModel(); }
+        }
+
     }
 }
