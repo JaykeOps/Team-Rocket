@@ -23,7 +23,6 @@ namespace FootballManager.App.ViewModel
             get { return this.matches; }
             set
             {
-
                 this.matches = value;
                 OnPropertyChanged();
             }
