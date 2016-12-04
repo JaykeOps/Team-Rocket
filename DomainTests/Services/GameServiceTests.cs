@@ -399,5 +399,14 @@ namespace Domain.Services.Tests
              game = service.GetGameFromMatch(match); 
             Assert.IsTrue(game != null);
         }
+
+        [TestMethod]
+        public void GetAllEventsFromGame()
+        {
+            var game = dummySeries.DummyGames.GameOne;
+            var events = gameService.GetAllEventsFromGame(game);
+            Assert.IsTrue(events!=null);
+           
+        }
     }
 }

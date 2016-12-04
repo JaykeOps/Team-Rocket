@@ -233,5 +233,20 @@ namespace Domain.Services
             return game;
 
         }
+
+        public IEnumerable<object> GetAllEventsFromGame(Game game)
+        {
+            if (game != null)
+            {
+                var events = new List<object>();
+                events.AddRange(game.Protocol.Goals);
+                events.AddRange(game.Protocol.Assists);
+                events.AddRange(game.Protocol.Cards);
+                events.AddRange(game.Protocol.Penalties);
+                return events;
+            }
+            return null;
+
+        }
     }
 }
