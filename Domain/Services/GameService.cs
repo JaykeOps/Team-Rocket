@@ -251,37 +251,38 @@ namespace Domain.Services
 
         public void RemoveEvent(object _event, Guid gameId)
         {
-            
-            switch (_event.GetType().ToString())
+            if (_event!=null)
             {
-                case "Domain.Value_Objects.Card":
-                    var card = (Card)_event;
-                    if (card.CardType == CardType.Yellow)
-                    {
-                        this.RemoveYellowCardFromGame(gameId,card.PlayerId,card.MatchMinute.Value);
-                    }
-                    else
-                    {
-                        this.RemoveRedCardFromGame(gameId, card.PlayerId, card.MatchMinute.Value);
-                    }
-                    break;
-                case "Domain.Value_Objects.Goal":
-                    var goal = (Goal) _event;
-                    this.RemoveGoalFromGame(gameId,goal.PlayerId,goal.MatchMinute.Value);
-                    break;
-                case "Domain.Value_Objects.Assist":
-                    var assist = (Assist) _event;
-                    this.RemoveAssistFromGame(gameId, assist.PlayerId,assist.MatchMinute.Value);
-                    break;
-                case "Domain.Value_Objects.Penalty":
-                    var penalty = (Penalty) _event;
-                    this.RemovePenaltyFromGame(gameId,penalty.PlayerId,penalty.MatchMinute.Value);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid event type");
-                    
-            }
+                switch (_event.GetType().ToString())
+                {
+                    case "Domain.Value_Objects.Card":
+                        var card = (Card)_event;
+                        if (card.CardType == CardType.Yellow)
+                        {
+                            this.RemoveYellowCardFromGame(gameId, card.PlayerId, card.MatchMinute.Value);
+                        }
+                        else
+                        {
+                            this.RemoveRedCardFromGame(gameId, card.PlayerId, card.MatchMinute.Value);
+                        }
+                        break;
+                    case "Domain.Value_Objects.Goal":
+                        var goal = (Goal)_event;
+                        this.RemoveGoalFromGame(gameId, goal.PlayerId, goal.MatchMinute.Value);
+                        break;
+                    case "Domain.Value_Objects.Assist":
+                        var assist = (Assist)_event;
+                        this.RemoveAssistFromGame(gameId, assist.PlayerId, assist.MatchMinute.Value);
+                        break;
+                    case "Domain.Value_Objects.Penalty":
+                        var penalty = (Penalty)_event;
+                        this.RemovePenaltyFromGame(gameId, penalty.PlayerId, penalty.MatchMinute.Value);
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid event type");
 
+                }
+            }
         }
     }
 }

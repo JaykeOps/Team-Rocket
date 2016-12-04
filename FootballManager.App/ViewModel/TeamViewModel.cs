@@ -15,7 +15,8 @@ namespace FootballManager.App.ViewModel
         private TeamService teamService;
         private Team selectedTeam;
         private ICommand teamInfoCommand;
-
+        private string teamViewSearchText;
+        private string teamInfoSearchText;
         public TeamViewModel()
         {
             this.teamService = new TeamService();
@@ -62,6 +63,27 @@ namespace FootballManager.App.ViewModel
             {
                 this.teams = value;
                 this.OnPropertyChanged();
+            }
+        }
+        public string PlayerViewSearchText
+        {
+            get { return this.teamViewSearchText; }
+            set
+            {
+                this.teamViewSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadData();
+            }
+        }
+
+        public string PlayerInfoSearchText
+        {
+            get { return this.teamInfoSearchText; }
+            set
+            {
+                this.teamInfoSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadData();
             }
         }
 
