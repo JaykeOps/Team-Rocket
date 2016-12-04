@@ -14,13 +14,11 @@ namespace FootballManager.App.ViewModel
     {
         private GameService gameService;
         private Game gameToDisplay;
-        private ObservableCollection<GameResult> gameResultToDisplay;
         private IEnumerable<object> events;
 
         public MatchProtocolViewModel()
         {
             gameService = new GameService();
-            gameResultToDisplay = new ObservableCollection<GameResult>();
             Messenger.Default.Register<Game>(this, OnMatchObjReceived);
         }
 
@@ -34,7 +32,7 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        public Game Game
+        public Game GameToDisplay
         {
             get
             { return gameToDisplay; }
@@ -45,23 +43,13 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        public ObservableCollection<GameResult> GameResultToDisplay
-        {
-            get
-            { return gameResultToDisplay; }
-            set
-            {
-                gameResultToDisplay = value;
-                OnPropertyChanged();
-            }
-        }
+
         private void OnMatchObjReceived(Game obj)
         {
             if (obj != null)
             {
                 this.Events = gameService.GetAllEventsFromGame(obj);
                 this.gameToDisplay = obj;
-                this.gameResultToDisplay.Add(obj.Protocol.GameResult);
             }
         }
     }

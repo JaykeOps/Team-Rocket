@@ -7,7 +7,7 @@
             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             mc:Ignorable="d"
-            Title="{Binding Game.Protocol.GameResult}"
+            Title="{Binding GameToDisplay.Protocol.GameResult}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             SizeToContent="WidthAndHeight"
@@ -34,8 +34,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -45,7 +44,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
             <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding Events, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
