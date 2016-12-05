@@ -52,16 +52,16 @@ namespace Domain.Services
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
             var teamStats = teamsOfSerie.Select(team => team.AggregatedStats[series.Id]).ToList();
 
-            teamStats.OrderByDescending(x => x.Points)
-               .ThenByDescending(x => x.GoalDifference)
-               .ThenByDescending(x => x.GoalsFor);
+            var orderTeamStats = teamStats.OrderByDescending(x => x.Points)
+                .ThenByDescending(x => x.GoalDifference)
+               .ThenByDescending(x => x.GoalsFor).ToList();
 
-            for (int i = 0; i < teamStats.Count; i++)
+            for (int i = 0; i < orderTeamStats.Count; i++)
             {
-                var teamStat = teamStats.ElementAt(i);
+                var teamStat = orderTeamStats.ElementAt(i);
                 teamStat.Ranking = i + 1;
             }
-            return teamStats;
+            return orderTeamStats;
         }
 
         public void DeleteSeries(Guid seriesId)
