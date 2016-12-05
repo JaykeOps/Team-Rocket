@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
+using Domain.Value_Objects;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
 using FootballManager.App.View;
@@ -11,16 +14,21 @@ namespace FootballManager.App.ViewModel
 {
     public class TeamViewModel : ViewModelBase
     {
-        private ObservableCollection<Team> teams;
+        private ObservableCollection<IExposableTeam> teams;
+        private ObservableCollection<TeamStats> teamStats;
         private TeamService teamService;
         private Team selectedTeam;
         private ICommand teamInfoCommand;
         private string teamViewSearchText;
         private string teamInfoSearchText;
+
         public TeamViewModel()
         {
             this.teamService = new TeamService();
 
+            this.teamViewSearchText = "";
+            this.teamInfoSearchText = "";
+            this.teamStats = new ObservableCollection<TeamStats>();
             this.OpenTeamAddViewCommand = new RelayCommand(this.OpenTeamAddView);
             this.DeleteTeamCommand = new RelayCommand(this.DeleteTeam);
             this.LoadData();
@@ -45,6 +53,15 @@ namespace FootballManager.App.ViewModel
             }
         }
 
+        public ObservableCollection<TeamStats> TeamStats
+        {
+            get { return this.teamStats; }
+            set
+            {
+                this.teamStats = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Team SelectedTeam
         {
@@ -56,7 +73,7 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        public ObservableCollection<Team> Teams
+        public ObservableCollection<IExposableTeam> Teams
         {
             get { return this.teams; }
             set
@@ -65,25 +82,26 @@ namespace FootballManager.App.ViewModel
                 this.OnPropertyChanged();
             }
         }
-        public string PlayerViewSearchText
-        {
-            get { return this.teamViewSearchText; }
-            set
-            {
-                this.teamViewSearchText = value;
-                this.OnPropertyChanged();
-                this.LoadData();
-            }
-        }
 
-        public string PlayerInfoSearchText
+        public string TeamInfoSearchText
         {
             get { return this.teamInfoSearchText; }
             set
             {
                 this.teamInfoSearchText = value;
                 this.OnPropertyChanged();
-                this.LoadData();
+                this.LoadTeamInfoData();
+            }
+        }
+
+        public string TeamViewSearchText
+        {
+            get { return this.teamViewSearchText; }
+            set
+            {
+                this.teamViewSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadTeamViewData();
             }
         }
 
@@ -99,7 +117,7 @@ namespace FootballManager.App.ViewModel
 
         private void TeamInfo(object obj)
         {
-            TabablzControl teamViewTabablzControl = (TabablzControl)obj;
+            TabablzControl teamViewTabablzControl = (TabablzControl) obj;
             teamViewTabablzControl.SelectedIndex = 1;
         }
 
@@ -114,11 +132,26 @@ namespace FootballManager.App.ViewModel
             this.teams.Add(team);
         }
 
-        public void LoadData()
+        private void LoadTeamInfoData()
         {
-            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
+            this.TeamStats = this.teamService.TeamStatsSearch(this.teamInfoSearchText).ToObservableCollection();
         }
 
-        #endregion
+        private void LoadTeamViewData()
+        {
+            this.Teams =
+                this.teamService.GetAllIExposableTeams()
+                    .Where(x => x.Name.Value.ToLower().Contains(this.teamViewSearchText.ToLower()))
+                    .ToObservableCollection();
+        }
+
+        public void LoadData()
+        {
+            this.Teams = this.teamService.GetAllIExposableTeams().ToObservableCollection();
+            this.teamStats = this.teamService.TeamStatsSearch(this.teamInfoSearchText).ToObservableCollection();
+        }
     }
 }
+
+    #endregion
+    

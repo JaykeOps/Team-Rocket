@@ -33,7 +33,7 @@ namespace FootballManager.Admin.ViewModel
         private Team selectedTeam;
 
         public PlayerAddViewModel()
-        {           
+        {
             this.teamService = new TeamService();
             this.playerService = new PlayerService();
             this.PlayerAddCommand = new RelayCommand(this.PlayerAdd);
@@ -157,11 +157,19 @@ namespace FootballManager.Admin.ViewModel
         #region Methods
         private void PlayerAdd(object obj)
         {
-            this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
-            this.player.TeamId = this.selectedTeam.Id;
+            if (this.firstName!=null && this.lastName!=null && this.dateOfBirth!=null)
+            {
+                this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
+                if (this.selectedTeam != null)
+                {
+                    this.player.TeamId = this.selectedTeam.Id;
+                }
 
-            
-            this.playerService.Add(this.player);
+
+                Messenger.Default.Send<Player>(this.player);
+                this.playerService.Add(this.player);
+            }
+
         }
         #endregion
 

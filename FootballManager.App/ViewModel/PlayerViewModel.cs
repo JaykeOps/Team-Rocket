@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.App.Extensions;
-using FootballManager.App.Utility;
-using FootballManager.App.View;
-using Dragablz;
 
 namespace FootballManager.App.ViewModel
 {
@@ -19,50 +12,31 @@ namespace FootballManager.App.ViewModel
     {
         private ObservableCollection<IExposablePlayer> players;
         private ObservableCollection<PlayerStats> playerStats;
+        private ObservableCollection<Series> allSeries;
+        private ObservableCollection<Series> allTeams;
+        private SeriesService seriesService;
         private PlayerService playerService;
-        private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
         private ICommand playerInfoCommand;
         private string playerViewSearchText;
         private string playerInfoSearchText;
+        private Series seriesForPlayerStats;
+
+
 
         public PlayerViewModel()
         {
             this.playerStats = new ObservableCollection<PlayerStats>();
             this.playerService = new PlayerService();
-            this.teamService = new TeamService();
+            this.seriesService = new SeriesService();
             this.playerViewSearchText = "";
             this.playerInfoSearchText = "";
-
-            this.LoadData();     
-
-            Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
+            this.LoadData();
         }
 
-        #region Properties
-        public ICommand OpenPlayerAddViewCommand
-        {
-            get
-            {
-                if (this.openPlayerAddViewCommand == null)
-                {
-                    this.openPlayerAddViewCommand = new RelayCommand(this.OpenPlayerAddView);
-                }
-                return this.openPlayerAddViewCommand;
-            }
-        }
+        
 
-        public ICommand PlayerInfoCommand
-        {
-            get
-            {
-                if (this.playerInfoCommand == null)
-                {
-                    this.playerInfoCommand = new RelayCommand(this.PlayerInfo);
-                }
-                return this.playerInfoCommand;
-            }
-        }
+        public ObservableCollection<Series> AllSeries => this.allSeries;
 
         public ObservableCollection<IExposablePlayer> Players
         {
@@ -86,12 +60,23 @@ namespace FootballManager.App.ViewModel
 
         public string PlayerViewSearchText
         {
-            get { return this.playerViewSearchText;}
+            get { return this.playerViewSearchText; }
             set
             {
                 this.playerViewSearchText = value;
                 this.OnPropertyChanged();
                 this.LoadPlayerViewData();
+            }
+        }
+
+        public Series SeriesForPlayerStats
+        {
+            get { return this.seriesForPlayerStats; }
+            set
+            {
+                this.seriesForPlayerStats = value;
+                OnPropertyChanged("CbPlayerStats");
+                this.FilterStatsGrid();
             }
         }
 
@@ -102,14 +87,22 @@ namespace FootballManager.App.ViewModel
             {
                 this.playerInfoSearchText = value;
                 this.OnPropertyChanged();
-                this.LoadPlayerInfoData();
+                this.FilterStatsGrid();
             }
         }
 
-        private void LoadPlayerInfoData()
+        private void FilterStatsGrid()
         {
-            this.PlayerStats = this.playerService.GetPlayerStatsFreeTextSearch(
-                this.playerInfoSearchText).ToObservableCollection();
+            var allPlayers = playerService.Search(this.playerInfoSearchText);
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                if (seriesForPlayerStats != null && this.seriesForPlayerStats.TeamIds.Contains(player.TeamId))
+                {
+                    playerStats.Add(playerService.GetPlayerStatsInSeries(player.Id, seriesForPlayerStats.Id));
+                }
+            }
+            PlayerStats = playerStats.ToObservableCollection();
         }
 
         private void LoadPlayerViewData()
@@ -117,51 +110,16 @@ namespace FootballManager.App.ViewModel
             this.Players = this.playerService.Search(this.playerViewSearchText).ToObservableCollection();
         }
 
-        #endregion
-
-        #region Methods
-
-        private void OpenPlayerAddView(object obj)
+        private void LoadData()
         {
-            var playerAddView = new PlayerAddView();
-            playerAddView.ShowDialog();
-        }
-
-        private void PlayerInfo(object obj)
-        {
-            TabablzControl playerViewTabablzControl = (TabablzControl)obj;
-            playerViewTabablzControl.SelectedIndex = 1;
-        }
-
-        private void OnPlayerObjReceived(Player player)
-        {
-            this.players.Add(player);
-        }
-
-        public void LoadData()
-        {
+            this.allSeries = seriesService.GetAll().ToObservableCollection();
             this.Players = this.playerService.GetAllExposablePlayers().ToObservableCollection();
-            this.playerStats = this.playerService.GetPlayerStatsFreeTextSearch(this.playerViewSearchText).ToObservableCollection();
+            this.FilterStatsGrid();
         }
 
-        #endregion
-
-        #region Combobox population
-        public IEnumerable<PlayerPosition> PlayerPositions
-        {
-            get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
-        }
-
-        public IEnumerable<PlayerStatus> PlayerStatuses
-        {
-            get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
-
-        }
-
-        public IEnumerable<string> TeamNames
-        {
-            get { return this.teamService.GetAllTeams().Select(x => x.Name.Value); } 
-        }
-        #endregion
     }
+
+
+
 }
+

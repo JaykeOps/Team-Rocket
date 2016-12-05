@@ -25,7 +25,6 @@
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}"/>
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
             <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -49,15 +48,8 @@
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for player:" />
                         <TextBox Text="{Binding PlayerViewSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        <!--<Button Command="{Binding OpenPlayerAddViewCommand}" Content="Add New Player" Style="{StaticResource FlatButton}" VerticalAlignment="Bottom" Margin="40,0,0,0" />-->
                     </StackPanel>
-                    <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="60">
-
-                    </StackPanel>-->
                     
-                    
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Player -->
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding Players}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
@@ -65,52 +57,19 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-
                             <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay }" />
                             <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                             <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
                             <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" IsReadOnly="True" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" IsReadOnly="True"/>
-
-                            <!--<DataGridTemplateColumn Header="Team">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding TeamId, Converter={StaticResource TeamIdToStringConverter}}" />
-                                        --><!-- Bugg i Datagrid, Status funkar här ändå, kommer från Players --><!--
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding DataContext.Teams, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                                  SelectedItem="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>-->
-
-                            <DataGridTemplateColumn Header="Player info">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button CommandParameter="{Binding ElementName=playerViewTabablzControl}"
-                                                Command="{Binding Path=DataContext.PlayerInfoCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                            <materialDesign:PackIcon Kind="InformationOutline" />
-                                            <!--CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"-->
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
+                            <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName}" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <!-- End Region Display Player -->
-
             </TabItem>
-
-            <TabItem Header="Player info">
-
+            
+            <TabItem Header="Player stats">
                 <Grid>
-                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -123,9 +82,12 @@
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for player:" />
                         <TextBox Text="{Binding PlayerInfoSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-
-                        <DataGrid Grid.Row="1" Grid.Column="0" 
+                        <ComboBox x:Name="CbPlayerStats" IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
+                                  ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
+                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="10" Margin="15,0,0,0"/>
+                    </StackPanel>
+                    
+                    <DataGrid Grid.Row="1" Grid.Column="0" 
                     ItemsSource="{Binding PlayerStats}" 
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"

@@ -37,7 +37,7 @@ namespace Domain.Repositories
             {
                 this.teams.Add(newTeam);
             }
-            //this.SaveData();
+            this.SaveData();
         }
 
         public IEnumerable<Team> GetAll()

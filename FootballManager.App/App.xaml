@@ -14,6 +14,7 @@
             <conv:TeamIdToStringConverter x:Key="TeamIdToStringConverter" />
             <conv:PlayerIdToStringConverter x:Key="PlayerIdToStringConverter" />
             <conv:ShirtNumberConverter x:Key="ShirtNumberConverter" />
+            <conv:DataGridRowIndexConverter x:Key="DataGridRowIndexConverter" />
             <local:ViewModelLocator x:Key="ViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- Custom -->
