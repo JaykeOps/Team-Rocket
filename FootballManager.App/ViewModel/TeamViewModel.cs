@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
+using Domain.Value_Objects;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
 using FootballManager.App.View;
@@ -12,16 +14,20 @@ namespace FootballManager.App.ViewModel
     public class TeamViewModel : ViewModelBase
     {
         private ObservableCollection<Team> teams;
+        private ObservableCollection<TeamStats> teamStats;
         private TeamService teamService;
         private Team selectedTeam;
         private ICommand teamInfoCommand;
-        private string playerViewSearchText;
-        private string playerInfoSearchText;
+        private string teamViewSearchText;
+        private string teamInfoSearchText;
 
         public TeamViewModel()
         {
             this.teamService = new TeamService();
 
+            this.teamViewSearchText = "";
+            this.teamInfoSearchText = "";
+            this.teamStats = new ObservableCollection<TeamStats>();
             this.OpenTeamAddViewCommand = new RelayCommand(this.OpenTeamAddView);
             this.DeleteTeamCommand = new RelayCommand(this.DeleteTeam);
             this.LoadData();
@@ -46,6 +52,15 @@ namespace FootballManager.App.ViewModel
             }
         }
 
+        public ObservableCollection<TeamStats> TeamStats
+        {
+            get { return this.teamStats; }
+            set
+            {
+                this.teamStats = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Team SelectedTeam
         {
@@ -67,6 +82,28 @@ namespace FootballManager.App.ViewModel
             }
         }
 
+        public string TeamInfoSearchText
+        {
+            get { return this.teamInfoSearchText; }
+            set
+            {
+                this.teamInfoSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadTeamInfoData();
+            }
+        }
+
+        public string TeamViewSearchText
+        {
+            get { return this.teamViewSearchText; }
+            set
+            {
+                this.teamViewSearchText = value;
+                this.OnPropertyChanged();
+                this.LoadTeamViewData();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -79,7 +116,7 @@ namespace FootballManager.App.ViewModel
 
         private void TeamInfo(object obj)
         {
-            TabablzControl teamViewTabablzControl = (TabablzControl)obj;
+            TabablzControl teamViewTabablzControl = (TabablzControl) obj;
             teamViewTabablzControl.SelectedIndex = 1;
         }
 
@@ -94,11 +131,26 @@ namespace FootballManager.App.ViewModel
             this.teams.Add(team);
         }
 
+        private void LoadTeamInfoData()
+        {
+            this.TeamStats = this.teamService.TeamStatsSearch(this.teamInfoSearchText).ToObservableCollection();
+        }
+
+        private void LoadTeamViewData()
+        {
+            this.Teams =
+                this.teamService.GetAllTeams()
+                    .Where(x => x.Name.Value.ToLower().Contains(this.teamViewSearchText.ToLower()))
+                    .ToObservableCollection();
+        }
+
         public void LoadData()
         {
             this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
+            this.teamStats = this.teamService.TeamStatsSearch(this.teamInfoSearchText).ToObservableCollection();
         }
-
-        #endregion
     }
 }
+
+    #endregion
+    
