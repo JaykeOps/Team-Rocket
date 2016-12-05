@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DataGridRowIndexConverter.cs" />
     <Compile Include="Converters\ShirtNumberConverter.cs" />
     <Compile Include="Converters\PlayerIdToStringConverter.cs" />
     <Compile Include="Utility\Messenger.cs" />
