@@ -112,6 +112,7 @@ namespace FootballManager.Admin.ViewModel
             var teamEditView = new TeamEditView();
             Messenger.Default.Send(this.SelectedTeam);
             teamEditView.ShowDialog();
+            this.LoadData();
         }
 
         #endregion Methods

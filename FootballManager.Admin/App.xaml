@@ -17,6 +17,7 @@
             <conv:PlayerPositionListConverter x:Key="PlayerPositionListConverter" />
             <conv:PlayerStatusConverter x:Key="PlayerStatusConverter" />
             <conv:PlayerStatusListConverter x:Key="PlayerStatusListConverter" />
+            <conv:TeamConverter x:Key="TeamConverter" />
             <local:ViewModelLocator x:Key="ViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- Custom -->

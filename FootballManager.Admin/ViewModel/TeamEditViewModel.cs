@@ -2,12 +2,9 @@
 using Domain.Services;
 using Domain.Value_Objects;
 using FootballManager.Admin.Utility;
-using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using Domain.Entities;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -43,7 +40,7 @@ namespace FootballManager.Admin.ViewModel
 
         public TeamName TeamName
         {
-            get { return this.selectedTeam?.Name ?? new TeamName("Not Available"); }
+            get { return this.teamName ?? new TeamName("Not Available"); }
             set
             {
                 if (this.teamName != value)
@@ -56,7 +53,7 @@ namespace FootballManager.Admin.ViewModel
 
         public ArenaName ArenaName
         {
-            get { return this.selectedTeam?.ArenaName ?? new ArenaName("Not Available"); }
+            get { return this.arenaName ?? new ArenaName("Not Available"); }
             set
             {
                 if (this.arenaName != value)
@@ -69,7 +66,7 @@ namespace FootballManager.Admin.ViewModel
 
         public EmailAddress Email
         {
-            get { return this.selectedTeam?.Email ?? new EmailAddress("not_assigned@na.org"); }
+            get { return this.email ?? new EmailAddress("not_assigned@na.org"); }
             set
             {
                 if (this.email != value)
@@ -82,7 +79,10 @@ namespace FootballManager.Admin.ViewModel
 
         private void OnTeamObjectRecieved(IExposableTeam team)
         {
-            this.teamService.Add(team);
+            this.SelectedTeam = team;
+            this.TeamName = this.SelectedTeam.Name;
+            this.ArenaName = this.SelectedTeam.ArenaName;
+            this.Email = this.SelectedTeam.Email;
         }
 
         private void EditTeam(object obj)
