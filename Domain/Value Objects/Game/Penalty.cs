@@ -8,12 +8,13 @@ namespace Domain.Value_Objects
     [Serializable]
     public class Penalty : ValueObject<Penalty>, IGameEvent
     {
-        public const string EventName = "Penalty";
+        private const string eventType = "Penalty";
         public MatchMinute MatchMinute { get; }
         public bool IsGoal { get; }
         public Guid PlayerId { get; }
         public Guid TeamId { get; }
 
+        public string EventType => eventType;
 
 
         public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal, Game game, Guid teamId)
@@ -31,7 +32,7 @@ namespace Domain.Value_Objects
 
         public override string ToString()
         {
-            return $"{EventName}, {DomainService.FindPlayerById(this.PlayerId)}, {DomainService.FindTeamById(this.TeamId)}, {MatchMinute}";
+            return $"{eventType}, {DomainService.FindPlayerById(this.PlayerId)}, {DomainService.FindTeamById(this.TeamId)}, {MatchMinute}";
         }
     }
 }

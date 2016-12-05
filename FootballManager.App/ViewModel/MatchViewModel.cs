@@ -20,6 +20,7 @@ namespace FootballManager.App.ViewModel
         private ObservableCollection<Match> matches;
         private ObservableCollection<Game> games;
         private string searchText;
+        private Match selectedMatch;
         private ICommand openMatchProtocolCommand;
 
         public ObservableCollection<Match> Matches
@@ -41,6 +42,7 @@ namespace FootballManager.App.ViewModel
                 OnPropertyChanged();
             }
         }
+
         public string SearchText
         {
             get { return searchText; }
@@ -50,6 +52,16 @@ namespace FootballManager.App.ViewModel
                 OnPropertyChanged();
                 FilterGames();
                 FilterMatches();
+            }
+        }
+
+        public Match SelectedMatch
+        {
+            get { return selectedMatch; }
+            set
+            {
+                selectedMatch = value;
+                OnPropertyChanged();
             }
         }
 
@@ -90,6 +102,7 @@ namespace FootballManager.App.ViewModel
         private void OpenMatchProtocolView(object obj)
         {
             var matchProtocolView = new MatchProtocolView();
+            Messenger.Default.Send<Game>((Game)obj);
             matchProtocolView.ShowDialog();
         }
     }

@@ -188,6 +188,9 @@ namespace FootballManager.Admin.ViewModel
         private void OnMatchObjReceived(Match obj)
         {
             this.matchToEdit = obj;
+            this.arenaName = this.matchToEdit.Location.Value;
+            this.matchDate = this.matchToEdit.MatchDate.Value.ToString("yyyy-MM-dd");
+            this.matchTime = this.matchToEdit.MatchDate.Value.ToString("HH:mm");
         }
 
         private void InputCheck()

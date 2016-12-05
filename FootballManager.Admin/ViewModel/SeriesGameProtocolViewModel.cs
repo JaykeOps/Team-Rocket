@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -14,6 +16,8 @@ using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 using Domain.Helper_Classes;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 
 namespace FootballManager.Admin.ViewModel
@@ -24,7 +28,7 @@ namespace FootballManager.Admin.ViewModel
         private GameService gameService;
         private PlayerService playerService;
 
-        private Game newGame;
+        private Game game;
 
         public SeriesGameProtocolViewModel()
         {
@@ -107,7 +111,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 if (this.addGoalToGameCommand == null)
                 {
-                    this.addGoalToGameCommand = new RelayCommand(this.AddGoalToGame);
+                    this.addGoalToGameCommand = new RelayCommand(this.AddGoalToGame, this.CanAddGoalToGame);
                 }
                 return this.addGoalToGameCommand;
             }
@@ -115,22 +119,30 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddGoalToGame(object obj)
         {
-            if (SelectedActivePlayer != null)
+
+            if (selectedHomeActivePlayer != null && selectedHomeActivePlayer.TeamId == game.HomeTeamId)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
-                {
-                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
-                    HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
-                }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
-                {
-                    this.gameService.AddGoalToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(GoalMatchMinute));
-                    AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
-                }                
+                this.gameService.AddGoalToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(GoalMatchMinute));
+                HomeTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
             }
-            GetNewEventsData();
+            else if (selectedAwayActivePlayer != null && selectedAwayActivePlayer.TeamId == game.AwayTeamId)
+            {
+                this.gameService.AddGoalToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(GoalMatchMinute));
+                AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
+            }                
+
+            UpdateEventData();
             GoalMatchMinute = string.Empty;
-            SelectedActivePlayer = null;
+        }
+
+        private bool CanAddGoalToGame(object obj)
+        {
+            if ((selectedHomeActivePlayer == null && string.IsNullOrEmpty(GoalMatchMinute))
+               || (selectedAwayActivePlayer == null && string.IsNullOrEmpty(GoalMatchMinute)))                        
+            {
+                return false;
+            }
+            return true;
         }
         #endregion
 
@@ -165,19 +177,21 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddAssistToGame(object obj)
         {
-            if (SelectedActivePlayer != null)
+            if (selectedHomeActivePlayer != null && selectedHomeActivePlayer.TeamId == game.HomeTeamId)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
-                {
-                    this.gameService.AddAssistToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
-                }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
-                {
-                    this.gameService.AddAssistToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(AssistMatchMinute));
-                }
+                this.gameService.AddAssistToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(GoalMatchMinute));
+                HomeTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
             }
-            AssistMatchMinute = string.Empty;
-            SelectedActivePlayer = null;
+            else if (selectedAwayActivePlayer != null && selectedAwayActivePlayer.TeamId == game.AwayTeamId)
+            {
+                this.gameService.AddAssistToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(GoalMatchMinute));
+                AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
+            }
+
+            UpdateEventData();
+            GoalMatchMinute = string.Empty;
+            selectedHomeActivePlayer = null;
+            selectedAwayActivePlayer = null;
         }
         #endregion
 
@@ -219,21 +233,21 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddPentalyToGame(object obj)
         {
-            if (SelectedActivePlayer != null)
+            if (selectedHomeActivePlayer != null && selectedHomeActivePlayer.TeamId == game.HomeTeamId)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
-                {
-                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
-                    HomeTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.HomeTeamScore.ToString();
-                }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
-                {
-                    this.gameService.AddPenaltyToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
-                    AwayTeamResult = this.GetNewGameData(newGame.Id).Protocol.GameResult.AwayTeamScore.ToString();
-                }
+                this.gameService.AddPenaltyToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(GoalMatchMinute), GetIsGoal);
+                HomeTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
             }
-            PenaltyMatchMinute = string.Empty;
-            SelectedActivePlayer = null;
+            else if (selectedAwayActivePlayer != null && selectedAwayActivePlayer.TeamId == game.AwayTeamId)
+            {
+                this.gameService.AddPenaltyToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(GoalMatchMinute), GetIsGoal);
+                AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
+            }
+
+            UpdateEventData();
+            GoalMatchMinute = string.Empty;
+            selectedHomeActivePlayer = null;
+            selectedAwayActivePlayer = null;
         }
         #endregion
 
@@ -268,19 +282,21 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddYellowCardToGame(object obj)
         {
-            if (SelectedActivePlayer != null)
+            if (selectedHomeActivePlayer != null && selectedHomeActivePlayer.TeamId == game.HomeTeamId)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
-                {
-                    this.gameService.AddYellowCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
-                }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
-                {
-                    this.gameService.AddYellowCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(YellowCardMatchMinute));
-                }
+                this.gameService.AddYellowCardToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(GoalMatchMinute));
+                HomeTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
             }
-            YellowCardMatchMinute = string.Empty;
-            SelectedActivePlayer = null;
+            else if (selectedAwayActivePlayer != null && selectedAwayActivePlayer.TeamId == game.AwayTeamId)
+            {
+                this.gameService.AddYellowCardToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(GoalMatchMinute));
+                AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
+            }
+
+            UpdateEventData();
+            GoalMatchMinute = string.Empty;
+            selectedHomeActivePlayer = null;
+            selectedAwayActivePlayer = null;
         }
         #endregion
 
@@ -315,19 +331,68 @@ namespace FootballManager.Admin.ViewModel
 
         private void AddRedCardToGame(object obj)
         {
-            if (SelectedActivePlayer != null)
+            if (selectedHomeActivePlayer != null && selectedHomeActivePlayer.TeamId == game.HomeTeamId)
             {
-                if (SelectedActivePlayer.TeamId == newGame.HomeTeamId)
+                this.gameService.AddRedCardToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(GoalMatchMinute));
+                HomeTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
+            }
+            else if (selectedAwayActivePlayer != null && selectedAwayActivePlayer.TeamId == game.AwayTeamId)
+            {
+                this.gameService.AddRedCardToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(GoalMatchMinute));
+                AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
+            }
+
+            UpdateEventData();
+            GoalMatchMinute = string.Empty;
+            selectedHomeActivePlayer = null;
+            selectedAwayActivePlayer = null;
+        }
+        #endregion
+
+        #region Overtime
+        private string overtime;
+
+        public string Overtime
+        {
+            get { return overtime; }
+            set
+            {
+                if (overtime != value)
                 {
-                    this.gameService.AddRedCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
-                }
-                else if (SelectedActivePlayer.TeamId == newGame.AwayTeamId)
-                {
-                    this.gameService.AddRedCardToGame(newGame.Id, SelectedActivePlayer.Id, int.Parse(RedCardMatchMinute));
+                    overtime = value;
+                    OnPropertyChanged();                     
                 }
             }
-            RedCardMatchMinute = string.Empty;
-            SelectedActivePlayer = null;
+        }
+
+        private void SaveOvertime()
+        {
+            if (Overtime != null)
+            {
+                game.Protocol.OverTime = new OverTime(int.Parse(overtime));
+            }
+        }
+        #endregion
+
+        #region Save Game Protocol
+        private ICommand saveGameProtocolCommand;
+
+        public ICommand SaveGameProtocolCommand
+        {
+            get
+            {
+                if (this.saveGameProtocolCommand == null)
+                {
+                    this.saveGameProtocolCommand = new RelayCommand(this.SaveGameProtocol);
+                }
+                return this.saveGameProtocolCommand;
+            }
+        }
+
+        private void SaveGameProtocol(object obj)
+        {
+            SaveOvertime();
+            gameService.Add(game);            
         }
         #endregion
 
@@ -343,8 +408,11 @@ namespace FootballManager.Admin.ViewModel
             get { return this.homeTeamPlayerCollection; }
             set
             {
-                this.homeTeamPlayerCollection = value;
-                OnPropertyChanged();
+                if (this.homeTeamPlayerCollection != value)
+                {
+                    this.homeTeamPlayerCollection = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -353,8 +421,11 @@ namespace FootballManager.Admin.ViewModel
             get { return this.awayTeamPlayerCollection; }
             set
             {
-                this.awayTeamPlayerCollection = value;
-                OnPropertyChanged();
+                if (this.awayTeamPlayerCollection != value)
+                {
+                    this.awayTeamPlayerCollection = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -363,8 +434,11 @@ namespace FootballManager.Admin.ViewModel
             get { return this.homeTeamActivePlayerCollection; }
             set
             {
-                this.homeTeamActivePlayerCollection = value;
-                OnPropertyChanged();
+                if (this.homeTeamActivePlayerCollection != value)
+                {
+                    this.homeTeamActivePlayerCollection = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -373,8 +447,11 @@ namespace FootballManager.Admin.ViewModel
             get { return this.awayTeamActivePlayerCollection; }
             set
             {
-                this.awayTeamActivePlayerCollection = value;
-                OnPropertyChanged();
+                if (this.awayTeamActivePlayerCollection != value)
+                {
+                    this.awayTeamActivePlayerCollection = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -383,81 +460,235 @@ namespace FootballManager.Admin.ViewModel
             get { return this.eventsCollection; }
             set
             {
-                this.eventsCollection = value;
-                OnPropertyChanged();
+                if (this.eventsCollection != value)
+                {
+                    this.eventsCollection = value;
+                    OnPropertyChanged();
+                }
             }
         }
         #endregion
 
-        #region Lists and dependencies
-        private Player selectedActivePlayer;
-        private ICommand addPlayerToActivePlayersCommand;
-        private ICommand removePlayerFromActivePlayersCommand;
-        private ICommand removeEventCommand;
+        #region Home Lists and dependencies
+        private ICommand homeFromActivePlayerCommand;
+        private ICommand homeToActivePlayerCommand;
 
-        public Player SelectedActivePlayer
+        private Player selectedHomeActivePlayer;
+        private Player selectedHomeNotActivePlayer;
+
+        public Player SelectedHomeActivePlayer
         {
-            get { return this.selectedActivePlayer; }
+            get { return this.selectedHomeActivePlayer; }
             set
             {
-                this.selectedActivePlayer = value;                                
-                OnPropertyChanged();
+                if (selectedHomeActivePlayer != value)
+                {
+                    this.selectedHomeActivePlayer = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
-        public ICommand AddPlayerToActivePlayersCommand
+        public ICommand HomeFromActivePlayerCommand
         {
             get
             {
-                if (this.addPlayerToActivePlayersCommand == null)
+                if (this.homeFromActivePlayerCommand == null)
                 {
-                    this.addPlayerToActivePlayersCommand = new RelayCommand(this.AddPlayerToActivePlayers);
+                    this.homeFromActivePlayerCommand = new RelayCommand(this.HomeFromActivePlayer, this.CanHomeFromActivePlayer);
                 }
-                return this.addPlayerToActivePlayersCommand;
+                return this.homeFromActivePlayerCommand;
             }
         }
 
-        private void AddPlayerToActivePlayers(object playerObj)
+        private void HomeFromActivePlayer(object obj)
         {
-            if (playerObj == null) return;
-            Player player = (Player)playerObj;
-            if (player.TeamId == this.newGame.HomeTeamId)
-            {
-                HomeTeamPlayerCollection.Remove(player);
-                HomeTeamActivePlayerCollection.Add(player);
-            }
-            if (player.TeamId == this.newGame.AwayTeamId)
-            {
-                AwayTeamPlayerCollection.Remove(player);
-                AwayTeamActivePlayerCollection.Add(player);
-            }
-        }
+            var player = selectedHomeActivePlayer;
 
-        public ICommand RemovePlayerFromActivePlayersCommand
-        {
-            get
-            {
-                if (this.removePlayerFromActivePlayersCommand == null)
-                {
-                    this.removePlayerFromActivePlayersCommand = new RelayCommand(this.RemovePlayerFromActivePlayers);
-                }
-                return this.removePlayerFromActivePlayersCommand;
-            }           
-        }
-
-        private void RemovePlayerFromActivePlayers(object playerObj)
-        {
-            if (playerObj == null) return;
-            Player player = (Player)playerObj;
-            if (player.TeamId == this.newGame.HomeTeamId)
+            if (player.TeamId == this.game.HomeTeamId)
             {
                 HomeTeamActivePlayerCollection.Remove(player);
                 HomeTeamPlayerCollection.Add(player);
+
+                game.Protocol.HomeTeamActivePlayers.Remove(player.Id);
             }
-            if (player.TeamId == this.newGame.AwayTeamId)
+        }
+
+        private bool CanHomeFromActivePlayer(object obj)
+        {
+            if (selectedHomeActivePlayer == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        // Not active player
+
+        public Player SelectedHomeNotActivePlayer
+        {
+            get { return selectedHomeNotActivePlayer; }
+            set
+            {
+                if (selectedHomeNotActivePlayer != value)
+                {
+                    selectedHomeNotActivePlayer = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand HomeToActivePlayerCommand
+        {
+            get
+            {
+                if (this.homeToActivePlayerCommand == null)
+                {
+                    this.homeToActivePlayerCommand = new RelayCommand(this.HomeToActivePlayer, this.CanHomeToActivePlayer);
+                }
+                return this.homeToActivePlayerCommand;
+            }
+        }
+
+        private void HomeToActivePlayer(object obj)
+        {
+            var player = selectedHomeNotActivePlayer;
+
+            if (player.TeamId == this.game.HomeTeamId)
+            {                
+                HomeTeamPlayerCollection.Remove(player);
+                HomeTeamActivePlayerCollection.Add(player);
+
+                game.Protocol.HomeTeamActivePlayers.Add(player.Id);
+            }
+        }
+
+        private bool CanHomeToActivePlayer(object obj)
+        {
+            if (selectedHomeNotActivePlayer == null)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region Away Lists and dependencies
+        private ICommand awayFromActivePlayerCommand;
+        private ICommand awayToActivePlayerCommand;
+
+        private Player selectedAwayActivePlayer;
+        private Player selectedAwayNotActivePlayer;
+
+        public Player SelectedAwayActivePlayer
+        {
+            get { return this.selectedAwayActivePlayer; }
+            set
+            {
+                if (selectedAwayActivePlayer != value)
+                {
+                    this.selectedAwayActivePlayer = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand AwayFromActivePlayersCommand
+        {
+            get
+            {
+                if (this.awayFromActivePlayerCommand == null)
+                {
+                    this.awayFromActivePlayerCommand = new RelayCommand(this.AwayFromActivePlayers, this.CanAwayFromActivePlayers);
+                }
+                return this.awayFromActivePlayerCommand;
+            }
+        }
+
+        private void AwayFromActivePlayers(object obj)
+        {
+            var player = selectedAwayActivePlayer;
+
+            if (player.TeamId == this.game.AwayTeamId)
             {
                 AwayTeamActivePlayerCollection.Remove(player);
                 AwayTeamPlayerCollection.Add(player);
+                
+                game.Protocol.AwayTeamActivePlayers.Remove(player.Id);
+            }
+        }
+
+        private bool CanAwayFromActivePlayers(object obj)
+        {
+            if (selectedAwayActivePlayer == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        // Not active player
+
+        public Player SelectedAwayNotActivePlayer
+        {
+            get { return selectedAwayNotActivePlayer; }
+            set
+            {
+                if (selectedAwayNotActivePlayer != value)
+                {
+                    selectedAwayNotActivePlayer = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand AwayToActivePlayerCommand
+        {
+            get
+            {
+                if (this.awayToActivePlayerCommand == null)
+                {
+                    this.awayToActivePlayerCommand = new RelayCommand(this.AwayToActivePlayer, this.CanAwayToActivePlayer);
+                }
+                return this.awayToActivePlayerCommand;
+            }
+        }
+
+        private void AwayToActivePlayer(object obj)
+        {
+            var player = selectedAwayNotActivePlayer;
+
+            if (player.TeamId == this.game.AwayTeamId)
+            {
+                AwayTeamPlayerCollection.Remove(player);
+                AwayTeamActivePlayerCollection.Add(player);
+                
+                game.Protocol.AwayTeamActivePlayers.Add(player.Id);
+            }
+        }
+
+        private bool CanAwayToActivePlayer(object obj)
+        {
+            if (selectedAwayNotActivePlayer == null)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region Events
+
+        private ICommand removeEventCommand;
+        private object selectedEvent;
+
+        public object SelectedEvent
+        {
+            get { return this.selectedEvent; }
+            set
+            {
+                this.selectedEvent = value;
+                OnPropertyChanged();
             }
         }
 
@@ -475,32 +706,71 @@ namespace FootballManager.Admin.ViewModel
 
         private void RemoveEvent(object obj)
         {
-            //TODO: Implement event remove
+            gameService.RemoveEvent(SelectedEvent, game.Id);
+            UpdateEventData();
+            UpdateMatchResultData();
+            SelectedEvent = null;
         }
         #endregion
 
         #region Methods                      
         private void OnMatchObjReceived(Match match)
-        {            
-            this.newGame = new Game(match);
-            gameService.Add(newGame);
-            HomeTeamName = this.teamService.FindTeamById(this.newGame.HomeTeamId).Name.Value;
-            AwayTeamName = this.teamService.FindTeamById(this.newGame.AwayTeamId).Name.Value;
-            
-            HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.newGame.HomeTeamId).ToObservableCollection();
-            AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.newGame.AwayTeamId).ToObservableCollection();
+        {                    
+            if (match != null)
+            {
+                game = gameService.GetGameFromMatch(match);
+                if (game != null)
+                {
+                    HomeTeamName = this.teamService.FindTeamById(game.HomeTeamId).ToString();
+                    AwayTeamName = this.teamService.FindTeamById(game.AwayTeamId).ToString();
+                    HomeTeamResult = game.Protocol.GameResult.HomeTeamScore.ToString();
+                    AwayTeamResult = game.Protocol.GameResult.AwayTeamScore.ToString();
+                    HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(game.HomeTeamId).ToObservableCollection();
+                    AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(game.AwayTeamId).ToObservableCollection();
+
+                    HomeTeamActivePlayerCollection = this.GetActivePlayers(game.Protocol.HomeTeamActivePlayers);
+                    AwayTeamActivePlayerCollection = this.GetActivePlayers(game.Protocol.AwayTeamActivePlayers);
+
+                    EventsCollection = gameService.GetAllEventsFromGame(game).ToObservableCollection();
+                }
+                else if (game == null)
+                {
+                    this.game = new Game(match);
+                    gameService.Add(game);
+                    HomeTeamName = this.teamService.FindTeamById(this.game.HomeTeamId).Name.Value;
+                    AwayTeamName = this.teamService.FindTeamById(this.game.AwayTeamId).Name.Value;
+
+                    HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.game.HomeTeamId).ToObservableCollection();
+                    AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.game.AwayTeamId).ToObservableCollection();
+                }               
+            }
         }
 
-        private Game GetNewGameData(Guid gameId)
+        private Game UpdateGameData(Guid gameId)
         {
-            return gameService.FindById(gameId);
+            return this.gameService.FindById(gameId);
         }
 
-        private void GetNewEventsData()
+        private void UpdateEventData()
         {
-            EventsCollection = gameService.GetAllEventsFromGame(newGame).ToObservableCollection();
+            EventsCollection = this.gameService.GetAllEventsFromGame(this.game).ToObservableCollection();          
         }
 
+        private void UpdateMatchResultData()
+        {
+            HomeTeamResult = this.gameService.FindById(this.game.Id).Protocol.GameResult.HomeTeamScore.ToString();
+            AwayTeamResult = this.gameService.FindById(this.game.Id).Protocol.GameResult.AwayTeamScore.ToString();
+        }
+
+        private ObservableCollection<Player> GetActivePlayers(IEnumerable<Guid> ids)
+        {
+            var activePlayers = new ObservableCollection<Player>();
+            foreach (var id in ids)
+            {                
+                activePlayers.Add(playerService.FindById(id));
+            }
+            return activePlayers;
+        }
         #endregion
 
         #region Validaiton Properties
