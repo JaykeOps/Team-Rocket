@@ -194,10 +194,13 @@ namespace Domain.Services
         public IEnumerable<IExposablePlayer> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
-            return this.repository.GetAll().Where(x => x.TeamId != Guid.Empty &&
-                (x.Name.ToString().Contains(searchText, comparison)
+            foreach (var player in repository.GetAll())
+            {
+                
+            }
+            return this.repository.GetAll().Where(x => x.Name.ToString().Contains(searchText, comparison)
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
-                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison)));
+                || x.AffiliatedTeamName.Value.Contains(searchText, comparison));
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
