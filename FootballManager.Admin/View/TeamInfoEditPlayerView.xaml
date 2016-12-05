@@ -53,13 +53,22 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Shirt number:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber,
-                Converter={StaticResource ShirtNumberConverter}, Mode=TwoWay}" />
-            
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                ValidatesOnDataErrors=True, Converter={StaticResource ShirtNumberConverter}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
             <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPositions,
                 Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}" 
-                      SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" /> 
-            
+                      SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" />
+
             <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatuses, 
                 Converter={StaticResource PlayerStatusListConverter}, Mode=OneWay}"
                       SelectedValue="{Binding SelectedPlayerStatus, Converter={StaticResource PlayerStatusConverter}, Mode=TwoWay}" />

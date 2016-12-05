@@ -7,53 +7,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class TeamInfoEditPlayerViewModel : ViewModelBase
     {
         private readonly PlayerService playerService;
-        private IExposablePlayer selectedPlayer;
-        private Name name;
-        private int shirtNumber;
-        private PlayerPosition playerPosition;
-        private PlayerStatus playerStatus;
+
+
 
         public TeamInfoEditPlayerViewModel()
         {
             this.playerService = new PlayerService();
+
             Messenger.Default.Register<IExposablePlayer>(this, this.OnPlayerObjectRecieved);
-            this.SavePlayerChangesCommand = new RelayCommand(this.EditPlayer);
         }
 
-        public ICommand SavePlayerChangesCommand { get; }
+        #region Received Player
+        private IExposablePlayer receivedPlayer;
 
-        public Name Name
+        public IExposablePlayer ReceivedPlayer
         {
-            get { return this.selectedPlayer?.Name ?? new Name("Not", "Available"); }
+            get { return this.receivedPlayer; }
             set
             {
-                if (this.name != value)
+                if (this.receivedPlayer != value)
                 {
-                    this.name = value;
-                    this.OnPropertyChanged();
+                    this.receivedPlayer = value;
                 }
             }
         }
+        #endregion
 
-        public IExposablePlayer SelectedPlayer
-        {
-            get { return this.selectedPlayer; }
-            set
-            {
-                if (this.selectedPlayer != value)
-                {
-                    this.selectedPlayer = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
+        #region Shirt Number
+        private int shirtNumber;
         public int ShirtNumber
         {
             get { return this.shirtNumber; }
@@ -66,6 +54,24 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
+        #endregion
+
+        #region Name
+        private Name name;
+
+        public Name Name
+        {
+            get { return this.name; }
+            set
+            {
+                this.name = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Position
+        private PlayerPosition playerPosition;
 
         public PlayerPosition SelectedPlayerPosition
         {
@@ -80,6 +86,15 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public IEnumerable<PlayerPosition> PlayerPositions
+        {
+            get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
+        }
+        #endregion
+
+        #region Status
+        private PlayerStatus playerStatus;
+
         public PlayerStatus SelectedPlayerStatus
         {
             get { return this.playerStatus; }
@@ -93,19 +108,32 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public IEnumerable<PlayerPosition> PlayerPositions
-        {
-            get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
-        }
-
         public IEnumerable<PlayerStatus> PlayerStatuses
         {
             get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
         }
+        #endregion
 
+        #region Save
+        private ICommand savePlayerChanges;
+
+        public ICommand SavePlayerChangesCommand
+        {
+            get
+            {
+                if (this.savePlayerChanges == null)
+                {
+                    this.savePlayerChanges = new RelayCommand(this.EditPlayer);
+                }
+                return this.savePlayerChanges;
+            }
+        }
+        #endregion
+
+        #region Methods        
         public void OnPlayerObjectRecieved(IExposablePlayer player)
         {
-            this.SelectedPlayer = player;
+            this.ReceivedPlayer = player;
             this.Name = player.Name;
             this.ShirtNumber = player.ShirtNumber.Value;
             this.SelectedPlayerPosition = player.Position;
@@ -114,14 +142,14 @@ namespace FootballManager.Admin.ViewModel
 
         private void EditPlayer(object obj)
         {
-            this.SelectedPlayer.Position = this.playerPosition;
-            this.SelectedPlayer.Status = this.playerStatus;
+            this.ReceivedPlayer.Position = this.playerPosition;
+            this.ReceivedPlayer.Status = this.playerStatus;
             if (this.shirtNumber != -1)
             {
-                this.SelectedPlayer.ShirtNumber =
-                    new ShirtNumber(this.SelectedPlayer.TeamId, this.shirtNumber);
+                this.ReceivedPlayer.ShirtNumber =
+                    new ShirtNumber(this.ReceivedPlayer.TeamId, this.shirtNumber);
             }
-            this.playerService.Add((Player)this.SelectedPlayer);
+            this.playerService.Add((Player)this.ReceivedPlayer);
             this.CloseDialog();
         }
 
@@ -131,5 +159,83 @@ namespace FootballManager.Admin.ViewModel
                 FirstOrDefault(w => w.Name == "TeamInfoEditPlayerViewDialog");
             window?.Close();
         }
+        #endregion
+
+
+        #region Validaiton Properties
+        private bool isShirtNumberValid;
+        private bool assistMatchMinuteValid;
+
+        public bool IsShirtNumberValid
+        {
+            get { return isShirtNumberValid; }
+            set
+            {
+                if (isShirtNumberValid != value)
+                {
+                    isShirtNumberValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #region IDataErrorInfo implemetation
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "ShirtNumber":
+                        this.IsShirtNumberValid = true;
+                        if (string.IsNullOrEmpty(this.ShirtNumber.ToString()))
+                        {
+                            this.IsShirtNumberValid = false;
+                            return string.Empty;
+                        }
+                        int shirtNumber;
+                        if (!int.TryParse(this.ShirtNumber.ToString(), out shirtNumber))
+                        {
+                            this.IsShirtNumberValid = false;
+                            return "Only 0-99 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
+                        }
+                        if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer.TeamId))
+                        {
+                            this.IsShirtNumberValid = false;
+                            return "Only 0-99 are valid!";
+                        }
+                        break;
+                        //case "AssistMatchMinute":
+                        //    this.AssistMatchMinuteValid = true;
+                        //    if (string.IsNullOrEmpty(this.AssistMatchMinute))
+                        //    {
+                        //        this.AssistMatchMinuteValid = false;
+                        //        return string.Empty;
+                        //    }
+                        //    int assistMatchMinute;
+                        //    if (!int.TryParse(this.AssistMatchMinute, out assistMatchMinute))
+                        //    {
+                        //        this.AssistMatchMinuteValid = false;
+                        //        return "Only 1-120 are valid!";
+                        //    }
+                        //    if (!assistMatchMinute.IsMatchMinute())
+                        //    {
+                        //        this.AssistMatchMinuteValid = false;
+                        //        return "Only 1-120 are valid!";
+                        //    }
+                        //    break;
+                }
+                return string.Empty;
+            }
+        }
+        #endregion
     }
 }
