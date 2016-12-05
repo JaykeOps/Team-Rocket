@@ -53,9 +53,19 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Shirt number:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber,
-                Converter={StaticResource ShirtNumberConverter}, Mode=TwoWay}" />
-            
+
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.ShirtNumber, Converter={StaticResource ShirtNumberConverter}, Mode=TwoWay, 
+                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoEditPlayerView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" Background="White"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
             <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPositions,
                 Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}" 
                       SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" /> 
@@ -66,7 +76,7 @@
 
             <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Save Changes" Command="{Binding SavePlayerChangesCommand}" />
+                <Button Content="Save Changes" Command="{Binding SavePlayerChangesCommand}" IsEnabled="{Binding ShirtNumberValid}"/>
             </StackPanel>
         </Grid>
 

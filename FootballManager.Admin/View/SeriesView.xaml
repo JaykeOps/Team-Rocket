@@ -67,7 +67,18 @@
                             <Button CommandParameter="{Binding ElementName=AvailableTeams, Path=SelectedItem}" 
                                     Command="{Binding DeleteTeamCommand}" Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                         </StackPanel>
-                        <ListBox x:Name="TeamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding TeamsToAddToSeries}">
+                        <ListBox x:Name="TeamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" 
+                                 ItemsSource="{Binding DataContext.TeamsToAddToSeries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                 ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <!-- Placeholder for the ListBox itself -->
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
                         </ListBox>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center">
@@ -112,8 +123,8 @@
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
                                     <StackPanel>
-                                        <!-- Placeholder for the TextBox itself -->
-                                        <AdornedElementPlaceholder x:Name="setMatchDurationTextBoxPlaceholder" />
+                                        <!-- Placeholder for the ComboBox itself -->
+                                        <AdornedElementPlaceholder />
                                         <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
                                     </StackPanel>
                                 </ControlTemplate>
@@ -121,8 +132,21 @@
                         </TextBox>
 
 
-                        <ComboBox Grid.Row="2" Grid.Column="1" SelectedValue="{Binding SelectedNumberOfTeams}" ItemsSource="{Binding NumberOfTeamsList}" SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
-                        ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding NumberOfTeamsList}" 
+                                  SelectedValue="{Binding DataContext.SelectedNumberOfTeams, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                  RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"
+                                  SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                  ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" >
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <!-- Placeholder for the ComboBox itself -->
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </ComboBox>
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
                                     Orientation="Horizontal" 

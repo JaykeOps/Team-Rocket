@@ -206,7 +206,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 if (this.allPropertiesValid != value)
                 {
-                    this.allPropertiesValid = true;
+                    this.allPropertiesValid = value;
                     this.OnPropertyChanged();
                 }
             }

@@ -48,6 +48,7 @@ namespace FootballManager.Admin.ViewModel
             validProperties.Add("SeriesName", false);
             validProperties.Add("MatchDuration", false);
             validProperties.Add("SelectedItem", false);
+            validProperties.Add("TeamsToAddToSeries", false);
         }
 
         public ICommand DeleteTeamCommand { get; }
@@ -68,11 +69,14 @@ namespace FootballManager.Admin.ViewModel
 
         public ObservableCollection<Team> TeamsToAddToSeries
         {
-            get { return teamsToAddToSeries; }
+            get { return this.teamsToAddToSeries; }
             set
             {
-                teamsToAddToSeries = value;
-                OnPropertyChanged();
+                if (this.teamsToAddToSeries != value)
+                {
+                    this.teamsToAddToSeries = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -154,6 +158,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 teamsToAddToSeries.Add(selectedTeam);
                 availableTeams.Remove(selectedTeam);
+                OnPropertyChanged("TeamsToAddToSeries");
             }
         }
 
@@ -163,6 +168,7 @@ namespace FootballManager.Admin.ViewModel
             {
                 availableTeams.Add(selectedTeam);
                 teamsToAddToSeries.Remove(selectedTeam);
+                OnPropertyChanged("TeamsToAddToSeries");
             }
 
         }
@@ -207,6 +213,7 @@ namespace FootballManager.Admin.ViewModel
             this.SeriesName = "";
             this.MatchDuration = "";
             this.AvailableTeams = teamService.GetAllTeams().ToObservableCollection();
+            OnPropertyChanged("TeamsToAddToSeries");
         }
 
         public static bool IsEven(int value)
@@ -273,10 +280,35 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         break;
+                    case "TeamsToAddToSeries":
+                        //if (this.SelectedItem == null)
+                        //{
+                        //    return string.Empty;
+                        //}
+                        if (this.TeamsToAddToSeries.Count() == 0)
+                        {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
+                            return "You have added too few teams to the list!";
+                        }
+                        if ((this.TeamsToAddToSeries.Count() < this.SelectedNumberOfTeams))
+                        {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
+                            return "You have added too few teams to the list!";
+                        }
+                        if ((this.TeamsToAddToSeries.Count() > this.SelectedNumberOfTeams))
+                        {
+                            validProperties[columnName] = false;
+                            ValidateProperties();
+                            return "You have added too many teams to the list!";
+                        }
+                        break;
                 }
                 validProperties[columnName] = true;
                 ValidateProperties();
                 return string.Empty;
+                // return "Fuck this shit!";
             }
         }
         #endregion
