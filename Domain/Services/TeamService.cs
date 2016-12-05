@@ -27,7 +27,7 @@ namespace Domain.Services
             }
             else
             {
-                throw new FormatException("Match cannot be added. Invalid matchdata");
+                
             }
         }
 
@@ -40,7 +40,7 @@ namespace Domain.Services
             }
             else
             {
-                throw new FormatException("Match cannot be added. Invalid matchdata");
+                
             }
         }
 
@@ -102,10 +102,12 @@ namespace Domain.Services
         public IEnumerable<IExposableTeam> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
-            return this.GetAllTeams().Where(x => x.Name.ToString().Contains(searchText, comparison)
+            return this.GetAllTeams().Where(x => 
+            x.Name.ToString().Contains(searchText, comparison)
             || x.ArenaName.ToString().Contains(searchText, comparison)
             || x.Email.Value.Contains(searchText, comparison)
-            || x.PlayerIds.Any(y => DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
+            || x.PlayerIds.Any(y => y != Guid.Empty 
+            && DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
         }
 
         public TeamEvents GetTeamEventsInSeries(Guid teamId, Guid seriesId)

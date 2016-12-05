@@ -85,18 +85,25 @@
     <Compile Include="Converters\PlayerStatusConverter.cs" />
     <Compile Include="Converters\PlayerStatusListConverter.cs" />
     <Compile Include="Converters\ShirtNumberConverter.cs" />
+    <Compile Include="Converters\TeamConverter.cs" />
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
+    <Compile Include="ViewModel\PlayerEditViewModel.cs" />
     <Compile Include="ViewModel\PlayerInfoViewModel.cs" />
+    <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\SeriesGameProtocolViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleEditViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleViewModel.cs" />
     <Compile Include="ViewModel\SeriesViewModel.cs" />
     <Compile Include="ViewModel\TeamAddViewModel.cs" />
+    <Compile Include="ViewModel\TeamEditViewModel.cs" />
     <Compile Include="ViewModel\TeamInfoEditPlayerViewModel.cs" />
     <Compile Include="ViewModel\TeamInfoViewModel.cs" />
     <Compile Include="ViewModel\TeamViewModel.cs" />
     <Compile Include="View\PlayerAddView.xaml.cs">
       <DependentUpon>PlayerAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PlayerEditView.xaml.cs">
+      <DependentUpon>PlayerEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PlayerInfoView.xaml.cs">
       <DependentUpon>PlayerInfoView.xaml</DependentUpon>
@@ -118,6 +125,9 @@
     </Compile>
     <Compile Include="View\TeamAddView.xaml.cs">
       <DependentUpon>TeamAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeamEditView.xaml.cs">
+      <DependentUpon>TeamEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TeamInfoEditPlayerView.xaml.cs">
       <DependentUpon>TeamInfoEditPlayerView.xaml</DependentUpon>
@@ -175,19 +185,22 @@
     <Compile Include="Utility\Messenger.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PlayerEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\PlayerInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PlayerView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SeriesGameProtocolView.xaml">
       <SubType>Designer</SubType>
@@ -206,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TeamAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeamEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

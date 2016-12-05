@@ -172,12 +172,9 @@ namespace FootballManager.Admin.ViewModel
 
         private void CloseDialog()
         {
-            var window = Application.Current.Windows.OfType<Window>()
-                .Where(w => w.Name == "TeamInfoEditPlayerViewDialog").FirstOrDefault();
-            if (window != null)
-            {
-                window.Close();
-            }
+            var window = Application.Current.Windows.OfType<Window>().
+                FirstOrDefault(w => w.Name == "TeamInfoEditPlayerViewDialog");
+            window?.Close();
         }
     }
 }

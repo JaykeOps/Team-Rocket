@@ -44,7 +44,7 @@ namespace Domain.Services
             return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
 
-        public IOrderedEnumerable<TeamStats> GetLeagueTablePlacement(Guid seriesId)
+        public IEnumerable<TeamStats> GetLeagueTablePlacement(Guid seriesId)
         {
             var series = this.FindById(seriesId);
             var teamIdsOfSerie = series.TeamIds;
@@ -52,9 +52,16 @@ namespace Domain.Services
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
             var teamStats = teamsOfSerie.Select(team => team.AggregatedStats[series.Id]).ToList();
 
-            return teamStats.OrderByDescending(x => x.Points)
+            var orderTeamStats = teamStats.OrderByDescending(x => x.Points)
                 .ThenByDescending(x => x.GoalDifference)
-                .ThenByDescending(x => x.GoalsFor);
+               .ThenByDescending(x => x.GoalsFor).ToList();
+
+            for (int i = 0; i < orderTeamStats.Count; i++)
+            {
+                var teamStat = orderTeamStats.ElementAt(i);
+                teamStat.Ranking = i + 1;
+            }
+            return orderTeamStats;
         }
 
         public void DeleteSeries(Guid seriesId)
@@ -83,7 +90,7 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.TeamIds.Any
-            (y => DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
+            (y => y != Guid.Empty && DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
             || x.SeriesName.ToString().Contains(searchText, comparison)));
         }
 
