@@ -30,7 +30,7 @@ namespace Domain.Services
             var series = DomainService.FindSeriesById(seriesId);
             schedule.GenerateSchedule(series);
             DomainService.AddMatches(series.Schedule);
-
+            repository.SaveData();
         }
 
         public IEnumerable<Series> GetAll()

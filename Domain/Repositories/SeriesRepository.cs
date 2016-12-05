@@ -102,7 +102,7 @@ namespace Domain.Repositories
             {
                 this.series.Add(newSeries);
             }
-            //this.SaveData();
+            this.SaveData();
         }
 
         private bool TryGetSeries(Series series, out Series repositorySeries)

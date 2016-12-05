@@ -124,18 +124,8 @@ namespace FootballManager.App.ViewModel
         private void FilterStatsGrid()
         {
             var allPlayers = playerService.Search(this.playerInfoSearchText);
-            var filterdStats = new List<PlayerStats>();
-            foreach (var player in allPlayers)
-            {
-                var allSeries = seriesService.GetAll();
-                foreach (var series in allSeries)
-                {
-                    if (series.TeamIds.Contains(player.TeamId))
-                    {
-                        filterdStats.Add(playerService.GetPlayerStatsInSeries(player.Id,series.Id));
-                    }
-                }
-            }
+            var allSeries = seriesService.GetAll();
+            var filterdStats = (from player in allPlayers from series in allSeries where series.TeamIds.Contains(player.TeamId) select playerService.GetPlayerStatsInSeries(player.Id, series.Id)).ToList();
 
             this.PlayerStats = filterdStats.ToObservableCollection();
         }

@@ -235,12 +235,12 @@ namespace FootballManager.Admin.ViewModel
         {
             if (selectedHomeActivePlayer != null && selectedHomeActivePlayer.TeamId == game.HomeTeamId)
             {
-                this.gameService.AddPenaltyToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(GoalMatchMinute), GetIsGoal);
+                this.gameService.AddPenaltyToGame(game.Id, selectedHomeActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
                 HomeTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.HomeTeamScore.ToString();
             }
             else if (selectedAwayActivePlayer != null && selectedAwayActivePlayer.TeamId == game.AwayTeamId)
             {
-                this.gameService.AddPenaltyToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(GoalMatchMinute), GetIsGoal);
+                this.gameService.AddPenaltyToGame(game.Id, selectedAwayActivePlayer.Id, int.Parse(PenaltyMatchMinute), GetIsGoal);
                 AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
             }
 
@@ -392,7 +392,8 @@ namespace FootballManager.Admin.ViewModel
         private void SaveGameProtocol(object obj)
         {
             SaveOvertime();
-            gameService.Add(game);            
+            gameService.Add(game);
+                        
         }
         #endregion
 

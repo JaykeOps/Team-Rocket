@@ -36,7 +36,7 @@ namespace Domain.Repositories
             {
                 this.players.Add(newPlayer);
             }
-            //this.SaveData();
+            this.SaveData();
         }
 
         public IEnumerable<Player> GetAll()
