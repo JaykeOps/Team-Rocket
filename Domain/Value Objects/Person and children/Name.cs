@@ -40,10 +40,7 @@ namespace Domain.Entities
             }
         }
 
-        //public override int GetHashCode()
-        //{
-        //    return (this.FirstName + this.LastName).GetHashCode();
-        //}
+        
 
         public override string ToString()
         {
