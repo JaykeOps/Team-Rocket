@@ -44,17 +44,24 @@ namespace Domain.Services
             return allSeries.ToList().Find(s => s.Id.Equals(seriesId));
         }
 
-        public IOrderedEnumerable<TeamStats> GetLeagueTablePlacement(Guid seriesId)
+        public IEnumerable<TeamStats> GetLeagueTablePlacement(Guid seriesId)
         {
-            var series = FindById(seriesId);
+            var series = this.FindById(seriesId);
             var teamIdsOfSerie = series.TeamIds;
 
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
             var teamStats = teamsOfSerie.Select(team => team.AggregatedStats[series.Id]).ToList();
 
-            return teamStats.OrderByDescending(x => x.Points)
-                .ThenByDescending(x => x.GoalDifference)
-                .ThenByDescending(x => x.GoalsFor);
+            teamStats.OrderByDescending(x => x.Points)
+               .ThenByDescending(x => x.GoalDifference)
+               .ThenByDescending(x => x.GoalsFor);
+
+            for (int i = 0; i < teamStats.Count; i++)
+            {
+                var teamStat = teamStats.ElementAt(i);
+                teamStat.Ranking = i + 1;
+            }
+            return teamStats;
         }
 
         public void DeleteSeries(Guid seriesId)
