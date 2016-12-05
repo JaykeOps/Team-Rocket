@@ -114,8 +114,9 @@ namespace FootballManager.Admin.ViewModel
 
         private void OpenEditTeamDialog(object obj)
         {
+            var team = (IExposablePlayer) obj;
             var teamEditView = new TeamEditView();
-            Messenger.Default.Send(this.SelectedTeam);
+            Messenger.Default.Send(team);
             teamEditView.ShowDialog();
         }
 
