@@ -30,14 +30,8 @@ namespace FootballManager.Admin.ViewModel
 
         public ICommand OpenTeamAddViewCommand
         {
-            get
-            {
-                if (this.openTeamAddView == null)
-                {
-                    this.openTeamAddView = new RelayCommand(this.OpenTeamAddView);
-                }
-                return this.openTeamAddView;
-            }
+            get { return this.openTeamAddView ?? 
+                    (this.openTeamAddView = new RelayCommand(this.OpenTeamAddView)); }
         }
 
         public ICommand OpenEditTeamViewCommand
@@ -53,11 +47,8 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                if (this.deleteTeamCommand == null)
-                {
-                    this.deleteTeamCommand = new RelayCommand(this.DeleteTeam);
-                }
-                return this.deleteTeamCommand;
+                return this.deleteTeamCommand ?? 
+                    (this.deleteTeamCommand = new RelayCommand(this.DeleteTeam));
             }
         }
 

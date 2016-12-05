@@ -73,7 +73,9 @@
                             <DataGridTemplateColumn Header="Delete">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Command="{Binding DeleteTeamCommand}">
+                                        <Button  CommandParameter="{Binding ElementName=DataGrid, Path=SelectItem}"
+                                            Command="{Binding Path=DataContext.DeleteTeamCommand,
+                                            RelativeSource={RelativeSource AncestorType={x:Type local:TeamView}}}">
                                             <materialDesign:PackIcon Kind="Delete" />
                                         </Button>
                                     </DataTemplate>
