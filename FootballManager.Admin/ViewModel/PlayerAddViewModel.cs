@@ -157,16 +157,11 @@ namespace FootballManager.Admin.ViewModel
         #region Methods
         private void PlayerAdd(object obj)
         {
-            if (this.firstName!=null && this.lastName!=null && this.dateOfBirth!=null)
+            if (this.firstName != null && this.lastName != null && this.dateOfBirth != null)
             {
                 this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
-                if (this.selectedTeam != null)
-                {
-                    this.player.TeamId = this.selectedTeam.Id;
-                }
+                this.player.TeamId = this.selectedTeam.Id;
 
-
-                Messenger.Default.Send<Player>(this.player);
                 this.playerService.Add(this.player);
             }
 
