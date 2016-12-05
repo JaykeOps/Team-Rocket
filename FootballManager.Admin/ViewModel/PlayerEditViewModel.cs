@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using FootballManager.Admin.Utility;
 using Domain.Entities;
+using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -67,9 +68,9 @@ namespace FootballManager.Admin.ViewModel
 
         private void SaveEditedPlayer(object obj)
         {
-            this.playerToEdit.Name.FirstName = this.firstName;
-            this.playerToEdit.Name.LastName = this.lastName;
-            this.playerToEdit.DateOfBirth.Value = Convert.ToDateTime(this.dateOfBirth);
+            this.playerToEdit.Name = new Name(this.firstName, this.playerToEdit.Name.LastName);
+            this.playerToEdit.Name = new Name(this.playerToEdit.Name.FirstName, this.lastName);
+            this.playerToEdit.DateOfBirth = new DateOfBirth(this.dateOfBirth);
 
             Window window = Application.Current.Windows.OfType<Window>()
                     .Where(w => w.Name == "EditPlayerWindow").FirstOrDefault();
