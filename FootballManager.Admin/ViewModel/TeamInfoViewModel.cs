@@ -275,7 +275,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void OpenTeamInfoEditPlayerView(object obj)
         {
-            var player = (IExposablePlayer)obj;
+            var player = (IExposablePlayer) obj;
             var teamInfoPlayerEditView = new TeamInfoEditPlayerView();
             Messenger.Default.Send(player);
             teamInfoPlayerEditView.ShowDialog();

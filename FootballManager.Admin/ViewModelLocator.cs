@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using FootballManager.Admin.View;
 using FootballManager.Admin.ViewModel;
 
 namespace FootballManager.Admin
@@ -63,6 +64,11 @@ namespace FootballManager.Admin
         public static TeamInfoEditPlayerViewModel TeamInfoEditPlayerViewModel
         {
             get { return new TeamInfoEditPlayerViewModel(); }
+        }
+
+        public static TeamEditViewModel TeamEditViewModel
+        {
+            get { return new TeamEditViewModel(); }
         }
 
     }

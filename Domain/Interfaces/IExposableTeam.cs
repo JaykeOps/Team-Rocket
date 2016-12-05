@@ -8,10 +8,10 @@ namespace Domain.Interfaces
     public interface IExposableTeam
     {
         Guid Id { get; }
-        TeamName Name { get; }
+        TeamName Name { get; set; }
         IEnumerable<Guid> PlayerIds { get; }
-        ArenaName ArenaName { get; }
-        EmailAddress Email { get; }
+        ArenaName ArenaName { get; set; }
+        EmailAddress Email { get; set; }
         
     }
 }
