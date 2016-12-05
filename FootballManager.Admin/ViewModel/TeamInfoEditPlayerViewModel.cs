@@ -15,8 +15,6 @@ namespace FootballManager.Admin.ViewModel
     {
         private readonly PlayerService playerService;
 
-
-
         public TeamInfoEditPlayerViewModel()
         {
             this.playerService = new PlayerService();
@@ -161,10 +159,8 @@ namespace FootballManager.Admin.ViewModel
         }
         #endregion
 
-
         #region Validaiton Properties
         private bool isShirtNumberValid;
-        private bool assistMatchMinuteValid;
 
         public bool IsShirtNumberValid
         {
@@ -213,25 +209,6 @@ namespace FootballManager.Admin.ViewModel
                             return "Only 0-99 are valid!";
                         }
                         break;
-                        //case "AssistMatchMinute":
-                        //    this.AssistMatchMinuteValid = true;
-                        //    if (string.IsNullOrEmpty(this.AssistMatchMinute))
-                        //    {
-                        //        this.AssistMatchMinuteValid = false;
-                        //        return string.Empty;
-                        //    }
-                        //    int assistMatchMinute;
-                        //    if (!int.TryParse(this.AssistMatchMinute, out assistMatchMinute))
-                        //    {
-                        //        this.AssistMatchMinuteValid = false;
-                        //        return "Only 1-120 are valid!";
-                        //    }
-                        //    if (!assistMatchMinute.IsMatchMinute())
-                        //    {
-                        //        this.AssistMatchMinuteValid = false;
-                        //        return "Only 1-120 are valid!";
-                        //    }
-                        //    break;
                 }
                 return string.Empty;
             }
