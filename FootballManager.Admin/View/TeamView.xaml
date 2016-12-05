@@ -44,7 +44,7 @@
 
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for team:" />
-                        <TextBox />
+                        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Command="{Binding OpenTeamAddViewCommand}" Content="Add New Team" Style="{StaticResource FlatButton}" VerticalAlignment="Bottom" Margin="40,0,0,0" />
                     </StackPanel>
 

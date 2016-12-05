@@ -71,7 +71,16 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public string 
+        public string SearchText
+        {
+            get { return this.searchText; }
+            set
+            {
+                this.searchText = value;
+                this.OnPropertyChanged();
+                this.FilterTeams();
+            }
+        }
 
         public void LoadData()
         {
@@ -103,5 +112,9 @@ namespace FootballManager.Admin.ViewModel
             this.LoadData();
         }
 
+        private void FilterTeams()
+        {
+            this.Teams = this.teamService.Search(this.searchText).ToObservableCollection();
+        }
     }
 }
