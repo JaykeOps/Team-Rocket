@@ -123,9 +123,12 @@
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for player:" />
                         <TextBox Text="{Binding PlayerInfoSearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-
-                        <DataGrid Grid.Row="1" Grid.Column="0" 
+                        <ComboBox x:Name="CbPlayerStats" IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
+                                  ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
+                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0"/>
+                    </StackPanel>
+                    
+                    <DataGrid Grid.Row="1" Grid.Column="0" 
                     ItemsSource="{Binding PlayerStats}" 
                     materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
                     materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
