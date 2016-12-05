@@ -86,6 +86,7 @@
     <Compile Include="Converters\PlayerStatusListConverter.cs" />
     <Compile Include="Converters\ShirtNumberConverter.cs" />
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
+    <Compile Include="ViewModel\PlayerEditViewModel.cs" />
     <Compile Include="ViewModel\PlayerInfoViewModel.cs" />
     <Compile Include="ViewModel\SeriesGameProtocolViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleEditViewModel.cs" />
@@ -97,6 +98,9 @@
     <Compile Include="ViewModel\TeamViewModel.cs" />
     <Compile Include="View\PlayerAddView.xaml.cs">
       <DependentUpon>PlayerAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PlayerEditView.xaml.cs">
+      <DependentUpon>PlayerEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PlayerInfoView.xaml.cs">
       <DependentUpon>PlayerInfoView.xaml</DependentUpon>
@@ -181,6 +185,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PlayerEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\PlayerInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

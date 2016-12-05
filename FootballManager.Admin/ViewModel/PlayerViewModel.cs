@@ -20,6 +20,7 @@ namespace FootballManager.Admin.ViewModel
         private TeamService teamService;
         private ICommand openPlayerAddViewCommand;
         private ICommand deletePlayerCommand;
+        private ICommand editPlayerCommand;
         private string searchText;
 
         public PlayerViewModel()
@@ -56,6 +57,24 @@ namespace FootballManager.Admin.ViewModel
                 }
                 return this.deletePlayerCommand;
             }
+        }
+
+        public ICommand EditPlayerCommand
+        {
+            get
+            {
+                if (this.editPlayerCommand == null)
+                {
+                    this.editPlayerCommand = new RelayCommand(this.OpenEditPlayerView);
+                }
+                return this.editPlayerCommand;
+            }
+        }
+
+        private void OpenEditPlayerView(object obj)
+        {
+            var playerEditView = new PlayerEditView();
+            playerEditView.ShowDialog();
         }
 
         public ObservableCollection<IExposablePlayer> Players
