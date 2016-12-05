@@ -53,7 +53,7 @@
                               ItemsSource="{Binding Teams}"
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectedItem="{Binding SelectedTeam, Mode=TwoWay}">
+                              SelectedItem="{Binding SelectedTeam}">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name.Value, Mode=OneWay}" />

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 using FootballManager.Admin.View;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -18,7 +12,7 @@ namespace FootballManager.Admin.ViewModel
     {
         private ObservableCollection<IExposableTeam> teams;
         private TeamService teamService;
-        private Team selectedTeam;
+        private IExposableTeam selectedTeam;
         private ICommand openTeamAddView;
         private ICommand deleteTeamCommand;
         private ICommand openEditTeamCommand;
@@ -29,7 +23,7 @@ namespace FootballManager.Admin.ViewModel
             this.teamService = new TeamService();
             this.LoadData();
 
-            Messenger.Default.Register<Team>(this, this.OnTeamObjReceived);
+            Messenger.Default.Register<IExposableTeam>(this, this.OnTeamObjReceived);
         }
 
         #region Properties
@@ -48,8 +42,11 @@ namespace FootballManager.Admin.ViewModel
 
         public ICommand OpenEditTeamViewCommand
         {
-            get { return this.openEditTeamCommand ?? 
-                    (this.openEditTeamCommand = new RelayCommand(this.OpenEditTeamDialog)); }
+            get
+            {
+                return this.openEditTeamCommand ??
+                  (this.openEditTeamCommand = new RelayCommand(this.OpenEditTeamDialog));
+            }
         }
 
         public ICommand DeleteTeamCommand
@@ -64,7 +61,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public Team SelectedTeam
+        public IExposableTeam SelectedTeam
         {
             get { return this.selectedTeam; }
             set
@@ -73,8 +70,6 @@ namespace FootballManager.Admin.ViewModel
                 this.OnPropertyChanged();
             }
         }
-
-
 
         public ObservableCollection<IExposableTeam> Teams
         {
@@ -86,7 +81,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -98,28 +93,27 @@ namespace FootballManager.Admin.ViewModel
         private void DeleteTeam(object obj)
         {
             this.teams.Remove(this.selectedTeam);
-
         }
 
         private void OpenTeamAddView(object obj)
         {
             var teamAddView = new TeamAddView();
             teamAddView.ShowDialog();
+            this.LoadData();
         }
 
-        private void OnTeamObjReceived(Team team)
+        private void OnTeamObjReceived(IExposableTeam team)
         {
-            this.teams.Add(team);
+            this.SelectedTeam = team;
         }
 
         private void OpenEditTeamDialog(object obj)
         {
-            var team = (IExposablePlayer) obj;
             var teamEditView = new TeamEditView();
-            Messenger.Default.Send(team);
+            Messenger.Default.Send(this.SelectedTeam);
             teamEditView.ShowDialog();
         }
 
-        #endregion
+        #endregion Methods
     }
 }

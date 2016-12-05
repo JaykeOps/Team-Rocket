@@ -1,47 +1,39 @@
-﻿using System;
-using System.ComponentModel;
+﻿using Domain.Helper_Classes;
+using Domain.Services;
+using FootballManager.Admin.Utility;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Domain.Entities;
-using Domain.Services;
 using Domain.Value_Objects;
-using Domain.Helper_Classes;
-using FootballManager.Admin.Utility;
 
 namespace FootballManager.Admin.ViewModel
 {
     public class TeamAddViewModel : ViewModelBase, IDataErrorInfo
-    {        
-        private Team team;
-
+    {
         private string teamName;
         private string arenaName;
         private string email;
         private bool allPropertiesValid;
         private Dictionary<string, bool> validProperties;
+        private TeamService teamService;
 
         public TeamAddViewModel()
         {
-            this.AddCommand = new RelayCommand(Add);
+            this.AddCommand = new RelayCommand(this.Add);
             this.validProperties = new Dictionary<string, bool>();
             this.validProperties.Add("TeamName", false);
             this.validProperties.Add("ArenaName", false);
             this.validProperties.Add("Email", false);
+            this.teamService = new TeamService();
         }
 
         public ICommand AddCommand { get; }
 
-        private void Add(object obj)
-        {
-            this.team = new Team(new TeamName(teamName), new ArenaName(arenaName), new EmailAddress(email));
-
-            Messenger.Default.Send<Team>(team);
-        }
-
         #region IDataErrorInfo implementation
+
         public string Error
         {
             get { return null; }
@@ -64,9 +56,10 @@ namespace FootballManager.Admin.ViewModel
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();
-                            return "Must be 2-40 valid European characters long!";
+                            return "Must be 2-40 valid latin characters long!";
                         }
                         break;
+
                     case "ArenaName":
                         if (string.IsNullOrEmpty(this.ArenaName))
                         {
@@ -74,13 +67,14 @@ namespace FootballManager.Admin.ViewModel
                             ValidateProperties();
                             return string.Empty;
                         }
-                        if (!this.ArenaName.IsValidArenaName(false)) 
+                        if (!this.ArenaName.IsValidArenaName(false))
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();
-                            return "Must be 2-40 valid European characters long!";
+                            return "Must be 2-40 valid latin characters long!";
                         }
                         break;
+
                     case "Email":
                         if (string.IsNullOrEmpty(this.Email))
                         {
@@ -101,15 +95,17 @@ namespace FootballManager.Admin.ViewModel
                 return string.Empty;
             }
         }
-        #endregion
 
-        #region Team Properties       
+        #endregion IDataErrorInfo implementation
+
+        #region Team Properties
+
         public string TeamName
         {
             get { return teamName; }
             set
             {
-                if (teamName != value) 
+                if (teamName != value)
                 {
                     teamName = value;
                     OnPropertyChanged();
@@ -142,7 +138,8 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion Team Properties
 
         public bool AllPropertiesValid
         {
@@ -168,6 +165,21 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
             this.AllPropertiesValid = true;
+        }
+
+        private void Add(object obj)
+        {
+            var team = new Team(new TeamName(this.teamName), new ArenaName(this.arenaName), new EmailAddress(this.email));
+            this.teamService.Add(team);
+            this.CloseDialog();
+
+        }
+
+        private void CloseDialog()
+        {
+            var window = Application.Current.Windows.OfType<Window>().
+                FirstOrDefault(w => w.Name == "TeamAddViewModel");
+            window?.Close();
         }
     }
 }
