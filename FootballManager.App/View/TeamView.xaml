@@ -51,14 +51,7 @@
                         <TextBox Text="{Binding TeamViewSearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     
-                    <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
-                        <Image HorizontalAlignment="Right" Source="../Images/BarcelonaTeamLogo_1.png"
-                               Margin="0,0,40,0" Height="60" />
-                    </StackPanel>-->
-
-
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Team -->
+                    
                     <DataGrid Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding Teams}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
@@ -75,7 +68,7 @@
                                         <Button CommandParameter="{Binding ElementName=teamViewTabablzControl}"
                                                 Command="{Binding Path=DataContext.TeamInfoCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
                                             <materialDesign:PackIcon Kind="InformationOutline" />
-                                            <!--CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"-->
+                                           
                                         </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -83,7 +76,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <!-- End Region Display Player -->
+               
             </TabItem>
 
             <TabItem Header="Team info">
@@ -113,10 +106,7 @@
                         <Label Content="Search for team:" />
                         <TextBox Text="{Binding TeamInfoSearchText, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-
-
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Team -->
+                    
                     <DataGrid Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding TeamStats}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 

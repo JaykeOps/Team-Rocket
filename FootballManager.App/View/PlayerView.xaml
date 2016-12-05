@@ -84,7 +84,7 @@
                         <TextBox Text="{Binding PlayerInfoSearchText, UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="CbPlayerStats" IsEditable="True" IsReadOnly="True" Text="-Select Series-" 
                                   ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerView}}}" 
-                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0"/>
+                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="10" Margin="15,0,0,0"/>
                     </StackPanel>
                     
                     <DataGrid Grid.Row="1" Grid.Column="0" 
