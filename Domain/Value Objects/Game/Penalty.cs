@@ -8,13 +8,13 @@ namespace Domain.Value_Objects
     [Serializable]
     public class Penalty : ValueObject<Penalty>, IGameEvent
     {
-        public const string eventType = "Penalty";
-        public string EventType => eventType;
+        private const string eventType = "Penalty";
         public MatchMinute MatchMinute { get; }
         public bool IsGoal { get; }
         public Guid PlayerId { get; }
         public Guid TeamId { get; }
 
+        public string EventType => eventType;
 
 
         public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal, Game game, Guid teamId)

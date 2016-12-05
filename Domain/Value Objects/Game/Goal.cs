@@ -7,12 +7,12 @@ namespace Domain.Value_Objects
     [Serializable]
     public class Goal : ValueObject<Goal>, IGameEvent
     {
-        public const string eventType = "Goal";
-        public string EventType => eventType;
+        private const string eventType = "Goal";
         public MatchMinute MatchMinute { get; }
         public Guid TeamId { get; set; }
         public Guid PlayerId { get; }
 
+        public string EventType => eventType;
         
        
         public Goal(MatchMinute matchMinute, Guid teamId, Guid playerId)
