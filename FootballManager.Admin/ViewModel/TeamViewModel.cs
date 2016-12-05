@@ -16,6 +16,7 @@ namespace FootballManager.Admin.ViewModel
         private ICommand openTeamAddView;
         private ICommand deleteTeamCommand;
         private ICommand openEditTeamCommand;
+        private string searchText; //TODO:Continue
 
         public TeamViewModel()
         {
@@ -25,8 +26,6 @@ namespace FootballManager.Admin.ViewModel
 
             Messenger.Default.Register<IExposableTeam>(this, this.OnTeamObjReceived);
         }
-
-        #region Properties
 
         public ICommand OpenTeamAddViewCommand
         {
@@ -72,9 +71,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion Properties
-
-        #region Methods
+        public string 
 
         public void LoadData()
         {
@@ -106,6 +103,5 @@ namespace FootballManager.Admin.ViewModel
             this.LoadData();
         }
 
-        #endregion Methods
     }
 }
