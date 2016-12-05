@@ -1,31 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
+using Domain.Entities;
+using Domain.Services;
 
-namespace FootballManager.Admin.Converters
+
+namespace FootballManager.App.Converters
 {
-    public class ShirtNumberConverter : IValueConverter
+    public class PlayerIdToStringConverter : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var number = (int) value;
-            if (number == -1)
+            PlayerService playerService = new PlayerService();
+            if (value == null)
             {
-                return "n/a";
+                return null;
             }
             else
             {
-                return number;
+                var player = playerService.FindById((Guid)value);
+                return player?.Name;
             }
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value = (string)value == "n/a" ? "-1" : value;
+            throw new NotImplementedException();
         }
     }
 }

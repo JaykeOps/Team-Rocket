@@ -11,7 +11,8 @@
             SizeToContent="WidthAndHeight"
             WindowStartupLocation="CenterScreen"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamInfoEditPlayerViewModel}">
+            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamInfoEditPlayerViewModel}"
+            x:Name="TeamInfoEditPlayerViewDialog">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -47,7 +48,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name, Mode=OneWay}" FontSize="16" Foreground="#2e7d32"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name, Mode=OneWay}" Margin="10"
+                   FontSize="18" Foreground="#424242" VerticalContentAlignment="Center" FontWeight="Light"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Shirt number:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />

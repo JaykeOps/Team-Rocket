@@ -20,9 +20,13 @@
             <local:ViewModelLocator x:Key="ViewModelLocator" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- Custom -->
-                <ResourceDictionary Source="Styles/Common.xaml" />
-                <ResourceDictionary Source="Styles/DataGrid.xaml" />
-                <ResourceDictionary Source="Styles/Dragablz.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Dragablz.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/TextBox.xaml" />
 
                 <!-- Material Design -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

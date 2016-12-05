@@ -117,7 +117,7 @@ namespace Domain.Helper_Classes
             return value > DateTime.Now && value < DateTime.Now + TimeSpan.FromDays(365 * 2);
         }
 
-        public static bool IsValidDateOfBirth(this string value)
+        public static bool IsValidBirthOfDate(this string value)
         {
             DateTime result;
             if (DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
@@ -131,12 +131,17 @@ namespace Domain.Helper_Classes
             }
         }
 
-        public static bool IsValidMatchMinute(this int value)
+        public static bool IsMatchMinute(this int value)
         {
             return value >= 1 && value <= 90 + 30;
         }
 
-        public static bool IsValidScore(this int score)
+        public static bool IsValidOverTime(this int value)
+        {
+            return value >= 0 && value <= 30;
+        }
+
+        public static bool IsScoreValid(this int score)
         {
             return score >= 0 && score <= 50;
         }

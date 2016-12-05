@@ -19,7 +19,7 @@ namespace Domain.Value_Objects
             this.HomeTeamId = homeTeamId;
             this.AwayTeamId = awayTeamId;
 
-            if (homeTeamScore.IsValidScore())
+            if (homeTeamScore.IsScoreValid())
             {
                 this.HomeTeamScore = homeTeamScore;
             }
@@ -28,7 +28,7 @@ namespace Domain.Value_Objects
                 throw new ArgumentException("Score can only be between 0-50.");
             }
 
-            if (awayTeamScore.IsValidScore())
+            if (awayTeamScore.IsScoreValid())
             {
                 this.AwayTeamScore = awayTeamScore;
             }

@@ -65,18 +65,18 @@ namespace Domain.Services.Tests
             Assert.IsFalse(allGames.Contains(game3));
         }
 
-     /*   [TestMethod]
-        public void AddListOfGamesUsingMatchIds()
-        {
-            var series = new DummySeries();
-            var matchs = series.SeriesDummy.Schedule.Values.SelectMany(matchess => matchess).ToList();
-            DomainService.AddMatches(matchs);
-            var matchIds = (from matches in series.SeriesDummy.Schedule from match in matches select match.Id).ToList();
-            var numOfGamesPriorAdd = gameService.GetAll().Count();
-            gameService.AddList(matchIds);
-            var numOfGamesAfterAdd = gameService.GetAll().Count();
-            Assert.IsTrue(matchIds.Count == numOfGamesAfterAdd - numOfGamesPriorAdd);
-        }*/
+        /*   [TestMethod]
+           public void AddListOfGamesUsingMatchIds()
+           {
+               var series = new DummySeries();
+               var matchs = series.SeriesDummy.Schedule.Values.SelectMany(matchess => matchess).ToList();
+               DomainService.AddMatches(matchs);
+               var matchIds = (from matches in series.SeriesDummy.Schedule from match in matches select match.Id).ToList();
+               var numOfGamesPriorAdd = gameService.GetAll().Count();
+               gameService.AddList(matchIds);
+               var numOfGamesAfterAdd = gameService.GetAll().Count();
+               Assert.IsTrue(matchIds.Count == numOfGamesAfterAdd - numOfGamesPriorAdd);
+           }*/
 
         [TestMethod]
         public void ConstructorInitiatesListOfGamesTest()
@@ -384,6 +384,49 @@ namespace Domain.Services.Tests
                 Assert.IsTrue(DomainService.FindTeamById(game.HomeTeamId).Name.ToString() == "Dummy TeamThree"
                     || DomainService.FindTeamById(game.AwayTeamId).Name.ToString() == "Dummy TeamThree");
             }
+        }
+
+        [TestMethod]
+        public void GetGameFromMatchTest()
+        {
+            var service = new GameService();
+            var matchService = new MatchService();
+            var match = new Match(new ArenaName("test"), Guid.NewGuid(), Guid.NewGuid(), dummySeries.SeriesDummy);
+            var game = service.GetGameFromMatch(match);
+            Assert.IsTrue(game == null);
+            matchService.Add(match);
+            service.Add(match.Id);
+             game = service.GetGameFromMatch(match); 
+            Assert.IsTrue(game != null);
+        }
+
+        [TestMethod]
+        public void GetAllEventsFromGame()
+        {
+            var game = dummySeries.DummyGames.GameOne;
+            var events = gameService.GetAllEventsFromGame(game);
+            Assert.IsTrue(events!=null);
+           
+        }
+
+        [TestMethod]
+        public void RemoveEventWorks()
+        {
+            var game = dummySeries.DummyGames.GameFive;
+            var events = gameService.GetAllEventsFromGame(game);
+            foreach (var _event in events)
+            {
+                var eventCountPriorRemove = gameService.GetAllEventsFromGame(game).Count();
+                gameService.RemoveEvent(_event, game.Id);
+                var eventsAfterRemove = gameService.GetAllEventsFromGame(game);
+                Assert.IsTrue(eventCountPriorRemove == eventsAfterRemove.Count() + 1);
+                if (events.Count()==1)
+                {
+                    break;
+                }
+            }
+                
+
         }
     }
 }

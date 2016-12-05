@@ -105,21 +105,21 @@ namespace Domain.Services
         public void AddAssistToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var assist = new Assist(new MatchMinute(matchMinute), playerId);
+            var assist = new Assist(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId);
             game.Protocol.Assists.Add(assist);
         }
 
         public void AddRedCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Red);
+            var card = new Card(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId, CardType.Red);
             game.Protocol.Cards.Add(card);
         }
 
         public void AddYellowCardToGame(Guid gameId, Guid playerId, int matchMinute)
         {
             var game = this.FindById(gameId);
-            var card = new Card(new MatchMinute(matchMinute), playerId, CardType.Yellow);
+            var card = new Card(new MatchMinute(matchMinute), DomainService.FindPlayerById(playerId).TeamId, playerId, CardType.Yellow);
             game.Protocol.Cards.Add(card);
         }
 
@@ -209,7 +209,7 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.Location.ToString().Contains(searchText, comparison)
-            || 
+            ||
             x.MatchDate.ToString().Contains(searchText, comparison)
             ||
             DomainService.FindSeriesById(x.SeriesId).SeriesName.ToString().Contains(searchText, comparison)
@@ -217,13 +217,72 @@ namespace Domain.Services
             DomainService.FindTeamById(x.HomeTeamId).ToString().Contains(searchText, comparison)
             ||
             DomainService.FindTeamById(x.AwayTeamId).ToString().Contains(searchText, comparison)
-            || 
+            ||
             x.Protocol.HomeTeamActivePlayers.Any(y => DomainService.FindPlayerById(y).Name.ToString()
                 .Contains(searchText, comparison)
             ||
             x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).Name.ToString()
                 .Contains(searchText, comparison))));
-            
+
+        }
+
+        public Game GetGameFromMatch(Match match)
+        {
+            var allGames = GetAll();
+            var game = allGames.ToList().Find(g => g.MatchId == match.Id);
+            return game;
+
+        }
+
+        public IEnumerable<object> GetAllEventsFromGame(Game game)
+        {
+            if (game != null)
+            {
+                var events = new List<object>();
+                events.AddRange(game.Protocol.Goals);
+                events.AddRange(game.Protocol.Assists);
+                events.AddRange(game.Protocol.Cards);
+                events.AddRange(game.Protocol.Penalties);
+                return events;
+            }
+            return null;
+
+        }
+
+        public void RemoveEvent(object _event, Guid gameId)
+        {
+            if (_event!=null)
+            {
+                switch (_event.GetType().ToString())
+                {
+                    case "Domain.Value_Objects.Card":
+                        var card = (Card)_event;
+                        if (card.CardType == CardType.Yellow)
+                        {
+                            this.RemoveYellowCardFromGame(gameId, card.PlayerId, card.MatchMinute.Value);
+                        }
+                        else
+                        {
+                            this.RemoveRedCardFromGame(gameId, card.PlayerId, card.MatchMinute.Value);
+                        }
+                        break;
+                    case "Domain.Value_Objects.Goal":
+                        var goal = (Goal)_event;
+                        this.RemoveGoalFromGame(gameId, goal.PlayerId, goal.MatchMinute.Value);
+                        break;
+                    case "Domain.Value_Objects.Assist":
+                        var assist = (Assist)_event;
+                        this.RemoveAssistFromGame(gameId, assist.PlayerId, assist.MatchMinute.Value);
+                        break;
+                    case "Domain.Value_Objects.Penalty":
+                        var penalty = (Penalty)_event;
+                        this.RemovePenaltyFromGame(gameId, penalty.PlayerId, penalty.MatchMinute.Value);
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid event type");
+
+                }
+            }
         }
     }
 }

@@ -51,14 +51,7 @@
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
-                    <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
-                        <Image HorizontalAlignment="Right" Source="../Images/BarcelonaTeamLogo_1.png"
-                               Margin="0,0,40,0" Height="60" />
-                    </StackPanel>-->
-
-
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Team -->
+                   
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding Games}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
@@ -66,20 +59,20 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <!--DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId,Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" /-->
-                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult}" />
+                           
+                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult, Mode=OneWay}" />
                             <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" />
                             <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay}" />
 
                             <DataGridTemplateColumn Header="Match protocol">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Command="{Binding OpenMatchProtocolCommand}">
+                                        <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                                Command="{Binding Path=DataContext.OpenMatchProtocolCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MatchView}}}"
+>
                                             <materialDesign:PackIcon Kind="FileDocument" />
                                         </Button>
-                                        <!--<Button Command="{Binding OpenPlayerAddViewCommand}" Content="Add New Player" 
-                                                    Style="{StaticResource FlatButton}" VerticalAlignment="Bottom" Margin="40,0,0,0" />-->
+                                        
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -117,14 +110,7 @@
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
-                    <!--<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10">
-                        <Image HorizontalAlignment="Right" Source="../Images/BarcelonaTeamLogo_1.png"
-                               Margin="0,0,40,0" Height="60" />
-                    </StackPanel>-->
-
-
-                    <!--Margin: Left, Top, Right, Bottom-->
-                    <!-- Region Display Team -->
+                    
                     <DataGrid Grid.Row="1" Grid.Column="0" 
                               ItemsSource="{Binding Matches}" 
                               materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
@@ -139,7 +125,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <!-- End Region Display Player -->
+                
             </TabItem>
 
         </dragablz:TabablzControl>
