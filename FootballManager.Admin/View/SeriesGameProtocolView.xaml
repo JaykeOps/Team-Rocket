@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FootballManager.Admin.View"
+        xmlns:utils="clr-namespace:FootballManager.Admin.Utility"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Height="700" Width="980"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -149,6 +151,7 @@
                 <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
                 <Style BasedOn="{StaticResource ProtocolListBox}" TargetType="{x:Type ListBox}" />
                 <Style BasedOn="{StaticResource ProtocolPlusMinus}" TargetType="{x:Type Button}" />
+                <Style BasedOn="{StaticResource ProtocolListBoxItem}" TargetType="{x:Type ListBoxItem}" />
             </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -162,23 +165,24 @@
             <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
                 <Label Content="Home team" Margin="10,0,10,0" HorizontalAlignment="Left"/>
                 <Button Command="{Binding HomeToActivePlayerCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamPlayerListBox, Path=SelectedValue}"
                         Content="+" Margin="10,5,10,5" HorizontalAlignment="Right"/>
             </DockPanel>
             <ListBox x:Name="HomeTeamPlayerListBox" Grid.Row="1" Grid.Column="0" 
-                     IsSynchronizedWithCurrentItem="True"
-                     ItemsSource="{Binding HomeTeamPlayerCollection}" 
-                     SelectedItem="{Binding SelectedHomeNotActivePlayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="2,0,2,0"/>
+                     ItemsSource="{Binding HomeTeamPlayerCollection}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="2,0,2,0">
+            </ListBox>
 
             <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
                 <Label Content="Active players" Margin="10,0,10,0" HorizontalAlignment="Left"/>
                 <Button Command="{Binding HomeFromActivePlayerCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamActivePlayerListBox, Path=SelectedValue}"
                         Content="-" Margin="10,5,10,5" HorizontalAlignment="Right"/>
             </DockPanel>
             <ListBox x:Name="HomeTeamActivePlayerListBox" Grid.Row="1" Grid.Column="1"
-                     IsSynchronizedWithCurrentItem="True"
                      ItemsSource="{Binding HomeTeamActivePlayerCollection}"
-                     SelectedItem="{Binding SelectedHomeActivePlayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
                      Margin="2,0,2,0" />
         </Grid>
 
@@ -234,6 +238,7 @@
                        Margin="10,0,10,0" 
                        HorizontalAlignment="Left"/>
                 <Button Command="{Binding AwayFromActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=AwayTeamActivePlayerListBox, Path=SelectedValue}"
                         Content="-" 
                         Margin="10,5,10,5" 
                         HorizontalAlignment="Right"/>
@@ -242,28 +247,43 @@
             <ListBox Grid.Row="1" Grid.Column="0"
                      x:Name="AwayTeamActivePlayerListBox"
                      ItemsSource="{Binding AwayTeamActivePlayerCollection}"
-                     SelectedItem="{Binding SelectedAwayActivePlayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
                      Margin="2,0,2,0" />
 
             <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
                 <Label Content="Away team" Margin="10,0,10,0" HorizontalAlignment="Left"/>
-                <Button Command="{Binding AwayToActivePlayerCommand}"                     
+                <Button Command="{Binding AwayToActivePlayerCommand}"
+                        CommandParameter="{Binding ElementName=AwayTeamPlayerListBox, Path=SelectedValue}"
                         Content="+" 
                         Margin="10,5,10,5" 
-                        HorizontalAlignment="Right"/>
+                        HorizontalAlignment="Right" />
             </DockPanel>
 
             <ListBox Grid.Row="1" Grid.Column="1"
                      x:Name="AwayTeamPlayerListBox"
-                     ItemsSource="{Binding AwayTeamPlayerCollection}"                     
-                     SelectedItem="{Binding SelectedAwayNotActivePlayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                     
+                     ItemsSource="{Binding AwayTeamPlayerCollection}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
                      Margin="2,0,2,0" />
         </Grid>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
-            <TextBox Text="{Binding Overtime}" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}"/>
+            
+            <TextBox Text="{Binding DataContext.OvertimeMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}"
+                    VerticalAlignment="Center" 
+                    Margin="10,0,0,0" 
+                    Style="{StaticResource GameProtocolCustomTextBoxStyle}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            
             <Button Command="{Binding SaveGameProtocolCommand}" Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
         </StackPanel>
 
