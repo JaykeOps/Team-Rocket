@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using FootballManager.Admin.View;
 using FootballManager.Admin.ViewModel;
 
 namespace FootballManager.Admin

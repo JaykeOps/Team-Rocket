@@ -11,7 +11,7 @@
             SizeToContent="WidthAndHeight"
             WindowStartupLocation="CenterScreen"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamEditViewModel}"
+            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamEditView}"
             x:Name="TeamEditViewDialog">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -52,9 +52,9 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Arena Name:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Email:" />
 
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=OneWay}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TeamName, Mode=OneWay}" />
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ArenaName, Mode=OneWay}" />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EmailAddress}" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Email}" />
 
             <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />

@@ -46,7 +46,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public ICommand OpenEditTeamCommand
+        public ICommand OpenEditTeamViewCommand
         {
             get { return this.openEditTeamCommand ?? 
                     (this.openEditTeamCommand = new RelayCommand(this.OpenEditTeamDialog)); }
@@ -114,9 +114,8 @@ namespace FootballManager.Admin.ViewModel
 
         private void OpenEditTeamDialog(object obj)
         {
-            var team = (IExposableTeam) obj;
             var teamEditView = new TeamEditView();
-            Messenger.Default.Send(team);
+            Messenger.Default.Send(this.SelectedTeam);
             teamEditView.ShowDialog();
         }
 
