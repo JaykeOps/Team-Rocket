@@ -8,6 +8,8 @@
             Title="Team info edit player view"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
+            Width="450"
+            Height="Auto"
             SizeToContent="WidthAndHeight"
             WindowStartupLocation="CenterScreen"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
