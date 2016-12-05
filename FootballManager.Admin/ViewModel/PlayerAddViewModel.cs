@@ -160,7 +160,7 @@ namespace FootballManager.Admin.ViewModel
             this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
             this.player.TeamId = this.selectedTeam.Id;
 
-            Messenger.Default.Send<Player>(this.player);
+            
             this.playerService.Add(this.player);
         }
         #endregion

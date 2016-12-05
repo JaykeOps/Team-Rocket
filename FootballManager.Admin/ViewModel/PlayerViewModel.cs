@@ -22,6 +22,7 @@ namespace FootballManager.Admin.ViewModel
         private ICommand deletePlayerCommand;
         private ICommand editPlayerCommand;
         private string searchText;
+        private Player selectedPlayer;
 
         public PlayerViewModel()
         {
@@ -29,8 +30,6 @@ namespace FootballManager.Admin.ViewModel
             this.teamService = new TeamService();
 
             this.LoadData();
-
-            Messenger.Default.Register<Player>(this, this.OnPlayerObjReceived);
         }
 
         #region Properties
@@ -71,12 +70,6 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        private void OpenEditPlayerView(object obj)
-        {
-            var playerEditView = new PlayerEditView();
-            playerEditView.ShowDialog();
-        }
-
         public ObservableCollection<IExposablePlayer> Players
         {
             get { return players; }
@@ -89,12 +82,22 @@ namespace FootballManager.Admin.ViewModel
 
         public string SearchText
         {
-            get { return searchText; }
+            get { return this.searchText; }
             set
             {
-                searchText = value;
+                this.searchText = value;
                 OnPropertyChanged();
                 FilterData();
+            }
+        }
+
+        public Player SelectedPlayer
+        {
+            get { return this.selectedPlayer; }
+            set
+            {
+                this.selectedPlayer = value;
+                OnPropertyChanged();
             }
         }
 
@@ -118,15 +121,18 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        private void OpenEditPlayerView(object obj)
+        {
+            var playerEditView = new PlayerEditView();
+            Messenger.Default.Send<Player>(this.selectedPlayer);
+            playerEditView.ShowDialog();
+            this.LoadData();
+        }
+
         private void OpenPlayerAddView(object obj)
         {
             var playerAddView = new PlayerAddView();
             playerAddView.ShowDialog();
-        }
-
-        private void OnPlayerObjReceived(Player player)
-        {
-            this.playerService.Add(player);
             this.LoadData();
         }
 
