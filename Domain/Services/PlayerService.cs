@@ -196,7 +196,7 @@ namespace Domain.Services
         public IEnumerable<IExposablePlayer> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
-            return this.repository.GetAll().Where(x => x.Id != Guid.Empty &&
+            return this.repository.GetAll().Where(x => x.Id != Guid.Empty && x.TeamId != Guid.Empty &&
                 (x.Name.ToString().Contains(searchText, comparison)
                 || x.DateOfBirth.ToString().Contains(searchText, comparison)
                 || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison)));
