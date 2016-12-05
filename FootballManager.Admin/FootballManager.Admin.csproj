@@ -87,7 +87,9 @@
     <Compile Include="Converters\ShirtNumberConverter.cs" />
     <Compile Include="Converters\TeamConverter.cs" />
     <Compile Include="ViewModel\PlayerAddViewModel.cs" />
+    <Compile Include="ViewModel\PlayerEditViewModel.cs" />
     <Compile Include="ViewModel\PlayerInfoViewModel.cs" />
+    <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\SeriesGameProtocolViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleEditViewModel.cs" />
     <Compile Include="ViewModel\SeriesScheduleViewModel.cs" />
@@ -99,6 +101,9 @@
     <Compile Include="ViewModel\TeamViewModel.cs" />
     <Compile Include="View\PlayerAddView.xaml.cs">
       <DependentUpon>PlayerAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PlayerEditView.xaml.cs">
+      <DependentUpon>PlayerEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PlayerInfoView.xaml.cs">
       <DependentUpon>PlayerInfoView.xaml</DependentUpon>
@@ -180,19 +185,22 @@
     <Compile Include="Utility\Messenger.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PlayerEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\PlayerInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PlayerView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SeriesGameProtocolView.xaml">
       <SubType>Designer</SubType>
