@@ -178,7 +178,8 @@
             <ListBox x:Name="HomeTeamActivePlayerListBox" Grid.Row="1" Grid.Column="1"
                      IsSynchronizedWithCurrentItem="True"
                      ItemsSource="{Binding HomeTeamActivePlayerCollection}"
-                     SelectedItem="{Binding SelectedHomeActivePlayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding DataContext.SelectedHomeActivePlayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}"
                      Margin="2,0,2,0" />
         </Grid>
 

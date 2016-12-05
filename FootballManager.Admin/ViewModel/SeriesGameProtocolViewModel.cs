@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -891,7 +892,12 @@ namespace FootballManager.Admin.ViewModel
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        break;
+                        if (SelectedHomeActivePlayer == null && SelectedAwayActivePlayer == null)
+                        {
+                            this.GoalMatchMinuteValid = false;
+                            return "Select an active player!";
+                        }
+                            break;
                     case "AssistMatchMinute":
                         this.AssistMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.AssistMatchMinute))

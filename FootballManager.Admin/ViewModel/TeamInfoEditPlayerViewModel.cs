@@ -18,7 +18,7 @@ namespace FootballManager.Admin.ViewModel
         private IExposablePlayer selectedPlayer;
         private Name name;
         private int shirtNumber;
-        //private bool shirtNumberValid;
+        private bool shirtNumberValid;
         private PlayerPosition playerPosition;
         private PlayerStatus playerStatus;
 
@@ -101,12 +101,12 @@ namespace FootballManager.Admin.ViewModel
 
         public bool ShirtNumberValid
         {
-            get { return this.ShirtNumberValid; }
+            get { return this.shirtNumberValid; }
             set
             {
-                if (this.ShirtNumberValid != value)
+                if (this.shirtNumberValid != value)
                 {
-                    this.ShirtNumberValid = value;
+                    this.shirtNumberValid = value;
                     OnPropertyChanged();
                 }
             }
