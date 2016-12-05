@@ -15,12 +15,8 @@
         Title="User Application" Height="700" Width="980"
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
-    
+
     <DockPanel LastChildFill="True">
-        <DockPanel.Background>
-            <!-- Stretch="Fill" ../Images/BarcelonaFC.png" -->
-            <ImageBrush Stretch="Fill" ImageSource="../Images/BarcelonaFC.png" AlignmentY="Top" AlignmentX="Center"/>
-        </DockPanel.Background>
         <DockPanel.Resources>
             <Style BasedOn="{StaticResource MenuButtonStyle}" TargetType="{x:Type Button}" />
         </DockPanel.Resources>
