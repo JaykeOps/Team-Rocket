@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using Domain.Entities;
+using Domain.Interfaces;
 using Domain.Services;
 using Domain.Value_Objects;
 using FootballManager.App.Extensions;
@@ -13,7 +14,7 @@ namespace FootballManager.App.ViewModel
 {
     public class TeamViewModel : ViewModelBase
     {
-        private ObservableCollection<Team> teams;
+        private ObservableCollection<IExposableTeam> teams;
         private ObservableCollection<TeamStats> teamStats;
         private TeamService teamService;
         private Team selectedTeam;
@@ -72,7 +73,7 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        public ObservableCollection<Team> Teams
+        public ObservableCollection<IExposableTeam> Teams
         {
             get { return this.teams; }
             set
@@ -139,14 +140,14 @@ namespace FootballManager.App.ViewModel
         private void LoadTeamViewData()
         {
             this.Teams =
-                this.teamService.GetAllTeams()
+                this.teamService.GetAllIExposableTeams()
                     .Where(x => x.Name.Value.ToLower().Contains(this.teamViewSearchText.ToLower()))
                     .ToObservableCollection();
         }
 
         public void LoadData()
         {
-            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
+            this.Teams = this.teamService.GetAllIExposableTeams().ToObservableCollection();
             this.teamStats = this.teamService.TeamStatsSearch(this.teamInfoSearchText).ToObservableCollection();
         }
     }
