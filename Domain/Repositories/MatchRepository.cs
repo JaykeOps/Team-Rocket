@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -114,6 +115,11 @@ namespace Domain.Repositories
         private Match FindById(Guid matchId)
         {
             return this.matches.FirstOrDefault(x => x.Id == matchId);
+        }
+
+        public void RemoveMatch(Match match)
+        {
+            matches.Remove(match);
         }
     }
 }

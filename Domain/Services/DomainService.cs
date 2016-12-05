@@ -77,6 +77,24 @@ namespace Domain.Services
             matchService.Add(matches);
         }
 
+        public static void RemoveGameAndMatchesFromSeries(Guid seriesId)
+        {
+            var series = FindSeriesById(seriesId);
+            var matchService = new MatchService();
+            var gameService = new GameService();
+            var allGames = gameService.GetAll().ToList();
+            Game game;
+            foreach (var match in series.Schedule)
+            {
+                matchService.RemoveMatch(match.Id);
+
+                if (allGames.Find(x => x.MatchId == match.Id) != null)
+                {
+                    gameService.RemoveGame(allGames.Find(x => x.MatchId == match.Id).Id);
+                }
+            }            
+        }
+
         public static IEnumerable<Game> GetTeamsGamesInSeries(Guid teamId,
             Guid seriesId)
         {

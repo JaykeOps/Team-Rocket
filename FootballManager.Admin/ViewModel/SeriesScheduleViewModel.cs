@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -14,6 +15,7 @@ using Domain.Services;
 using FootballManager.Admin.Extensions;
 using Domain.Helper_Classes;
 using Domain.Value_Objects;
+using Match = Domain.Entities.Match;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -29,6 +31,7 @@ namespace FootballManager.Admin.ViewModel
 
         private ICommand openCreateSeriesGameProtocolViewCommand;
         private ICommand openSeriesScheduleEditViewCommand;
+        private ICommand deleteSelectedSeriesCommand;
 
         public SeriesScheduleViewModel()
         {
@@ -62,6 +65,18 @@ namespace FootballManager.Admin.ViewModel
                     openSeriesScheduleEditViewCommand = new RelayCommand(OpenSeriesScheduleEditView);
                 }
                 return openSeriesScheduleEditViewCommand;
+            }
+        }
+
+        public ICommand DeleteSelectedSeriesCommand
+        {
+            get
+            {
+                if (deleteSelectedSeriesCommand == null)
+                {
+                    deleteSelectedSeriesCommand = new RelayCommand(DeleteSeries);
+                }
+                return deleteSelectedSeriesCommand;
             }
         }
 
@@ -121,11 +136,24 @@ namespace FootballManager.Admin.ViewModel
             view.ShowDialog();
         }
 
+        private void DeleteSeries(object obj)
+        {
+            this.seriesService.DeleteSeries(this.selectedSeries.Id);
+            this.SeriesCollection = seriesService.GetAll().ToObservableCollection();
+            this.MatchesBySeriesCollection.Clear();
+            this.SelectedSeries = SeriesCollection.ElementAt(0);
+
+        }
+
         public void FilterMatchesBySeries()
         {
-            var t = SelectedSeries.Schedule;
+            if (SelectedSeries != null)
+            {
+                var t = SelectedSeries.Schedule;
 
-            MatchesBySeriesCollection = t.ToObservableCollection();
+                MatchesBySeriesCollection = t.ToObservableCollection();
+            }
+            
         }
 
         private void OpenSeriesScheduleEditView(object obj)

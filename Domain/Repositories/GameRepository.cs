@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -109,6 +110,11 @@ namespace Domain.Repositories
         private Game FindById(Guid gameId)
         {
             return this.games.FirstOrDefault(x => x.Id == gameId);
+        }
+
+        public void RemoveGame(Game game)
+        {
+            this.games.Remove(game);
         }
 
         public IEnumerable<Game> GetAll()
