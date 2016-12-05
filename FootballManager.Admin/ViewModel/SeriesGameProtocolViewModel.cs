@@ -779,6 +779,7 @@ namespace FootballManager.Admin.ViewModel
         private bool penaltyMatchMinuteValid;
         private bool yellowCardMatchMinuteValid;
         private bool redCardMatchMinuteValid;
+        private bool overtimeValid;
         public bool GoalMatchMinuteValid
         {
             get { return goalMatchMinuteValid; }
@@ -839,6 +840,19 @@ namespace FootballManager.Admin.ViewModel
                 if (redCardMatchMinuteValid != value)
                 {
                     redCardMatchMinuteValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool OvertimeValid
+        {
+            get { return overtimeValid; }
+            set
+            {
+                if (overtimeValid != value)
+                {
+                    overtimeValid = value;
                     OnPropertyChanged();
                 }
             }
@@ -952,6 +966,25 @@ namespace FootballManager.Admin.ViewModel
                         {
                             this.RedCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }
+                        break;
+                    case "Overtime":
+                        this.OvertimeValid = true;
+                        if (string.IsNullOrEmpty(this.Overtime))
+                        {
+                            this.OvertimeValid = false;
+                            return string.Empty;
+                        }
+                        int overtime;
+                        if (!int.TryParse(this.Overtime, out overtime))
+                        {
+                            this.OvertimeValid = false;
+                            return "Must be an integer between 0 and 30!";
+                        }
+                        if (!overtime.IsValidOverTime())
+                        {
+                            this.OvertimeValid = false;
+                            return "Must be an integer between 0 and 30!";
                         }
                         break;
                 }

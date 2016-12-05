@@ -105,7 +105,7 @@ namespace FootballManager.Admin.ViewModel
                             ValidateProperties();
                             return "Must be valid date in format \"yyyy-MM-dd\"!";
                         }
-                        if (!this.DateOfBirth.IsValidDateOfBirth())
+                        if (!this.DateOfBirth.IsValidBirthOfDate())
                         {
                             this.validProperties[columnName] = false;
                             ValidateProperties();
