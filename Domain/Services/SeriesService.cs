@@ -59,7 +59,7 @@ namespace Domain.Services
             for (int i = 0; i < teamStats.Count; i++)
             {
                 var teamStat = teamStats.ElementAt(i);
-                //teamStat.Ranking = i + 1;
+                teamStat.Ranking = i + 1;
             }
             return teamStats;
         }
