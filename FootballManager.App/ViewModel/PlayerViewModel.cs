@@ -30,36 +30,34 @@ namespace FootballManager.App.ViewModel
         private string playerInfoSearchText;
         private Series seriesForPlayerStats;
 
-        
+
 
         public PlayerViewModel()
         {
             this.playerStats = new ObservableCollection<PlayerStats>();
             this.playerService = new PlayerService();
             this.teamService = new TeamService();
-            this.seriesService= new SeriesService();
+            this.seriesService = new SeriesService();
             this.playerViewSearchText = "";
             this.playerInfoSearchText = "";
-           
-            this.LoadData();     
 
-         
+            this.LoadData();
+
+
         }
 
         #region Properties
         public ObservableCollection<Series> AllSeries => this.allSeries;
         public ICommand OpenPlayerAddViewCommand
         {
-            get {
+            get
+            {
                 return this.openPlayerAddViewCommand ??
                        (this.openPlayerAddViewCommand = new RelayCommand(this.OpenPlayerAddView));
             }
         }
 
-        public ICommand PlayerInfoCommand
-        {
-            get { return this.playerInfoCommand ?? (this.playerInfoCommand = new RelayCommand(this.PlayerInfo)); }
-        }
+        
 
         public ObservableCollection<IExposablePlayer> Players
         {
@@ -83,7 +81,7 @@ namespace FootballManager.App.ViewModel
 
         public string PlayerViewSearchText
         {
-            get { return this.playerViewSearchText;}
+            get { return this.playerViewSearchText; }
             set
             {
                 this.playerViewSearchText = value;
@@ -98,9 +96,10 @@ namespace FootballManager.App.ViewModel
             {
                 this.seriesForPlayerStats = value;
                 OnPropertyChanged("CbPlayerStats");
-                //this.LoadPlayersTables();
+                this.LoadPlayerStatsData();
             }
         }
+
 
         public string PlayerInfoSearchText
         {
@@ -109,25 +108,44 @@ namespace FootballManager.App.ViewModel
             {
                 this.playerInfoSearchText = value;
                 this.OnPropertyChanged();
-                this.LoadPlayerInfoData();
+                this.LoadPlayerStatsData();
             }
         }
 
-        private void LoadPlayerInfoData()
+        private void LoadPlayerStatsData()
         {
-            this.PlayerStats = this.playerService.GetPlayerStatsFreeTextSearch(
-            this.playerInfoSearchText).ToObservableCollection();
+
             FilterStatsGrid();
+
+        }
+
+        private void FilterPlayerInfoData()
+        {
+            var allPlayers = playerService.Search(this.playerViewSearchText);
+            var allSeries = seriesService.GetAll();
+
+            foreach (var player in allPlayers)
+            {
+
+            }
             
         }
 
         private void FilterStatsGrid()
         {
             var allPlayers = playerService.Search(this.playerInfoSearchText);
-            var allSeries = seriesService.GetAll();
-            var filterdStats = (from player in allPlayers from series in allSeries where series.TeamIds.Contains(player.TeamId) select playerService.GetPlayerStatsInSeries(player.Id, series.Id)).ToList();
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                if (seriesForPlayerStats != null && this.seriesForPlayerStats.TeamIds.Contains(player.TeamId))
+                {
 
-            this.PlayerStats = filterdStats.ToObservableCollection();
+                    playerStats.Add(playerService.GetPlayerStatsInSeries(player.Id, seriesForPlayerStats.Id));
+                }
+            }
+
+
+            PlayerStats = playerStats.ToObservableCollection();
         }
 
         private void LoadPlayerViewData()
@@ -145,23 +163,18 @@ namespace FootballManager.App.ViewModel
             playerAddView.ShowDialog();
         }
 
-        private void PlayerInfo(object obj)
-        {
-            TabablzControl playerViewTabablzControl = (TabablzControl)obj;
-            playerViewTabablzControl.SelectedIndex = 1;
-        }
+       
 
-        
 
-        public void LoadData()
+        private void LoadData()
         {
             this.allSeries = seriesService.GetAll().ToObservableCollection();
             this.Players = this.playerService.GetAllExposablePlayers().ToObservableCollection();
-            this.playerStats = this.playerService.GetPlayerStatsFreeTextSearch(this.playerViewSearchText).ToObservableCollection();
+            this.LoadPlayerStatsData();
         }
 
         #endregion
 
-       
+
     }
 }

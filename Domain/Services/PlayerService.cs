@@ -49,7 +49,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats)p.Clone());
+                    playerStats.Add((PlayerStats) p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -83,7 +83,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats)p.Clone());
+                    playerStats.Add((PlayerStats) p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -117,7 +117,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats)p.Clone());
+                    playerStats.Add((PlayerStats) p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -151,7 +151,7 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats)p.Clone());
+                    playerStats.Add((PlayerStats) p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
@@ -195,9 +195,9 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.repository.GetAll().Where(x =>
-                x.Name.ToString().Contains(searchText, comparison)
-                || x.DateOfBirth.ToString().Contains(searchText, comparison)
-                || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
+                    x.Name.ToString().Contains(searchText, comparison));
+            // || DomainService.FindTeamById(x.TeamId).Name.ToString().Contains(searchText, comparison));
+
         }
 
         public void SetShirtNumber(Guid playerId, ShirtNumber newShirtNumber)
