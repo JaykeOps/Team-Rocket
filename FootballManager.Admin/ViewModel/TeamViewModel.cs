@@ -16,7 +16,7 @@ namespace FootballManager.Admin.ViewModel
 {
     public class TeamViewModel : ViewModelBase
     {
-        private ObservableCollection<Team> teams;
+        private ObservableCollection<IExposableTeam> teams;
         private TeamService teamService;
         private Team selectedTeam;
         private ICommand openTeamAddView;
@@ -25,8 +25,8 @@ namespace FootballManager.Admin.ViewModel
 
         public TeamViewModel()
         {
+            this.teams = new ObservableCollection<IExposableTeam>();
             this.teamService = new TeamService();
-
             this.LoadData();
 
             Messenger.Default.Register<Team>(this, this.OnTeamObjReceived);
@@ -76,7 +76,7 @@ namespace FootballManager.Admin.ViewModel
 
 
 
-        public ObservableCollection<Team> Teams
+        public ObservableCollection<IExposableTeam> Teams
         {
             get { return this.teams; }
             set
@@ -92,7 +92,7 @@ namespace FootballManager.Admin.ViewModel
 
         public void LoadData()
         {
-            this.Teams = this.teamService.GetAllTeams().ToObservableCollection();
+            this.Teams = this.teamService.GetAllIExposableTeams().ToObservableCollection();
         }
 
         private void DeleteTeam(object obj)
