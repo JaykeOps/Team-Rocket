@@ -16,9 +16,9 @@ namespace FootballManager.Admin.ViewModel
     {
         private TeamService teamService;
         private IExposableTeam selectedTeam;
-        private TeamName teamName;
-        private ArenaName arenaName;
-        private EmailAddress email;
+        private string teamName;
+        private string arenaName;
+        private string email;
         private Dictionary<string, bool> validProperties;
         private bool allPropertiesValid;
 
@@ -64,7 +64,7 @@ namespace FootballManager.Admin.ViewModel
                         break;
                     case "Email":
                         string email = this.Email.ToString();
-                        if (!email.IsValidEmailAddress(false)) 
+                        if (!email.IsValidEmailAddress(true)) 
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();
@@ -119,9 +119,9 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public TeamName TeamName
+        public string TeamName
         {
-            get { return this.teamName ?? new TeamName("Not Available"); }
+            get { return this.teamName; }
             set
             {
                 if (this.teamName != value)
@@ -132,9 +132,9 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public ArenaName ArenaName
+        public string ArenaName
         {
-            get { return this.arenaName ?? new ArenaName("Not Available"); }
+            get { return this.arenaName; }
             set
             {
                 if (this.arenaName != value)
@@ -145,9 +145,9 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public EmailAddress Email
+        public string Email
         {
-            get { return this.email ?? new EmailAddress("not_assigned@na.org"); }
+            get { return this.email; }
             set
             {
                 if (this.email != value)
@@ -161,16 +161,16 @@ namespace FootballManager.Admin.ViewModel
         private void OnTeamObjectRecieved(IExposableTeam team)
         {
             this.SelectedTeam = team;
-            this.TeamName = this.SelectedTeam.Name;
-            this.ArenaName = this.SelectedTeam.ArenaName;
-            this.Email = this.SelectedTeam.Email;
+            this.TeamName = this.SelectedTeam.Name.Value;
+            this.ArenaName = this.SelectedTeam.ArenaName.Value;
+            this.Email = this.SelectedTeam.Email.Value;
         }
 
         private void EditTeam(object obj)
         {
-            this.SelectedTeam.Name = this.teamName;
-            this.SelectedTeam.ArenaName = this.arenaName;
-            this.SelectedTeam.Email = this.email;
+            this.SelectedTeam.Name = new TeamName(this.teamName);
+            this.SelectedTeam.ArenaName = new ArenaName(this.arenaName);
+            this.SelectedTeam.Email = new EmailAddress(this.email);
             this.teamService.Add(this.SelectedTeam);
             this.CloseDialog();
         }
