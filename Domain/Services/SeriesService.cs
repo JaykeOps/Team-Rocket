@@ -90,7 +90,7 @@ namespace Domain.Services
             = StringComparison.InvariantCultureIgnoreCase)
         {
             return this.GetAll().Where(x => x.TeamIds.Any
-            (y => DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
+            (y => y != Guid.Empty && DomainService.FindTeamById(y).Name.ToString().Contains(searchText, comparison)
             || x.SeriesName.ToString().Contains(searchText, comparison)));
         }
 

@@ -208,7 +208,9 @@ namespace Domain.Services
         public IEnumerable<Game> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
-            return this.GetAll().Where(x => x.Location.ToString().Contains(searchText, comparison)
+            return this.GetAll().Where(x => x.Id != Guid.Empty && x.SeriesId != Guid.Empty && x.HomeTeamId != Guid.Empty && x.AwayTeamId != Guid.Empty
+            &&
+            x.Location.ToString().Contains(searchText, comparison)
             ||
             x.MatchDate.ToString().Contains(searchText, comparison)
             ||

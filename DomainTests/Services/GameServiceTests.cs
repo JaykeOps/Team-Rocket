@@ -332,8 +332,8 @@ namespace Domain.Services.Tests
         public void GameSearchCanReturnGamesContainingSpecifiedDate()
         {
             var series = new DummySeries();
-            var games = this.gameService.Search("2017-08-22");
-            foreach (var game in games)
+            var games = this.gameService.Search("2017-08-22").ToList();
+            foreach (var game in games.ToList())
             {
                 Assert.AreEqual(game.MatchDate.ToString(), "2017-08-22 10:10");
             }
