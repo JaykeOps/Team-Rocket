@@ -20,7 +20,42 @@
         <Setter Property="BorderBrush" Value="LightGray" />
         <Setter Property="MaxHeight" Value="500" />
         <Setter Property="MaxWidth" Value="500" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListBoxItem">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static Member=SystemColors.InactiveSelectionHighlightBrushKey}"
+                                     Color="{DynamicResource ResourceKey={x:Static Member=SystemColors.HighlightColorKey}}" />
+                    </Style.Resources>
+                </Style>
+            </Setter.Value>
+        </Setter>
     </Style>
+
+    <Style x:Key="ProtocolListBoxItem" TargetType="ListBoxItem">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+        <Style.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+        </Style.Resources>
+    </Style>
+
+
+    <Style TargetType="ListBoxItem">
+        <Style.Resources>
+            <!--SelectedItem with focus-->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightBlue" Opacity=".4"/>
+            <!--SelectedItem without focus-->
+            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey }" Color="LightBlue" Opacity=".4"/>
+        </Style.Resources>
+    </Style>
+
+
 
     <Style x:Key="SeriesCustomListBoxStyle" TargetType="{x:Type ListBox}">
         <Setter Property="FontSize" Value="12" />
