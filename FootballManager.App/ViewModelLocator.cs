@@ -14,20 +14,14 @@ namespace FootballManager.App
             get { return new PlayerViewModel(); }
         }
 
-        public static PlayerAddViewModel PlayerAddViewModel
-        {
-            get { return new PlayerAddViewModel(); }
-        }
+       
 
         public static TeamViewModel TeamViewModel
         {
             get { return new TeamViewModel(); }
         }
 
-        public static TeamAddViewModel TeamAddViewModel
-        {
-            get { return new TeamAddViewModel(); }
-        }
+       
 
         public static SeriesViewModel SeriesViewModel
         {
