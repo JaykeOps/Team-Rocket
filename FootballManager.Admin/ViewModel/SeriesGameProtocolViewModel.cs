@@ -357,28 +357,28 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
         #region Overtime
-        private string overtimeMatchMinute;
+        private string overtime;
 
-        public string OvertimeMatchMinute
+        public string Overtime
         {
-            get { return overtimeMatchMinute; }
+            get { return overtime; }
             set
             {
-                if (overtimeMatchMinute != value)
+                if (overtime!= value)
                 {
-                    overtimeMatchMinute = value;
+                    overtime = value;
                     OnPropertyChanged();                     
                 }
             }
         }
 
-        private void SaveOvertime()
-        {
-            if (OvertimeMatchMinute != null)
-            {
-                game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
-            }
-        }
+        //private void SaveOvertime()
+        //{
+        //    if (OvertimeMatchMinute != null)
+        //    {
+        //        game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
+        //    }
+        //}
         #endregion
 
         #region Save Game Protocol
@@ -398,7 +398,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void SaveGameProtocol(object obj)
         {
-            SaveOvertime();
+            // SaveOvertime();
             gameService.Add(game);            
         }
         #endregion
@@ -835,11 +835,11 @@ namespace FootballManager.Admin.ViewModel
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        if (SelectedHomeActivePlayer == null && SelectedAwayActivePlayer == null)
-                        {
-                            this.GoalMatchMinuteValid = false;
-                            return "Select an active player!";
-                        }
+                        //if (SelectedHomeActivePlayer == null && SelectedAwayActivePlayer == null)
+                        //{
+                        //    this.GoalMatchMinuteValid = false;
+                        //    return "Select an active player!";
+                        //}
                             break;
                     case "AssistMatchMinute":
                         this.AssistMatchMinuteValid = true;
