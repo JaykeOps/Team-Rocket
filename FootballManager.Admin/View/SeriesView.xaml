@@ -36,7 +36,7 @@
                     </Grid.ColumnDefinitions>
                     <!--Margin: Left, Top, Right, Bottom-->
 
-                    <Grid Grid.Row="0" Grid.Column="0">
+                    <Grid x:Name="ListBoxGrid" Grid.Row="0" Grid.Column="0">
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource SeriesCustomLabelStyle}" TargetType="{x:Type Label}" />
                             <Style BasedOn="{StaticResource SeriesCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
@@ -59,15 +59,17 @@
                             <Label Content="Search:" />
                             <TextBox Width="150" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-                        <ListBox Name="AvailableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}">
-                        </ListBox>
+                        <ListBox Name="AvailableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}" />
+                        
                         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10">
                             <Button CommandParameter="{Binding ElementName=TeamsToAddToSeries, Path=SelectedItem}" 
                                     Command="{Binding AddTeamCommand}" Content="+" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                             <Button CommandParameter="{Binding ElementName=AvailableTeams, Path=SelectedItem}" 
                                     Command="{Binding DeleteTeamCommand}" Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                         </StackPanel>
+                        
                         <Label Content="Teams to add:" Grid.Row="0" Grid.Column="2" Margin="20,20,20,12"/>
+                        
                         <ListBox x:Name="TeamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" 
                                  ItemsSource="{Binding DataContext.TeamsToAddToSeries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
                                  ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
@@ -76,12 +78,13 @@
                                     <StackPanel>
                                         <!-- Placeholder for the ListBox itself -->
                                         <AdornedElementPlaceholder />
-                                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                                        <TextBlock Text="{Binding [0].ErrorContent}" Padding="10,2,0,0" Foreground="Red" />
                                     </StackPanel>
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </ListBox>
                     </Grid>
+                    
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center">
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />

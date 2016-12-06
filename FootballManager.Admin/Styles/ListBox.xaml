@@ -60,7 +60,7 @@
     <Style x:Key="SeriesCustomListBoxStyle" TargetType="{x:Type ListBox}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Height" Value="500" />
+        <Setter Property="Height" Value="480" />
         <Setter Property="Width" Value="240" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="10,0" />
