@@ -45,9 +45,21 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
-            catch (IOException ex)
+            catch (IOException)
             {
-                throw ex;
+                bool checkFile = true;
+                while (checkFile)
+                {
+                    if (IsFileReady(this.filePath))
+                    {
+                        using (
+                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            this.formatter.Serialize(streamWriter, this.matches);
+                        }
+                        checkFile = false;
+                    }
+                }
             }
         }
 
@@ -112,6 +124,34 @@ namespace Domain.Repositories
         private Match FindById(Guid matchId)
         {
             return this.matches.FirstOrDefault(x => x.Id == matchId);
+        }
+
+        public void RemoveMatch(Match match)
+        {
+            matches.Remove(match);
+        }
+
+        public static bool IsFileReady(string sFilename)
+        {
+            try
+            {
+                using (FileStream inputStream = File.Open(sFilename, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    if (inputStream.Length > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
