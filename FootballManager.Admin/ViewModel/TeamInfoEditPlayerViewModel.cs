@@ -19,8 +19,9 @@ namespace FootballManager.Admin.ViewModel
         private IExposablePlayer receivedPlayer;
         private string shirtNumber;
         private Name name;
-        private PlayerPosition playerPosition;
-        private PlayerStatus playerStatus;
+        private PlayerPosition? selectePlayerPosition;
+        private PlayerStatus? selectedPlayerStatus;
+
         private ICommand savePlayerChanges;
 
         private bool isShirtNumberValid;
@@ -70,12 +71,25 @@ namespace FootballManager.Admin.ViewModel
 
         public PlayerPosition SelectedPlayerPosition
         {
-            get { return this.playerPosition; }
+            get { return selectePlayerPosition.GetValueOrDefault(); }
             set
             {
-                if (this.playerPosition != value)
+                if (this.selectePlayerPosition != value)
                 {
-                    this.playerPosition = value;
+                    this.selectePlayerPosition = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+
+        public PlayerStatus SelectedPlayerStatus
+        {
+            get { return this.selectedPlayerStatus.GetValueOrDefault(); }
+            set
+            {
+                if (this.selectedPlayerStatus != value)
+                {
+                    this.selectedPlayerStatus = value;
                     this.OnPropertyChanged();
                 }
             }
@@ -86,34 +100,9 @@ namespace FootballManager.Admin.ViewModel
             get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
         }
 
-        public PlayerStatus SelectedPlayerStatus
-        {
-            get { return this.playerStatus; }
-            set
-            {
-                if (this.playerStatus != value)
-                {
-                    this.playerStatus = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
         public IEnumerable<PlayerStatus> PlayerStatuses
         {
             get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
-        }
-
-        public ICommand SavePlayerChangesCommand
-        {
-            get
-            {
-                if (this.savePlayerChanges == null)
-                {
-                    this.savePlayerChanges = new RelayCommand(this.EditPlayer);
-                }
-                return this.savePlayerChanges;
-            }
         }
         #endregion
 
@@ -132,6 +121,20 @@ namespace FootballManager.Admin.ViewModel
         }
         #endregion
 
+        #region Commands
+        public ICommand SavePlayerChangesCommand
+        {
+            get
+            {
+                if (this.savePlayerChanges == null)
+                {
+                    this.savePlayerChanges = new RelayCommand(this.EditPlayer, this.CanEditPlayer);
+                }
+                return this.savePlayerChanges;
+            }
+        }
+        #endregion
+
         #region Methods        
         public void OnPlayerObjectRecieved(IExposablePlayer player)
         {
@@ -144,8 +147,11 @@ namespace FootballManager.Admin.ViewModel
 
         private void EditPlayer(object obj)
         {
-            this.ReceivedPlayer.Position = this.playerPosition;
-            this.ReceivedPlayer.Status = this.playerStatus;
+            if (selectePlayerPosition != null || selectedPlayerStatus != null)
+            {
+                this.ReceivedPlayer.Position = this.selectePlayerPosition.GetValueOrDefault();
+                this.ReceivedPlayer.Status = this.selectedPlayerStatus.GetValueOrDefault();
+            }
 
             if (int.Parse(shirtNumber) != -1)
             {
@@ -154,6 +160,15 @@ namespace FootballManager.Admin.ViewModel
             }
             this.playerService.Add((Player)this.ReceivedPlayer);
             this.CloseDialog();
+        }
+
+        private bool CanEditPlayer(object obj)
+        {
+            if (selectePlayerPosition == null || selectedPlayerStatus == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void CloseDialog()
