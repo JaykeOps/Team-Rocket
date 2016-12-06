@@ -182,7 +182,6 @@ namespace FootballManager.Admin.ViewModel
                 }
                 Messenger.Default.Send<Series>(seriesToAdd);
                 ResetData();
-
         }
 
 

@@ -147,9 +147,7 @@ namespace FootballManager.Admin.ViewModel
                 {
                     this.SelectedSeries = SeriesCollection.ElementAt(0);
                 }
-                
             }
-
         }
         
 

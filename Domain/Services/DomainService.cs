@@ -83,7 +83,6 @@ namespace Domain.Services
             var matchService = new MatchService();
             var gameService = new GameService();
             var allGames = gameService.GetAll().ToList();
-            Game game;
             foreach (var match in series.Schedule)
             {
                 matchService.RemoveMatch(match.Id);
