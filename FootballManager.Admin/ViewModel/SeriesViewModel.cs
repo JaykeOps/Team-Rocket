@@ -103,6 +103,7 @@ namespace FootballManager.Admin.ViewModel
                 {
                     selectedNumberOfTeams = value;
                     OnPropertyChanged();
+                    OnPropertyChanged("TeamsToAddToSeries");
                 }
             }
         }
