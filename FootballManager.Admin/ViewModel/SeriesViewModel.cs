@@ -30,6 +30,7 @@ namespace FootballManager.Admin.ViewModel
         private int selectedNumberOfTeams;
         private string seriesName;
         private string matchDuration;
+        private string seriesAddedConfirmText;
         private object selectedItem;
         private bool allPropertiesValid;
         private Dictionary<string, bool> validProperties;
@@ -116,6 +117,16 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public string SeriesAddedConfirmText
+        {
+            get { return seriesAddedConfirmText; }
+            set
+            {
+                seriesAddedConfirmText = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string SeriesName
         {
             get { return seriesName; }
@@ -159,6 +170,7 @@ namespace FootballManager.Admin.ViewModel
                 teamsToAddToSeries.Add(selectedTeam);
                 availableTeams.Remove(selectedTeam);
                 OnPropertyChanged("TeamsToAddToSeries");
+                this.SeriesAddedConfirmText = "";
             }
         }
 
@@ -188,6 +200,7 @@ namespace FootballManager.Admin.ViewModel
                 }
                 Messenger.Default.Send<Series>(seriesToAdd);
                 ResetData();
+            this.SeriesAddedConfirmText = "Series Added!";
         }
 
 

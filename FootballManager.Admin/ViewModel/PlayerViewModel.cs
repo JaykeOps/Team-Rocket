@@ -118,6 +118,7 @@ namespace FootballManager.Admin.ViewModel
             foreach (var player in playersSelectedList)
             {
                 this.players.Remove(player);
+                this.playerService.RemovePlayer(player.Id);
             }
         }
 
