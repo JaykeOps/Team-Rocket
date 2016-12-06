@@ -131,6 +131,7 @@ namespace Domain.Repositories
             if (this.TryGetPlayer(DomainService.FindPlayerById(playerId), out playerToRemove))
             {
                 this.players.Remove(playerToRemove);
+                this.SaveData();
             }
             else
             {
