@@ -318,7 +318,12 @@ namespace FootballManager.Admin.ViewModel
             {
                 this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
                 this.player.TeamId = this.selectedTeam.Id;
-
+                Window window = Application.Current.Windows.OfType<Window>()
+                    .Where(w => w.Name == "AddPlayerWindow").FirstOrDefault();
+                if (window != null)
+                {
+                    window.Close();
+                }
                 this.playerService.Add(this.player);
             }
 

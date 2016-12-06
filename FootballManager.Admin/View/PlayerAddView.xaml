@@ -10,6 +10,7 @@
             Background="{DynamicResource MaterialDesignPaper}"
             SizeToContent="WidthAndHeight"
             WindowStartupLocation="CenterScreen"
+            Name="AddPlayerWindow"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PlayerAddViewModel}">
     <Grid Margin="20">
