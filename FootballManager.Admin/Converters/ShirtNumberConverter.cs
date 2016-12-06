@@ -12,20 +12,25 @@ namespace FootballManager.Admin.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var number = (int) value;
-            if (number == -1)
+            if (value != null)
             {
-                return "n/a";
+                int number;
+                int.TryParse(value.ToString(), out number);                
+                if (number == -1)
+                {
+                    return "n/a";
+                }
+                else
+                {
+                    return value;
+                }
             }
-            else
-            {
-                return number;
-            }
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value = (string)value == "n/a" ? "-1" : value;
+            return (string)value == "n/a" ? "-1" : value;
         }
     }
 }
