@@ -46,9 +46,21 @@ namespace Domain.Repositories
             {
                 throw ex;
             }
-            catch (IOException ex)
+            catch (IOException)
             {
-                throw ex;
+                bool checkFile = true;
+                while (checkFile)
+                {
+                    if (IsFileReady(this.filePath))
+                    {
+                        using (
+                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            this.formatter.Serialize(streamWriter, this.series);
+                        }
+                        checkFile = false;
+                    }
+                }
             }
         }
 
@@ -119,6 +131,29 @@ namespace Domain.Repositories
         public void DeleteSeries(Guid seriesId)
         {
             this.series.RemoveWhere(s => s.Id == seriesId);
+        }
+
+        public static bool IsFileReady(string sFilename)
+        {
+            try
+            {
+                using (FileStream inputStream = File.Open(sFilename, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    if (inputStream.Length > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Domain.Value_Objects
     [Serializable]
     public class DateOfBirth : ValueObject<DateOfBirth>
     {
-        public DateTime Value { get; set; }
+        public DateTime Value { get; }
 
        
 

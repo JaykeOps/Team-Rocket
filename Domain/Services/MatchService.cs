@@ -61,6 +61,14 @@ namespace Domain.Services
             matchToEdit.Location = new ArenaName(newArenaName);
         }
 
+        public void RemoveMatch(Guid matchId)
+        {
+            if (matchId != Guid.Empty)
+            {
+                this.repository.RemoveMatch(DomainService.FindMatchById(matchId));
+            }
+        }
+
         public IEnumerable<Match> Search(string searchText, StringComparison comparison 
             = StringComparison.InvariantCultureIgnoreCase)
         {
