@@ -57,13 +57,43 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Arena Name:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Email:" />
 
-            <TextBox Grid.Row="1" Grid.Column="1" Width="200" Name="TeamName" Text="{Binding TeamName, Converter={StaticResource TeamConverter}, Mode=TwoWay}" />
-            <TextBox Grid.Row="2" Grid.Column="1" Width="200" Name="ArenaName" Text="{Binding ArenaName, Converter={StaticResource TeamConverter}, Mode=TwoWay}" />
-            <TextBox Grid.Row="3" Grid.Column="1" Width="200" Name="Email" Text="{Binding Email, Converter={StaticResource TeamConverter}, Mode=TwoWay}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Width="200" Name="TeamName" Text="{Binding DataContext.TeamName, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Width="200" Name="ArenaName" Text="{Binding DataContext.ArenaName, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Width="200" Name="Email" Text="{Binding DataContext.Email, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
             <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Save Changes" Command="{Binding SaveTeamChangesCommand}" />
+                <Button Content="Save Changes" Command="{Binding SaveTeamChangesCommand}" IsEnabled="{Binding AllPropertiesValid}"/>
             </StackPanel>
         </Grid>
 

@@ -7,15 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.ComponentModel;
+using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class TeamInfoEditPlayerViewModel : ViewModelBase
+    public class TeamInfoEditPlayerViewModel : ViewModelBase, IDataErrorInfo
     {
         private readonly PlayerService playerService;
         private IExposablePlayer selectedPlayer;
         private Name name;
         private int shirtNumber;
+        private bool shirtNumberValid;
         private PlayerPosition playerPosition;
         private PlayerStatus playerStatus;
 
@@ -24,6 +27,35 @@ namespace FootballManager.Admin.ViewModel
             this.playerService = new PlayerService();
             Messenger.Default.Register<IExposablePlayer>(this, this.OnPlayerObjectRecieved);
             this.SavePlayerChangesCommand = new RelayCommand(this.EditPlayer);
+        }
+
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                //switch (columnName)
+                //{
+                //    case "ShirtNumberValid":
+                //        this.ShirtNumberValid = true;
+                //        try {
+                //            this.ShirtNumberValid = this.ShirtNumber.IsValidShirtNumber(); // Where to get teamId??
+                //        }
+                //        catch (Exception ex)
+                //        {
+
+                //        }
+                //        break;
+                //}
+                return string.Empty;
+            }
         }
 
         public ICommand SavePlayerChangesCommand { get; }
@@ -63,6 +95,19 @@ namespace FootballManager.Admin.ViewModel
                 {
                     this.shirtNumber = value;
                     this.OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool ShirtNumberValid
+        {
+            get { return this.shirtNumberValid; }
+            set
+            {
+                if (this.shirtNumberValid != value)
+                {
+                    this.shirtNumberValid = value;
+                    OnPropertyChanged();
                 }
             }
         }

@@ -268,12 +268,9 @@
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
-            
-            <TextBox Text="{Binding DataContext.OvertimeMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
-                    ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}"
-                    VerticalAlignment="Center" 
-                    Margin="10,0,0,0" 
-                    Style="{StaticResource GameProtocolCustomTextBoxStyle}">
+            <TextBox Text="{Binding DataContext.Overtime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, 
+                     RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}" 
+                     VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
                         <StackPanel>
@@ -283,8 +280,8 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            
-            <Button Command="{Binding SaveGameProtocolCommand}" Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+            <Button Command="{Binding SaveGameProtocolCommand}" Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                    IsEnabled="{Binding OvertimeValid}" />
         </StackPanel>
 
     </Grid>
