@@ -49,6 +49,8 @@ namespace FootballManager.Admin.ViewModel
             this.validProperties.Add("SelectedItemPlayerPosition", false);
             this.validProperties.Add("SelectedItemPlayerStatus", false);
             this.validProperties.Add("SelectedItemTeam", false);
+            this.SelectedItemPlayerPosition = this.PlayerPosition.ElementAt(0);
+            this.SelectedItemPlayerStatus = this.PlayerStatus.ElementAt(0);
         }
 
         #region IDataErrorInfo implementation
