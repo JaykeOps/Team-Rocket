@@ -59,9 +59,9 @@
                               SelectedItem="{Binding SelectedTeam, Mode=TwoWay}">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name.Value, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Arena" Binding="{Binding ArenaName.Value, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Email" Binding="{Binding Email.Value, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Name           " Binding="{Binding Name.Value, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                            <DataGridTextColumn Header="Arena          " Binding="{Binding ArenaName.Value, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                            <DataGridTextColumn Header="Email          " Binding="{Binding Email.Value, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
                             <DataGridTemplateColumn Header="Team info">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

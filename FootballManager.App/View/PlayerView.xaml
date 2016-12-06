@@ -57,12 +57,12 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay }" />
-                            <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay }" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                            <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
                             <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
-                            <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" IsReadOnly="True" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" IsReadOnly="True" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                            <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName}" IsReadOnly="True" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -94,8 +94,8 @@
                     SelectionMode="Extended"
                     CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" />
-                                <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
                             <DataGridTextColumn Header="Games" Binding="{Binding GamesPlayedCount, Mode=OneWay}" />
                             <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" />
                             <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" />

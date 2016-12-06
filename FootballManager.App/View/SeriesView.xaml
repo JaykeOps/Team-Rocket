@@ -166,7 +166,7 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Ranking"  Binding="{Binding Ranking, Mode=OneWay}" />
                                     <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay }" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
                                     <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
                                     <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
