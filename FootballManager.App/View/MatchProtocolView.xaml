@@ -51,10 +51,11 @@
                               SelectionMode="Extended"
                               CanUserSortColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Event" Binding="{Binding EventType, Mode=OneWay}" />
-                    <DataGridTextColumn Header="Match minute" Binding="{Binding MatchMinute, Mode=OneWay}" />
-                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerId, Mode=OneWay, Converter={StaticResource PlayerIdToStringConverter}}" />
-                    <DataGridTextColumn Header="Team" Binding="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
+
+                    <DataGridTextColumn Header="Event     " Binding="{Binding EventType, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                    <DataGridTextColumn Header="Match minute   " Binding="{Binding MatchMinute, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Player    " Binding="{Binding PlayerId, Mode=OneWay, Converter={StaticResource PlayerIdToStringConverter}}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
+                    <DataGridTextColumn Header="Team   " Binding="{Binding TeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" CellStyle="{StaticResource SeriesNamesDataGridCell}"/>
 
                 </DataGrid.Columns>
             </DataGrid>
