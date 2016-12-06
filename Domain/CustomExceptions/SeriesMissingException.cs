@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Domain.Value_Objects
 {
     [Serializable]
-    internal class SeriesMissingException : Exception
+    public class SeriesMissingException : Exception
     {
         public SeriesMissingException()
         {

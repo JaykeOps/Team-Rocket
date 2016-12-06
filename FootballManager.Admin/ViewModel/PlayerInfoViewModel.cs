@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Domain.Entities;
 using Domain.Services;
+using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 
@@ -16,18 +17,15 @@ namespace FootballManager.Admin.ViewModel
 {
     public class PlayerInfoViewModel : ViewModelBase
     {
-        //TODO: Validering av sökfältet
+        //TODO: Validering av sökfält
 
         private PlayerService playerService;
         private ObservableCollection<PlayerStats> playerStats;
-        private string searchText;
-
-        public PlayerInfoViewModel()
-        {
-            this.playerService = new PlayerService();
-            this.playerStats = new ObservableCollection<PlayerStats>();
-            LoadData();
-        }
+        private ObservableCollection<Series> allSeries;
+        private SeriesService seriesService;
+        private string searchText = "";
+        private Series seriesForPlayerStats;
+        public ObservableCollection<Series> AllSeries => this.allSeries;
 
         public ObservableCollection<PlayerStats> PlayerStats
         {
@@ -39,6 +37,17 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public Series SeriesForPlayerStats
+        {
+            get { return this.seriesForPlayerStats; }
+            set
+            {
+                this.seriesForPlayerStats = value;
+                OnPropertyChanged("CbPlayerStats");
+                this.FilterStatsGrid();
+            }
+        }
+
         public string SearchText
         {
             get { return searchText; }
@@ -46,18 +55,44 @@ namespace FootballManager.Admin.ViewModel
             {
                 searchText = value;
                 OnPropertyChanged();
-                FilterData();
+                FilterStatsGrid();
             }
         }
 
-        public void FilterData()
+        private void FilterStatsGrid()
         {
-            PlayerStats = playerService.GetPlayerStatsFreeTextSearch(SearchText).ToObservableCollection();
+            var allPlayers = playerService.Search(this.searchText);
+            var playerStats = new List<PlayerStats>();
+            foreach (var player in allPlayers)
+            {
+                if (seriesForPlayerStats != null && this.seriesForPlayerStats.TeamIds.Contains(player.TeamId))
+                {
+                    try
+                    {
+                        playerStats.Add(playerService.GetPlayerStatsInSeries(player.Id, seriesForPlayerStats.Id));
+                    }
+                    catch (SeriesMissingException)
+                    {
+                    }
+                    
+                }
+            }
+            PlayerStats = playerStats.ToObservableCollection();
         }
 
         public void LoadData()
         {
-            PlayerStats = playerService.GetPlayerStatsFreeTextSearch("").ToObservableCollection();          
+            PlayerStats = playerService.GetPlayerStatsFreeTextSearch("").ToObservableCollection();
+            allSeries = seriesService.GetAll().ToObservableCollection();
+            this.FilterStatsGrid();
+        }
+        
+        public PlayerInfoViewModel()
+        {
+            this.playerService = new PlayerService();
+            this.seriesService=new SeriesService();
+            this.playerStats = new ObservableCollection<PlayerStats>();
+            LoadData();
         }
     }
 }

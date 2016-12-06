@@ -106,7 +106,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Player Info">
+            <TabItem Header="Player Stats">
                 <local:PlayerInfoView />
             </TabItem>
         </dragablz:TabablzControl>
