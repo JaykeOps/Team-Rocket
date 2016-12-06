@@ -24,7 +24,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Region Add Player -->
         <!--Margin: Left, Top, Right, Bottom-->
         <Grid Grid.Row="0" Grid.Column="0" Margin="10">
             <Grid.Resources>
@@ -49,34 +48,34 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="1" Grid.Column="1" Content="{Binding Name, Mode=OneWay}" Margin="10"
-                   FontSize="18" Foreground="#424242" VerticalContentAlignment="Center" FontWeight="Light"/>
+                   FontSize="18" Foreground="#424242" VerticalContentAlignment="Center" FontWeight="Light" />
             <Label Grid.Row="2" Grid.Column="0" Content="Shirt number:" />
             <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
 
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.ShirtNumber, Converter={StaticResource ShirtNumberConverter}, Mode=TwoWay, 
-                            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoEditPlayerView}}}">
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True, Converter={StaticResource ShirtNumberConverter}}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
                         <StackPanel>
                             <AdornedElementPlaceholder />
-                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" Background="White"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" FontSize="11" Foreground="Red" />
                         </StackPanel>
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
 
             <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPositions,
-                Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}" 
-                      SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" /> 
-            
+                    Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}" 
+                    SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" />
+
             <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatuses, 
-                Converter={StaticResource PlayerStatusListConverter}, Mode=OneWay}"
-                      SelectedValue="{Binding SelectedPlayerStatus, Converter={StaticResource PlayerStatusConverter}, Mode=TwoWay}" />
+                    Converter={StaticResource PlayerStatusListConverter}, Mode=OneWay}"
+                    SelectedValue="{Binding SelectedPlayerStatus, Converter={StaticResource PlayerStatusConverter}, Mode=TwoWay}" />
 
             <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Save Changes" Command="{Binding SavePlayerChangesCommand}" IsEnabled="{Binding ShirtNumberValid}"/>
+                <Button Content="Save Changes" Command="{Binding SavePlayerChangesCommand}" IsEnabled="{Binding IsShirtNumberValid}" />
             </StackPanel>
         </Grid>
 
@@ -84,6 +83,3 @@
 
     </Grid>
 </Window>
-
-
-        
