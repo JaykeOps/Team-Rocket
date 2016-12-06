@@ -138,12 +138,20 @@ namespace FootballManager.Admin.ViewModel
 
         private void DeleteSeries(object obj)
         {
-            this.seriesService.DeleteSeries(this.selectedSeries.Id);
-            this.SeriesCollection = seriesService.GetAll().ToObservableCollection();
-            this.MatchesBySeriesCollection.Clear();
-            this.SelectedSeries = SeriesCollection.ElementAt(0);
+            if (this.selectedSeries != null)
+            {
+                this.seriesService.DeleteSeries(this.selectedSeries.Id);
+                this.SeriesCollection = seriesService.GetAll().ToObservableCollection();
+                this.MatchesBySeriesCollection.Clear();
+                if (!(this.SeriesCollection.Count <= 0))
+                {
+                    this.SelectedSeries = SeriesCollection.ElementAt(0);
+                }
+                
+            }
 
         }
+        
 
         public void FilterMatchesBySeries()
         {
