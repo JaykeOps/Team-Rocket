@@ -156,6 +156,11 @@
                                     Margin="20">
                             <Button Command="{Binding AddSeriesCommand}" Content="Add Series" IsEnabled="{Binding AllPropertiesValid}" Style="{StaticResource FlatButton}" />
                         </StackPanel>
+                        <Label Grid.Row="3" Grid.ColumnSpan="2"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Bottom"
+                               Content="{Binding SeriesAddedConfirmText}" Foreground="LimeGreen"
+                               Margin="20,20,20,0"/>
                     </Grid>
                 </Grid>
             </TabItem>
