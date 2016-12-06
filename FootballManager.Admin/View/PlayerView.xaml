@@ -57,12 +57,6 @@
                                 VerticalAlignment="Bottom" 
                                 Margin="40,0,0,0" />
                     </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="0" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Right" 
-                                VerticalAlignment="Center" 
-                                Margin="10" 
-                                Height="60" />
 
                     <!--Margin: Left, Top, Right, Bottom-->
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
