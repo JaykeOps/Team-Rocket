@@ -66,6 +66,7 @@ namespace Domain.Services
 
         public void DeleteSeries(Guid seriesId)
         {
+            DomainService.RemoveGameAndMatchesFromSeries(seriesId);
             this.repository.DeleteSeries(seriesId);
         }
 

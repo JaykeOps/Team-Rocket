@@ -275,9 +275,12 @@ namespace FootballManager.Admin.ViewModel
 
         private void OpenTeamInfoEditPlayerView(object obj)
         {
-            var player = (IExposablePlayer) obj;
             var teamInfoPlayerEditView = new TeamInfoEditPlayerView();
-            Messenger.Default.Send(player);
+            if (obj != null)
+            {
+                Messenger.Default.Send<IExposablePlayer>((IExposablePlayer)obj);
+            }
+
             teamInfoPlayerEditView.ShowDialog();
             this.FilterPlayersByTeam();
         }

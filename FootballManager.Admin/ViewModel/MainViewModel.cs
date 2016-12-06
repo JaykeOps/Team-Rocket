@@ -35,6 +35,7 @@ namespace FootballManager.Admin.ViewModel
             this.OpenSeriesCommand = new RelayCommand(this.SeriesCommand);
             this.OpenPlayerCommand = new RelayCommand(this.PlayerCommand);
             this.OpenTeamCommand = new RelayCommand(this.TeamCommand);
+            this.SelectedViewModel = new SeriesView();
         }
 
         private void SeriesCommand(object obj)

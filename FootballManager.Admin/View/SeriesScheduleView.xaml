@@ -48,6 +48,12 @@
             <Label Content="Series:" />
 
             <ComboBox ItemsSource="{Binding SeriesCollection}" SelectedItem="{Binding SelectedSeries}" />
+
+            <Button Command="{Binding DeleteSelectedSeriesCommand}" 
+                                Content="Delete series" 
+                                Style="{StaticResource FlatButton}" 
+                                VerticalAlignment="Center" 
+                                Margin="40,0,0,0" />
         </StackPanel>
 
 

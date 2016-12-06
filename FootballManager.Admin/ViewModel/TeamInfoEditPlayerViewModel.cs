@@ -4,57 +4,48 @@ using Domain.Services;
 using FootballManager.Admin.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class TeamInfoEditPlayerViewModel : ViewModelBase
+    public class TeamInfoEditPlayerViewModel : ViewModelBase, IDataErrorInfo
     {
         private readonly PlayerService playerService;
-        private IExposablePlayer selectedPlayer;
+
+        private IExposablePlayer receivedPlayer;
+        private string shirtNumber;
         private Name name;
-        private int shirtNumber;
         private PlayerPosition playerPosition;
         private PlayerStatus playerStatus;
+        private ICommand savePlayerChanges;
+
+        private bool isShirtNumberValid;
 
         public TeamInfoEditPlayerViewModel()
         {
             this.playerService = new PlayerService();
-            Messenger.Default.Register<IExposablePlayer>(this, this.OnPlayerObjectRecieved);
-            this.SavePlayerChangesCommand = new RelayCommand(this.EditPlayer);
+
+            Messenger.Default.Register<IExposablePlayer>(this, OnPlayerObjectRecieved);
         }
 
-        public ICommand SavePlayerChangesCommand { get; }
-
-        public Name Name
+        #region Properties        
+        public IExposablePlayer ReceivedPlayer
         {
-            get { return this.selectedPlayer?.Name ?? new Name("Not", "Available"); }
+            get { return this.receivedPlayer; }
             set
             {
-                if (this.name != value)
+                if (this.receivedPlayer != value)
                 {
-                    this.name = value;
-                    this.OnPropertyChanged();
+                    this.receivedPlayer = value;
                 }
             }
         }
 
-        public IExposablePlayer SelectedPlayer
-        {
-            get { return this.selectedPlayer; }
-            set
-            {
-                if (this.selectedPlayer != value)
-                {
-                    this.selectedPlayer = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
-        public int ShirtNumber
+        public string ShirtNumber
         {
             get { return this.shirtNumber; }
             set
@@ -64,6 +55,16 @@ namespace FootballManager.Admin.ViewModel
                     this.shirtNumber = value;
                     this.OnPropertyChanged();
                 }
+            }
+        }
+
+        public Name Name
+        {
+            get { return this.name; }
+            set
+            {
+                this.name = value;
+                OnPropertyChanged();
             }
         }
 
@@ -80,6 +81,11 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
+        public IEnumerable<PlayerPosition> PlayerPositions
+        {
+            get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
+        }
+
         public PlayerStatus SelectedPlayerStatus
         {
             get { return this.playerStatus; }
@@ -93,35 +99,60 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public IEnumerable<PlayerPosition> PlayerPositions
-        {
-            get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
-        }
-
         public IEnumerable<PlayerStatus> PlayerStatuses
         {
             get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
         }
 
+        public ICommand SavePlayerChangesCommand
+        {
+            get
+            {
+                if (this.savePlayerChanges == null)
+                {
+                    this.savePlayerChanges = new RelayCommand(this.EditPlayer);
+                }
+                return this.savePlayerChanges;
+            }
+        }
+        #endregion
+
+        #region Validaiton Properties
+        public bool IsShirtNumberValid
+        {
+            get { return isShirtNumberValid; }
+            set
+            {
+                if (isShirtNumberValid != value)
+                {
+                    isShirtNumberValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        #region Methods        
         public void OnPlayerObjectRecieved(IExposablePlayer player)
         {
-            this.SelectedPlayer = player;
+            this.ReceivedPlayer = player;
             this.Name = player.Name;
-            this.ShirtNumber = player.ShirtNumber.Value;
+            this.ShirtNumber = player.ShirtNumber.Value.ToString();
             this.SelectedPlayerPosition = player.Position;
             this.SelectedPlayerStatus = player.Status;
         }
 
         private void EditPlayer(object obj)
         {
-            this.SelectedPlayer.Position = this.playerPosition;
-            this.SelectedPlayer.Status = this.playerStatus;
-            if (this.shirtNumber != -1)
+            this.ReceivedPlayer.Position = this.playerPosition;
+            this.ReceivedPlayer.Status = this.playerStatus;
+
+            if (int.Parse(shirtNumber) != -1)
             {
-                this.SelectedPlayer.ShirtNumber =
-                    new ShirtNumber(this.SelectedPlayer.TeamId, this.shirtNumber);
+                this.ReceivedPlayer.ShirtNumber =
+                    new ShirtNumber(this.ReceivedPlayer.TeamId, int.Parse(shirtNumber));
             }
-            this.playerService.Add((Player)this.SelectedPlayer);
+            this.playerService.Add((Player)this.ReceivedPlayer);
             this.CloseDialog();
         }
 
@@ -131,5 +162,48 @@ namespace FootballManager.Admin.ViewModel
                 FirstOrDefault(w => w.Name == "TeamInfoEditPlayerViewDialog");
             window?.Close();
         }
+        #endregion
+
+        #region IDataErrorInfo implemetation
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "ShirtNumber":
+                        this.IsShirtNumberValid = true;
+                        if (string.IsNullOrEmpty(this.ShirtNumber))
+                        {
+                            this.IsShirtNumberValid = false;
+                            return string.Empty;
+                        }
+                        int shirtNumber;
+                        if (!int.TryParse(this.ShirtNumber, out shirtNumber))
+                        {
+                            this.IsShirtNumberValid = false;
+                            return "Only 0-99 are valid!";
+                        }
+                        if (ReceivedPlayer != null)
+                        {
+                            if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer.TeamId))
+                            {
+                                this.IsShirtNumberValid = false;
+                                return "Only 0-99 are valid!";
+                            }
+                        }
+                        break;
+                }
+                return string.Empty;
+            }
+        }
+        #endregion
     }
 }

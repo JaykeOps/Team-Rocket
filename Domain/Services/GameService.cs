@@ -251,6 +251,14 @@ namespace Domain.Services
 
         }
 
+        public void RemoveGame(Guid gameId)
+        {
+            if (gameId != Guid.Empty)
+            {
+                this.repository.RemoveGame(DomainService.FindGameById(gameId));
+            }
+        }
+
         public void RemoveEvent(object _event, Guid gameId)
         {
             if (_event!=null)

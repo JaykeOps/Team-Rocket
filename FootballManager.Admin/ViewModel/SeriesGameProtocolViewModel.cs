@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -356,28 +357,28 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
         #region Overtime
-        private string overtimeMatchMinute;
+        private string overtime;
 
-        public string OvertimeMatchMinute
+        public string Overtime
         {
-            get { return overtimeMatchMinute; }
+            get { return overtime; }
             set
             {
-                if (overtimeMatchMinute != value)
+                if (overtime!= value)
                 {
-                    overtimeMatchMinute = value;
+                    overtime = value;
                     OnPropertyChanged();                     
                 }
             }
         }
 
-        private void SaveOvertime()
-        {
-            if (OvertimeMatchMinute != null)
-            {
-                game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
-            }
-        }
+        //private void SaveOvertime()
+        //{
+        //    if (OvertimeMatchMinute != null)
+        //    {
+        //        game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
+        //    }
+        //}
         #endregion
 
         #region Save Game Protocol
@@ -397,7 +398,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void SaveGameProtocol(object obj)
         {
-            SaveOvertime();
+            // SaveOvertime();
             gameService.Add(game);            
         }
         #endregion
@@ -722,7 +723,7 @@ namespace FootballManager.Admin.ViewModel
         private bool penaltyMatchMinuteValid;
         private bool yellowCardMatchMinuteValid;
         private bool redCardMatchMinuteValid;
-        private bool overtimeMatchMinuteValid;
+        private bool overtimeValid;
         public bool GoalMatchMinuteValid
         {
             get { return goalMatchMinuteValid; }
@@ -788,14 +789,14 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        public bool OvertimeMatchMinuteValid
+        public bool OvertimeValid
         {
-            get { return overtimeMatchMinuteValid; }
+            get { return overtimeValid; }
             set
             {
-                if (overtimeMatchMinuteValid != value)
+                if (overtimeValid != value)
                 {
-                    overtimeMatchMinuteValid = value;
+                    overtimeValid = value;
                     OnPropertyChanged();
                 }
             }
@@ -834,7 +835,12 @@ namespace FootballManager.Admin.ViewModel
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
-                        break;
+                        //if (SelectedHomeActivePlayer == null && SelectedAwayActivePlayer == null)
+                        //{
+                        //    this.GoalMatchMinuteValid = false;
+                        //    return "Select an active player!";
+                        //}
+                            break;
                     case "AssistMatchMinute":
                         this.AssistMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.AssistMatchMinute))
@@ -911,23 +917,23 @@ namespace FootballManager.Admin.ViewModel
                             return "Only 1-120 are valid!";
                         }
                         break;
-                    case "OvertimeMatchMinute":
-                        this.OvertimeMatchMinuteValid = true;
-                        if (string.IsNullOrEmpty(this.OvertimeMatchMinute))
+                    case "Overtime":
+                        this.OvertimeValid = true;
+                        if (string.IsNullOrEmpty(this.Overtime))
                         {
-                            this.OvertimeMatchMinuteValid = false;
+                            this.OvertimeValid = false;
                             return string.Empty;
                         }
-                        int overtimeMatchMinute;
-                        if (!int.TryParse(this.OvertimeMatchMinute, out overtimeMatchMinute))
+                        int overtime;
+                        if (!int.TryParse(this.Overtime, out overtime))
                         {
-                            this.OvertimeMatchMinuteValid = false;
-                            return "Only 0-30 are valid!";
+                            this.OvertimeValid = false;
+                            return "Must be an integer between 0 and 30!";
                         }
-                        if (!overtimeMatchMinute.IsValidOverTime())
+                        if (!overtime.IsValidOverTime())
                         {
-                            this.OvertimeMatchMinuteValid = false;
-                            return "Only 0-30 are valid!";
+                            this.OvertimeValid = false;
+                            return "Must be an integer between 0 and 30!";
                         }
                         break;
                 }
