@@ -29,7 +29,6 @@ namespace FootballManager.App.ViewModel
             this.teamViewSearchText = "";
             this.teamInfoSearchText = "";
             this.teamStats = new ObservableCollection<TeamStats>();
-            this.OpenTeamAddViewCommand = new RelayCommand(this.OpenTeamAddView);
             this.DeleteTeamCommand = new RelayCommand(this.DeleteTeam);
             this.LoadData();
 
@@ -121,11 +120,6 @@ namespace FootballManager.App.ViewModel
             teamViewTabablzControl.SelectedIndex = 1;
         }
 
-        private void OpenTeamAddView(object obj)
-        {
-            var teamAddView = new TeamAddView();
-            teamAddView.ShowDialog();
-        }
 
         private void OnTeamObjReceived(Team team)
         {
