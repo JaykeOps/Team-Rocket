@@ -262,6 +262,7 @@ namespace Domain.Services
             var team = DomainService.FindTeamById(teamId);
             player.UpdateTeamAffiliation(team);
             team.UpdatePlayerIds();
+            this.repository.SaveData();
         }
 
         public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer)
@@ -271,6 +272,7 @@ namespace Domain.Services
                 DomainService.FindTeamById(exposablePlayer.TeamId) : null;
             player.UpdateTeamAffiliation(null);
             oldTeam?.UpdatePlayerIds();
+            this.repository.SaveData();
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
