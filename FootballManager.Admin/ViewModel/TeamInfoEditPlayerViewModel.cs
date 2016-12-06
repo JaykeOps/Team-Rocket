@@ -4,6 +4,7 @@ using Domain.Services;
 using FootballManager.Admin.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
-    public class TeamInfoEditPlayerViewModel : ViewModelBase
+    public class TeamInfoEditPlayerViewModel : ViewModelBase, IDataErrorInfo
     {
         private readonly PlayerService playerService;
 
@@ -19,7 +20,7 @@ namespace FootballManager.Admin.ViewModel
         {
             this.playerService = new PlayerService();
 
-            Messenger.Default.Register<IExposablePlayer>(this, this.OnPlayerObjectRecieved);
+            Messenger.Default.Register<IExposablePlayer>(this, OnPlayerObjectRecieved);
         }
 
         #region Received Player
@@ -39,8 +40,8 @@ namespace FootballManager.Admin.ViewModel
         #endregion
 
         #region Shirt Number
-        private int shirtNumber;
-        public int ShirtNumber
+        private string shirtNumber;
+        public string ShirtNumber
         {
             get { return this.shirtNumber; }
             set
@@ -133,7 +134,7 @@ namespace FootballManager.Admin.ViewModel
         {
             this.ReceivedPlayer = player;
             this.Name = player.Name;
-            this.ShirtNumber = player.ShirtNumber.Value;
+            this.ShirtNumber = player.ShirtNumber.Value.ToString();
             this.SelectedPlayerPosition = player.Position;
             this.SelectedPlayerStatus = player.Status;
         }
@@ -142,10 +143,11 @@ namespace FootballManager.Admin.ViewModel
         {
             this.ReceivedPlayer.Position = this.playerPosition;
             this.ReceivedPlayer.Status = this.playerStatus;
-            if (this.shirtNumber != -1)
+
+            if (int.Parse(shirtNumber) != -1)
             {
                 this.ReceivedPlayer.ShirtNumber =
-                    new ShirtNumber(this.ReceivedPlayer.TeamId, this.shirtNumber);
+                    new ShirtNumber(this.ReceivedPlayer.TeamId, int.Parse(shirtNumber));
             }
             this.playerService.Add((Player)this.ReceivedPlayer);
             this.CloseDialog();
@@ -192,21 +194,24 @@ namespace FootballManager.Admin.ViewModel
                 {
                     case "ShirtNumber":
                         this.IsShirtNumberValid = true;
-                        if (string.IsNullOrEmpty(this.ShirtNumber.ToString()))
+                        if (string.IsNullOrEmpty(this.ShirtNumber))
                         {
                             this.IsShirtNumberValid = false;
                             return string.Empty;
                         }
                         int shirtNumber;
-                        if (!int.TryParse(this.ShirtNumber.ToString(), out shirtNumber))
+                        if (!int.TryParse(this.ShirtNumber, out shirtNumber))
                         {
                             this.IsShirtNumberValid = false;
-                            return "Only 0-99 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
-                        }
-                        if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer.TeamId))
+                            return "Only 0-99 are valid!"; 
+                        }                        
+                        if (ReceivedPlayer != null)
                         {
-                            this.IsShirtNumberValid = false;
-                            return "Only 0-99 are valid!";
+                            if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer.TeamId))
+                            {
+                                this.IsShirtNumberValid = false;
+                                return "Only 0-99 are valid!";
+                            }
                         }
                         break;
                 }

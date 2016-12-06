@@ -54,12 +54,12 @@
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
 
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
-                    ValidatesOnDataErrors=True}">
+                    ValidatesOnDataErrors=True, Converter={StaticResource ShirtNumberConverter}}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
                         <StackPanel>
                             <AdornedElementPlaceholder />
-                            <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                            <TextBlock Text="{Binding [0].ErrorContent}" FontSize="11" Foreground="Red" />
                         </StackPanel>
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
@@ -75,7 +75,7 @@
 
             <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="Close" IsCancel="True" />
-                <Button Content="Save Changes" Command="{Binding SavePlayerChangesCommand}" />
+                <Button Content="Save Changes" Command="{Binding SavePlayerChangesCommand}" IsEnabled="{Binding IsShirtNumberValid}" />
             </StackPanel>
         </Grid>
 
