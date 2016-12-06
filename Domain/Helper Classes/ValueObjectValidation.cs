@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Domain.Interfaces;
 
 namespace Domain.Helper_Classes
 {
@@ -168,6 +169,27 @@ namespace Domain.Helper_Classes
                 //throw new IndexOutOfRangeException($"The specified shirt number '{value}' could not be assigned. " +
                 //    "Shirt number values must integers between 0-99!");
             }
+        }
+
+        public static bool IsValidShirtNumber(this int value, IExposablePlayer player, Guid teamId)
+        {
+            var team = DomainService.FindTeamById(teamId);
+            var shirtNumberIsAlreadyInUse = (value != -1) && team.playerIds.Any(x =>
+            DomainService.FindPlayerById(x).ShirtNumber.Value == value);
+
+            if (player.ShirtNumber.Value == value)
+            {
+                return true;
+            }
+            if (value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse)
+            {
+                return true;
+            }
+            if (shirtNumberIsAlreadyInUse)
+            {
+                return false;
+            }
+            return false;
         }
     }
 }

@@ -150,7 +150,6 @@ namespace FootballManager.Admin.ViewModel
             this.ShirtNumber = player.ShirtNumber.Value.ToString();
             this.SelectedPlayerPosition = player.Position;
             this.SelectedPlayerStatus = player.Status;
-            this.playerService.SetShirtNumber(this.receivedPlayer.Id, new ShirtNumber(this.receivedPlayer.TeamId));
         }
 
         private void EditPlayer(object obj)
@@ -219,7 +218,7 @@ namespace FootballManager.Admin.ViewModel
                         }
                         if (ReceivedPlayer != null)
                         {
-                            if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer.TeamId))
+                            if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer, ReceivedPlayer.TeamId))
                             {
                                 this.IsShirtNumberValid = false;
                                 return "Only 0-99 are valid!";
