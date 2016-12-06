@@ -16,6 +16,15 @@ namespace FootballManager.Admin.ViewModel
     {
         private readonly PlayerService playerService;
 
+        private IExposablePlayer receivedPlayer;
+        private string shirtNumber;
+        private Name name;
+        private PlayerPosition playerPosition;
+        private PlayerStatus playerStatus;
+        private ICommand savePlayerChanges;
+
+        private bool isShirtNumberValid;
+
         public TeamInfoEditPlayerViewModel()
         {
             this.playerService = new PlayerService();
@@ -23,9 +32,7 @@ namespace FootballManager.Admin.ViewModel
             Messenger.Default.Register<IExposablePlayer>(this, OnPlayerObjectRecieved);
         }
 
-        #region Received Player
-        private IExposablePlayer receivedPlayer;
-
+        #region Properties        
         public IExposablePlayer ReceivedPlayer
         {
             get { return this.receivedPlayer; }
@@ -37,10 +44,7 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
 
-        #region Shirt Number
-        private string shirtNumber;
         public string ShirtNumber
         {
             get { return this.shirtNumber; }
@@ -53,10 +57,6 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
-
-        #region Name
-        private Name name;
 
         public Name Name
         {
@@ -67,10 +67,6 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
-        #endregion
-
-        #region Position
-        private PlayerPosition playerPosition;
 
         public PlayerPosition SelectedPlayerPosition
         {
@@ -89,10 +85,6 @@ namespace FootballManager.Admin.ViewModel
         {
             get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
         }
-        #endregion
-
-        #region Status
-        private PlayerStatus playerStatus;
 
         public PlayerStatus SelectedPlayerStatus
         {
@@ -111,10 +103,6 @@ namespace FootballManager.Admin.ViewModel
         {
             get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
         }
-        #endregion
-
-        #region Save
-        private ICommand savePlayerChanges;
 
         public ICommand SavePlayerChangesCommand
         {
@@ -125,6 +113,21 @@ namespace FootballManager.Admin.ViewModel
                     this.savePlayerChanges = new RelayCommand(this.EditPlayer);
                 }
                 return this.savePlayerChanges;
+            }
+        }
+        #endregion
+
+        #region Validaiton Properties
+        public bool IsShirtNumberValid
+        {
+            get { return isShirtNumberValid; }
+            set
+            {
+                if (isShirtNumberValid != value)
+                {
+                    isShirtNumberValid = value;
+                    OnPropertyChanged();
+                }
             }
         }
         #endregion
@@ -158,23 +161,6 @@ namespace FootballManager.Admin.ViewModel
             var window = Application.Current.Windows.OfType<Window>().
                 FirstOrDefault(w => w.Name == "TeamInfoEditPlayerViewDialog");
             window?.Close();
-        }
-        #endregion
-
-        #region Validaiton Properties
-        private bool isShirtNumberValid;
-
-        public bool IsShirtNumberValid
-        {
-            get { return isShirtNumberValid; }
-            set
-            {
-                if (isShirtNumberValid != value)
-                {
-                    isShirtNumberValid = value;
-                    OnPropertyChanged();
-                }
-            }
         }
         #endregion
 
