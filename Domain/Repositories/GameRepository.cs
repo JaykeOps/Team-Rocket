@@ -55,7 +55,7 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
                         {
                             this.formatter.Serialize(streamWriter, this.games);
                         }
@@ -88,7 +88,7 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
+                
             }
             catch (IOException ex)
             {

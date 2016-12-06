@@ -93,7 +93,7 @@ namespace Domain.Repositories
             try
             {
                 using (
-                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite,
                         FileShare.Read))
                 {
                     teams = (HashSet<Team>)this.formatter.Deserialize(streamReader);
@@ -111,7 +111,7 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
+                
             }
             catch (IOException ex)
             {
