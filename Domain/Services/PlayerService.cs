@@ -49,13 +49,17 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats) p.Clone());
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
             var topStat = playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            if (topStat.Count() == 0)
+            {
+                return topStat;
+            }
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -83,13 +87,17 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats) p.Clone());
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
             var topStat = playerStats.OrderByDescending(ps => ps.AssistCount).Take(15);
+            if (topStat.Count() == 0)
+            {
+                return topStat;
+            }
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -117,13 +125,17 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats) p.Clone());
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
             var topStat = playerStats.OrderByDescending(ps => ps.YellowCardCount).Take(5);
+            if (topStat.Count() == 0)
+            {
+                return topStat;
+            }
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -151,13 +163,17 @@ namespace Domain.Services
                 try
                 {
                     var p = player.AggregatedStats[seriesId];
-                    playerStats.Add((PlayerStats) p.Clone());
+                    playerStats.Add((PlayerStats)p.Clone());
                 }
                 catch (SeriesMissingException)
                 {
                 }
             }
             var topStat = playerStats.OrderByDescending(ps => ps.RedCardCount).Take(5);
+            if (topStat.Count() == 0)
+            {
+                return topStat;
+            }
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)

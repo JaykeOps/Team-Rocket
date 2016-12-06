@@ -48,9 +48,18 @@ namespace Domain.Services
         {
             var series = this.FindById(seriesId);
             var teamIdsOfSerie = series.TeamIds;
-
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-            var teamStats = teamsOfSerie.Select(team => team.AggregatedStats[series.Id]).ToList();
+            var teamStats =new List<TeamStats>();
+            foreach (var team in teamsOfSerie)
+            {
+                try
+                {
+                    teamStats.Add(team.AggregatedStats[seriesId]);
+                }
+                catch (SeriesMissingException)
+                {
+                }
+            }
 
             var orderTeamStats = teamStats.OrderByDescending(x => x.Points)
                 .ThenByDescending(x => x.GoalDifference)
