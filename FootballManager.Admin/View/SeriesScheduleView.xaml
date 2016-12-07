@@ -43,8 +43,7 @@
                     Orientation="Horizontal" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Center" 
-                    Margin="10"
-                    Height="60">
+                    Margin="10">
             <Label Content="Series:" />
 
             <ComboBox ItemsSource="{Binding SeriesCollection}" SelectedItem="{Binding SelectedSeries}" />
@@ -52,7 +51,7 @@
             <Button Command="{Binding DeleteSelectedSeriesCommand}" 
                                 Content="Delete series" 
                                 Style="{StaticResource FlatButton}" 
-                                VerticalAlignment="Center" 
+                                VerticalAlignment="Bottom" 
                                 Margin="40,0,0,0" />
         </StackPanel>
 
