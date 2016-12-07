@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -378,13 +379,13 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        //private void SaveOvertime()
-        //{
-        //    if (OvertimeMatchMinute != null)
-        //    {
-        //        game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
-        //    }
-        //}
+        private void SaveOvertime()
+        {
+            if (Overtime != null)
+            {
+                game.Protocol.OverTime = new OverTime(int.Parse(this.overtime));
+            }
+        }
 
         #endregion Overtime
 
@@ -407,6 +408,7 @@ namespace FootballManager.Admin.ViewModel
         private void SaveGameProtocol(object obj)
         {
             gameService.Add(game);
+            SaveOvertime();
             CloseDialog();
         }
         #endregion Save Game Protocol
@@ -582,11 +584,9 @@ namespace FootballManager.Admin.ViewModel
             UpdateMatchResultData();
             SelectedEvent = null;
         }
-
         #endregion Events
 
         #region Methods
-
         private void OnMatchObjReceived(Match match)
         {
             if (match != null)
@@ -605,6 +605,12 @@ namespace FootballManager.Admin.ViewModel
                     AwayTeamActivePlayerCollection = this.GetActivePlayers(game.Protocol.AwayTeamActivePlayers);
 
                     EventsCollection = gameService.GetAllEventsFromGame(game).ToObservableCollection();
+
+                    if (game.Protocol.OverTime != null)
+                    {
+                        Overtime = game.Protocol.OverTime.Value.ToString();
+                    }
+                    
                 }
                 else if (game == null)
                 {
