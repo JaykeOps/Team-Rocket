@@ -14,7 +14,7 @@ namespace Domain.Repositories
         private HashSet<Team> teams;
         public static readonly TeamRepository instance = new TeamRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private TeamRepository()
         {
@@ -44,7 +44,7 @@ namespace Domain.Repositories
             return this.teams;
         }
 
-        public void SaveData()
+        private void SaveData()
         {
             try
             {
@@ -75,9 +75,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            this.formatter.Serialize(streamWriter, this.teams);
+                            this.formatter.Serialize(stream, this.teams);
                         }
                         checkFile = false;
                     }
@@ -85,7 +85,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var teams = new HashSet<Team>();
 
@@ -142,7 +142,7 @@ namespace Domain.Repositories
             return this.teams.FirstOrDefault(x => x.Id == teamId);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

@@ -14,7 +14,7 @@ namespace Domain.Repositories
         private HashSet<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private PlayerRepository()
         {
@@ -85,7 +85,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var players = new HashSet<Player>();
 
@@ -143,7 +143,7 @@ namespace Domain.Repositories
             return this.players.FirstOrDefault(x => x.Id == playerId);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

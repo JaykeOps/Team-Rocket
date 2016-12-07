@@ -13,7 +13,7 @@ namespace Domain.Repositories
         private HashSet<Game> games;
         public static readonly GameRepository instance = new GameRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private GameRepository()
         {
@@ -23,7 +23,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        public void SaveData()
+        private void SaveData()
         {
             try
             {
@@ -54,9 +54,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
                         {
-                            this.formatter.Serialize(streamWriter, this.games);
+                            this.formatter.Serialize(stream, this.games);
                         }
                         checkFile = false;
                     }
@@ -64,7 +64,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             try
             {
@@ -136,7 +136,7 @@ namespace Domain.Repositories
             return this.games;
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

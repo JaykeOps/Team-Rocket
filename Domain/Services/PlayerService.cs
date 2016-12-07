@@ -305,5 +305,7 @@ namespace Domain.Services
                 || x.Status.ToString().Contains(searchText)
                 || x.DateOfBirth.ToString().Contains(searchText)));
         }
+
+        
     }
 }

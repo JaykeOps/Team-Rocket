@@ -13,7 +13,7 @@ namespace Domain.Repositories
         private HashSet<Series> series;
         public static readonly SeriesRepository instance = new SeriesRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private SeriesRepository()
         {
@@ -54,9 +54,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            this.formatter.Serialize(streamWriter, this.series);
+                            this.formatter.Serialize(stream, this.series);
                         }
                         checkFile = false;
                     }
@@ -64,7 +64,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var series = new HashSet<Series>();
 
@@ -132,7 +132,7 @@ namespace Domain.Repositories
             this.series.RemoveWhere(s => s.Id == seriesId);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

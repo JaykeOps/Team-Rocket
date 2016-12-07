@@ -94,6 +94,22 @@ namespace Domain.Services
                 throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
             }
         }
+        public void AddTeamToSeries(Series series, Guid teamId)
+        {
+            
+            if (!(series.TeamIds.Contains(teamId)))
+            {
+                series.TeamIds.Add(teamId);
+                var team = DomainService.FindTeamById(teamId);
+                team.UpdatePlayerIds();
+                team.AddSeries(series);
+                DomainService.AddSeriesToPlayers(series, team);
+            }
+            else
+            {
+                throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
+            }
+        }
 
         public IEnumerable<Series> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)

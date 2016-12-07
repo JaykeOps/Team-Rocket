@@ -191,7 +191,7 @@ namespace FootballManager.Admin.ViewModel
             Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
             foreach (var team in teamsToAddToSeries)
             {
-                seriesToAdd.TeamIds.Add(team.Id);
+                this.seriesService.AddTeamToSeries(seriesToAdd, team.Id);
             }
             Messenger.Default.Send<Series>(seriesToAdd);
             ResetData();
