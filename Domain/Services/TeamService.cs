@@ -23,6 +23,7 @@ namespace Domain.Services
             if (team.IsTeamValid())
             {
                 this.repository.Add(team);
+                team.UpdatePlayerIds();
             }
             else
             {

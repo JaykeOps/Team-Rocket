@@ -189,10 +189,14 @@ namespace FootballManager.Admin.ViewModel
             var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
 
             Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
+
             foreach (var team in teamsToAddToSeries)
             {
-                seriesToAdd.TeamIds.Add(team.Id);
+                this.seriesService.AddTeamToSeries(seriesToAdd, team.Id);
             }
+
+            this.seriesService.Add(seriesToAdd);
+
             Messenger.Default.Send<Series>(seriesToAdd);
             ResetData();
             this.SeriesAddedConfirmText = "Series Added!";

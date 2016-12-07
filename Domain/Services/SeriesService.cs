@@ -87,6 +87,24 @@ namespace Domain.Services
                 series.TeamIds.Add(teamId);
                 var team = DomainService.FindTeamById(teamId);
                 team.AddSeries(series);
+                team.UpdatePlayerIds();
+                DomainService.AddSeriesToPlayers(series, team);
+            }
+            else
+            {
+                throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
+            }
+        }
+
+        public void AddTeamToSeries(Series seriesToAdd, Guid teamId)
+        {
+            var series = seriesToAdd;
+            if (!(series.TeamIds.Contains(teamId)))
+            {
+                series.TeamIds.Add(teamId);
+                var team = DomainService.FindTeamById(teamId);
+                team.AddSeries(series);
+                team.UpdatePlayerIds();
                 DomainService.AddSeriesToPlayers(series, team);
             }
             else

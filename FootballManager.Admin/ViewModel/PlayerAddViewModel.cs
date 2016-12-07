@@ -58,7 +58,7 @@ namespace FootballManager.Admin.ViewModel
             this.SelectedItemPlayerPosition = this.PlayerPosition.ElementAt(0);
             this.SelectedItemPlayerStatus = this.PlayerStatus.ElementAt(0);
             this.unAffiliatedTeam = new Team(new TeamName("Unaffiliated"),
-                new ArenaName("Unaffiliated"), new EmailAddress("unaffiliated@unaffiliated.com") );
+                new ArenaName("Unaffiliated"), new EmailAddress("unaffiliated@unaffiliated.com"));
             allTeams.Add(unAffiliatedTeam);
         }
 
