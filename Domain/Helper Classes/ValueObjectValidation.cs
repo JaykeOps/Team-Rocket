@@ -156,16 +156,7 @@ namespace Domain.Helper_Classes
             {
                 return true;
             }
-            if (shirtNumberIsAlreadyInUse)
-            {
-                return false;
-
-            }
-            else
-            {
-                return false;
-
-            }
+            return false;
         }
         public static bool IsValidShirtNumber(this int value, IExposablePlayer player, Guid teamId)
         {
@@ -177,15 +168,7 @@ namespace Domain.Helper_Classes
             {
                 return true;
             }
-            if (value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse)
-            {
-                return true;
-            }
-            if (shirtNumberIsAlreadyInUse)
-            {
-                return false;
-            }
-            return false;
+            return value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse;
         }
 
 
