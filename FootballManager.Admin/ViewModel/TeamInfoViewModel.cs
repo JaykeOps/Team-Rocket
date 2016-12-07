@@ -13,29 +13,31 @@ namespace FootballManager.Admin.ViewModel
 {
     public class TeamInfoViewModel : ViewModelBase
     {
+        private readonly SeriesService seriesService;
+        private readonly TeamService teamService;
+        private readonly PlayerService playerService;
         private ObservableCollection<Series> seriesCollection;
         private ObservableCollection<IExposableTeam> teamsBySeriesCollection;
         private ObservableCollection<IExposablePlayer> playersByTeamCollection;
         private ObservableCollection<IExposablePlayer> teamlessPlayers;
+        private ObservableCollection<IExposableTeam> allTeamsCollection;
+        private ObservableCollection<IExposableTeam> teamsCollection;
         private ICommand openTeamInfoEditPlayerViewCommand;
         private ICommand dismissPlayerFromTeamCommand;
         private ICommand assignPlayerToTeamCommand;
+        private ICommand shallFilterBySeriesCommand;
         private string teamlessPlayersSearchText;
-
-        private SeriesService seriesService;
-        private TeamService teamService;
-        private PlayerService playerService;
-
         private Series selectedSeries;
         private Team selectedTeam;
         private IExposablePlayer selectedPlayer;
         private IExposablePlayer selectedTeamlessPlayer;
-
+        private bool shallFilterBySeriesCheckBox;
         private string arenaName;
         private string email;
 
         public TeamInfoViewModel()
         {
+            this.allTeamsCollection = new ObservableCollection<IExposableTeam>();
             this.seriesCollection = new ObservableCollection<Series>();
             this.teamsBySeriesCollection = new ObservableCollection<IExposableTeam>();
             this.playersByTeamCollection = new ObservableCollection<IExposablePlayer>();
@@ -47,36 +49,24 @@ namespace FootballManager.Admin.ViewModel
             Messenger.Default.Register<IExposablePlayer>(this, this.OnPlayerObjectRecieved);
 
             this.LoadData();
+            this.TeamsCollection = this.allTeamsCollection;
         }
 
-        #region Properties
+        public ICommand OpenTeamInfoEditPlayerViewCommand =>
+            this.openTeamInfoEditPlayerViewCommand ??
+            (this.openTeamInfoEditPlayerViewCommand = new RelayCommand(this.OpenTeamInfoEditPlayerView));
 
-        public ICommand OpenTeamInfoEditPlayerViewCommand
-        {
-            get
-            {
-                return this.openTeamInfoEditPlayerViewCommand ??
-                  (this.openTeamInfoEditPlayerViewCommand = new RelayCommand(this.OpenTeamInfoEditPlayerView));
-            }
-        }
+        public ICommand DismissPlayerFromTeamCommand =>
+            this.dismissPlayerFromTeamCommand ??
+           (this.dismissPlayerFromTeamCommand = new RelayCommand(this.DismissPlayerFromTeam));
 
-        public ICommand DismissPlayerFromTeamCommand
-        {
-            get
-            {
-                return this.dismissPlayerFromTeamCommand ??
-                       (this.dismissPlayerFromTeamCommand = new RelayCommand(this.DismissPlayerFromTeam));
-            }
-        }
+        public ICommand AssignPlayerToTeamCommand =>
+            this.assignPlayerToTeamCommand ??
+            (this.assignPlayerToTeamCommand = new RelayCommand(this.AssignPlayerToTeam));
 
-        public ICommand AssignPlayerToTeamCommand
-        {
-            get
-            {
-                return this.assignPlayerToTeamCommand ??
-                       (this.assignPlayerToTeamCommand = new RelayCommand(this.AssignPlayerToTeam));
-            }
-        }
+        public ICommand FilterBySeriesCommand =>
+            this.shallFilterBySeriesCommand ??
+            (this.shallFilterBySeriesCommand = new RelayCommand(this.ShallFilterBySeries));
 
         public string TeamlessPlayersSearchText
         {
@@ -163,9 +153,15 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion Properties
-
-        #region Collections
+        public bool ShallFilterBySeriesCheckBox
+        {
+            get { return this.shallFilterBySeriesCheckBox; }
+            set
+            {
+                this.shallFilterBySeriesCheckBox = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<IExposablePlayer> TeamlessPlayers
         {
@@ -192,7 +188,18 @@ namespace FootballManager.Admin.ViewModel
             get { return this.teamsBySeriesCollection; }
             set
             {
-                this.teamsBySeriesCollection = value;
+                this.TeamsCollection = value;
+                this.OnPropertyChanged();
+                
+            }
+        }
+
+        public ObservableCollection<IExposableTeam> TeamsCollection
+        {
+            get { return this.teamsCollection; }
+            set
+            {
+                this.teamsCollection = value;
                 this.OnPropertyChanged();
             }
         }
@@ -207,13 +214,26 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion Collections
+        public ObservableCollection<IExposableTeam> AllTeamsCollection
+        {
+            get
+            {
+                return this.allTeamsCollection;
+            }
 
-        #region Methods
+            set
+            {
+                this.allTeamsCollection = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public void LoadData()
         {
-            this.SeriesCollection = this.seriesService.GetAll().ToObservableCollection();
+            this.SeriesCollection =
+                this.seriesService.GetAll().ToObservableCollection();
+            this.AllTeamsCollection =
+                this.teamService.GetAllIExposableTeams().ToObservableCollection();
         }
 
         private void FilterTeamsBySeries()
@@ -282,6 +302,17 @@ namespace FootballManager.Admin.ViewModel
             this.SelectedPlayer = obj;
         }
 
-        #endregion Methods
+        private void ShallFilterBySeries(object obj)
+        {
+            this.shallFilterBySeriesCheckBox = !this.shallFilterBySeriesCheckBox;
+            this.TeamsCollection = this.ShallFilterBySeriesCheckBox ?
+                this.TeamsBySeriesCollection : this.AllTeamsCollection;
+
+            if (this.ShallFilterBySeriesCheckBox)
+            {
+                this.FilterTeamsBySeries();
+            }
+            
+        }
     }
 }

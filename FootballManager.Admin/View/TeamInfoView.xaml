@@ -42,11 +42,12 @@
                     VerticalAlignment="Center"
                     Margin="0"
                     Height="60">
-                <Label Content="Series:" />
+                <Label Content="Filter by series:" Margin="0,15,5,0" />
+                <CheckBox Command="{Binding FilterBySeriesCommand}" Margin="0, 15, 0, 0" />
                 <ComboBox ItemsSource="{Binding SeriesCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedSeries}" />
                 <Label Content="Team:" Padding="40,0,0,0" />
-                <ComboBox x:Name="TeamComboBox" ItemsSource="{Binding TeamsBySeriesCollection}" MinWidth="30"
+                <ComboBox x:Name="TeamComboBox" ItemsSource="{Binding TeamsCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedTeam}" />
                 <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45" />
 
