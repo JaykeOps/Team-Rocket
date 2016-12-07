@@ -56,11 +56,6 @@ namespace Domain.Services
                 }
             }
             var topStat = playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
-            if (topStat.Count() == 0)
-            {
-                return topStat;
-            }
-
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -263,7 +258,6 @@ namespace Domain.Services
             var team = DomainService.FindTeamById(teamId);
             player.UpdateTeamAffiliation(team);
             team.UpdatePlayerIds();
-            this.repository.SaveData();
         }
 
         public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer)
@@ -273,7 +267,6 @@ namespace Domain.Services
                 DomainService.FindTeamById(exposablePlayer.TeamId) : null;
             player.UpdateTeamAffiliation(null);
             oldTeam?.UpdatePlayerIds();
-            this.repository.SaveData();
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
@@ -305,5 +298,6 @@ namespace Domain.Services
                 || x.Status.ToString().Contains(searchText)
                 || x.DateOfBirth.ToString().Contains(searchText)));
         }
+
     }
 }
