@@ -302,7 +302,7 @@ namespace FootballManager.Admin.ViewModel
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();
-                            return "You have added too few teams to the list!";
+                            return string.Empty;
                         }
                         if ((this.TeamsToAddToSeries.Count() < this.SelectedNumberOfTeams))
                         {
@@ -321,7 +321,6 @@ namespace FootballManager.Admin.ViewModel
                 validProperties[columnName] = true;
                 ValidateProperties();
                 return string.Empty;
-                // return "Fuck this shit!";
             }
         }
 
