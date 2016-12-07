@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using Domain.Helper_Classes;
+using System.Globalization;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -48,13 +49,13 @@ namespace FootballManager.Admin.ViewModel
                     case "ArenaName":
                         if (string.IsNullOrEmpty(this.ArenaName))
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return string.Empty;
                         }
                         if (!this.ArenaName.IsValidArenaName(false))
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return "Must be 2-40 valid European characters long!";
                         }
@@ -62,20 +63,20 @@ namespace FootballManager.Admin.ViewModel
                     case "MatchDate":
                         if (string.IsNullOrEmpty(this.MatchDate))
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return string.Empty;
                         }
                         DateTime matchDate;
-                        if (!DateTime.TryParse(this.MatchDate, out matchDate))
+                        if (!DateTime.TryParseExact(this.MatchDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out matchDate))
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
-                            return "Must be a valid date of the form \"yyyy-MM-dd\"!";
+                            return "Must be valid date in format \"yyyy-MM-dd\"!";
                         }
                         if (!matchDate.IsValidMatchDateAndTime())
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return "Must be a future date set at most two years from now!";
                         }
@@ -83,20 +84,20 @@ namespace FootballManager.Admin.ViewModel
                     case "MatchTime":
                         if (string.IsNullOrEmpty(this.MatchTime))
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return string.Empty;
                         }
                         DateTime matchTime;
                         if (!DateTime.TryParse(this.MatchTime, out matchTime))
                         {
-                            validProperties[columnName] = false;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return "Must be a valid time of the format \"HH:mm\"!";
                         }
                         break;
                 }
-                validProperties[columnName] = true;
+                this.validProperties[columnName] = true;
                 ValidateProperties();
                 return string.Empty;
             }

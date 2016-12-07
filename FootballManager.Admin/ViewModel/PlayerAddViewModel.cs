@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Globalization;
 using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
@@ -101,7 +102,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         DateTime dateOfBirth;
-                        if (!DateTime.TryParse(this.DateOfBirth, out dateOfBirth))
+                        if (!DateTime.TryParseExact(this.DateOfBirth, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth))
                         {
                             this.validProperties[columnName] = false;
                             ValidateProperties();
