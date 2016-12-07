@@ -48,6 +48,11 @@ namespace FootballManager.Admin.ViewModel
             {
                 selectedPlayer = value;
                 OnPropertyChanged();
+                OnPropertyChanged("GoalMatchMinute");
+                OnPropertyChanged("AssistMatchMinute");
+                OnPropertyChanged("PenaltyMatchMinute");
+                OnPropertyChanged("YellowCardMatchMinute");
+                OnPropertyChanged("RedCardMatchMinute");
             }
         }
 
@@ -745,8 +750,7 @@ namespace FootballManager.Admin.ViewModel
         }
         #endregion Methods
 
-        #region Validaiton Properties
-
+        #region Validation Properties
         private bool goalMatchMinuteValid;
         private bool assistMatchMinuteValid;
         private bool penaltyMatchMinuteValid;
@@ -832,7 +836,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion Validaiton Properties
+        #endregion Validation Properties
 
         #region IDataErrorInfo implemetation
 
@@ -867,14 +871,13 @@ namespace FootballManager.Admin.ViewModel
                         {
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }                        
+                        if (IsNotActivePlayer())
+                        {
+                            this.GoalMatchMinuteValid = false;
+                            return "Select an active player!";
                         }
-                        //if (SelectedHomeActivePlayer == null && SelectedAwayActivePlayer == null)
-                        //{
-                        //    this.GoalMatchMinuteValid = false;
-                        //    return "Select an active player!";
-                        //}
                         break;
-
                     case "AssistMatchMinute":
                         this.AssistMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.AssistMatchMinute))
@@ -892,6 +895,11 @@ namespace FootballManager.Admin.ViewModel
                         {
                             this.AssistMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }
+                        if (IsNotActivePlayer())
+                        {
+                            this.AssistMatchMinuteValid = false;
+                            return "Select an active player!";
                         }
                         break;
 
@@ -913,6 +921,11 @@ namespace FootballManager.Admin.ViewModel
                             this.PenaltyMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
+                        if (IsNotActivePlayer())
+                        {
+                            this.PenaltyMatchMinuteValid = false;
+                            return "Select an active player!";
+                        }
                         break;
 
                     case "YellowCardMatchMinute":
@@ -933,6 +946,11 @@ namespace FootballManager.Admin.ViewModel
                             this.YellowCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
+                        if (IsNotActivePlayer())
+                        {
+                            this.YellowCardMatchMinuteValid = false;
+                            return "Select an active player!";
+                        }
                         break;
 
                     case "RedCardMatchMinute":
@@ -952,6 +970,11 @@ namespace FootballManager.Admin.ViewModel
                         {
                             this.RedCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }
+                        if (IsNotActivePlayer())
+                        {
+                            this.RedCardMatchMinuteValid = false;
+                            return "Select an active player!";
                         }
                         break;
 
@@ -979,6 +1002,18 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion IDataErrorInfo implemetation
+        private bool IsNotActivePlayer()
+        {
+            if (this.SelectedPlayer == null)
+            {
+                return true;
+            }
+            else
+            {
+                var nullIfNotActive = IsActivePlayer(this.SelectedPlayer);
+                return (nullIfNotActive == null);
+            }
+        }
+        #endregion
     }
 }

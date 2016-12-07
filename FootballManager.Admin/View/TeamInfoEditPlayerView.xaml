@@ -59,7 +59,7 @@
                     <ControlTemplate>
                         <StackPanel>
                             <AdornedElementPlaceholder />
-                            <TextBlock Text="{Binding [0].ErrorContent}" FontSize="11" Foreground="Red" />
+                            <TextBlock Text="{Binding [0].ErrorContent}" FontSize="11" Foreground="Red" Background="White"/>
                         </StackPanel>
                     </ControlTemplate>
                 </Validation.ErrorTemplate>

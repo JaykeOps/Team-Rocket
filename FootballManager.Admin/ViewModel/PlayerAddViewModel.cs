@@ -9,6 +9,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Globalization;
+using Domain.Entities;
+using Domain.Services;
+using Domain.Value_Objects;
+using Domain.Helper_Classes;
+using FootballManager.Admin.Extensions;
+using FootballManager.Admin.Utility;
+using FootballManager.Admin.View;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -102,7 +111,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         DateTime dateOfBirth;
-                        if (!DateTime.TryParse(this.DateOfBirth, out dateOfBirth))
+                        if (!DateTime.TryParseExact(this.DateOfBirth, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth))
                         {
                             this.validProperties[columnName] = false;
                             ValidateProperties();
@@ -137,7 +146,7 @@ namespace FootballManager.Admin.ViewModel
                     case "SelectedItemTeam":
                         if (this.SelectedItemTeam == null)
                         {
-                            this.validProperties[columnName] = true;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return string.Empty;
                         }
