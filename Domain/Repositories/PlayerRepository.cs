@@ -14,7 +14,7 @@ namespace Domain.Repositories
         private HashSet<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private PlayerRepository()
         {
@@ -36,6 +36,7 @@ namespace Domain.Repositories
             {
                 this.players.Add(newPlayer);
             }
+            this.SaveData();
         }
 
         public IEnumerable<Player> GetAll()
@@ -84,14 +85,14 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var players = new HashSet<Player>();
 
             try
             {
                 using (
-                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite,
                         FileShare.Read))
                 {
                     players = (HashSet<Player>)this.formatter.Deserialize(streamReader);
@@ -109,7 +110,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
             }
             catch (IOException ex)
             {
@@ -130,6 +130,7 @@ namespace Domain.Repositories
             if (this.TryGetPlayer(DomainService.FindPlayerById(playerId), out playerToRemove))
             {
                 this.players.Remove(playerToRemove);
+                this.SaveData();
             }
             else
             {
@@ -142,7 +143,7 @@ namespace Domain.Repositories
             return this.players.FirstOrDefault(x => x.Id == playerId);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

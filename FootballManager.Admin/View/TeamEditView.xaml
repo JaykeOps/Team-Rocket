@@ -1,0 +1,96 @@
+﻿<Window x:Class="FootballManager.Admin.View.TeamEditView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:FootballManager.Admin.View"
+            mc:Ignorable="d"
+            Title="Team info edit player view"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            Width="450"
+            SizeToContent="Height"
+            WindowStartupLocation="CenterScreen"
+            FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamEditViewModel}"
+            x:Name="TeamEditViewDialog">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Region Add Player -->
+        <!--Margin: Left, Top, Right, Bottom-->
+        <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
+                <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+                <Style BasedOn="{StaticResource CustomComboBoxStyle}" TargetType="{x:Type ComboBox}" />
+                <Style BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Team Name:" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Arena Name:" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Email:" />
+
+            <TextBox Grid.Row="1" Grid.Column="1" Width="200" Name="TeamName" Text="{Binding DataContext.TeamName, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Width="200" Name="ArenaName" Text="{Binding DataContext.ArenaName, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Width="200" Name="Email" Text="{Binding DataContext.Email, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamEditView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button Content="Close" IsCancel="True" />
+                <Button Content="Save Changes" Command="{Binding SaveTeamChangesCommand}" IsEnabled="{Binding AllPropertiesValid}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

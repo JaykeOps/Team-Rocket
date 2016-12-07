@@ -27,7 +27,7 @@ namespace Domain.Entities
 
         public override string ToString()
         {
-            return $"{SeriesName}";
+            return $"{this.SeriesName}";
         }
     }
 }

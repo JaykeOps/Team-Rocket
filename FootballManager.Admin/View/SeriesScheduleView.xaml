@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="FootballManager.Admin.View.SeriesScheduleView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:FootballManager.Admin.View"
+            xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:vm="clr-namespace:FootballManager.Admin.ViewModel"
+            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:is="http://schemas.microsoft.com/expression/2010/interactions"
+            mc:Ignorable="d"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+            Height="700" Width="980"
+            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleViewModel}">
+
+    <Grid>
+        <Grid.Resources>
+            <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
+            <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+            <Style BasedOn="{StaticResource CustomComboBoxStyle}" TargetType="{x:Type ComboBox}" />
+
+            <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
+            <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
+            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
+            <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
+            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="10">
+            <Label Content="Series:" />
+
+            <ComboBox ItemsSource="{Binding SeriesCollection}" SelectedItem="{Binding SelectedSeries}" />
+
+            <Button Command="{Binding DeleteSelectedSeriesCommand}"
+                                Content="Delete series"
+                                Style="{StaticResource FlatButton}"
+                                VerticalAlignment="Bottom"
+                                Margin="40,0,0,0" />
+        </StackPanel>
+
+        <!--Margin: Left, Top, Right, Bottom-->
+        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0"
+                    ItemsSource="{Binding MatchesBySeriesCollection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedMatch}"
+                    materialDesign:DataGridAssist.CellPadding="5 0 0 0"
+                    materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                    SelectionMode="Extended"
+                    CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" />
+                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
+                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
+                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <DataGridTemplateColumn Header="Edit">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                    Command="{Binding Path=DataContext.OpenSeriesScheduleEditViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                <materialDesign:PackIcon Kind="Pen" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Edit/Create Protocol">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                    Command="{Binding Path=DataContext.OpenCreateSeriesGameProtocolViewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesScheduleView}}}">
+                                <materialDesign:PackIcon Kind="TableEdit" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,44 @@
+﻿<Application x:Class="FootballManager.Admin.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FootballManager.Admin"
+             xmlns:utils="clr-namespace:FootballManager.Admin.Utility"
+             xmlns:conv="clr-namespace:FootballManager.Admin.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mahapps="clr-namespace:MahApps.Metro;assembly=MahApps.Metro"
+
+             StartupUri="View/MainView.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <conv:DoNothingConverter x:Key="DoNothingConverter" />
+            <conv:TeamIdToStringConverter x:Key="TeamIdToStringConverter" />
+            <conv:ShirtNumberConverter x:Key="ShirtNumberConverter" />
+            <conv:PlayerPositionConverter x:Key="PlayerPositionConverter" />
+            <conv:PlayerPositionListConverter x:Key="PlayerPositionListConverter" />
+            <conv:PlayerStatusConverter x:Key="PlayerStatusConverter" />
+            <conv:PlayerStatusListConverter x:Key="PlayerStatusListConverter" />
+            <conv:TeamConverter x:Key="TeamConverter" />
+            <local:ViewModelLocator x:Key="ViewModelLocator" />
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Custom -->
+                <ResourceDictionary Source="pack://application:,,,/Styles/ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Dragablz.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/TextBox.xaml" />
+
+                <!-- Material Design -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Hyperlink.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

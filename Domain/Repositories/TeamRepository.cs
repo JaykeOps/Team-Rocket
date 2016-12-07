@@ -14,13 +14,14 @@ namespace Domain.Repositories
         private HashSet<Team> teams;
         public static readonly TeamRepository instance = new TeamRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private TeamRepository()
         {
             this.teams = new HashSet<Team>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//teams.bin";
+            this.LoadData();
         }
 
         public void Add(Team newTeam)
@@ -35,6 +36,7 @@ namespace Domain.Repositories
             {
                 this.teams.Add(newTeam);
             }
+            this.SaveData();
         }
 
         public IEnumerable<Team> GetAll()
@@ -42,7 +44,7 @@ namespace Domain.Repositories
             return this.teams;
         }
 
-        public void SaveData()
+        private void SaveData()
         {
             try
             {
@@ -73,9 +75,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            this.formatter.Serialize(streamWriter, this.teams);
+                            this.formatter.Serialize(stream, this.teams);
                         }
                         checkFile = false;
                     }
@@ -83,14 +85,14 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var teams = new HashSet<Team>();
 
             try
             {
                 using (
-                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite,
                         FileShare.Read))
                 {
                     teams = (HashSet<Team>)this.formatter.Deserialize(streamReader);
@@ -108,7 +110,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
             }
             catch (IOException ex)
             {
@@ -141,7 +142,7 @@ namespace Domain.Repositories
             return this.teams.FirstOrDefault(x => x.Id == teamId);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

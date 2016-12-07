@@ -131,79 +131,7 @@ namespace Domain.Services
             game.Protocol.Penalties.Add(penalty);
         }
 
-        public void RemoveGoalFromGame(Guid gameId, Guid playerId, int matchMinute)
-        {
-            var matchMin = new MatchMinute(matchMinute);
-            var game = this.FindById(gameId);
-            foreach (var goal in game.Protocol.Goals)
-            {
-                if (goal.PlayerId == playerId && goal.MatchMinute == matchMin)
-                {
-                    game.Protocol.Goals.Remove(goal);
-                    break;
-                }
-            }
-        }
-
-        public void RemoveAssistFromGame(Guid gameId, Guid playerId, int matchMinute)
-        {
-            var matchMin = new MatchMinute(matchMinute);
-            var game = this.FindById(gameId);
-            foreach (var assist in game.Protocol.Assists)
-            {
-                if (assist.PlayerId == playerId && assist.MatchMinute == matchMin)
-                {
-                    game.Protocol.Assists.Remove(assist);
-                    break;
-                }
-            }
-        }
-
-        public void RemoveRedCardFromGame(Guid gameId, Guid playerId, int matchMinute)
-        {
-            var matchMin = new MatchMinute(matchMinute);
-            var game = this.FindById(gameId);
-            foreach (var card in game.Protocol.Cards)
-            {
-                if (card.PlayerId == playerId && card.MatchMinute == matchMin && card.CardType == CardType.Red)
-                {
-                    game.Protocol.Cards.Remove(card);
-                    break;
-                }
-            }
-        }
-
-        public void RemoveYellowCardFromGame(Guid gameId, Guid playerId, int matchMinute)
-        {
-            var matchMin = new MatchMinute(matchMinute);
-            var game = this.FindById(gameId);
-            foreach (var card in game.Protocol.Cards)
-            {
-                if (card.PlayerId == playerId && card.MatchMinute == matchMin && card.CardType == CardType.Yellow)
-                {
-                    game.Protocol.Cards.Remove(card);
-                    break;
-                }
-            }
-        }
-
-        public void RemovePenaltyFromGame(Guid gameId, Guid playerId, int matchMinute)
-        {
-            var matchMin = new MatchMinute(matchMinute);
-            var game = this.FindById(gameId);
-            foreach (var penalty in game.Protocol.Penalties)
-            {
-                if (penalty.PlayerId == playerId && penalty.MatchMinute == matchMin)
-                {
-                    game.Protocol.Penalties.Remove(penalty);
-                    if (penalty.IsGoal)
-                    {
-                        this.RemoveGoalFromGame(gameId, playerId, matchMinute);
-                    }
-                    break;
-                }
-            }
-        }
+        
 
         public IEnumerable<Game> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
@@ -291,6 +219,80 @@ namespace Domain.Services
 
                     default:
                         throw new ArgumentException("Invalid event type");
+                }
+            }
+        }
+
+        private void RemoveGoalFromGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var matchMin = new MatchMinute(matchMinute);
+            var game = this.FindById(gameId);
+            foreach (var goal in game.Protocol.Goals)
+            {
+                if (goal.PlayerId == playerId && goal.MatchMinute == matchMin)
+                {
+                    game.Protocol.Goals.Remove(goal);
+                    break;
+                }
+            }
+        }
+
+        private void RemoveAssistFromGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var matchMin = new MatchMinute(matchMinute);
+            var game = this.FindById(gameId);
+            foreach (var assist in game.Protocol.Assists)
+            {
+                if (assist.PlayerId == playerId && assist.MatchMinute == matchMin)
+                {
+                    game.Protocol.Assists.Remove(assist);
+                    break;
+                }
+            }
+        }
+
+        private void RemoveRedCardFromGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var matchMin = new MatchMinute(matchMinute);
+            var game = this.FindById(gameId);
+            foreach (var card in game.Protocol.Cards)
+            {
+                if (card.PlayerId == playerId && card.MatchMinute == matchMin && card.CardType == CardType.Red)
+                {
+                    game.Protocol.Cards.Remove(card);
+                    break;
+                }
+            }
+        }
+
+        private void RemoveYellowCardFromGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var matchMin = new MatchMinute(matchMinute);
+            var game = this.FindById(gameId);
+            foreach (var card in game.Protocol.Cards)
+            {
+                if (card.PlayerId == playerId && card.MatchMinute == matchMin && card.CardType == CardType.Yellow)
+                {
+                    game.Protocol.Cards.Remove(card);
+                    break;
+                }
+            }
+        }
+
+        private void RemovePenaltyFromGame(Guid gameId, Guid playerId, int matchMinute)
+        {
+            var matchMin = new MatchMinute(matchMinute);
+            var game = this.FindById(gameId);
+            foreach (var penalty in game.Protocol.Penalties)
+            {
+                if (penalty.PlayerId == playerId && penalty.MatchMinute == matchMin)
+                {
+                    game.Protocol.Penalties.Remove(penalty);
+                    if (penalty.IsGoal)
+                    {
+                        this.RemoveGoalFromGame(gameId, playerId, matchMinute);
+                    }
+                    break;
                 }
             }
         }

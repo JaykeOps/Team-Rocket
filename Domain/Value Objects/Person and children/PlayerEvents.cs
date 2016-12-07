@@ -19,7 +19,7 @@ namespace Domain.Value_Objects
         private IEnumerable<Card> cards;
         private IEnumerable<Penalty> penalties;
 
-        public PlayerEvents()
+        public PlayerEvents(PlayerEvents copy)
         {
         }
 

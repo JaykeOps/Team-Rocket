@@ -1,0 +1,287 @@
+﻿<Window x:Class="FootballManager.Admin.View.SeriesGameProtocolView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FootballManager.Admin.View"
+        xmlns:utils="clr-namespace:FootballManager.Admin.Utility"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Height="700" Width="980"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesGameProtocolViewModel}">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="HeaderGrid" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="0,0,0,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="MatchGrid" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                <Grid.Resources>
+                    <Style BasedOn="{StaticResource ProtocolMatchLabel}" TargetType="{x:Type Label}" />
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="{Binding HomeTeamName, FallbackValue=Home Team}" />
+                <Label Grid.Row="0" Grid.Column="1" Content="   -   " />
+                <Label Grid.Row="0" Grid.Column="2" Content="{Binding AwayTeamName, FallbackValue=Away Team}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="{Binding HomeTeamResult, Mode=TwoWay, TargetNullValue=0}" />
+                <Label Grid.Row="1" Grid.Column="1" Content="   -   " />
+                <Label Grid.Row="1" Grid.Column="2" Content="{Binding AwayTeamResult, Mode=TwoWay, TargetNullValue=0 }" />
+            </Grid>
+
+            <Grid x:Name="ButtonsGrid" Grid.Row="1" Grid.Column="0">
+                <Grid.Resources>
+                    <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+                    <Style BasedOn="{StaticResource GameProtocolMainCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+                    <Style BasedOn="{StaticResource ProtocolMatchButtons}" TargetType="{x:Type Button}" />
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="GoalButton" Grid.Row="0" Grid.Column="1" Content="Goal" Command="{Binding AddGoalToGameCommand}" IsEnabled="{Binding GoalMatchMinuteValid}" />
+                <Button x:Name="AssistButton" Grid.Row="0" Grid.Column="2" Content="Assist" Command="{Binding AddAssistToGameCommand}" IsEnabled="{Binding AssistMatchMinuteValid}" />
+                <Button x:Name="PenaltyButton" Grid.Row="0" Grid.Column="3" Content="Penalty" Command="{Binding AddPenaltyToGameCommand}" IsEnabled="{Binding PenaltyMatchMinuteValid}" />
+                <Button x:Name="YellowCardButton" Grid.Row="0" Grid.Column="4" Content="Yellow card" Command="{Binding AddYellowCardToGameCommand}" IsEnabled="{Binding YellowCardMatchMinuteValid}" />
+                <Button x:Name="RedCardButton" Grid.Row="0" Grid.Column="5" Content="Red card" Command="{Binding AddRedCardToGameCommand}" IsEnabled="{Binding RedCardMatchMinuteValid}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Match minute: " />
+
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.GoalMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding DataContext.AssistMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding DataContext.PenaltyMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding DataContext.YellowCardMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding DataContext.RedCardMatchMinute, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+                <CheckBox Grid.Row="1" Grid.Column="3" Content=""
+                          IsChecked="{Binding GetIsGoal}"
+                          HorizontalAlignment="Right" Padding="0,0,10,0" />
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="HomeGrid" Grid.Row="1" Grid.Column="0">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+                <Style BasedOn="{StaticResource ProtocolListBox}" TargetType="{x:Type ListBox}" />
+                <Style BasedOn="{StaticResource ProtocolPlusMinus}" TargetType="{x:Type Button}" />
+                <Style BasedOn="{StaticResource ProtocolListBoxItem}" TargetType="{x:Type ListBoxItem}" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0,10,0">
+                <Label Content="Home team" Margin="10,0,10,0" HorizontalAlignment="Left" />
+                <Button Command="{Binding HomeToActivePlayerCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamPlayerListBox, Path=SelectedValue}"
+                        Content="+" Margin="10,5,10,5" HorizontalAlignment="Right" />
+            </DockPanel>
+            <ListBox x:Name="HomeTeamPlayerListBox" Grid.Row="1" Grid.Column="0"
+                     ItemsSource="{Binding HomeTeamPlayerCollection}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="2,0,2,0">
+            </ListBox>
+
+            <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
+                <Label Content="Active players" Margin="10,0,10,0" HorizontalAlignment="Left" />
+                <Button Command="{Binding HomeFromActivePlayerCommand}"
+                        CommandParameter="{Binding ElementName=HomeTeamActivePlayerListBox, Path=SelectedValue}"
+                        Content="-" Margin="10,5,10,5" HorizontalAlignment="Right" />
+            </DockPanel>
+            <ListBox x:Name="HomeTeamActivePlayerListBox" Grid.Row="1" Grid.Column="1"
+                     ItemsSource="{Binding HomeTeamActivePlayerCollection}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="2,0,2,0" />
+        </Grid>
+
+        <Grid x:Name="EventGrid" Grid.Row="1" Grid.Column="1" Margin="2,0,2,0">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+                <Style BasedOn="{StaticResource GameProtocolCustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+                <Style BasedOn="{StaticResource ProtocolListBox}" TargetType="{x:Type ListBox}" />
+                <Style BasedOn="{StaticResource ProtocolEventRemove}" TargetType="{x:Type Button}" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.Column="0"
+                       Margin="10,0,10,0">
+                <Label Content="Events"
+                       Margin="10,0,10,0"
+                       HorizontalAlignment="Left" />
+                <Button Content="Remove"
+                        Command="{Binding RemoveEventCommand}"
+                        Margin="10,5,10,5"
+                        HorizontalAlignment="Right" />
+            </DockPanel>
+
+            <ListBox Grid.Row="1" Grid.Column="0"
+                    ItemsSource="{Binding EventsCollection}"
+                    SelectedValue="{Binding SelectedEvent, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+
+        <Grid x:Name="AwayGrid" Grid.Row="1" Grid.Column="2">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource GameProtocolCustomLabelStyle}" TargetType="{x:Type Label}" />
+                <Style BasedOn="{StaticResource ProtocolListBox}" TargetType="{x:Type ListBox}" />
+                <Style BasedOn="{StaticResource ProtocolPlusMinus}" TargetType="{x:Type Button}" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.Column="0"
+                       Margin="10,0,10,0">
+                <Label Content="Active players"
+                       Margin="10,0,10,0"
+                       HorizontalAlignment="Left" />
+                <Button Command="{Binding AwayFromActivePlayersCommand}"
+                        CommandParameter="{Binding ElementName=AwayTeamActivePlayerListBox, Path=SelectedValue}"
+                        Content="-"
+                        Margin="10,5,10,5"
+                        HorizontalAlignment="Right" />
+            </DockPanel>
+
+            <ListBox Grid.Row="1" Grid.Column="0"
+                     x:Name="AwayTeamActivePlayerListBox"
+                     ItemsSource="{Binding AwayTeamActivePlayerCollection}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="2,0,2,0" />
+
+            <DockPanel Grid.Row="0" Grid.Column="1" Margin="10,0,10,0">
+                <Label Content="Away team" Margin="10,0,10,0" HorizontalAlignment="Left" />
+                <Button Command="{Binding AwayToActivePlayerCommand}"
+                        CommandParameter="{Binding ElementName=AwayTeamPlayerListBox, Path=SelectedValue}"
+                        Content="+"
+                        Margin="10,5,10,5"
+                        HorizontalAlignment="Right" />
+            </DockPanel>
+
+            <ListBox Grid.Row="1" Grid.Column="1"
+                     x:Name="AwayTeamPlayerListBox"
+                     ItemsSource="{Binding AwayTeamPlayerCollection}"
+                     SelectedValue="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="2,0,2,0" />
+        </Grid>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Overtime:" Style="{StaticResource GameProtocolCustomLabelStyle}" />
+            <TextBox Text="{Binding DataContext.Overtime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
+                     RelativeSource={RelativeSource AncestorType={x:Type local:SeriesGameProtocolView}}}"
+                     VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource GameProtocolCustomTextBoxStyle}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Padding="0,5,5,5" FontSize="11" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <Button Command="{Binding SaveGameProtocolCommand}" Content="Save Game Protocol" Margin="30,10,10,10" Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    IsEnabled="{Binding OvertimeValid}" />
+        </StackPanel>
+    </Grid>
+</Window>

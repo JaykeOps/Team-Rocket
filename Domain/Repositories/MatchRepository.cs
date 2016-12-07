@@ -13,7 +13,7 @@ namespace Domain.Repositories
         private HashSet<Match> matches;
         public static readonly MatchRepository instance = new MatchRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private MatchRepository()
         {
@@ -23,7 +23,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        public void SaveData()
+        private void SaveData()
         {
             try
             {
@@ -54,9 +54,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            this.formatter.Serialize(streamWriter, this.matches);
+                            this.formatter.Serialize(stream, this.matches);
                         }
                         checkFile = false;
                     }
@@ -64,14 +64,14 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var matches = new HashSet<Match>();
 
             try
             {
                 using (
-                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite,
                         FileShare.Read))
                 {
                     matches = (HashSet<Match>)this.formatter.Deserialize(streamReader);
@@ -89,7 +89,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
             }
             catch (IOException ex)
             {
@@ -114,6 +113,7 @@ namespace Domain.Repositories
             {
                 this.matches.Add(newMatch);
             }
+            this.SaveData();
         }
 
         private bool TryGetMatch(Match match, out Match matchInRepository)
@@ -132,7 +132,7 @@ namespace Domain.Repositories
             matches.Remove(match);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

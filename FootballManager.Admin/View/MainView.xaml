@@ -1,0 +1,33 @@
+﻿<Window x:Class="FootballManager.Admin.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:FootballManager.Admin.ViewModel"
+        xmlns:v="clr-namespace:FootballManager.Admin.View"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Administrator" Height="700" Width="980"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
+
+    <DockPanel LastChildFill="True">
+        <DockPanel.Resources>
+            <Style BasedOn="{StaticResource MenuButtonStyle}" TargetType="{x:Type Button}" />
+        </DockPanel.Resources>
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="20">
+            <Button Content="Series" Command="{Binding OpenSeriesCommand}" />
+            <Button Content="Team" Command="{Binding OpenTeamCommand}" />
+            <Button Content="Player" Command="{Binding OpenPlayerCommand}" />
+        </StackPanel>
+        <ContentControl DockPanel.Dock="Bottom" Content="{Binding SelectedViewModel}" />
+    </DockPanel>
+</Window>

@@ -26,7 +26,6 @@ namespace Domain.Services
             }
             else
             {
-                throw new FormatException("Match cannot be added. Invalid matchdata");
             }
         }
 
@@ -38,7 +37,6 @@ namespace Domain.Services
             }
             else
             {
-                throw new FormatException("Match cannot be added. Invalid matchdata");
             }
         }
 

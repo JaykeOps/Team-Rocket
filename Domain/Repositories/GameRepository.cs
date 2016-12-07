@@ -13,7 +13,7 @@ namespace Domain.Repositories
         private HashSet<Game> games;
         public static readonly GameRepository instance = new GameRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private GameRepository()
         {
@@ -23,7 +23,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        public void SaveData()
+        private void SaveData()
         {
             try
             {
@@ -54,9 +54,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
                         {
-                            this.formatter.Serialize(streamWriter, this.games);
+                            this.formatter.Serialize(stream, this.games);
                         }
                         checkFile = false;
                     }
@@ -64,7 +64,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             try
             {
@@ -87,7 +87,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
             }
             catch (IOException ex)
             {
@@ -109,6 +108,7 @@ namespace Domain.Repositories
                 newGame.Protocol.UpdateGameResult();
                 this.games.Add(newGame);
             }
+            this.SaveData();
         }
 
         private bool TryGetGame(Game game, out Game gameInRepository)
@@ -129,14 +129,14 @@ namespace Domain.Repositories
 
         public IEnumerable<Game> GetAll()
         {
-            foreach (var game in games)
+            foreach (var game in this.games)
             {
                 game.Protocol.UpdateGameResult();
             }
             return this.games;
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

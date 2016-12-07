@@ -32,12 +32,12 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedPlayerEvents AggregatedEvents //Will be internal
+        public AggregatedPlayerEvents AggregatedEvents
         {
             get { return this.aggregatedEvents; }
         }
 
-        public AggregatedPlayerStats AggregatedStats //Will be internal
+        public AggregatedPlayerStats AggregatedStats
         {
             get { return this.aggregatedStats; }
         }
@@ -56,7 +56,7 @@ namespace Domain.Entities
         }
 
         public Player(Name name, DateOfBirth dateOfBirth, PlayerPosition position,
-            PlayerStatus status, Guid id) : base(name, dateOfBirth, id) //Id for tests!
+            PlayerStatus status, Guid id) : base(name, dateOfBirth, id)
         {
             this.Position = position;
             this.Status = status;

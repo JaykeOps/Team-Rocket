@@ -13,13 +13,14 @@ namespace Domain.Repositories
         private HashSet<Series> series;
         public static readonly SeriesRepository instance = new SeriesRepository();
         private IFormatter formatter;
-        private string filePath;
+        private readonly string filePath;
 
         private SeriesRepository()
         {
             this.series = new HashSet<Series>();
             this.formatter = new BinaryFormatter();
             this.filePath = @"..//..//series.bin";
+            this.LoadData();
         }
 
         public void SaveData()
@@ -53,9 +54,9 @@ namespace Domain.Repositories
                     if (IsFileReady(this.filePath))
                     {
                         using (
-                            var streamWriter = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            var stream = new FileStream(this.filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            this.formatter.Serialize(streamWriter, this.series);
+                            this.formatter.Serialize(stream, this.series);
                         }
                         checkFile = false;
                     }
@@ -63,14 +64,14 @@ namespace Domain.Repositories
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var series = new HashSet<Series>();
 
             try
             {
                 using (
-                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.Read,
+                    var streamReader = new FileStream(this.filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite,
                         FileShare.Read))
                 {
                     series = (HashSet<Series>)this.formatter.Deserialize(streamReader);
@@ -88,7 +89,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                throw ex;
             }
             catch (IOException ex)
             {
@@ -113,6 +113,7 @@ namespace Domain.Repositories
             {
                 this.series.Add(newSeries);
             }
+            this.SaveData();
         }
 
         private bool TryGetSeries(Series series, out Series repositorySeries)
@@ -128,10 +129,10 @@ namespace Domain.Repositories
 
         public void DeleteSeries(Guid seriesId)
         {
-            series.RemoveWhere(s => s.Id == seriesId);
+            this.series.RemoveWhere(s => s.Id == seriesId);
         }
 
-        public static bool IsFileReady(string sFilename)
+        private static bool IsFileReady(string sFilename)
         {
             try
             {

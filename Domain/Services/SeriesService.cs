@@ -30,6 +30,7 @@ namespace Domain.Services
             var series = DomainService.FindSeriesById(seriesId);
             schedule.GenerateSchedule(series);
             DomainService.AddMatches(series.Schedule);
+            repository.SaveData();
         }
 
         public IEnumerable<Series> GetAll()
@@ -75,16 +76,32 @@ namespace Domain.Services
         public void DeleteSeries(Guid seriesId)
         {
             DomainService.RemoveGameAndMatchesFromSeries(seriesId);
-            repository.DeleteSeries(seriesId);
+            this.repository.DeleteSeries(seriesId);
         }
 
         public void AddTeamToSeries(Guid seriesId, Guid teamId)
         {
-            var series = FindById(seriesId);
+            var series = this.FindById(seriesId);
             if (!(series.TeamIds.Contains(teamId)))
             {
                 series.TeamIds.Add(teamId);
                 var team = DomainService.FindTeamById(teamId);
+                team.AddSeries(series);
+                DomainService.AddSeriesToPlayers(series, team);
+            }
+            else
+            {
+                throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
+            }
+        }
+        public void AddTeamToSeries(Series series, Guid teamId)
+        {
+            
+            if (!(series.TeamIds.Contains(teamId)))
+            {
+                series.TeamIds.Add(teamId);
+                var team = DomainService.FindTeamById(teamId);
+                team.UpdatePlayerIds();
                 team.AddSeries(series);
                 DomainService.AddSeriesToPlayers(series, team);
             }

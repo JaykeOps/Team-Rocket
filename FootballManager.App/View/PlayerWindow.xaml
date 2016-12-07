@@ -1,0 +1,111 @@
+﻿<Window x:Class="FootballManager.Admin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Administrator" Height="700" Width="980"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PlayerWindowViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <dragablz:TabablzControl Margin="10">
+            <TabItem Header="Add Player">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                     
+                    <!-- Region Add Player -->
+                    <!--Margin: Left, Top, Right, Bottom-->
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+                        <Grid.Resources>
+                            <Style BasedOn="{StaticResource PlayerLabelStyle}" TargetType="{x:Type Label}" />
+                            <Style BasedOn="{StaticResource PlayerTextBoxStyle}" TargetType="{x:Type TextBox}" />
+                            <Style BasedOn="{StaticResource PlayerComboBoxStyle}" TargetType="{x:Type ComboBox}" />
+                            <Style BasedOn="{StaticResource PlayerButtonStyle}" TargetType="{x:Type Button}" />
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Row="0" Grid.Column="0" Content="Shirt number:" />
+                        <Label Grid.Row="1" Grid.Column="0" Content="First name:" />
+                        <Label Grid.Row="2" Grid.Column="0" Content="Last name:" />
+                        <Label Grid.Row="3" Grid.Column="0" Content="Date Of Birth:" />
+                        <Label Grid.Row="4" Grid.Column="0" Content="Position:" />
+                        <Label Grid.Row="5" Grid.Column="0" Content="Status:" />
+                        <Label Grid.Row="6" Grid.Column="0" Content="Team:" />
+                        
+                        <TextBox Grid.Row="0" Grid.Column="1" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Player.Name.FirstName, Mode=OneWay}" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Player.Name.LastName, Mode=OneWay}" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Player.DateOfBirth.Value, Mode=OneWay}" />
+                        <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerPosition}" />
+                                  <!--SelectedValue="{Binding SelectedPlayerPosition, Mode=OneWay}"--> 
+                        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding PlayerStatus}" />
+                        <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding PlayerTeams}"/>
+
+                        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10,20,0,0">
+                            <Button Content="Add" />
+                            <Button Content="Test Add" Command="{Binding TestAddPlyerCommand}"/>
+                        </StackPanel>
+                    </Grid>
+                    <!-- End Region Add Player -->
+                    <DataGrid Grid.Row="0" Grid.Column="2" x:Name="DataGridPlayer" ItemsSource="{Binding Players}" AutoGenerateColumns="False" Margin="50,0,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No" Binding="{Binding ShirtNumber.Value, Mode=OneWay}" />
+                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamId, Mode=OneWay}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Tomt">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
+            </TabItem>
+            <TabItem Header="Tomt">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
+            </TabItem>
+            <TabItem Header="Tomt">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Reserverat</TextBlock>
+            </TabItem>
+        </dragablz:TabablzControl>
+    </Grid>
+</Window>

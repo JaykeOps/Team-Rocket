@@ -1,0 +1,114 @@
+﻿<Window x:Class="FootballManager.Admin.View.PlayerAddView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:FootballManager.Admin.View"
+            mc:Ignorable="d"
+            Title="Add Player"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            SizeToContent="WidthAndHeight"
+            WindowStartupLocation="CenterScreen"
+            Name="AddPlayerWindow"
+            FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+            DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=PlayerAddViewModel}">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Region Add Player -->
+        <!--Margin: Left, Top, Right, Bottom-->
+        <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
+                <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
+                <Style BasedOn="{StaticResource CustomComboBoxStyle}" TargetType="{x:Type ComboBox}" />
+                <Style BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}" />
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="First name:" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Last name:" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Date Of Birth:" />
+            <Label Grid.Row="4" Grid.Column="0" Content="Position:" />
+            <Label Grid.Row="5" Grid.Column="0" Content="Status:" />
+            <Label Grid.Row="6" Grid.Column="0" Content="Team:" />
+
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DataContext.DateOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder />
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" Background="White" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerPosition}" SelectedValue="{Binding SelectedPlayerPosition, Mode=TwoWay}"
+                      SelectedItem="{Binding DataContext.SelectedItemPlayerPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}" />
+
+            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding PlayerStatus}"   SelectedValue="{Binding SelectedPlayerStatus, Mode=TwoWay}"
+                      SelectedItem="{Binding DataContext.SelectedItemPlayerStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}" />
+
+            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding PlayerTeams}" SelectedValue="{Binding SelectedTeam, Mode=TwoWay}"
+                      SelectedItem="{Binding DataContext.SelectedItemTeam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerAddView}}}" />
+
+            <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button Content="Close" IsCancel="True" />
+                <Button Content="Add Player" Command="{Binding PlayerAddCommand}" IsEnabled="{Binding AllPropertiesValid}" />
+            </StackPanel>
+        </Grid>
+
+        <Image Grid.RowSpan="2" Grid.Column="2" Source="../Images/nerd_football_jpg.jpg" Width="120" Margin="20,0,0,50" />
+    </Grid>
+</Window>
