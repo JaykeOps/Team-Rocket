@@ -9,15 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Globalization;
-using Domain.Entities;
-using Domain.Services;
-using Domain.Value_Objects;
-using Domain.Helper_Classes;
-using FootballManager.Admin.Extensions;
-using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
 
 namespace FootballManager.Admin.ViewModel
 {

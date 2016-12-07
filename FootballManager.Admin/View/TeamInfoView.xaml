@@ -28,22 +28,21 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0" Height="70" Width="900">
+        <Grid x:Name="HeaderGrid" Grid.Row="0" Grid.Column="0">
             <StackPanel Grid.Row="0" Grid.Column="0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="0"
                     Height="60">
-                <Label Content="Filter by series:" Margin="0,15,5,0" />
-                <CheckBox Command="{Binding FilterBySeriesCommand}" Margin="0, 15, 0, 0" />
+                <Label Content="Filter by series:" Margin="30,15,5,0" />
+                <CheckBox Command="{Binding FilterBySeriesCommand}" Margin="0,15,0,0" />
                 <ComboBox ItemsSource="{Binding SeriesCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedSeries}" />
                 <Label Content="Team:" Padding="40,0,0,0" />
@@ -56,79 +55,95 @@
         </Grid>
 
         <!--Margin: Left, Top, Right, Bottom-->
-        <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" MinHeight="450" MaxHeight="600" MaxWidth="800" Margin="24,0,369,-70"
-                              ItemsSource="{Binding PlayersByTeamCollection}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Shirt No." Binding="{Binding ShirtNumber.Value, Mode=OneWay,
-                    Converter={StaticResource ShirtNumberConverter}}" />
-                <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                <DataGridTextColumn Header="Position" Binding="{Binding Position, Converter={StaticResource PlayerPositionConverter},
-                    Mode=OneWay}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource PlayerStatusConverter},
-                    Mode=OneWay}" />
 
-                <DataGridTemplateColumn Header="Edit">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
-                                Command="{Binding Path=DataContext.OpenTeamInfoEditPlayerViewCommand,
-                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
-                                <materialDesign:PackIcon Kind="Pen" />
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Dismiss">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
-                                    Command="{Binding Path=DataContext.DismissPlayerFromTeamCommand,
-                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
-                                <materialDesign:PackIcon Kind="Delete" />
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Grid MinWidth="40" Margin="667,70,159,2" Grid.RowSpan="2">
+        <Grid x:Name="MainGrid" Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            
+            <DataGrid x:Name="DataGrid" Grid.Row="0" Grid.Column="0" Margin="10,10,10,150"
+                ItemsSource="{Binding PlayersByTeamCollection}"
+                                  materialDesign:DataGridAssist.CellPadding="5 0 0 0"
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                                  SelectionMode="Extended"
+                                  CanUserSortColumns="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Shirt No." Binding="{Binding ShirtNumber.Value, Mode=OneWay,
+                        Converter={StaticResource ShirtNumberConverter}}" />
+                    <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Position" Binding="{Binding Position, Converter={StaticResource PlayerPositionConverter},
+                        Mode=OneWay}" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource PlayerStatusConverter},
+                        Mode=OneWay}" />
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" MinWidth="200"
-                   HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14" />
+                    <DataGridTemplateColumn Header="Edit">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                                    Command="{Binding Path=DataContext.OpenTeamInfoEditPlayerViewCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
+                                    <materialDesign:PackIcon Kind="Pen" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0"
-                     Text="{Binding TeamlessPlayersSearchText, UpdateSourceTrigger=PropertyChanged}"
-                     MinWidth="200" />
+                    <DataGridTemplateColumn Header="Dismiss">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
+                                        Command="{Binding Path=DataContext.DismissPlayerFromTeamCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
+                                    <materialDesign:PackIcon Kind="Delete" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        
+        
+            <Grid x:Name="SearchGrid" Grid.Row="0" Grid.Column="1" MinWidth="250">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}" MinWidth="200">
+                <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" Width="200"
+                       HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14" />
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Button CommandParameter="{Binding}"
-                                Command="{Binding Path=DataContext.AssignPlayerToTeamCommand,
-                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}"
-                                Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
-                                    Margin="0, 0, 4, 0" />
-                            <TextBlock Text="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                <TextBox Grid.Row="1" Grid.Column="0" Name="SearchTextBox" 
+                         Text="{Binding TeamlessPlayersSearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Width="200" />
+
+                <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}" Width="200">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button CommandParameter="{Binding}"
+                                    Command="{Binding Path=DataContext.AssignPlayerToTeamCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}"
+                                    Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
+                                        Margin="0, 0, 4, 0" />
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
         </Grid>
+
+
     </Grid>
 </UserControl>

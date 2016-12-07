@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Domain.Helper_Classes;
 using System.Globalization;
 
 namespace FootballManager.Admin.ViewModel
