@@ -145,27 +145,28 @@ namespace Domain.Helper_Classes
         {
             return score >= 0 && score <= 50;
         }
-
         public static bool IsValidShirtNumber(this int value, Guid teamId)
         {
             var team = DomainService.FindTeamById(teamId);
             var shirtNumberIsAlreadyInUse = (value != -1) && team.playerIds.Any(x =>
             DomainService.FindPlayerById(x).ShirtNumber.Value == value);
-            
+
             if (value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse)
             {
                 return true;
             }
             if (shirtNumberIsAlreadyInUse)
             {
-                throw new ShirtNumberAlreadyInUseException("The specified shirt number could not be assigned. " +
-                    $"The shirt number is already in use by another player in {team.Name}");
+                return false;
+
             }
             else
             {
-                throw new IndexOutOfRangeException($"The specified shirt number '{value}' could not be assigned. " +
-                    "Shirt number values must integers between 0-99!");
+                return false;
+
             }
         }
+
+       
     }
 }
