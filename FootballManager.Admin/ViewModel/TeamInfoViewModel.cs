@@ -234,18 +234,10 @@ namespace FootballManager.Admin.ViewModel
 
         private void FilterPlayersByTeam()
         {
-            var players = new List<IExposablePlayer>();
-
             if (this.SelectedTeam != null)
             {
-                var playerIds = this.SelectedTeam.PlayerIds.ToList();
-                foreach (var id in playerIds)
-                {
-                    var player = (IExposablePlayer)this.playerService.FindById(id);
-                    players.Add(player);
-                }
-
-                this.PlayersByTeamCollection = players.ToObservableCollection();
+                this.PlayersByTeamCollection = this.playerService.GetAllExposablePlayersInTeam(
+                    this.SelectedTeam.Id).ToObservableCollection();
                 this.ArenaName = this.SelectedTeam.ArenaName.Value;
                 this.Email = this.SelectedTeam.Email.Value;
             }
