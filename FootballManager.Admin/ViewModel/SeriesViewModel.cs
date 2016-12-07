@@ -294,10 +294,10 @@ namespace FootballManager.Admin.ViewModel
                         }
                         break;
                     case "TeamsToAddToSeries":
-                        //if (this.SelectedItem == null)
-                        //{
-                        //    return string.Empty;
-                        //}
+                        if (this.SelectedItem == null)
+                        {
+                            return string.Empty;
+                        }
                         if (this.TeamsToAddToSeries.Count() == 0)
                         {
                             validProperties[columnName] = false;
