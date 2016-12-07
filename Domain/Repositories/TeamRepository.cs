@@ -9,10 +9,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
-    public sealed class TeamRepository
+    internal sealed class TeamRepository
     {
         private HashSet<Team> teams;
-        public static readonly TeamRepository instance = new TeamRepository();
+        internal static readonly TeamRepository instance = new TeamRepository();
         private IFormatter formatter;
         private readonly string filePath;
 
@@ -24,7 +24,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        public void Add(Team newTeam)
+        internal void Add(Team newTeam)
         {
             Team teamInRepository;
             if (this.TryGetTeam(newTeam, out teamInRepository))
@@ -39,7 +39,7 @@ namespace Domain.Repositories
             this.SaveData();
         }
 
-        public IEnumerable<Team> GetAll()
+        internal IEnumerable<Team> GetAll()
         {
             return this.teams;
         }
@@ -117,7 +117,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void RemoveTeam(Guid teamId)
+        internal void RemoveTeam(Guid teamId)
         {
             Team playerToRemove;
 

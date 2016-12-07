@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
-    public sealed class PlayerRepository
+    internal sealed class PlayerRepository
     {
         private HashSet<Player> players;
         public static readonly PlayerRepository instance = new PlayerRepository();
@@ -24,7 +24,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        public void Add(Player newPlayer)
+        internal void Add(Player newPlayer)
         {
             Player playerInRepo;
             if (this.TryGetPlayer(newPlayer, out playerInRepo))
@@ -39,12 +39,12 @@ namespace Domain.Repositories
             this.SaveData();
         }
 
-        public IEnumerable<Player> GetAll()
+        internal IEnumerable<Player> GetAll()
         {
             return this.players;
         }
 
-        public void SaveData()
+        internal void SaveData()
         {
             try
             {
@@ -123,7 +123,7 @@ namespace Domain.Repositories
             return repositoryPlayer != null;
         }
 
-        public void RemovePlayer(Guid playerId)
+        internal void RemovePlayer(Guid playerId)
         {
             Player playerToRemove;
 

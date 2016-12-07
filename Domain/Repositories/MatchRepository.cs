@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
-    public sealed class MatchRepository
+    internal sealed class MatchRepository
     {
         private HashSet<Match> matches;
         public static readonly MatchRepository instance = new MatchRepository();
@@ -96,12 +96,12 @@ namespace Domain.Repositories
             }
         }
 
-        public IEnumerable<Match> GetAll()
+        internal IEnumerable<Match> GetAll()
         {
             return this.matches;
         }
 
-        public void AddMatch(Match newMatch)
+        internal void AddMatch(Match newMatch)
         {
             Match matchInRepository;
             if (this.TryGetMatch(newMatch, out matchInRepository))
@@ -127,7 +127,7 @@ namespace Domain.Repositories
             return this.matches.FirstOrDefault(x => x.Id == matchId);
         }
 
-        public void RemoveMatch(Match match)
+        internal void RemoveMatch(Match match)
         {
             matches.Remove(match);
         }

@@ -8,10 +8,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
-    public sealed class SeriesRepository
+    internal sealed class SeriesRepository
     {
         private HashSet<Series> series;
-        public static readonly SeriesRepository instance = new SeriesRepository();
+        internal static readonly SeriesRepository instance = new SeriesRepository();
         private IFormatter formatter;
         private readonly string filePath;
 
@@ -23,7 +23,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        public void SaveData()
+        internal void SaveData()
         {
             try
             {
@@ -96,12 +96,12 @@ namespace Domain.Repositories
             }
         }
 
-        public IEnumerable<Series> GetAll()
+        internal IEnumerable<Series> GetAll()
         {
             return this.series;
         }
 
-        public void AddSeries(Series newSeries)
+        internal void AddSeries(Series newSeries)
         {
             Series repositorySeries;
             if (this.TryGetSeries(newSeries, out repositorySeries))
@@ -127,7 +127,7 @@ namespace Domain.Repositories
             return this.series.FirstOrDefault(x => x.Id == seriesId);
         }
 
-        public void DeleteSeries(Guid seriesId)
+        internal void DeleteSeries(Guid seriesId)
         {
             this.series.RemoveWhere(s => s.Id == seriesId);
         }

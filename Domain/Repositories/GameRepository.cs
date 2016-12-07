@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Domain.Repositories
 {
-    public sealed class GameRepository
+    internal sealed class GameRepository
     {
         private HashSet<Game> games;
         public static readonly GameRepository instance = new GameRepository();
@@ -94,7 +94,7 @@ namespace Domain.Repositories
             }
         }
 
-        public void Add(Game newGame)
+        internal void Add(Game newGame)
         {
             Game gameInRepository;
             if (this.TryGetGame(newGame, out gameInRepository))
