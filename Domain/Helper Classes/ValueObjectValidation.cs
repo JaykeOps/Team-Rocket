@@ -167,7 +167,5 @@ namespace Domain.Helper_Classes
             }
             return value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse;
         }
-
-
     }
 }
