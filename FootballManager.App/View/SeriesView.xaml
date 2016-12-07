@@ -44,11 +44,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="10">
                         <Label Content="Series:" Padding="0,0,20,0" />
-                        <ComboBox x:Name="CbLeagueTable"  IsEditable="True" IsReadOnly="True" Text="-Select Series-"
+                        <ComboBox x:Name="CbLeagueTable" IsEditable="True" IsReadOnly="True" Text="-Select Series-" HorizontalContentAlignment="Center"
                                   ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"
-                                  SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedItem="{Binding SeriesForLeagueTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="150" />
                     </StackPanel>
 
                     <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0"
@@ -81,11 +81,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
                         <Label Content="Series:" Padding="0,0,20,0" />
-                        <ComboBox IsEditable="True" IsReadOnly="True" Text="-Select Series-"
+                        <ComboBox IsEditable="True" IsReadOnly="True" Text="-Select Series-" HorizontalContentAlignment="Center"
                                   ItemsSource="{Binding DataContext.AllSeries, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"
-                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedItem="{Binding SeriesForPlayerStats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="150" />
                     </StackPanel>
                     <Grid x:Name="multiDataGridContainer" Grid.Column="0" Grid.Row="1">
                         <Grid.RowDefinitions>
