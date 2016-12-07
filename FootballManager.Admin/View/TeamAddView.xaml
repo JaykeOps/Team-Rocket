@@ -8,12 +8,13 @@
         Title="Add Team"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        SizeToContent="WidthAndHeight"
+        Width="400"
+        SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamAddViewModel}"
         Name="TeamAddViewModel">
-    <Grid Margin="100">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
