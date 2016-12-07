@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Domain.Interfaces;
+using System.Net.Mail;
 
 namespace Domain.Helper_Classes
 {
@@ -14,7 +15,8 @@ namespace Domain.Helper_Classes
             "ÈèÉéÊêËëĚěĘęĖėĒēĜĝĢģĞğĤĥÌìÍíÎîÏïıĪīĮįĴĵĶķĹĺĻļŁłĽľÑñŃńŇňŅņÖöÒòÓóÔôÕõŐőØø"
             + "ŒœŔŕŘřẞßŚśŜŝŞşŠšȘșŤťŢţÞþȚțÜüÙùÚúÛûŰűŨũŲųŮůŪūŴŵÝýŸÿŶŷŹźŽžŻż]{2,20}$";
 
-        public const string EMAIL_REGEX = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+        // public const string EMAIL_REGEX = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+        // Email regex may or may not be flawed. Validation now uses class MailAddress for validation instead.
 
         public const string CELL_PHONE_NUMBER = @"\b\d{3,6}-\b\d{6,9}$";
 
@@ -56,15 +58,24 @@ namespace Domain.Helper_Classes
 
         public static bool IsValidEmailAddress(this string value, bool ignoreCase)
         {
-            if (ignoreCase)
+            try
             {
-                return Regex.IsMatch(value, EMAIL_REGEX, RegexOptions.IgnoreCase)
-                    && value.Length < 30;
+                MailAddress m = new MailAddress(value);
+                return true;
             }
-            else
+            catch (FormatException)
             {
-                return Regex.IsMatch(value, EMAIL_REGEX);
+                return false;
             }
+            //if (ignoreCase)
+            //{
+            //    return Regex.IsMatch(value, EMAIL_REGEX, RegexOptions.IgnoreCase)
+            //        && value.Length < 30;
+            //}
+            //else
+            //{
+            //    return Regex.IsMatch(value, EMAIL_REGEX);
+            //}
         }
 
         public static bool IsValidTeamName(this string value, bool ignoreCase)
