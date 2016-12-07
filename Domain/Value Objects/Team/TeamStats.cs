@@ -23,6 +23,7 @@ namespace Domain.Value_Objects
         public int GoalDifference => this.GoalsFor - this.GoalsAgainst;
         public int Points => this.Wins * 3 + this.Draws;
         public int Ranking { get; set; }
+
         public int GoalsFor
         {
             get

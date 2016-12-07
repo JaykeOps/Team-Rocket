@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
-using MaterialDesignThemes.Wpf;
-using System.ComponentModel;
-using System.Windows;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Helper_Classes;
 using Domain.Services;
 using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
+using FootballManager.Admin.Utility;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -183,27 +178,25 @@ namespace FootballManager.Admin.ViewModel
                 teamsToAddToSeries.Remove(selectedTeam);
                 OnPropertyChanged("TeamsToAddToSeries");
             }
-
         }
 
         private void AddSeriesTeam(object obj)
         {
             var timeSpanMatchDuration = new TimeSpan(0, Convert.ToInt32(matchDuration), 0);
 
-                var seriesSeriesName = new SeriesName(this.seriesName);
-                var seriesNumberOfTeams = new NumberOfTeams(this.selectedNumberOfTeams);
-                var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
+            var seriesSeriesName = new SeriesName(this.seriesName);
+            var seriesNumberOfTeams = new NumberOfTeams(this.selectedNumberOfTeams);
+            var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
 
-                Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
-                foreach (var team in teamsToAddToSeries)
-                {
-                    seriesToAdd.TeamIds.Add(team.Id);
-                }
-                Messenger.Default.Send<Series>(seriesToAdd);
-                ResetData();
+            Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
+            foreach (var team in teamsToAddToSeries)
+            {
+                seriesToAdd.TeamIds.Add(team.Id);
+            }
+            Messenger.Default.Send<Series>(seriesToAdd);
+            ResetData();
             this.SeriesAddedConfirmText = "Series Added!";
         }
-
 
         public void LoadData()
         {
@@ -217,7 +210,6 @@ namespace FootballManager.Admin.ViewModel
                     this.NumberOfTeamsList.Add(i);
                 }
             }
-
         }
 
         public void ResetData()
@@ -233,8 +225,9 @@ namespace FootballManager.Admin.ViewModel
         {
             return value % 2 == 0;
         }
-        
+
         #region IDataErrorInfo implementation
+
         public string Error
         {
             get { return null; }
@@ -260,6 +253,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-30 valid European characters long!";
                         }
                         break;
+
                     case "MatchDuration":
                         if (string.IsNullOrEmpty(this.MatchDuration))
                         {
@@ -285,6 +279,7 @@ namespace FootballManager.Admin.ViewModel
                             }
                         }
                         break;
+
                     case "SelectedItem":
                         if (this.SelectedItem == null)
                         {
@@ -293,6 +288,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         break;
+
                     case "TeamsToAddToSeries":
                         if (this.SelectedItem == null)
                         {
@@ -324,7 +320,8 @@ namespace FootballManager.Admin.ViewModel
                 // return "Fuck this shit!";
             }
         }
-        #endregion
+
+        #endregion IDataErrorInfo implementation
 
         public bool AllPropertiesValid
         {

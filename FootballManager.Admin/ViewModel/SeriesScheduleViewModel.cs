@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
 using FootballManager.Admin.Extensions;
-using Domain.Helper_Classes;
-using Domain.Value_Objects;
+using FootballManager.Admin.Utility;
+using FootballManager.Admin.View;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 using Match = Domain.Entities.Match;
 
 namespace FootballManager.Admin.ViewModel
@@ -40,10 +31,11 @@ namespace FootballManager.Admin.ViewModel
             seriesService = new SeriesService();
 
             Messenger.Default.Register<Series>(this, OnSeriesObjReceived);
-            LoadData();            
+            LoadData();
         }
 
         #region Properties
+
         public ICommand OpenCreateSeriesGameProtocolViewCommand
         {
             get
@@ -90,7 +82,8 @@ namespace FootballManager.Admin.ViewModel
                 FilterMatchesBySeries();
             }
         }
-        #endregion
+
+        #endregion Properties
 
         public Match SelectedMatch
         {
@@ -102,7 +95,8 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #region Collections               
+        #region Collections
+
         public ObservableCollection<Series> SeriesCollection
         {
             get { return seriesCollection; }
@@ -123,9 +117,11 @@ namespace FootballManager.Admin.ViewModel
                 matchesBySeriesCollection = value;
             }
         }
-        #endregion
 
-        #region Methods               
+        #endregion Collections
+
+        #region Methods
+
         private void OpenCreateSeriesGameProtocolView(object param)
         {
             var view = new SeriesGameProtocolView();
@@ -149,7 +145,6 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        
 
         public void FilterMatchesBySeries()
         {
@@ -159,7 +154,6 @@ namespace FootballManager.Admin.ViewModel
 
                 MatchesBySeriesCollection = t.ToObservableCollection();
             }
-            
         }
 
         private void OpenSeriesScheduleEditView(object obj)
@@ -177,10 +171,12 @@ namespace FootballManager.Admin.ViewModel
             seriesService.ScheduleGenerator(serie.Id);
             SeriesCollection = seriesService.GetAll().ToObservableCollection();
         }
+
         private void LoadData()
         {
             this.seriesCollection = seriesService.GetAll().ToObservableCollection();
         }
-        #endregion
+
+        #endregion Methods
     }
 }

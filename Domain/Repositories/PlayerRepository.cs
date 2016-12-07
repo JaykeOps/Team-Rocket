@@ -110,7 +110,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                
             }
             catch (IOException ex)
             {
@@ -158,7 +157,6 @@ namespace Domain.Repositories
                     {
                         return false;
                     }
-
                 }
             }
             catch (Exception)

@@ -10,8 +10,6 @@ namespace Domain.Entities
         public string FirstName { get; }
         public string LastName { get; }
 
-
-
         public Name(string firstName, string lastName)
         {
             if (firstName.IsValidName(true) && lastName.IsValidName(true))
@@ -39,8 +37,6 @@ namespace Domain.Entities
                 return false;
             }
         }
-
-        
 
         public override string ToString()
         {

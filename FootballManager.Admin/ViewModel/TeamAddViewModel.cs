@@ -1,13 +1,13 @@
-﻿using Domain.Helper_Classes;
+﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Services;
+using Domain.Value_Objects;
 using FootballManager.Admin.Utility;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Domain.Entities;
-using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -172,7 +172,6 @@ namespace FootballManager.Admin.ViewModel
             var team = new Team(new TeamName(this.teamName), new ArenaName(this.arenaName), new EmailAddress(this.email));
             this.teamService.Add(team);
             this.CloseDialog();
-
         }
 
         private void CloseDialog()

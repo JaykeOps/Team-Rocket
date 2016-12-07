@@ -1,20 +1,14 @@
-﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Services;
 using Domain.Value_Objects;
-using Domain.Helper_Classes;
-using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
-using FootballManager.Admin.View;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -62,7 +56,7 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                switch(columnName)
+                switch (columnName)
                 {
                     case "FirstName":
                         if (string.IsNullOrEmpty(this.FirstName))
@@ -78,6 +72,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-20 valid European characters long!";
                         }
                         break;
+
                     case "LastName":
                         if (string.IsNullOrEmpty(this.LastName))
                         {
@@ -92,6 +87,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-20 valid European characters long!";
                         }
                         break;
+
                     case "DateOfBirth":
                         if (string.IsNullOrEmpty(this.DateOfBirth))
                         {
@@ -113,6 +109,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Earliest year = 1936, latest year = [current year - 4]!";
                         }
                         break;
+
                     case "SelectedItemPlayerPosition":
                         if (this.SelectedItemPlayerPosition == null)
                         {
@@ -121,6 +118,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         break;
+
                     case "SelectedItemPlayerStatus":
                         if (this.SelectedItemPlayerStatus == null)
                         {
@@ -129,6 +127,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         break;
+
                     case "SelectedItemTeam":
                         if (this.SelectedItemTeam == null)
                         {
@@ -313,13 +312,11 @@ namespace FootballManager.Admin.ViewModel
                     .OfType<Window>().FirstOrDefault(w => w.Name == "AddPlayerWindow");
                 this.playerService.Add(this.player);
                 window?.Close();
-                if (this.selectedTeam!=null)
+                if (this.selectedTeam != null)
                 {
                     this.playerService.AssignPlayerToTeam(this.player, this.selectedTeam.Id);
                 }
-                
             }
-
         }
 
         private void ValidateProperties()
@@ -334,6 +331,5 @@ namespace FootballManager.Admin.ViewModel
             }
             this.AllPropertiesValid = true;
         }
-
     }
 }

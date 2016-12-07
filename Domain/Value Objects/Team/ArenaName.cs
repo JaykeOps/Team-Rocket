@@ -8,8 +8,6 @@ namespace Domain.Value_Objects
     {
         public string Value { get; }
 
-        
-
         public ArenaName(string arenaName)
         {
             if (arenaName.IsValidArenaName(true))

@@ -6,9 +6,9 @@
              xmlns:conv="clr-namespace:FootballManager.Admin.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mahapps="clr-namespace:MahApps.Metro;assembly=MahApps.Metro"
-             
+
              StartupUri="View/MainView.xaml">
-    
+
     <Application.Resources>
         <ResourceDictionary>
             <conv:DoNothingConverter x:Key="DoNothingConverter" />

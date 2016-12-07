@@ -1,6 +1,6 @@
-﻿using System.Windows.Input;
-using FootballManager.App.Utility;
+﻿using FootballManager.App.Utility;
 using FootballManager.App.View;
+using System.Windows.Input;
 
 namespace FootballManager.App.ViewModel
 {
@@ -35,6 +35,7 @@ namespace FootballManager.App.ViewModel
         {
             this.SelectedViewModel = new PlayerView();
         }
+
         private void TeamCommand(object obj)
         {
             this.SelectedViewModel = new TeamView();
@@ -49,6 +50,5 @@ namespace FootballManager.App.ViewModel
         {
             this.SelectedViewModel = new MatchView();
         }
-
     }
 }

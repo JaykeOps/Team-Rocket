@@ -51,5 +51,4 @@
         <Setter Property="Width" Value="150" />
         <Setter Property="Foreground" Value="Green" />
     </Style>
-
 </ResourceDictionary>

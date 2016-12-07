@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces;
-using System;
 using Domain.Services;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -14,8 +14,7 @@ namespace Domain.Value_Objects
 
         public string EventType => eventType;
 
-
-        public Assist(MatchMinute matchMinute,Guid teamId, Guid playerId)
+        public Assist(MatchMinute matchMinute, Guid teamId, Guid playerId)
         {
             this.MatchMinute = matchMinute;
             this.TeamId = teamId;

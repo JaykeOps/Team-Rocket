@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
-using Domain.Value_Objects;
 using FootballManager.App.Utility;
+using System.Collections.Generic;
 
 namespace FootballManager.App.ViewModel
 {
@@ -42,7 +37,6 @@ namespace FootballManager.App.ViewModel
                 OnPropertyChanged();
             }
         }
-
 
         private void OnMatchObjReceived(Game obj)
         {

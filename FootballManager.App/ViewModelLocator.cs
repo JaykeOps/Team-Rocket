@@ -14,14 +14,10 @@ namespace FootballManager.App
             get { return new PlayerViewModel(); }
         }
 
-       
-
         public static TeamViewModel TeamViewModel
         {
             get { return new TeamViewModel(); }
         }
-
-       
 
         public static SeriesViewModel SeriesViewModel
         {
@@ -37,6 +33,5 @@ namespace FootballManager.App
         {
             get { return new MatchProtocolViewModel(); }
         }
-
     }
 }

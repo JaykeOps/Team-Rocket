@@ -2,12 +2,11 @@
 using Domain.Value_Objects;
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Domain.Entities
 {
     [Serializable]
-    public class PlayerStats : ValueObject<PlayerStats>,ICloneable
+    public class PlayerStats : ValueObject<PlayerStats>, ICloneable
     {
         private readonly Guid seriesId;
         private readonly Guid playerId;
@@ -22,8 +21,6 @@ namespace Domain.Entities
         public string TeamName => this.teamName;
         public int GoalCount => this.seriesEvents.Goals.Count();
         public int AssistCount => this.seriesEvents.Assists.Count();
-        
-       
 
         public int YellowCardCount
         {
@@ -45,6 +42,7 @@ namespace Domain.Entities
 
         public int PenaltyCount => this.seriesEvents.Penalties.Count();
         public int GamesPlayedCount => this.seriesEvents.Games.Count();
+
         public void UpdateSeriesEvents()
         {
             var player = DomainService.FindPlayerById(this.playerId);
@@ -67,6 +65,7 @@ namespace Domain.Entities
             this.UpdateTeamName();
             this.UpdateSeriesEvents();
         }
+
         public PlayerStats(Guid seriesId, Guid teamId, Player player)
         {
             this.seriesId = seriesId;

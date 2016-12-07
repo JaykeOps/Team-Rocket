@@ -1,9 +1,5 @@
 ﻿using Domain.Helper_Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Value_Objects
 {
@@ -11,8 +7,6 @@ namespace Domain.Value_Objects
     public class SeriesName : ValueObject<SeriesName>
     {
         public string Value { get; }
-
-        
 
         public SeriesName(string seriesName)
         {

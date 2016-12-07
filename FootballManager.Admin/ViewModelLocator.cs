@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using FootballManager.Admin.View;
-using FootballManager.Admin.ViewModel;
+﻿using FootballManager.Admin.ViewModel;
 
 namespace FootballManager.Admin
 {
@@ -75,6 +73,5 @@ namespace FootballManager.Admin
         {
             get { return new TeamEditViewModel(); }
         }
-
     }
 }

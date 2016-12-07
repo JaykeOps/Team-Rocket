@@ -8,8 +8,6 @@ namespace Domain.Value_Objects
     {
         public DateTime Value { get; }
 
-       
-
         public DateOfBirth(string dateOfbirth)
         {
             if (dateOfbirth.IsValidBirthOfDate())

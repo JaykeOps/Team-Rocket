@@ -1,13 +1,13 @@
 ﻿<UserControl x:Class="FootballManager.Admin.View.PlayerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FootballManager.Admin.View"
              xmlns:vm="clr-namespace:FootballManager.Admin.ViewModel"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="700" d:DesignWidth="900"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -44,25 +44,25 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Center" 
+                    <StackPanel Grid.Row="0" Grid.Column="0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
                                 Margin="10">
                         <Label Content="Search for player:" />
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Command="{Binding OpenPlayerAddViewCommand}" 
-                                Content="Add New Player" 
-                                Style="{StaticResource FlatButton}" 
-                                VerticalAlignment="Bottom" 
+                        <Button Command="{Binding OpenPlayerAddViewCommand}"
+                                Content="Add New Player"
+                                Style="{StaticResource FlatButton}"
+                                VerticalAlignment="Bottom"
                                 Margin="40,0,0,0" />
                     </StackPanel>
 
                     <!--Margin: Left, Top, Right, Bottom-->
-                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" 
-                              ItemsSource="{Binding Players}" 
+                    <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0"
+                              ItemsSource="{Binding Players}"
                               SelectedItem="{Binding SelectedPlayer}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
@@ -106,4 +106,3 @@
         </dragablz:TabablzControl>
     </Grid>
 </UserControl>
-

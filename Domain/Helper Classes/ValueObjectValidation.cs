@@ -1,10 +1,9 @@
-﻿using Domain.Entities;
+﻿using Domain.Interfaces;
 using Domain.Services;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Domain.Interfaces;
 
 namespace Domain.Helper_Classes
 {
@@ -152,7 +151,7 @@ namespace Domain.Helper_Classes
             var team = DomainService.FindTeamById(teamId);
             var shirtNumberIsAlreadyInUse = (value != -1) && team.playerIds.Any(x =>
             DomainService.FindPlayerById(x).ShirtNumber.Value == value);
-            
+
             return value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse;
         }
 

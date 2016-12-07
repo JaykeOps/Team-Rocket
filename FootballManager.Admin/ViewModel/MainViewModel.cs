@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Input;
-using Domain.Entities;
-using Domain.Services;
-using FootballManager.Admin.Extensions;
-using FootballManager.Admin.Utility;
+﻿using FootballManager.Admin.Utility;
 using FootballManager.Admin.View;
+using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -47,11 +39,10 @@ namespace FootballManager.Admin.ViewModel
         {
             this.SelectedViewModel = new PlayerView();
         }
+
         private void TeamCommand(object obj)
         {
             this.SelectedViewModel = new TeamView();
         }
-
-
     }
 }

@@ -47,7 +47,7 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Arena name:" />
             <Label Grid.Row="2" Grid.Column="0" Content="Email:" />
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.TeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.TeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamAddView}}}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
@@ -59,8 +59,8 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamAddView}}}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
@@ -73,7 +73,7 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:TeamAddView}}}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
@@ -91,6 +91,5 @@
                 <Button Content="Add Team" Command="{Binding AddCommand}" IsEnabled="{Binding AllPropertiesValid}" />
             </StackPanel>
         </Grid>
-
     </Grid>
 </Window>

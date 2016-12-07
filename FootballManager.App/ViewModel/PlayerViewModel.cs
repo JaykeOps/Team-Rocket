@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using Domain.Value_Objects;
 using FootballManager.App.Extensions;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FootballManager.App.ViewModel
 {
@@ -22,8 +20,6 @@ namespace FootballManager.App.ViewModel
         private string playerInfoSearchText;
         private Series seriesForPlayerStats;
 
-
-
         public PlayerViewModel()
         {
             this.playerStats = new ObservableCollection<PlayerStats>();
@@ -33,8 +29,6 @@ namespace FootballManager.App.ViewModel
             this.playerInfoSearchText = "";
             this.LoadData();
         }
-
-
 
         public ObservableCollection<Series> AllSeries => this.allSeries;
 
@@ -106,7 +100,6 @@ namespace FootballManager.App.ViewModel
                     catch (SeriesMissingException)
                     {
                     }
-                   
                 }
             }
             PlayerStats = playerStats.ToObservableCollection();
@@ -117,17 +110,11 @@ namespace FootballManager.App.ViewModel
             this.Players = this.playerService.Search(this.playerViewSearchText).ToObservableCollection();
         }
 
-
         private void LoadData()
         {
             this.allSeries = seriesService.GetAll().ToObservableCollection();
             this.Players = this.playerService.GetAllExposablePlayers().ToObservableCollection();
             this.FilterStatsGrid();
         }
-
     }
-
-
-
 }
-

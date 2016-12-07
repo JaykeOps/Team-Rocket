@@ -1,11 +1,11 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Domain.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -26,7 +26,6 @@ namespace Domain.Repositories
 
         public void Add(Team newTeam)
         {
-            
             Team teamInRepository;
             if (this.TryGetTeam(newTeam, out teamInRepository))
             {
@@ -111,7 +110,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                
             }
             catch (IOException ex)
             {
@@ -158,7 +156,6 @@ namespace Domain.Repositories
                     {
                         return false;
                     }
-
                 }
             }
             catch (Exception)
@@ -166,6 +163,5 @@ namespace Domain.Repositories
                 return false;
             }
         }
-
     }
 }

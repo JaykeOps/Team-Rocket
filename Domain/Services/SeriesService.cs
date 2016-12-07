@@ -49,7 +49,7 @@ namespace Domain.Services
             var series = this.FindById(seriesId);
             var teamIdsOfSerie = series.TeamIds;
             var teamsOfSerie = teamIdsOfSerie.Select(teamId => DomainService.FindTeamById(teamId)).ToList();
-            var teamStats =new List<TeamStats>();
+            var teamStats = new List<TeamStats>();
             foreach (var team in teamsOfSerie)
             {
                 try
@@ -93,7 +93,6 @@ namespace Domain.Services
             {
                 throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
             }
-
         }
 
         public IEnumerable<Series> Search(string searchText, StringComparison comparison

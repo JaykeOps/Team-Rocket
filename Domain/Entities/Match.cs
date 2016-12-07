@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces;
-using Domain.Services;
 using Domain.Value_Objects;
 using System;
 
@@ -8,7 +7,7 @@ namespace Domain.Entities
     [Serializable]
     public class Match : IGameDuration
     {
-        public Guid Id { get; set; } 
+        public Guid Id { get; set; }
         public ArenaName Location { get; set; }
         public MatchDuration MatchDuration { get; }
         public MatchDateAndTime MatchDate { get; set; }
@@ -16,8 +15,6 @@ namespace Domain.Entities
         public Guid AwayTeamId { get; set; }
         public Guid SeriesId { get; set; }
         public int Round { get; set; }
-
-        
 
         public Match(ArenaName location, Guid homeTeam, Guid awayTeam, Series series, MatchDateAndTime date)
         {
@@ -40,7 +37,5 @@ namespace Domain.Entities
             this.SeriesId = series.Id;
             this.MatchDate = new MatchDateAndTime(DateTime.Now + TimeSpan.FromDays(365));
         }
-
-        
     }
 }

@@ -1,8 +1,8 @@
 ﻿<Window x:Class="FootballManager.Admin.View.TeamInfoEditPlayerView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:local="clr-namespace:FootballManager.Admin.View"
             mc:Ignorable="d"
             Title="Team info edit player view"
@@ -53,7 +53,7 @@
             <Label Grid.Row="3" Grid.Column="0" Content="Position:" />
             <Label Grid.Row="4" Grid.Column="0" Content="Status:" />
 
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ShirtNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                     ValidatesOnDataErrors=True, Converter={StaticResource ShirtNumberConverter}}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
@@ -66,10 +66,10 @@
             </TextBox>
 
             <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PlayerPositions,
-                    Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}" 
+                    Converter={StaticResource PlayerPositionListConverter}, Mode=OneWay}"
                     SelectedValue="{Binding SelectedPlayerPosition, Converter={StaticResource PlayerPositionConverter}, Mode=TwoWay}" />
 
-            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatuses, 
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding PlayerStatuses,
                     Converter={StaticResource PlayerStatusListConverter}, Mode=OneWay}"
                     SelectedValue="{Binding SelectedPlayerStatus, Converter={StaticResource PlayerStatusConverter}, Mode=TwoWay}" />
 
@@ -79,7 +79,6 @@
             </StackPanel>
         </Grid>
 
-        <Image Grid.RowSpan="2" Grid.Column="2" Source="../Images/nerd_football_jpg.jpg" Width="120" Margin="20,0,0,50"/>
-
+        <Image Grid.RowSpan="2" Grid.Column="2" Source="../Images/nerd_football_jpg.jpg" Width="120" Margin="20,0,0,50" />
     </Grid>
 </Window>
