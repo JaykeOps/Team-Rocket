@@ -44,6 +44,7 @@ namespace Domain.Services
         {
             var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
+
             foreach (var player in allPlayers)
             {
                 try
@@ -56,6 +57,10 @@ namespace Domain.Services
                 }
             }
             var topStat = playerStats.OrderByDescending(ps => ps.GoalCount).Take(15);
+            if (topStat.Count() == 0)
+            {
+                return topStat;
+            }
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)
@@ -297,6 +302,10 @@ namespace Domain.Services
                 || x.Position.ToString().Contains(searchText)
                 || x.Status.ToString().Contains(searchText)
                 || x.DateOfBirth.ToString().Contains(searchText)));
+        }
+        internal void Save()
+        {
+            repository.SaveData();
         }
 
     }

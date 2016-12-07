@@ -293,6 +293,14 @@ namespace Domain.Services
                         throw new ArgumentException("Invalid event type");
                 }
             }
+
+
         }
+        internal void Save()
+        {
+            repository.SaveData();
+        }
+
     }
+
 }

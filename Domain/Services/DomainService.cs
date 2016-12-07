@@ -67,7 +67,7 @@ namespace Domain.Services
         public static void AddTeamToPlayer(Team team, Guid playerId)
         {
             var player = FindPlayerById(playerId);
-            player.UpdateTeamAffiliation(team);  //TODO: Player gets TeamId assigned when player gets assigned to a team!
+            player.UpdateTeamAffiliation(team); 
         }
 
         public static void AddMatches(IEnumerable<Match> matches)
@@ -207,6 +207,19 @@ namespace Domain.Services
             return result.ToList();
         }
 
+        public static void SaveAll()
+        {
+            var teamService= new TeamService();
+            var playerService = new PlayerService();
+            var seriesService = new SeriesService();
+            var matchService = new MatchService();
+            var gameService = new GameService();
+            teamService.Save();
+            playerService.Save();
+            seriesService.Save();
+            matchService.Save();
+            gameService.Save();
+        }
         public static GameResult GetGameResult(GameProtocol protocol)
         {
             var homeTeamScore = 0;
