@@ -23,6 +23,8 @@ namespace FootballManager.Admin.ViewModel
         private TeamService teamService;
         private PlayerService playerService;
         private Player player;
+        private Team unAffiliatedTeam;
+        private List<Team> allTeams;
 
         private int shirtNumber;
         private string firstName;
@@ -43,6 +45,7 @@ namespace FootballManager.Admin.ViewModel
             this.playerService = new PlayerService();
             this.PlayerAddCommand = new RelayCommand(this.PlayerAdd);
             this.validProperties = new Dictionary<string, bool>();
+            this.allTeams = teamService.GetAllTeams().ToList();
             this.validProperties.Add("FirstName", false);
             this.validProperties.Add("LastName", false);
             this.validProperties.Add("DateOfBirth", false);
@@ -51,6 +54,9 @@ namespace FootballManager.Admin.ViewModel
             this.validProperties.Add("SelectedItemTeam", false);
             this.SelectedItemPlayerPosition = this.PlayerPosition.ElementAt(0);
             this.SelectedItemPlayerStatus = this.PlayerStatus.ElementAt(0);
+            this.unAffiliatedTeam = new Team(new TeamName("Unaffiliated"),
+                new ArenaName("Unaffiliated"), new EmailAddress("unaffiliated@unaffiliated.com") );
+            allTeams.Add(unAffiliatedTeam);
         }
 
         public string Error
@@ -299,9 +305,9 @@ namespace FootballManager.Admin.ViewModel
             get { return Enum.GetValues(typeof(PlayerStatus)).Cast<PlayerStatus>(); }
         }
 
-        public IEnumerable<Team> PlayerTeams
+        public List<Team> PlayerTeams
         {
-            get { return this.teamService.GetAllTeams(); }
+            get { return allTeams; }
         }
 
         private void PlayerAdd(object obj)
@@ -315,7 +321,12 @@ namespace FootballManager.Admin.ViewModel
                 window?.Close();
                 if (this.selectedTeam!=null)
                 {
-                    this.playerService.AssignPlayerToTeam(this.player, this.selectedTeam.Id);
+                    if (this.selectedTeam != this.unAffiliatedTeam)
+                    {
+                        this.playerService.AssignPlayerToTeam(this.player, this.selectedTeam.Id);
+
+                    }
+
                 }
                 
             }
