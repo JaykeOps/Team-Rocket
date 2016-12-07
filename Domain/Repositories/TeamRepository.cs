@@ -20,7 +20,7 @@ namespace Domain.Repositories
         {
             this.teams = new HashSet<Team>();
             this.formatter = new BinaryFormatter();
-            this.filePath = @"..//..//teams.bin";
+            this.filePath = @"/data/teams.bin";
             this.LoadData();
         }
 
