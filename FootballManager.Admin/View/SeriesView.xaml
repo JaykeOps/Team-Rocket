@@ -1,14 +1,14 @@
 ﻿<UserControl x:Class="FootballManager.Admin.View.SeriesView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:local="clr-namespace:FootballManager.Admin.View"
             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             xmlns:conv="clr-namespace:FootballManager.Admin.Converters"
-            mc:Ignorable="d" 
+            mc:Ignorable="d"
             Height="700" Width="980"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
@@ -21,7 +21,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <dragablz:TabablzControl>
             <TabItem Header="Series">
                 <Grid>
@@ -57,21 +57,21 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="20,20,20,12">
                             <Label Content="Search:" />
-                            <TextBox Width="150" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Width="150" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                         <ListBox Name="AvailableTeams" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTeam}" ItemsSource="{Binding AvailableTeams}" />
-                        
+
                         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10">
-                            <Button CommandParameter="{Binding ElementName=TeamsToAddToSeries, Path=SelectedItem}" 
+                            <Button CommandParameter="{Binding ElementName=TeamsToAddToSeries, Path=SelectedItem}"
                                     Command="{Binding AddTeamCommand}" Content="+" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
-                            <Button CommandParameter="{Binding ElementName=AvailableTeams, Path=SelectedItem}" 
+                            <Button CommandParameter="{Binding ElementName=AvailableTeams, Path=SelectedItem}"
                                     Command="{Binding DeleteTeamCommand}" Content="-" Style="{StaticResource SeriesFlatButton}" Margin="0,5,0,5" />
                         </StackPanel>
-                        
-                        <Label Content="Teams to add:" Grid.Row="0" Grid.Column="2" Margin="20,20,20,12"/>
-                        
-                        <ListBox x:Name="TeamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}" 
-                                 ItemsSource="{Binding DataContext.TeamsToAddToSeries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+
+                        <Label Content="Teams to add:" Grid.Row="0" Grid.Column="2" Margin="20,20,20,12" />
+
+                        <ListBox x:Name="TeamsToAddToSeries" Grid.Row="1" Grid.Column="2" SelectedItem="{Binding SelectedTeam}"
+                                 ItemsSource="{Binding DataContext.TeamsToAddToSeries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                  ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
@@ -84,7 +84,7 @@
                             </Validation.ErrorTemplate>
                         </ListBox>
                     </Grid>
-                    
+
                     <Grid Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center">
                         <Grid.Resources>
                             <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
@@ -107,10 +107,10 @@
                         <Label Grid.Row="1" Grid.Column="0" Content="Match duration:" />
                         <Label Grid.Row="2" Grid.Column="0" Content="Number of teams:" />
 
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SeriesName}"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MatchDuration}"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SeriesName}" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MatchDuration}" />
 
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.SeriesName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
@@ -122,7 +122,7 @@
                                 </ControlTemplate>
                             </Validation.ErrorTemplate>
                         </TextBox>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.MatchDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataContext.MatchDuration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
@@ -135,12 +135,11 @@
                             </Validation.ErrorTemplate>
                         </TextBox>
 
-
-                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding NumberOfTeamsList}" 
-                                  SelectedValue="{Binding DataContext.SelectedNumberOfTeams, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding NumberOfTeamsList}"
+                                  SelectedValue="{Binding DataContext.SelectedNumberOfTeams, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                   RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}"
-                                  SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
-                                  ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}" >
+                                  SelectedItem="{Binding DataContext.SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                  ValidatesOnDataErrors=True, RelativeSource={RelativeSource AncestorType={x:Type local:SeriesView}}}">
                             <Validation.ErrorTemplate>
                                 <ControlTemplate>
                                     <StackPanel>
@@ -152,9 +151,9 @@
                             </Validation.ErrorTemplate>
                         </ComboBox>
 
-                        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" 
-                                    Orientation="Horizontal" 
-                                    HorizontalAlignment="Right" 
+                        <StackPanel Grid.Row="3" Grid.ColumnSpan="2"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Margin="20">
                             <Button Command="{Binding AddSeriesCommand}" Content="Add Series" IsEnabled="{Binding AllPropertiesValid}" Style="{StaticResource FlatButton}" />
@@ -163,7 +162,7 @@
                                HorizontalAlignment="Right"
                                VerticalAlignment="Bottom"
                                Content="{Binding SeriesAddedConfirmText}" Foreground="LimeGreen"
-                               Margin="20,20,20,0"/>
+                               Margin="20,20,20,0" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -171,7 +170,6 @@
             <TabItem Header="Schedule">
                 <local:SeriesScheduleView />
             </TabItem>
-            
         </dragablz:TabablzControl>
     </Grid>
 </UserControl>

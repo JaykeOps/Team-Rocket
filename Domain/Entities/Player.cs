@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces;
-using Domain.Services;
 using Domain.Value_Objects;
 using System;
 
@@ -14,8 +13,6 @@ namespace Domain.Entities
         private TeamName affiliatedTeamName;
         public PlayerPosition Position { get; set; }
         public PlayerStatus Status { get; set; }
-
-        
 
         public TeamName AffiliatedTeamName
         {
@@ -35,12 +32,12 @@ namespace Domain.Entities
             }
         }
 
-        public AggregatedPlayerEvents AggregatedEvents 
+        public AggregatedPlayerEvents AggregatedEvents
         {
             get { return this.aggregatedEvents; }
         }
 
-        public AggregatedPlayerStats AggregatedStats 
+        public AggregatedPlayerStats AggregatedStats
         {
             get { return this.aggregatedStats; }
         }
@@ -80,7 +77,5 @@ namespace Domain.Entities
             this.TeamId = newTeam?.Id ?? Guid.Empty;
             this.affiliatedTeamName = newTeam?.Name ?? new TeamName("Unaffiliated");
         }
-
-       
     }
 }

@@ -1,14 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Services;
 using Domain.Value_Objects;
+using Dragablz;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
-using FootballManager.App.View;
-using Dragablz;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace FootballManager.App.ViewModel
 {
@@ -29,7 +28,7 @@ namespace FootballManager.App.ViewModel
             this.teamViewSearchText = "";
             this.teamInfoSearchText = "";
             this.teamStats = new ObservableCollection<TeamStats>();
-            
+
             this.DeleteTeamCommand = new RelayCommand(this.DeleteTeam);
             this.LoadData();
 
@@ -105,23 +104,20 @@ namespace FootballManager.App.ViewModel
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
         private void DeleteTeam(object obj)
         {
             this.teams.Remove(this.selectedTeam);
-
         }
 
         private void TeamInfo(object obj)
         {
-            TabablzControl teamViewTabablzControl = (TabablzControl) obj;
+            TabablzControl teamViewTabablzControl = (TabablzControl)obj;
             teamViewTabablzControl.SelectedIndex = 1;
         }
-
-        
 
         private void OnTeamObjReceived(Team team)
         {
@@ -149,5 +145,4 @@ namespace FootballManager.App.ViewModel
     }
 }
 
-    #endregion
-    
+#endregion Methods

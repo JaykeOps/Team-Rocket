@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Domain.Services;
 
 namespace Domain.Repositories
 {
@@ -88,7 +87,6 @@ namespace Domain.Repositories
             }
             catch (SerializationException ex)
             {
-                
             }
             catch (IOException ex)
             {
@@ -152,7 +150,6 @@ namespace Domain.Repositories
                     {
                         return false;
                     }
-
                 }
             }
             catch (Exception)

@@ -1,6 +1,5 @@
 ﻿using Domain.CustomExceptions;
 using Domain.Interfaces;
-using Domain.Services;
 using Domain.Value_Objects;
 using System;
 
@@ -18,8 +17,6 @@ namespace Domain.Entities
         public ArenaName Location { get; set; }
         public MatchDateAndTime MatchDate { get; set; }
         public GameProtocol Protocol { get; }
-
-
 
         public Game(Match match)
         {
@@ -40,7 +37,5 @@ namespace Domain.Entities
                 throw new GameContainsSameTeamTwiceException();
             }
         }
-
-
     }
 }

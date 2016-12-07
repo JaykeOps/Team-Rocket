@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
 using FootballManager.App.Extensions;
 using FootballManager.App.Utility;
 using FootballManager.App.View;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace FootballManager.App.ViewModel
 {
@@ -89,6 +84,7 @@ namespace FootballManager.App.ViewModel
             this.games = gameService.GetAll().ToObservableCollection();
             this.matches = matchService.GetAll().ToObservableCollection();
         }
+
         public void FilterMatches()
         {
             this.Matches = matchService.Search(SearchText).ToObservableCollection();

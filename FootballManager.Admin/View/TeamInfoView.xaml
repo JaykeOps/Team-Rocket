@@ -1,19 +1,17 @@
 ﻿<UserControl x:Class="FootballManager.Admin.View.TeamInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FootballManager.Admin.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              Height="700" Width="980"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamInfoViewModel}">
-
-
 
     <Grid>
         <Grid.Resources>
@@ -38,28 +36,28 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0" Height="70" Width="900">
-            <StackPanel Grid.Row="0" Grid.Column="0" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Center" 
+            <StackPanel Grid.Row="0" Grid.Column="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     Margin="0"
                     Height="60">
                 <Label Content="Series:" />
                 <ComboBox ItemsSource="{Binding SeriesCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedSeries}" />
-                <Label Content="Team:" Padding="40,0,0,0"/>
+                <Label Content="Team:" Padding="40,0,0,0" />
                 <ComboBox x:Name="TeamComboBox" ItemsSource="{Binding TeamsBySeriesCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedTeam}" />
-                <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45"/>
+                <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45" />
 
-                <Label Content="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45"/>
+                <Label Content="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45" />
             </StackPanel>
         </Grid>
 
         <!--Margin: Left, Top, Right, Bottom-->
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0" MinHeight="450" MaxHeight="600" MaxWidth="800" Margin="24,0,369,-70"
-                              ItemsSource="{Binding PlayersByTeamCollection}" 
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0" 
+                              ItemsSource="{Binding PlayersByTeamCollection}"
+                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
@@ -70,14 +68,14 @@
                 <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Position" Binding="{Binding Position, Converter={StaticResource PlayerPositionConverter},
                     Mode=OneWay}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource PlayerStatusConverter}, 
+                <DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource PlayerStatusConverter},
                     Mode=OneWay}" />
 
                 <DataGridTemplateColumn Header="Edit">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
-                                Command="{Binding Path=DataContext.OpenTeamInfoEditPlayerViewCommand, 
+                                Command="{Binding Path=DataContext.OpenTeamInfoEditPlayerViewCommand,
                                 RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
                                 <materialDesign:PackIcon Kind="Pen" />
                             </Button>
@@ -89,7 +87,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
-                                    Command="{Binding Path=DataContext.DismissPlayerFromTeamCommand, 
+                                    Command="{Binding Path=DataContext.DismissPlayerFromTeamCommand,
                                 RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}">
                                 <materialDesign:PackIcon Kind="Delete" />
                             </Button>
@@ -108,12 +106,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" MinWidth="200" 
-                   HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Search for teamless players:" Foreground="#616161" MinWidth="200"
+                   HorizontalContentAlignment="Center" FontWeight="Normal" FontSize="14" />
 
-            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0" 
+            <TextBox Name="SearchTextBox" Grid.Row="1" Grid.Column="0"
                      Text="{Binding TeamlessPlayersSearchText, UpdateSourceTrigger=PropertyChanged}"
-                     MinWidth="200"/>
+                     MinWidth="200" />
 
             <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TeamlessPlayers}" MinWidth="200">
 
@@ -122,18 +120,14 @@
                         <StackPanel Orientation="Horizontal">
                             <Button CommandParameter="{Binding}"
                                 Command="{Binding Path=DataContext.AssignPlayerToTeamCommand,
-                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}" 
+                                RelativeSource={RelativeSource AncestorType={x:Type local:TeamInfoView}}}"
                                 Style="{StaticResource MaterialDesignAddItemCommandButtonStyle}"
-                                    Margin="0, 0, 4, 0"/>
+                                    Margin="0, 0, 4, 0" />
                             <TextBlock Text="{Binding Name}" />
                         </StackPanel>
-
-
-
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
         </Grid>
     </Grid>
 </UserControl>

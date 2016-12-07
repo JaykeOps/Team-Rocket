@@ -21,7 +21,6 @@ namespace Domain.Helper_Classes
 
         public Schedule()
         {
-            
         }
 
         public void GenerateSchedule(Series series)
@@ -141,7 +140,6 @@ namespace Domain.Helper_Classes
                     match.Round = i + 1;
                 }
             }
-          
 
             return this.AllMatchesWithRounds;
         }

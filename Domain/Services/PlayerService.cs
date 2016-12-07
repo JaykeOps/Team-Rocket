@@ -60,7 +60,7 @@ namespace Domain.Services
             {
                 return topStat;
             }
-            
+
             var bufferPlayer = topStat.First();
             bufferPlayer.Ranking = 1;
             for (var i = 0; i < topStat.Count(); i++)

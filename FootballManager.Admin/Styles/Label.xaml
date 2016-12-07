@@ -28,7 +28,7 @@
         <Setter Property="Padding" Value="0,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
-    
+
     <Style x:Key="SeriesCustomLabelStyle" TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -44,5 +44,4 @@
         <Setter Property="Padding" Value="2,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
-
 </ResourceDictionary>

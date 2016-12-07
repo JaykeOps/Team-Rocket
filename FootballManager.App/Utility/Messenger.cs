@@ -36,7 +36,7 @@ namespace FootballManager.App.Utility
             }
         }
 
-        #endregion
+        #endregion Default property
 
         /// <summary>
         /// Initializes a new instance of the Messenger class.
@@ -175,7 +175,7 @@ namespace FootballManager.App.Utility
             }
 
             /// <summary>
-            /// Serves as a hash function for a particular type. 
+            /// Serves as a hash function for a particular type.
             /// </summary>
             /// <returns></returns>
             public override int GetHashCode()

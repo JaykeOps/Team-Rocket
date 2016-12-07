@@ -8,8 +8,6 @@ namespace Domain.Value_Objects
     {
         public int Value { get; }
 
-        
-
         public MatchMinute(int value)
         {
             if (value.IsMatchMinute())

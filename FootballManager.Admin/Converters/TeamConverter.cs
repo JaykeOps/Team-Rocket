@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Value_Objects;
+using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using Domain.Value_Objects;
 
 namespace FootballManager.Admin.Converters
 {
@@ -22,10 +18,13 @@ namespace FootballManager.Admin.Converters
             {
                 case "TeamName":
                     return new TeamName(value.ToString());
+
                 case "ArenaName":
                     return new ArenaName(value.ToString());
+
                 case "EmailAddress":
                     return new EmailAddress(value.ToString());
+
                 default:
                     return value.ToString();
             }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Reflection;
 
 namespace Domain.Value_Objects
 {
@@ -137,14 +135,12 @@ namespace Domain.Value_Objects
                 {
                     if (property.PropertyType.FullName.Contains("System.Collections.Generic.HashSet"))
                     {
-
                         hashCode += property.GetValue(this, null).GetHashCode();
                     }
                     else
                     {
                         hashCode += this.GetHashCodeFromAllListItems((ICollection)property.GetValue(this, null));
                     }
-
                 }
             }
             return hashCode;

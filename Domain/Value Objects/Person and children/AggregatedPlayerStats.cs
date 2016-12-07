@@ -21,7 +21,6 @@ namespace Domain.Value_Objects
             }
         }
 
-
         public PlayerStats this[Guid seriesId]
         {
             get
@@ -57,8 +56,6 @@ namespace Domain.Value_Objects
                 return seriesStats;
             }
         }
-
-        
 
         public AggregatedPlayerStats()
         {

@@ -1,15 +1,13 @@
 ﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Value_Objects;
 using FootballManager.Admin.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -59,6 +57,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-40 valid European characters long!";
                         }
                         break;
+
                     case "MatchDate":
                         if (string.IsNullOrEmpty(this.MatchDate))
                         {
@@ -80,6 +79,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be a future date set at most two years from now!";
                         }
                         break;
+
                     case "MatchTime":
                         if (string.IsNullOrEmpty(this.MatchTime))
                         {
@@ -102,9 +102,10 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion
+        #endregion IDataErrorInfo implementation
 
-        #region Properties              
+        #region Properties
+
         public ICommand SaveEditMatchCommand { get; }
 
         public string ArenaName
@@ -171,7 +172,8 @@ namespace FootballManager.Admin.ViewModel
             }
             this.AllPropertiesValid = true;
         }
-        #endregion
+
+        #endregion Properties
 
         private void SaveEditMatch(object obj)
         {

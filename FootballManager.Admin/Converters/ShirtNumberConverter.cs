@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace FootballManager.Admin.Converters
@@ -15,7 +11,7 @@ namespace FootballManager.Admin.Converters
             if (value != null)
             {
                 int number;
-                int.TryParse(value.ToString(), out number);                
+                int.TryParse(value.ToString(), out number);
                 if (number == -1)
                 {
                     return "n/a";

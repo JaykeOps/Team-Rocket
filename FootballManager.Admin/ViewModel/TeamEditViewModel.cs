@@ -1,14 +1,13 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Helper_Classes;
+using Domain.Interfaces;
 using Domain.Services;
 using Domain.Value_Objects;
-using Domain.Helper_Classes;
 using FootballManager.Admin.Utility;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.ComponentModel;
-using System;
-using System.Collections.Generic;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -42,7 +41,7 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                switch(columnName)
+                switch (columnName)
                 {
                     case "TeamName":
                         string teamName = this.teamName.ToString();
@@ -53,18 +52,20 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-40 valid latin characters long!";
                         }
                         break;
+
                     case "ArenaName":
                         string arenaName = this.ArenaName.ToString();
-                        if (!arenaName.IsValidArenaName(false)) 
+                        if (!arenaName.IsValidArenaName(false))
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();
                             return "Must be 2-40 valid latin characters long!";
                         }
                         break;
+
                     case "Email":
                         string email = this.Email.ToString();
-                        if (!email.IsValidEmailAddress(true)) 
+                        if (!email.IsValidEmailAddress(true))
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();

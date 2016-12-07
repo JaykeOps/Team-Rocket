@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using FootballManager.App.Extensions;
-using FootballManager.App.Utility;
-using FootballManager.App.View;
+using System.Collections.ObjectModel;
 
 namespace FootballManager.App.ViewModel
 {
@@ -101,6 +93,7 @@ namespace FootballManager.App.ViewModel
                 this.LoadLeagueTable();
             }
         }
+
         public Series SeriesForPlayerStats
         {
             get { return this.seriesForPlayerStats; }
@@ -111,12 +104,12 @@ namespace FootballManager.App.ViewModel
                 this.LoadPlayersTables();
             }
         }
+
         public SeriesViewModel()
         {
             this.playerService = new PlayerService();
             this.seriesService = new SeriesService();
             this.allSeries = seriesService.GetAll().ToObservableCollection();
-
         }
 
         public void LoadPlayersTables()
@@ -132,8 +125,6 @@ namespace FootballManager.App.ViewModel
         {
             var test = seriesService.GetLeagueTablePlacement(seriesForLeagueTable.Id).ToObservableCollection();
             this.LeagueTable = test;
-
         }
-
     }
 }

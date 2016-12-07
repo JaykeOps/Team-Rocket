@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace FootballManager.App.Converters
 {
-    class DataGridRowIndexConverter: MarkupExtension,IValueConverter
+    internal class DataGridRowIndexConverter : MarkupExtension, IValueConverter
     {
-        static DataGridRowIndexConverter convertor;
+        private static DataGridRowIndexConverter convertor;
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -42,8 +37,5 @@ namespace FootballManager.App.Converters
 
             return convertor;
         }
-
-
-        
     }
 }

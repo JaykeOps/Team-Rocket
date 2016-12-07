@@ -11,8 +11,6 @@ namespace Domain.Value_Objects
 
         public IReadOnlyDictionary<Guid, PlayerEvents> AllEvents => this.allSeriesEvents;
 
-       
-
         public PlayerEvents this[Guid seriesId]
         {
             get

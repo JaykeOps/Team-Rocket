@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:FootballManager.Admin.View"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -20,8 +20,8 @@
         <DockPanel.Resources>
             <Style BasedOn="{StaticResource MenuButtonStyle}" TargetType="{x:Type Button}" />
         </DockPanel.Resources>
-        <StackPanel DockPanel.Dock="Top" 
-                    Orientation="Horizontal" 
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="20">
             <Button Content="Series" Command="{Binding OpenSeriesCommand}" />

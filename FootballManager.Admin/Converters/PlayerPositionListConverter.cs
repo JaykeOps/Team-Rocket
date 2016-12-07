@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace FootballManager.Admin.Converters
@@ -12,7 +10,7 @@ namespace FootballManager.Admin.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var positions = (IEnumerable<PlayerPosition>) value;
+            var positions = (IEnumerable<PlayerPosition>)value;
             return positions.Select(playerPosition =>
                     playerPosition == PlayerPosition.NotAssigned ? "n/a" : playerPosition.ToString());
         }

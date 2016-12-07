@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Domain.Services;
+using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Data;
-using Domain.Entities;
-using Domain.Services;
-
 
 namespace FootballManager.App.Converters
 {
     public class PlayerIdToStringConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             PlayerService playerService = new PlayerService();
@@ -23,7 +19,6 @@ namespace FootballManager.App.Converters
                 var player = playerService.FindById((Guid)value);
                 return player?.Name;
             }
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

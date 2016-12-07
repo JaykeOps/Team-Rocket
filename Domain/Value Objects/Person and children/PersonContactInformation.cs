@@ -8,7 +8,6 @@ namespace Domain.Value_Objects
         private PhoneNumber phone;
         private EmailAddress email;
 
-
         public PhoneNumber Phone
         {
             get { return this?.phone; }

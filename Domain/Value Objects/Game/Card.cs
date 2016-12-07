@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces;
-using System;
 using Domain.Services;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -8,9 +8,9 @@ namespace Domain.Value_Objects
     public class Card : ValueObject<Card>, IGameEvent
     {
         public MatchMinute MatchMinute { get; }
-        public Guid PlayerId { get; } 
+        public Guid PlayerId { get; }
         public Guid TeamId { get; }
-        public CardType CardType { get; } 
+        public CardType CardType { get; }
 
         public string EventType => this.CardType.Equals(CardType.Red) ? "Red card" : "Yellow card";
 

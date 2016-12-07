@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Domain.Entities;
+using Domain.Helper_Classes;
+using Domain.Value_Objects;
+using FootballManager.Admin.Utility;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using FootballManager.Admin.Utility;
-using Domain.Entities;
-using System.ComponentModel;
-using Domain.Value_Objects;
-using Domain.Helper_Classes;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -30,7 +28,6 @@ namespace FootballManager.Admin.ViewModel
             validProperties.Add("FirstName", false);
             validProperties.Add("LastName", false);
             validProperties.Add("DateOfBirth", false);
-
         }
 
         public string Error
@@ -45,7 +42,7 @@ namespace FootballManager.Admin.ViewModel
         {
             get
             {
-                switch(columnName)
+                switch (columnName)
                 {
                     case "FirstName":
                         if (string.IsNullOrEmpty(this.FirstName))
@@ -61,6 +58,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-20 valid European characters long!";
                         }
                         break;
+
                     case "LastName":
                         if (string.IsNullOrEmpty(this.LastName))
                         {
@@ -75,6 +73,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Must be 2-20 valid European characters long!";
                         }
                         break;
+
                     case "DateOfBirth":
                         if (string.IsNullOrEmpty(this.DateOfBirth))
                         {
@@ -192,5 +191,4 @@ namespace FootballManager.Admin.ViewModel
             this.AllPropertiesValid = true;
         }
     }
-
 }

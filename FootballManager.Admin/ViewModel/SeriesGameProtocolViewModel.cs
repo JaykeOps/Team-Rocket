@@ -1,26 +1,14 @@
-﻿
-using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Domain.Entities;
-using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Helper_Classes;
 using Domain.Services;
-using Domain.Value_Objects;
 using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
-using Domain.Helper_Classes;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -47,7 +35,8 @@ namespace FootballManager.Admin.ViewModel
             Messenger.Default.Register<Match>(this, this.OnMatchObjReceived);
         }
 
-        #region SelectedPlayer        
+        #region SelectedPlayer
+
         private Player selectedPlayer;
 
         public Player SelectedPlayer
@@ -59,13 +48,16 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion SelectedPlayer
 
         #region Teams and Results
+
         private string homeTeamName;
         private string awayTeamName;
         private string homeTeamResult;
         private string awayTeamResult;
+
         public string HomeTeamName
         {
             get { return this.homeTeamName; }
@@ -105,9 +97,11 @@ namespace FootballManager.Admin.ViewModel
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion Teams and Results
 
         #region Goal
+
         private string goalMatchMinute;
         private ICommand addGoalToGameCommand;
 
@@ -117,7 +111,7 @@ namespace FootballManager.Admin.ViewModel
             set
             {
                 goalMatchMinute = value;
-                OnPropertyChanged();                
+                OnPropertyChanged();
             }
         }
 
@@ -145,15 +139,17 @@ namespace FootballManager.Admin.ViewModel
             {
                 this.gameService.AddGoalToGame(game.Id, p.Id, int.Parse(goalMatchMinute));
                 AwayTeamResult = this.UpdateGameData(game.Id).Protocol.GameResult.AwayTeamScore.ToString();
-            }            
+            }
 
-            UpdateEventData();            
+            UpdateEventData();
             GoalMatchMinute = string.Empty;
             SelectedPlayer = null;
         }
-        #endregion
+
+        #endregion Goal
 
         #region Assist
+
         private string assistMatchMinute;
         private ICommand addAssistToGameCommand;
 
@@ -200,12 +196,15 @@ namespace FootballManager.Admin.ViewModel
             AssistMatchMinute = string.Empty;
             SelectedPlayer = null;
         }
-        #endregion
+
+        #endregion Assist
 
         #region Penalty
+
         private string penaltyMatchMinute;
         private ICommand addPentalyToGameCommand;
         private bool getIsGoal;
+
         public string PenaltyMatchMinute
         {
             get { return penaltyMatchMinute; }
@@ -256,9 +255,11 @@ namespace FootballManager.Admin.ViewModel
             PenaltyMatchMinute = string.Empty;
             SelectedPlayer = null;
         }
-        #endregion
+
+        #endregion Penalty
 
         #region YellowCard
+
         private string yellowCardMatchMinute;
         private ICommand addYellowCardToGameCommand;
 
@@ -305,9 +306,11 @@ namespace FootballManager.Admin.ViewModel
             YellowCardMatchMinute = string.Empty;
             SelectedPlayer = null;
         }
-        #endregion
+
+        #endregion YellowCard
 
         #region RedCard
+
         private string redCardMatchMinute;
         private ICommand addRedCardToGameCommand;
 
@@ -354,9 +357,11 @@ namespace FootballManager.Admin.ViewModel
             RedCardMatchMinute = string.Empty;
             SelectedPlayer = null;
         }
-        #endregion
+
+        #endregion RedCard
 
         #region Overtime
+
         private string overtime;
 
         public string Overtime
@@ -364,10 +369,10 @@ namespace FootballManager.Admin.ViewModel
             get { return overtime; }
             set
             {
-                if (overtime!= value)
+                if (overtime != value)
                 {
                     overtime = value;
-                    OnPropertyChanged();                     
+                    OnPropertyChanged();
                 }
             }
         }
@@ -379,9 +384,11 @@ namespace FootballManager.Admin.ViewModel
         //        game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
         //    }
         //}
-        #endregion
+
+        #endregion Overtime
 
         #region Save Game Protocol
+
         private ICommand saveGameProtocolCommand;
 
         public ICommand SaveGameProtocolCommand
@@ -399,11 +406,13 @@ namespace FootballManager.Admin.ViewModel
         private void SaveGameProtocol(object obj)
         {
             // SaveOvertime();
-            gameService.Add(game);            
+            gameService.Add(game);
         }
-        #endregion
+
+        #endregion Save Game Protocol
 
         #region Collections
+
         private ObservableCollection<Player> homeTeamPlayerCollection;
         private ObservableCollection<Player> awayTeamPlayerCollection;
         private ObservableCollection<Player> homeTeamActivePlayerCollection;
@@ -474,9 +483,11 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion Collections
 
         #region Home Lists and dependencies
+
         private ICommand homeFromActivePlayerCommand;
         private ICommand homeToActivePlayerCommand;
 
@@ -504,9 +515,10 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion
+        #endregion Home Lists and dependencies
 
         #region Away Lists and dependencies
+
         private ICommand awayFromActivePlayerCommand;
         private ICommand awayToActivePlayerCommand;
 
@@ -533,7 +545,8 @@ namespace FootballManager.Admin.ViewModel
                 return this.awayToActivePlayerCommand;
             }
         }
-        #endregion
+
+        #endregion Away Lists and dependencies
 
         #region Events
 
@@ -569,11 +582,13 @@ namespace FootballManager.Admin.ViewModel
             UpdateMatchResultData();
             SelectedEvent = null;
         }
-        #endregion
 
-        #region Methods                      
+        #endregion Events
+
+        #region Methods
+
         private void OnMatchObjReceived(Match match)
-        {                    
+        {
             if (match != null)
             {
                 game = gameService.GetGameFromMatch(match);
@@ -600,7 +615,7 @@ namespace FootballManager.Admin.ViewModel
 
                     HomeTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.game.HomeTeamId).ToObservableCollection();
                     AwayTeamPlayerCollection = this.playerService.GetAllPlayersInTeam(this.game.AwayTeamId).ToObservableCollection();
-                }                
+                }
             }
         }
 
@@ -697,7 +712,7 @@ namespace FootballManager.Admin.ViewModel
 
         private void UpdateEventData()
         {
-            EventsCollection = this.gameService.GetAllEventsFromGame(this.game).ToObservableCollection();          
+            EventsCollection = this.gameService.GetAllEventsFromGame(this.game).ToObservableCollection();
         }
 
         private void UpdateMatchResultData()
@@ -710,20 +725,23 @@ namespace FootballManager.Admin.ViewModel
         {
             var activePlayers = new ObservableCollection<Player>();
             foreach (var id in ids)
-            {                
+            {
                 activePlayers.Add(playerService.FindById(id));
             }
             return activePlayers;
         }
-        #endregion
+
+        #endregion Methods
 
         #region Validaiton Properties
+
         private bool goalMatchMinuteValid;
         private bool assistMatchMinuteValid;
         private bool penaltyMatchMinuteValid;
         private bool yellowCardMatchMinuteValid;
         private bool redCardMatchMinuteValid;
         private bool overtimeValid;
+
         public bool GoalMatchMinuteValid
         {
             get { return goalMatchMinuteValid; }
@@ -801,9 +819,11 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion Validaiton Properties
 
         #region IDataErrorInfo implemetation
+
         public string Error
         {
             get
@@ -811,6 +831,7 @@ namespace FootballManager.Admin.ViewModel
                 return null;
             }
         }
+
         public string this[string columnName]
         {
             get
@@ -840,7 +861,8 @@ namespace FootballManager.Admin.ViewModel
                         //    this.GoalMatchMinuteValid = false;
                         //    return "Select an active player!";
                         //}
-                            break;
+                        break;
+
                     case "AssistMatchMinute":
                         this.AssistMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.AssistMatchMinute))
@@ -860,6 +882,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Only 1-120 are valid!";
                         }
                         break;
+
                     case "PenaltyMatchMinute":
                         this.PenaltyMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.PenaltyMatchMinute))
@@ -879,6 +902,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Only 1-120 are valid!";
                         }
                         break;
+
                     case "YellowCardMatchMinute":
                         this.YellowCardMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.YellowCardMatchMinute))
@@ -898,6 +922,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Only 1-120 are valid!";
                         }
                         break;
+
                     case "RedCardMatchMinute":
                         this.RedCardMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.RedCardMatchMinute))
@@ -917,6 +942,7 @@ namespace FootballManager.Admin.ViewModel
                             return "Only 1-120 are valid!";
                         }
                         break;
+
                     case "Overtime":
                         this.OvertimeValid = true;
                         if (string.IsNullOrEmpty(this.Overtime))
@@ -940,6 +966,7 @@ namespace FootballManager.Admin.ViewModel
                 return string.Empty;
             }
         }
-        #endregion
+
+        #endregion IDataErrorInfo implemetation
     }
 }

@@ -69,11 +69,11 @@ namespace Domain.Services
             }
         }
 
-        public IEnumerable<Match> Search(string searchText, StringComparison comparison 
+        public IEnumerable<Match> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
-            return this.GetAll().Where(x => 
-            x.Id != Guid.Empty && x.SeriesId != Guid.Empty 
+            return this.GetAll().Where(x =>
+            x.Id != Guid.Empty && x.SeriesId != Guid.Empty
             && x.HomeTeamId != Guid.Empty && x.AwayTeamId != Guid.Empty
             &&
                 (DomainService.FindSeriesById(x.SeriesId).SeriesName.ToString().Contains(searchText, comparison)

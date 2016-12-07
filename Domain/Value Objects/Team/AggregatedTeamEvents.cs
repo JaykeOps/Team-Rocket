@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,6 @@ namespace Domain.Value_Objects
 
         public AggregatedTeamEvents()
         {
-            
         }
 
         public TeamEvents this[Guid seriesId]

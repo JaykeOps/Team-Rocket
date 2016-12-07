@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
-using System;
 using Domain.Services;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -15,7 +15,6 @@ namespace Domain.Value_Objects
         public Guid TeamId { get; }
 
         public string EventType => eventType;
-
 
         public Penalty(MatchMinute matchMinute, Guid playerId, bool isGoal, Game game, Guid teamId)
         {

@@ -9,8 +9,6 @@
     <SolidColorBrush x:Key="GridRowSelectedFg" Color="White" />
     <SolidColorBrush x:Key="GridHeaderBg" Color="#FFBAE7BA" />
 
-
-
     <Style x:Key="DataGridButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Height" Value="Auto" />
@@ -35,7 +33,6 @@
         <Setter Property="GridLinesVisibility" Value="Horizontal" />
     </Style>
 
-
     <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRow}">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
@@ -53,9 +50,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Grid Background="{TemplateBinding Background}">
-                        <Border Padding="{TemplateBinding Padding}" 
+                        <Border Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"/>
+                            <ContentPresenter VerticalAlignment="Center" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -71,7 +68,7 @@
     </Style>
 
     <Style x:Key="DataGridColumHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Background" Value="{StaticResource GridHeaderBg}" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontFamily" Value="Roboto" />
@@ -97,16 +94,15 @@
                     <Grid>
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                             <StackPanel Orientation="Horizontal" Background="{StaticResource GridHeaderBg}">
-                                <materialDesign:ListSortDirectionIndicator Width="0" Height="12" 
+                                <materialDesign:ListSortDirectionIndicator Width="0" Height="12"
                                                                 x:Name="SortDirectionIndicator"
-                                                                ListSortDirection="{TemplateBinding SortDirection}"
-                                                                />
+                                                                ListSortDirection="{TemplateBinding SortDirection}" />
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  Margin="{TemplateBinding Padding}"/>
+                                                  Margin="{TemplateBinding Padding}" />
                             </StackPanel>
                         </Border>
-                        <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignDataGridColumnHeaderGripper}"/>
-                        <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignDataGridColumnHeaderGripper}"/>
+                        <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignDataGridColumnHeaderGripper}" />
+                        <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignDataGridColumnHeaderGripper}" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -133,9 +129,6 @@
         </Setter>
     </Style>
 
-    
-    
-    
     <!-- Custom DataGrid Styles -->
 
     <Style x:Key="DataGridCellStylePlayerInfoView" TargetType="{x:Type DataGridCell}">
@@ -147,9 +140,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Grid Background="{TemplateBinding Background}">
-                        <Border Padding="{TemplateBinding Padding}" 
+                        <Border Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"/>
+                            <ContentPresenter VerticalAlignment="Center" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -163,7 +156,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="DataGridCellStylePlayerInfoViewNames" TargetType="{x:Type DataGridCell}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="10,0,20,0" />
@@ -173,9 +166,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Grid Background="{TemplateBinding Background}">
-                        <Border Padding="{TemplateBinding Padding}" 
+                        <Border Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"/>
+                            <ContentPresenter VerticalAlignment="Center" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -189,5 +182,4 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
 </ResourceDictionary>
