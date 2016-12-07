@@ -19,7 +19,7 @@ namespace Domain.Repositories
         {
             this.series = new HashSet<Series>();
             this.formatter = new BinaryFormatter();
-            this.filePath = @"\\data\\series.bin";
+            this.filePath = @"series.bin";
             this.LoadData();
         }
 
