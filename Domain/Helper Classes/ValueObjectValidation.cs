@@ -160,14 +160,12 @@ namespace Domain.Helper_Classes
             if (shirtNumberIsAlreadyInUse)
             {
                 return false;
-                //throw new ShirtNumberAlreadyInUseException("The specified shirt number could not be assigned. " +
-                //    $"The shirt number is already in use by another player in {team.Name}");
+                
             }
             else
             {
                 return false;
-                //throw new IndexOutOfRangeException($"The specified shirt number '{value}' could not be assigned. " +
-                //    "Shirt number values must integers between 0-99!");
+                
             }
         }
 
