@@ -133,7 +133,7 @@ namespace FootballManager.Admin.ViewModel
                     case "SelectedItemTeam":
                         if (this.SelectedItemTeam == null)
                         {
-                            this.validProperties[columnName] = false;
+                            this.validProperties[columnName] = true;
                             ValidateProperties();
                             return string.Empty;
                         }
@@ -319,14 +319,15 @@ namespace FootballManager.Admin.ViewModel
             if (this.firstName != null && this.lastName != null && this.dateOfBirth != null)
             {
                 this.player = new Player(new Name(this.firstName, this.lastName), new DateOfBirth(this.dateOfBirth), this.selectedPlayerPosition, this.selectedPlayerStatus);
-                Window window = Application.Current.Windows.OfType<Window>()
-                    .Where(w => w.Name == "AddPlayerWindow").FirstOrDefault();
-                if (window != null)
-                {
-                    window.Close();
-                }
+                Window window = Application.Current.Windows
+                    .OfType<Window>().FirstOrDefault(w => w.Name == "AddPlayerWindow");
                 this.playerService.Add(this.player);
-                this.playerService.AssignPlayerToTeam(this.player, this.selectedTeam.Id);
+                window?.Close();
+                if (this.selectedTeam!=null)
+                {
+                    this.playerService.AssignPlayerToTeam(this.player, this.selectedTeam.Id);
+                }
+                
             }
 
         }
