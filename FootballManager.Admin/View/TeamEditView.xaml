@@ -9,8 +9,7 @@
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             Width="450"
-            Height="Auto"
-            SizeToContent="WidthAndHeight"
+            SizeToContent="Height"
             WindowStartupLocation="CenterScreen"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=TeamEditViewModel}"
@@ -49,9 +48,6 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="1" Margin="10" FontSize="18" FontWeight="Light" Foreground="#424242" 
-                   Content="{Binding TeamName}" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Team Name:"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Arena Name:" />
