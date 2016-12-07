@@ -87,7 +87,7 @@ namespace Domain.Helper_Classes
         {
             try
             {
-                return player.Id != null &&
+                return player.Id != Guid.Empty &&
                        player.AggregatedEvents != null &&
                        player.AggregatedStats != null &&
                        player.Name.FirstName.IsValidName(true) &&
@@ -105,7 +105,7 @@ namespace Domain.Helper_Classes
             var player = (Player)exposablePlayer;
             try
             {
-                return player.Id != null &&
+                return player.Id != Guid.Empty &&
                        player.AggregatedEvents != null &&
                        player.AggregatedStats != null &&
                        player.Name.FirstName.IsValidName(true) &&
