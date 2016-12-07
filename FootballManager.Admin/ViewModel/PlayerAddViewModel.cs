@@ -53,7 +53,6 @@ namespace FootballManager.Admin.ViewModel
             this.SelectedItemPlayerStatus = this.PlayerStatus.ElementAt(0);
         }
 
-        #region IDataErrorInfo implementation
         public string Error
         {
             get { return null; }
@@ -144,9 +143,7 @@ namespace FootballManager.Admin.ViewModel
                 return string.Empty;
             }
         }
-        #endregion
 
-        #region Properties
         public ICommand PlayerAddCommand { get; }
 
         public int ShirtNumber
@@ -213,9 +210,6 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
-
-        #region ComboBox properties
 
         public PlayerPosition SelectedPlayerPosition
         {
@@ -294,9 +288,7 @@ namespace FootballManager.Admin.ViewModel
                 }
             }
         }
-        #endregion
 
-        #region ComboBox population
         public IEnumerable<PlayerPosition> PlayerPosition
         {
             get { return Enum.GetValues(typeof(PlayerPosition)).Cast<PlayerPosition>(); }
@@ -311,9 +303,7 @@ namespace FootballManager.Admin.ViewModel
         {
             get { return this.teamService.GetAllTeams(); }
         }
-        #endregion
 
-        #region Methods
         private void PlayerAdd(object obj)
         {
             if (this.firstName != null && this.lastName != null && this.dateOfBirth != null)
@@ -344,6 +334,6 @@ namespace FootballManager.Admin.ViewModel
             }
             this.AllPropertiesValid = true;
         }
-        #endregion
+
     }
 }
