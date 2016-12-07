@@ -214,14 +214,14 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.ShirtNumber, out shirtNumber))
                         {
                             this.IsShirtNumberValid = false;
-                            return "Only 0-99 are valid!";
+                            return "Only 0-99 are allowed shirtnumbers! \nEnter '-1' or 'n/a' for unassigned shirtnumber.";
                         }
                         if (ReceivedPlayer != null)
                         {
                             if (!shirtNumber.IsValidShirtNumber(ReceivedPlayer, ReceivedPlayer.TeamId))
                             {
                                 this.IsShirtNumberValid = false;
-                                return "Only 0-99 are valid!";
+                                return "Only 0-99 are allowed shirtnumbers! \nEnter '-1' or 'n/a' for unassigned shirtnumber.";
                             }
                         }
                         break;
