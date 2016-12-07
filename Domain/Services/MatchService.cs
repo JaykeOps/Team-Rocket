@@ -82,5 +82,10 @@ namespace Domain.Services
                 || x.Location.ToString().Contains(searchText, comparison)
                 || x.MatchDate.ToString().Contains(searchText, comparison)));
         }
+
+        public void Save()
+        {
+            this.repository.SaveData();
+        }
     }
 }

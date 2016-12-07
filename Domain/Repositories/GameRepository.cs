@@ -23,7 +23,7 @@ namespace Domain.Repositories
             this.LoadData();
         }
 
-        private void SaveData()
+        internal void SaveData()
         {
             try
             {

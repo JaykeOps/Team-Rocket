@@ -44,7 +44,7 @@ namespace Domain.Repositories
             return this.teams;
         }
 
-        private void SaveData()
+        internal void SaveData()
         {
             try
             {

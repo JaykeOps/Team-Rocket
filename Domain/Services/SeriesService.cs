@@ -77,6 +77,7 @@ namespace Domain.Services
         {
             DomainService.RemoveGameAndMatchesFromSeries(seriesId);
             this.repository.DeleteSeries(seriesId);
+            this.repository.SaveData();
         }
 
         public void AddTeamToSeries(Guid seriesId, Guid teamId)
@@ -131,6 +132,11 @@ namespace Domain.Services
                 throw new ArgumentException($"Can not remove team \"{DomainService.FindTeamById(teamId)}\"."
                 + $" Team doesn't exist in series \"{DomainService.FindSeriesById(seriesId)}\".");
             }
+        }
+
+        public void Save()
+        {
+            this.repository.SaveData();
         }
     }
 }

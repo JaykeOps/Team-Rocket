@@ -67,6 +67,7 @@ namespace Domain.Entities
         {
             this.playerIds = DomainService.GetAllPlayers().
                 Where(x => x.TeamId == this.Id).Select(y => y.Id).ToList();
+            DomainService.SaveAll();
         }
 
         public void AddSeries(Series series)

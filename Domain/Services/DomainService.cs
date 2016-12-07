@@ -207,6 +207,20 @@ namespace Domain.Services
             return result.ToList();
         }
 
+        internal static void SaveAll()
+        {
+            var teamService = new TeamService();
+            var playerService = new PlayerService();
+            var seriesService = new SeriesService();
+            var matchService = new MatchService();
+            var gameService = new GameService();
+            teamService.Save();
+            playerService.Save();
+            seriesService.Save();
+            matchService.Save();
+            gameService.Save();
+        }
+
         internal static GameResult GetGameResult(GameProtocol protocol)
         {
             var homeTeamScore = 0;

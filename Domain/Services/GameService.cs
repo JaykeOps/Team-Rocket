@@ -296,5 +296,10 @@ namespace Domain.Services
                 }
             }
         }
+
+        public void Save()
+        {
+            this.repository.SaveData();
+        }
     }
 }
