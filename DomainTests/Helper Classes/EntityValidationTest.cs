@@ -3,7 +3,6 @@ using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
 
 namespace DomainTests.Helper_Classes
 {
@@ -26,7 +25,7 @@ namespace DomainTests.Helper_Classes
         {
             var series = new DummySeries();
             var match = series.SeriesDummy.Schedule[1];
-            
+
             Assert.IsTrue(match.IsMatchValid());
         }
     }

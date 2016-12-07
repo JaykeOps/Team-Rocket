@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces;
-using System;
 using Domain.Services;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -13,7 +13,6 @@ namespace Domain.Value_Objects
         public Guid PlayerId { get; }
 
         public string EventType => eventType;
-
 
         public Goal(MatchMinute matchMinute, Guid teamId, Guid playerId)
         {

@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Helper_Classes;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -7,8 +7,6 @@ namespace Domain.Value_Objects
     public class MatchDuration : ValueObject<MatchDuration>
     {
         public TimeSpan Value { get; }
-
-       
 
         public MatchDuration(TimeSpan duration)
         {
@@ -21,8 +19,6 @@ namespace Domain.Value_Objects
                 throw new ArgumentException("Invalid match duration format. Value must be 10-90 min");
             }
         }
-
-        
 
         public static bool TryParse(string value, out MatchDuration result)
         {

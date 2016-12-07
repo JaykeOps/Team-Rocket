@@ -124,7 +124,6 @@ namespace DomainTests.Services
         [TestMethod]
         public void MatchSearchCanReturnMatchesContainingSpecifiedTeam()
         {
-            
             var series = new DummySeries();
             var matches = this.service.Search("Dummy TeamThree").ToList();
             Assert.IsNotNull(matches);
@@ -135,7 +134,6 @@ namespace DomainTests.Services
                               == "Dummy TeamThree"
                               || DomainService.FindTeamById(match.AwayTeamId).Name.ToString()
                               == "Dummy TeamThree");
-
             }
         }
 

@@ -2,7 +2,6 @@
 using Domain.Value_Objects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
 
 namespace DomainTests.Entities
 {
@@ -55,7 +54,5 @@ namespace DomainTests.Entities
             this.team.Email = eamil;
             Assert.IsTrue(this.team.Email == eamil);
         }
-
-        
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Services;
 using Domain.Value_Objects;
 using DomainTests.Test_Dummies;
@@ -41,7 +40,7 @@ namespace DomainTests.Value_Objects
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneAssistsPreAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Assists.Count();
-            this.dummySeries.DummyGames.GameThree.Protocol.Assists.Add(new Assist(new MatchMinute(57), this.playerOne.TeamId,  this.playerOne.Id));
+            this.dummySeries.DummyGames.GameThree.Protocol.Assists.Add(new Assist(new MatchMinute(57), this.playerOne.TeamId, this.playerOne.Id));
             var playerOneAssistsPostAdd = this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Assists.Count();
             Assert.IsTrue(playerOneAssistsPostAdd - playerOneAssistsPreAdd == 1);
         }
@@ -52,7 +51,7 @@ namespace DomainTests.Value_Objects
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneCardsPreAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
-            this.dummySeries.DummyGames.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(82),this.playerOne.TeamId, this.playerOne.Id, CardType.Yellow));
+            this.dummySeries.DummyGames.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(82), this.playerOne.TeamId, this.playerOne.Id, CardType.Yellow));
             var playerOneCardsPostAdd = this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
             Assert.IsTrue(playerOneCardsPostAdd - playerOneCardsPreAdd == 1);
         }
@@ -63,7 +62,7 @@ namespace DomainTests.Value_Objects
             Assert.IsNotNull(this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id]);
             var playerOneCardsPreAdd =
                 this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
-            this.dummySeries.DummyGames.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(82),this.playerOne.TeamId, this.playerOne.Id, CardType.Red));
+            this.dummySeries.DummyGames.GameThree.Protocol.Cards.Add(new Card(new MatchMinute(82), this.playerOne.TeamId, this.playerOne.Id, CardType.Red));
             var playerOneCardsPostAdd = this.playerOne.AggregatedEvents[this.dummySeries.SeriesDummy.Id].Cards.Count();
             Assert.IsTrue(playerOneCardsPostAdd - playerOneCardsPreAdd == 1);
         }

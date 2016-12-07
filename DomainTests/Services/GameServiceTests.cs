@@ -396,7 +396,7 @@ namespace Domain.Services.Tests
             Assert.IsTrue(game == null);
             matchService.Add(match);
             service.Add(match.Id);
-             game = service.GetGameFromMatch(match); 
+            game = service.GetGameFromMatch(match);
             Assert.IsTrue(game != null);
         }
 
@@ -405,8 +405,7 @@ namespace Domain.Services.Tests
         {
             var game = dummySeries.DummyGames.GameOne;
             var events = gameService.GetAllEventsFromGame(game);
-            Assert.IsTrue(events!=null);
-           
+            Assert.IsTrue(events != null);
         }
 
         [TestMethod]
@@ -420,13 +419,11 @@ namespace Domain.Services.Tests
                 gameService.RemoveEvent(_event, game.Id);
                 var eventsAfterRemove = gameService.GetAllEventsFromGame(game);
                 Assert.IsTrue(eventCountPriorRemove == eventsAfterRemove.Count() + 1);
-                if (events.Count()==1)
+                if (events.Count() == 1)
                 {
                     break;
                 }
             }
-                
-
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Interfaces;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
@@ -194,17 +193,17 @@ namespace Domain.Services
         public static IEnumerable<Guid> GetTeamSchedules(Guid teamId)
         {
             var result = from match in GetAllMatches()
-                   where match.HomeTeamId == teamId || match.AwayTeamId == teamId
-                   select match.Id;
+                         where match.HomeTeamId == teamId || match.AwayTeamId == teamId
+                         select match.Id;
             return result.ToList();
         }
 
         public static IEnumerable<Guid> GetTeamScheduleForSeries(Guid seriesId, Guid teamId)
         {
             var result = from match in GetAllMatches()
-                   where (match.HomeTeamId == teamId || match.AwayTeamId == teamId)
-                   && match.SeriesId == seriesId
-                   select match.Id;
+                         where (match.HomeTeamId == teamId || match.AwayTeamId == teamId)
+                         && match.SeriesId == seriesId
+                         select match.Id;
             return result.ToList();
         }
 

@@ -1,12 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Helper_Classes;
+using Domain.Interfaces;
 using Domain.Repositories;
 using Domain.Value_Objects;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using Domain.Interfaces;
 
 namespace Domain.Services
 {
@@ -30,7 +29,6 @@ namespace Domain.Services
                 throw new FormatException("Match cannot be added. Invalid matchdata");
             }
         }
-
 
         public void Add(IExposableTeam team)
         {
@@ -102,11 +100,11 @@ namespace Domain.Services
         public IEnumerable<IExposableTeam> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
-            return this.GetAllTeams().Where(x => 
+            return this.GetAllTeams().Where(x =>
             x.Name.ToString().Contains(searchText, comparison)
             || x.ArenaName.ToString().Contains(searchText, comparison)
             || x.Email.Value.Contains(searchText, comparison)
-            || x.PlayerIds.Any(y => y != Guid.Empty 
+            || x.PlayerIds.Any(y => y != Guid.Empty
             && DomainService.FindPlayerById(y).Name.ToString().Contains(searchText, comparison)));
         }
 
@@ -128,7 +126,6 @@ namespace Domain.Services
             return team.MatchSchedules[seriesId];
         }
 
-
         public IEnumerable<IExposableTeam> GetTeamsOfSerie(Guid sereisId)
         {
             var series = DomainService.FindSeriesById(sereisId);
@@ -147,6 +144,5 @@ namespace Domain.Services
         {
             this.repository.RemoveTeam(teamId);
         }
-        
     }
 }

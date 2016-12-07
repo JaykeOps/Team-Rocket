@@ -2,9 +2,9 @@
 using Domain.Helper_Classes;
 using Domain.Services;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Helper_Classes
 {

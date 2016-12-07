@@ -17,9 +17,9 @@ namespace Domain.Value_Objects.Tests
         {
             this.playerIdOne = Guid.NewGuid();
             this.playerIdTwo = Guid.NewGuid();
-            this.cardOne = new Card(new MatchMinute(15),new Guid(),  this.playerIdOne, CardType.Yellow);
-            this.cardTwo = new Card(new MatchMinute(15),new Guid(),  this.playerIdOne, CardType.Yellow);
-            this.cardThree = new Card(new MatchMinute(15),new Guid(),  this.playerIdTwo, CardType.Red);
+            this.cardOne = new Card(new MatchMinute(15), new Guid(), this.playerIdOne, CardType.Yellow);
+            this.cardTwo = new Card(new MatchMinute(15), new Guid(), this.playerIdOne, CardType.Yellow);
+            this.cardThree = new Card(new MatchMinute(15), new Guid(), this.playerIdTwo, CardType.Red);
         }
 
         [TestMethod]

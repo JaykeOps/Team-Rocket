@@ -19,8 +19,8 @@ namespace DomainTests.Value_Objects
                 PlayerPosition.Midfielder, PlayerStatus.Available);
             var playerTwo = new Player(new Name("Arne", "Anka"), new DateOfBirth("1985-05-20"),
                 PlayerPosition.Midfielder, PlayerStatus.Available);
-            this.assistOne = new Assist(new MatchMinute(30),Guid.Empty,  player.Id);
-            this.assistTwo = new Assist(new MatchMinute(30),Guid.Empty,  player.Id);
+            this.assistOne = new Assist(new MatchMinute(30), Guid.Empty, player.Id);
+            this.assistTwo = new Assist(new MatchMinute(30), Guid.Empty, player.Id);
             this.assistThree = new Assist(new MatchMinute(31), Guid.Empty, player.Id);
         }
 

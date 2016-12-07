@@ -225,7 +225,6 @@ namespace Domain.Services
             ||
             x.Protocol.AwayTeamActivePlayers.Any(z => DomainService.FindPlayerById(z).Name.ToString()
                 .Contains(searchText, comparison))));
-
         }
 
         public Game GetGameFromMatch(Match match)
@@ -233,7 +232,6 @@ namespace Domain.Services
             var allGames = GetAll();
             var game = allGames.ToList().Find(g => g.MatchId == match.Id);
             return game;
-
         }
 
         public IEnumerable<object> GetAllEventsFromGame(Game game)
@@ -248,7 +246,6 @@ namespace Domain.Services
                 return events;
             }
             return null;
-
         }
 
         public void RemoveGame(Guid gameId)
@@ -261,8 +258,6 @@ namespace Domain.Services
 
         public void RemoveEvent(object _event, Guid gameId)
         {
-
-
             if (_event != null)
             {
                 switch (_event.GetType().ToString())
@@ -278,24 +273,26 @@ namespace Domain.Services
                             this.RemoveRedCardFromGame(gameId, card.PlayerId, card.MatchMinute.Value);
                         }
                         break;
+
                     case "Domain.Value_Objects.Goal":
                         var goal = (Goal)_event;
                         this.RemoveGoalFromGame(gameId, goal.PlayerId, goal.MatchMinute.Value);
                         break;
+
                     case "Domain.Value_Objects.Assist":
                         var assist = (Assist)_event;
                         this.RemoveAssistFromGame(gameId, assist.PlayerId, assist.MatchMinute.Value);
                         break;
+
                     case "Domain.Value_Objects.Penalty":
                         var penalty = (Penalty)_event;
                         this.RemovePenaltyFromGame(gameId, penalty.PlayerId, penalty.MatchMinute.Value);
                         break;
+
                     default:
                         throw new ArgumentException("Invalid event type");
-
                 }
             }
-
         }
     }
 }

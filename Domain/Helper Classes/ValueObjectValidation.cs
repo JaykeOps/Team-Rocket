@@ -1,10 +1,9 @@
-﻿using Domain.Entities;
+﻿using Domain.Interfaces;
 using Domain.Services;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Domain.Interfaces;
 
 namespace Domain.Helper_Classes
 {
@@ -146,6 +145,7 @@ namespace Domain.Helper_Classes
         {
             return score >= 0 && score <= 50;
         }
+
         public static bool IsValidShirtNumber(this int value, Guid teamId)
         {
             var team = DomainService.FindTeamById(teamId);

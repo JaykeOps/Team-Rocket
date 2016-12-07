@@ -2,7 +2,6 @@
 using Domain.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Domain.Value_Objects
@@ -12,8 +11,6 @@ namespace Domain.Value_Objects
     {
         private Guid teamId;
         private Dictionary<Guid, List<Match>> allMatches;
-
-        
 
         public IEnumerable<Match> this[Guid seriesId]
         {
@@ -29,7 +26,6 @@ namespace Domain.Value_Objects
                 {
                     throw new SeriesMissingException($"Series with Id {seriesId} could not be found!");
                 }
-                
             }
         }
 
@@ -52,9 +48,9 @@ namespace Domain.Value_Objects
         //}
         public void UpdateSchedule(Guid seriesId)
         {
-            this.allMatches[seriesId] = 
-                DomainService.GetAllMatches().Where(x => x.SeriesId == seriesId && x.HomeTeamId 
-                == this.teamId || x.AwayTeamId 
+            this.allMatches[seriesId] =
+                DomainService.GetAllMatches().Where(x => x.SeriesId == seriesId && x.HomeTeamId
+                == this.teamId || x.AwayTeamId
                 == this.teamId).ToList();
         }
 
@@ -68,7 +64,5 @@ namespace Domain.Value_Objects
         {
             this.allMatches.Add(series.Id, new List<Match>());
         }
-
-        
     }
 }

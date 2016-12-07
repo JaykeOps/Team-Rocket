@@ -16,7 +16,7 @@ namespace DomainTests.Value_Objects
         }
 
         [TestMethod]
-        [ExpectedException(typeof (FormatException))]
+        [ExpectedException(typeof(FormatException))]
         public void SeriesNameLengthIsValid()
         {
             var seriesName = new SeriesName("Det långa namnet på en serie som är för långt");

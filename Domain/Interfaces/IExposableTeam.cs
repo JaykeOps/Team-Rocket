@@ -1,6 +1,5 @@
-﻿using System;
-using Domain.Entities;
-using Domain.Value_Objects;
+﻿using Domain.Value_Objects;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Interfaces
@@ -12,6 +11,5 @@ namespace Domain.Interfaces
         IEnumerable<Guid> PlayerIds { get; }
         ArenaName ArenaName { get; }
         EmailAddress Email { get; }
-        
     }
 }

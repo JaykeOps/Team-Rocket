@@ -154,11 +154,11 @@ namespace DomainTests.Services
             Assert.AreNotEqual(teams.Count, 0);
             foreach (var team in teams)
             {
-                Assert.IsTrue(team.PlayerIds.Any(x => 
+                Assert.IsTrue(team.PlayerIds.Any(x =>
                 DomainService.FindPlayerById(x).Name.ToString() == "James Bond"));
             }
-
         }
+
         [TestMethod]
         public void RemovePlayerWorks()
         {

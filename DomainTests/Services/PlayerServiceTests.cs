@@ -235,8 +235,6 @@ namespace Domain.Services.Tests
             }
         }
 
-        
-
         [TestMethod]
         public void RemovePlayerWorks()
         {
@@ -269,6 +267,5 @@ namespace Domain.Services.Tests
                 Assert.AreEqual(playerStat.PlayerName.ToString(), "Player One");
             }
         }
-        
     }
 }

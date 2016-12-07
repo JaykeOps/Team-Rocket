@@ -1,8 +1,7 @@
 ﻿using Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Linq;
 using DomainTests.Test_Dummies;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Domain.Services.Tests
 {

@@ -56,13 +56,13 @@ namespace Domain.Helper_Classes
                        team.ArenaName.Value.IsValidArenaName(true) &&
                        team.Email.Value.IsValidEmailAddress(true) &&
                        team.MatchSchedules != null;
-
             }
             catch (NullReferenceException)
             {
                 return false;
             }
         }
+
         public static bool IsTeamValid(this IExposableTeam exposableTeam)
         {
             var team = (Team)exposableTeam;

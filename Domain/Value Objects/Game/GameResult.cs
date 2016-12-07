@@ -12,8 +12,6 @@ namespace Domain.Value_Objects
         public int HomeTeamScore { get; }
         public int AwayTeamScore { get; }
 
-       
-
         public GameResult(Guid homeTeamId, Guid awayTeamId, int homeTeamScore, int awayTeamScore)
         {
             this.HomeTeamId = homeTeamId;

@@ -201,9 +201,5 @@ namespace DomainTests.Services
                 == "Dummy TeamFour"));
             }
         }
-
-       
-
-        
     }
 }

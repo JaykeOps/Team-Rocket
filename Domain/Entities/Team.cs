@@ -22,8 +22,6 @@ namespace Domain.Entities
         public ArenaName ArenaName { get; set; }
         public EmailAddress Email { get; set; }
 
-        
-
         public IEnumerable<Guid> PlayerIds
         {
             get { return this.playerIds; }

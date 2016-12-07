@@ -21,7 +21,6 @@ namespace Domain.Value_Objects
 
         public PlayerEvents()
         {
-            
         }
 
         public string PlayerName
@@ -59,7 +58,6 @@ namespace Domain.Value_Objects
             get { return this.penalties; }
         }
 
-        
         private void UpdatePlayerName()
         {
             this.playerName = DomainService.FindPlayerById(this.playerId).Name.ToString();

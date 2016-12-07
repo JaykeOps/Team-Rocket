@@ -1,5 +1,5 @@
-﻿using System;
-using Domain.Helper_Classes;
+﻿using Domain.Helper_Classes;
+using System;
 
 namespace Domain.Value_Objects
 {
@@ -7,8 +7,6 @@ namespace Domain.Value_Objects
     public class OverTime : ValueObject<OverTime>
     {
         public int Value { get; }
-
-        
 
         public OverTime(int value)
         {
@@ -21,7 +19,5 @@ namespace Domain.Value_Objects
                 throw new ArgumentException();
             }
         }
-
-        
     }
 }

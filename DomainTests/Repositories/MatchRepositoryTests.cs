@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Domain.Value_Objects;
+using DomainTests.Test_Dummies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DomainTests.Test_Dummies;
 
 namespace DomainTests.Repositories
 {
@@ -78,7 +78,6 @@ namespace DomainTests.Repositories
                 .First(x => x.Id == this.dummyMatch.Id);
             Assert.AreEqual(this.dummyMatchDuplicate.Location, matchInRepository.Location);
             Assert.AreEqual(this.dummyMatchDuplicate, matchInRepository);
-
         }
 
         //TODO: Write tests for MatchRepository duplicate validation.
