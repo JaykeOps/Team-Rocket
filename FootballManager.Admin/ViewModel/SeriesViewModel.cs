@@ -192,8 +192,9 @@ namespace FootballManager.Admin.ViewModel
 
             foreach (var team in teamsToAddToSeries)
             {
-                team.UpdatePlayerIds();
+                
                 this.seriesService.AddTeamToSeries(seriesToAdd, team.Id);
+                team.UpdatePlayerIds();
             }
 
             this.seriesService.Add(seriesToAdd);
