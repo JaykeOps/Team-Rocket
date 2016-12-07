@@ -865,7 +865,7 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.GoalMatchMinute, out goalMatchMinute))
                         {
                             this.GoalMatchMinuteValid = false;
-                            return "Only 1-120 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
+                            return "Only 1-120 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration.
                         }
                         if (!goalMatchMinute.IsMatchMinute())
                         {
