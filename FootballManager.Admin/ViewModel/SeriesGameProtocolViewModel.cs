@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
@@ -405,10 +406,9 @@ namespace FootballManager.Admin.ViewModel
 
         private void SaveGameProtocol(object obj)
         {
-            // SaveOvertime();
             gameService.Add(game);
+            CloseDialog();
         }
-
         #endregion Save Game Protocol
 
         #region Collections
@@ -731,6 +731,12 @@ namespace FootballManager.Admin.ViewModel
             return activePlayers;
         }
 
+        private void CloseDialog()
+        {
+            var window = Application.Current.Windows.OfType<Window>().
+                FirstOrDefault(x => x.IsActive);
+            window?.Close();
+        }
         #endregion Methods
 
         #region Validaiton Properties
