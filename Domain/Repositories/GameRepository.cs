@@ -18,7 +18,7 @@ namespace Domain.Repositories
         private GameRepository()
         {
             this.formatter = new BinaryFormatter();
-            this.filePath = @"/data/games.bin";
+            this.filePath = @"\data\games.bin";
             this.games = new HashSet<Game>();
             this.LoadData();
         }
