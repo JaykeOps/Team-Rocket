@@ -29,6 +29,7 @@ namespace FootballManager.App.ViewModel
             this.OpenTeamCommand = new RelayCommand(this.TeamCommand);
             this.OpenSeriesCommand = new RelayCommand(this.SeriesCommand);
             this.OpenMatchCommand = new RelayCommand(this.MatchCommand);
+            this.selectedViewModel = new SeriesView();
         }
 
         private void PlayerCommand(object obj)
