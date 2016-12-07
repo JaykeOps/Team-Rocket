@@ -153,20 +153,7 @@ namespace Domain.Helper_Classes
             var shirtNumberIsAlreadyInUse = (value != -1) && team.playerIds.Any(x =>
             DomainService.FindPlayerById(x).ShirtNumber.Value == value);
             
-            if (value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse)
-            {
-                return true;
-            }
-            if (shirtNumberIsAlreadyInUse)
-            {
-                return false;
-                
-            }
-            else
-            {
-                return false;
-                
-            }
+            return value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse;
         }
 
         public static bool IsValidShirtNumber(this int value, IExposablePlayer player, Guid teamId)
@@ -179,15 +166,7 @@ namespace Domain.Helper_Classes
             {
                 return true;
             }
-            if (value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse)
-            {
-                return true;
-            }
-            if (shirtNumberIsAlreadyInUse)
-            {
-                return false;
-            }
-            return false;
+            return value >= 0 && value < 100 && !shirtNumberIsAlreadyInUse;
         }
     }
 }
