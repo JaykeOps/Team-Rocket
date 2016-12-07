@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Domain">
+      <HintPath>..\..\..\..\..\..\Desktop\Release\Domain.dll</HintPath>
+    </Reference>
     <Reference Include="Dragablz, Version=0.0.3.178, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.178\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
@@ -212,12 +215,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Messages\" />
     <Folder Include="Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{e2703442-6676-4d69-854c-f43ff21e7f01}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
