@@ -32,7 +32,7 @@
                         <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
                         <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
                         <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-                        <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+                        <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
                     </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -42,7 +42,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for team:" />
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Command="{Binding OpenTeamAddViewCommand}" Content="Add New Team" Style="{StaticResource FlatButton}" VerticalAlignment="Bottom" Margin="40,0,0,0" />
@@ -50,16 +50,19 @@
 
                     <!--Margin: Left, Top, Right, Bottom-->
                     <DataGrid Grid.Row="1" Grid.Column="0"
-                              ItemsSource="{Binding Teams}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectedItem="{Binding SelectedTeam}">
+                            ItemsSource="{Binding Teams}"
+                            materialDesign:DataGridAssist.CellPadding="10 0 10 0"
+                            materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                            SelectedItem="{Binding SelectedTeam}">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name.Value, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Arena" Binding="{Binding ArenaName.Value, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Email" Binding="{Binding Email.Value, Mode=OneWay}" />
-                            <DataGridTemplateColumn Header="Edit">
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name.Value, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Arena" Binding="{Binding ArenaName.Value, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email.Value, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTemplateColumn Header="Edit" CellStyle="{StaticResource CenterCell}">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
@@ -70,7 +73,10 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn Header="Delete" CellStyle="{StaticResource CenterCell}">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button  CommandParameter="{Binding ElementName=DataGrid, Path=SelectItem}"

@@ -23,7 +23,7 @@
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
             <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -48,9 +48,11 @@
                 <Label Content="Team:" Padding="40,0,0,0" />
                 <ComboBox x:Name="TeamComboBox" ItemsSource="{Binding TeamsCollection}" MinWidth="30"
                       SelectedItem="{Binding SelectedTeam}" />
-                <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45" />
+                <Label Content="{Binding ArenaName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                       Padding="40,0,0,0" MinWidth="45" />
 
-                <Label Content="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="40,0,0,0" MinWidth="45" />
+                <Label Content="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                       Padding="40,0,0,0" MinWidth="45" />
             </StackPanel>
         </Grid>
 
@@ -67,21 +69,30 @@
             
             <DataGrid x:Name="DataGrid" Grid.Row="0" Grid.Column="0" Margin="10,10,10,150"
                 ItemsSource="{Binding PlayersByTeamCollection}"
-                                  materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                                  materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                                  SelectionMode="Extended"
-                                  CanUserSortColumns="True">
+                            materialDesign:DataGridAssist.CellPadding="10 0 10 0"
+                            materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                            SelectionMode="Extended"
+                            CanUserSortColumns="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Shirt No." Binding="{Binding ShirtNumber.Value, Mode=OneWay,
-                        Converter={StaticResource ShirtNumberConverter}}" />
-                    <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
-                    <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                    <DataGridTextColumn Header="Position" Binding="{Binding Position, Converter={StaticResource PlayerPositionConverter},
-                        Mode=OneWay}" />
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource PlayerStatusConverter},
-                        Mode=OneWay}" />
+                        Converter={StaticResource ShirtNumberConverter}}" CellStyle="{StaticResource CenterCell}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" 
+                                        CellStyle="{StaticResource LeftCell}" />
+                    <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" 
+                                        CellStyle="{StaticResource LeftCell}" />
+                    <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay,
+                        Converter={StaticResource PlayerPositionConverter}}" CellStyle="{StaticResource LeftCell}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay,
+                        Converter={StaticResource PlayerStatusConverter}}" CellStyle="{StaticResource LeftCell}" />
 
-                    <DataGridTemplateColumn Header="Edit">
+                    <DataGridTemplateColumn Header="Edit" CellStyle="{StaticResource CenterCell}">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
@@ -93,7 +104,10 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Dismiss">
+                    <DataGridTemplateColumn Header="Dismiss" CellStyle="{StaticResource CenterCell}">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedValue}"
