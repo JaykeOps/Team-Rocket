@@ -77,7 +77,7 @@ namespace Domain.Services
         {
             DomainService.RemoveGameAndMatchesFromSeries(seriesId);
             this.repository.DeleteSeries(seriesId);
-            this.Save();
+            DomainService.SaveAll();
         }
 
         public void AddTeamToSeries(Guid seriesId, Guid teamId)
