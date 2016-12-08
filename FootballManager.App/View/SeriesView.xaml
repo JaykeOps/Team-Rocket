@@ -24,7 +24,7 @@
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
             <Style BasedOn="{StaticResource SeriesDataGridCell}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource SeriesDataGridColumHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -52,28 +52,31 @@
                     </StackPanel>
 
                     <DataGrid x:Name="LeagueTableGrid" Grid.Row="1" Grid.Column="0"
-                              ItemsSource="{Binding LeagueTable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
+                            ItemsSource="{Binding LeagueTable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            materialDesign:DataGridAssist.CellPadding="5 0 5 0"
+                            materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                            SelectionMode="Single"
+                            CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Placement" Binding="{Binding Ranking, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                            <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Wins" Binding="{Binding Wins, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Draws" Binding="{Binding Draws, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Losses" Binding="{Binding Losses, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Goals For" Binding="{Binding GoalsFor, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference, Mode =OneWay}" />
-                            <DataGridTextColumn Header="Points" Binding="{Binding Points, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Placement" Binding="{Binding Ranking, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Matches Played" Binding="{Binding GamesPlayed, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Wins" Binding="{Binding Wins, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Draws" Binding="{Binding Draws, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Losses" Binding="{Binding Losses, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Goals For" Binding="{Binding GoalsFor, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Goals Against" Binding="{Binding GoalsAgainst, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Goal Difference" Binding="{Binding GoalDifference, Mode =OneWay}" CellStyle="{StaticResource CenterCell}" />
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Series Stats">
                 <Grid>
+                    <Grid.Resources>
+                        <Style BasedOn="{StaticResource Header}" TargetType="{x:Type DataGridColumnHeader}" />
+                    </Grid.Resources>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
@@ -107,17 +110,25 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Scorers" TextAlignment="Center" />
-                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding TopScorers}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
+                            <DataGrid x:Name="topScorersDataGrid" Grid.Row="1" Grid.Column="0" Margin="5"
+                                    ItemsSource="{Binding TopScorers}"
+                                    materialDesign:DataGridAssist.CellPadding="5 0 5 0"
+                                    materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                                    SelectionMode="Single"
+                                    CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Goals" Binding="{Binding GoalCount, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -131,17 +142,25 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Assists" TextAlignment="Center" />
-                            <DataGrid x:Name="topAssistsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding TopAssists}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
+                            <DataGrid x:Name="topAssistsDataGrid" Grid.Row="1" Grid.Column="0" Margin="5"
+                                  ItemsSource="{Binding TopAssists}"
+                                  materialDesign:DataGridAssist.CellPadding="5 0 5 0"
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                                  SelectionMode="Single"
+                                  CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay }" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding  TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay }" CellStyle="{StaticResource CenterCell}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Team" Binding="{Binding  TeamName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Assists" Binding="{Binding AssistCount, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -155,17 +174,25 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Yellow Cards" TextAlignment="Center" />
-                            <DataGrid x:Name="topYellowCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding TopYellowCards }"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
+                            <DataGrid x:Name="topYellowCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="5"
+                                  ItemsSource="{Binding TopYellowCards }"
+                                  materialDesign:DataGridAssist.CellPadding="5 0 5 0"
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                                  SelectionMode="Extended"
+                                  CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking"  Binding="{Binding Ranking, Mode=OneWay}" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay }" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Ranking"  Binding="{Binding Ranking, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay }" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Yellow Cards" Binding="{Binding YellowCardCount, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
@@ -179,17 +206,25 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Top Red Cards" TextAlignment="Center" />
-                            <DataGrid x:Name="topRedCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="10"
-                              ItemsSource="{Binding TopRedCards}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="False">
+                            <DataGrid x:Name="topRedCardsDataGrid" Grid.Row="1" Grid.Column="0" Margin="5"
+                                  ItemsSource="{Binding TopRedCards}"
+                                  materialDesign:DataGridAssist.CellPadding="5 0 5 0"
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                                  SelectionMode="Single"
+                                  CanUserSortColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" />
-                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount, Mode=OneWay}" />
+                                    <DataGridTextColumn Header="Ranking" Binding="{Binding Ranking, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
+                                    <DataGridTextColumn Header="Player" Binding="{Binding PlayerName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Team" Binding="{Binding TeamName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Red Cards" Binding="{Binding RedCardCount, Mode=OneWay}" CellStyle="{StaticResource CenterCell}" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
