@@ -4,6 +4,8 @@ using FootballManager.Admin.Extensions;
 using FootballManager.Admin.Utility;
 using FootballManager.Admin.View;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FootballManager.Admin.ViewModel
@@ -12,6 +14,7 @@ namespace FootballManager.Admin.ViewModel
     {
         private ObservableCollection<IExposableTeam> teams;
         private TeamService teamService;
+        private SeriesService seriesService;
         private IExposableTeam selectedTeam;
         private ICommand openTeamAddView;
         private ICommand deleteTeamCommand;
@@ -22,6 +25,7 @@ namespace FootballManager.Admin.ViewModel
         {
             this.teams = new ObservableCollection<IExposableTeam>();
             this.teamService = new TeamService();
+            this.seriesService = new SeriesService();
             this.LoadData();
 
             Messenger.Default.Register<IExposableTeam>(this, this.OnTeamObjReceived);
@@ -92,8 +96,27 @@ namespace FootballManager.Admin.ViewModel
 
         private void DeleteTeam(object obj)
         {
-            this.teams.Remove(this.selectedTeam);
+            var allSeries = this.seriesService.GetAll();
+
+            if (allSeries.Count() != 0)
+            {
+                foreach (var series in allSeries)
+                {
+                    if (series.TeamIds.Contains(this.selectedTeam.Id))
+                    {
+                        MessageBox.Show($"Cannot delete {this.selectedTeam}\n" +
+                        $"{this.selectedTeam} exists in series {series}");
+                    }
+                }
+            }
+            else
+            {
+                this.teams.Remove(this.selectedTeam);
+                this.teamService.RemoveTeam(this.selectedTeam.Id);
+            }            
         }
+    
+    
 
         private void OpenTeamAddView(object obj)
         {
