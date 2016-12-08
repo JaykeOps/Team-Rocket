@@ -116,7 +116,7 @@
                             <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" 
                                                 CellStyle="{StaticResource LeftCell}" MinWidth="150"/>
                             
-                            <DataGridTextColumn Header="Away team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}"
+                            <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}"
                                                 CellStyle="{StaticResource LeftCell}" MinWidth="150" />
                             
                             <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" 

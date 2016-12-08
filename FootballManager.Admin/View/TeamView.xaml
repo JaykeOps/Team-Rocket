@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <dragablz:TabablzControl>
-            <TabItem Header="Teams">
+            <TabItem Header="Team Database">
                 <Grid>
                     <Grid.Resources>
                         <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
@@ -92,7 +92,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Team Info">
+            <TabItem Header="Team Manager">
                 <local:TeamInfoView />
             </TabItem>
         </dragablz:TabablzControl>

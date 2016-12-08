@@ -34,7 +34,7 @@
         </Grid.ColumnDefinitions>
 
         <dragablz:TabablzControl>
-            <TabItem Header="Player">
+            <TabItem Header="Player Database">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
