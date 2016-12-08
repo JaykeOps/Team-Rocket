@@ -44,6 +44,7 @@ namespace Domain.Services
         {
             var allPlayers = this.GetAllPlayers();
             var playerStats = new List<PlayerStats>();
+
             foreach (var player in allPlayers)
             {
                 try
@@ -254,6 +255,7 @@ namespace Domain.Services
         public void RemovePlayer(Guid playerId)
         {
             this.repository.RemovePlayer(playerId);
+            
         }
 
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)
@@ -262,7 +264,7 @@ namespace Domain.Services
             var team = DomainService.FindTeamById(teamId);
             player.UpdateTeamAffiliation(team);
             team.UpdatePlayerIds();
-            //this.repository.SaveData();
+            this.repository.SaveData();
         }
 
         public void DismissPlayerFromTeam(IExposablePlayer exposablePlayer)
@@ -272,7 +274,7 @@ namespace Domain.Services
                 DomainService.FindTeamById(exposablePlayer.TeamId) : null;
             player.UpdateTeamAffiliation(null);
             oldTeam?.UpdatePlayerIds();
-            //this.repository.SaveData();
+            this.repository.SaveData();
         }
 
         public IEnumerable<PlayerStats> GetPlayerStatsFreeTextSearch(string searchText)
@@ -304,10 +306,10 @@ namespace Domain.Services
                 || x.Status.ToString().Contains(searchText)
                 || x.DateOfBirth.ToString().Contains(searchText)));
         }
-
-        public void Save()
+        internal void Save()
         {
-            this.repository.SaveData();
+            repository.SaveData();
         }
+
     }
 }

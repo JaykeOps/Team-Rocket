@@ -189,10 +189,16 @@ namespace FootballManager.Admin.ViewModel
             var seriesMatchDuration = new MatchDuration(timeSpanMatchDuration);
 
             Series seriesToAdd = new Series(seriesMatchDuration, seriesNumberOfTeams, seriesSeriesName);
+
             foreach (var team in teamsToAddToSeries)
             {
+                
                 this.seriesService.AddTeamToSeries(seriesToAdd, team.Id);
+                team.UpdatePlayerIds();
             }
+
+            this.seriesService.Add(seriesToAdd);
+
             Messenger.Default.Send<Series>(seriesToAdd);
             ResetData();
             this.SeriesAddedConfirmText = "Series Added!";
@@ -298,7 +304,7 @@ namespace FootballManager.Admin.ViewModel
                         {
                             validProperties[columnName] = false;
                             ValidateProperties();
-                            return "You have added too few teams to the list!";
+                            return string.Empty;
                         }
                         if ((this.TeamsToAddToSeries.Count() < this.SelectedNumberOfTeams))
                         {
@@ -317,7 +323,6 @@ namespace FootballManager.Admin.ViewModel
                 validProperties[columnName] = true;
                 ValidateProperties();
                 return string.Empty;
-                // return "Fuck this shit!";
             }
         }
 

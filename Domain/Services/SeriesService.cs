@@ -95,15 +95,17 @@ namespace Domain.Services
                 throw new ArgumentException($"Series already contains team {DomainService.FindTeamById(teamId)}");
             }
         }
-        public void AddTeamToSeries(Series series, Guid teamId)
+        
+
+        public void AddTeamToSeries(Series seriesToAdd, Guid teamId)
         {
-            
+            var series = seriesToAdd;
             if (!(series.TeamIds.Contains(teamId)))
             {
                 series.TeamIds.Add(teamId);
                 var team = DomainService.FindTeamById(teamId);
-                team.UpdatePlayerIds();
                 team.AddSeries(series);
+                team.UpdatePlayerIds();
                 DomainService.AddSeriesToPlayers(series, team);
             }
             else
@@ -133,10 +135,9 @@ namespace Domain.Services
                 + $" Team doesn't exist in series \"{DomainService.FindSeriesById(seriesId)}\".");
             }
         }
-
-        public void Save()
+        internal void Save()
         {
-            this.repository.SaveData();
+            repository.SaveData();
         }
     }
 }

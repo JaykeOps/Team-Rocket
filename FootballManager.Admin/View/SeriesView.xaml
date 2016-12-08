@@ -9,7 +9,7 @@
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             xmlns:conv="clr-namespace:FootballManager.Admin.Converters"
             mc:Ignorable="d"
-            Height="700" Width="980"
+            d:DesignHeight="700" d:DesignWidth="980"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"

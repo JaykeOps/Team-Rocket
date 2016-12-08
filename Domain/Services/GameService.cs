@@ -131,8 +131,6 @@ namespace Domain.Services
             game.Protocol.Penalties.Add(penalty);
         }
 
-        
-
         public IEnumerable<Game> Search(string searchText, StringComparison comparison
             = StringComparison.InvariantCultureIgnoreCase)
         {
@@ -297,9 +295,9 @@ namespace Domain.Services
             }
         }
 
-        public void Save()
+        internal void Save()
         {
-            this.repository.SaveData();
+            repository.SaveData();
         }
     }
 }

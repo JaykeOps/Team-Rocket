@@ -124,6 +124,7 @@ namespace Domain.Repositories
             if (this.TryGetTeam(DomainService.FindTeamById(teamId), out playerToRemove))
             {
                 this.teams.Remove(playerToRemove);
+                this.SaveData();
             }
             else
             {

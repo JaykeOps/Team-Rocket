@@ -66,6 +66,7 @@ namespace Domain.Services
             if (matchId != Guid.Empty)
             {
                 this.repository.RemoveMatch(DomainService.FindMatchById(matchId));
+                
             }
         }
 
@@ -82,10 +83,9 @@ namespace Domain.Services
                 || x.Location.ToString().Contains(searchText, comparison)
                 || x.MatchDate.ToString().Contains(searchText, comparison)));
         }
-
-        public void Save()
+        internal void Save()
         {
-            this.repository.SaveData();
+            repository.SaveData();
         }
     }
 }

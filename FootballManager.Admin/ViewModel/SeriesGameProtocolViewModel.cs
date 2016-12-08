@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using Domain.Value_Objects;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -46,6 +48,11 @@ namespace FootballManager.Admin.ViewModel
             {
                 selectedPlayer = value;
                 OnPropertyChanged();
+                OnPropertyChanged("GoalMatchMinute");
+                OnPropertyChanged("AssistMatchMinute");
+                OnPropertyChanged("PenaltyMatchMinute");
+                OnPropertyChanged("YellowCardMatchMinute");
+                OnPropertyChanged("RedCardMatchMinute");
             }
         }
 
@@ -377,13 +384,13 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        //private void SaveOvertime()
-        //{
-        //    if (OvertimeMatchMinute != null)
-        //    {
-        //        game.Protocol.OverTime = new OverTime(int.Parse(overtimeMatchMinute));
-        //    }
-        //}
+        private void SaveOvertime()
+        {
+            if (Overtime != null)
+            {
+                game.Protocol.OverTime = new OverTime(int.Parse(this.overtime));
+            }
+        }
 
         #endregion Overtime
 
@@ -405,10 +412,10 @@ namespace FootballManager.Admin.ViewModel
 
         private void SaveGameProtocol(object obj)
         {
-            // SaveOvertime();
             gameService.Add(game);
+            SaveOvertime();
+            CloseDialog();
         }
-
         #endregion Save Game Protocol
 
         #region Collections
@@ -582,11 +589,9 @@ namespace FootballManager.Admin.ViewModel
             UpdateMatchResultData();
             SelectedEvent = null;
         }
-
         #endregion Events
 
         #region Methods
-
         private void OnMatchObjReceived(Match match)
         {
             if (match != null)
@@ -605,6 +610,12 @@ namespace FootballManager.Admin.ViewModel
                     AwayTeamActivePlayerCollection = this.GetActivePlayers(game.Protocol.AwayTeamActivePlayers);
 
                     EventsCollection = gameService.GetAllEventsFromGame(game).ToObservableCollection();
+
+                    if (game.Protocol.OverTime != null)
+                    {
+                        Overtime = game.Protocol.OverTime.Value.ToString();
+                    }
+                    
                 }
                 else if (game == null)
                 {
@@ -731,10 +742,15 @@ namespace FootballManager.Admin.ViewModel
             return activePlayers;
         }
 
+        private void CloseDialog()
+        {
+            var window = Application.Current.Windows.OfType<Window>().
+                FirstOrDefault(x => x.IsActive);
+            window?.Close();
+        }
         #endregion Methods
 
-        #region Validaiton Properties
-
+        #region Validation Properties
         private bool goalMatchMinuteValid;
         private bool assistMatchMinuteValid;
         private bool penaltyMatchMinuteValid;
@@ -820,7 +836,7 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion Validaiton Properties
+        #endregion Validation Properties
 
         #region IDataErrorInfo implemetation
 
@@ -849,20 +865,19 @@ namespace FootballManager.Admin.ViewModel
                         if (!int.TryParse(this.GoalMatchMinute, out goalMatchMinute))
                         {
                             this.GoalMatchMinuteValid = false;
-                            return "Only 1-120 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration!
+                            return "Only 1-120 are valid!"; // MatchMinute's max value is not yet limited by the value of MatchDuration.
                         }
                         if (!goalMatchMinute.IsMatchMinute())
                         {
                             this.GoalMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }                        
+                        if (IsNotActivePlayer())
+                        {
+                            this.GoalMatchMinuteValid = false;
+                            return "Select an active player!";
                         }
-                        //if (SelectedHomeActivePlayer == null && SelectedAwayActivePlayer == null)
-                        //{
-                        //    this.GoalMatchMinuteValid = false;
-                        //    return "Select an active player!";
-                        //}
                         break;
-
                     case "AssistMatchMinute":
                         this.AssistMatchMinuteValid = true;
                         if (string.IsNullOrEmpty(this.AssistMatchMinute))
@@ -880,6 +895,11 @@ namespace FootballManager.Admin.ViewModel
                         {
                             this.AssistMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }
+                        if (IsNotActivePlayer())
+                        {
+                            this.AssistMatchMinuteValid = false;
+                            return "Select an active player!";
                         }
                         break;
 
@@ -901,6 +921,11 @@ namespace FootballManager.Admin.ViewModel
                             this.PenaltyMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
+                        if (IsNotActivePlayer())
+                        {
+                            this.PenaltyMatchMinuteValid = false;
+                            return "Select an active player!";
+                        }
                         break;
 
                     case "YellowCardMatchMinute":
@@ -921,6 +946,11 @@ namespace FootballManager.Admin.ViewModel
                             this.YellowCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
                         }
+                        if (IsNotActivePlayer())
+                        {
+                            this.YellowCardMatchMinuteValid = false;
+                            return "Select an active player!";
+                        }
                         break;
 
                     case "RedCardMatchMinute":
@@ -940,6 +970,11 @@ namespace FootballManager.Admin.ViewModel
                         {
                             this.RedCardMatchMinuteValid = false;
                             return "Only 1-120 are valid!";
+                        }
+                        if (IsNotActivePlayer())
+                        {
+                            this.RedCardMatchMinuteValid = false;
+                            return "Select an active player!";
                         }
                         break;
 
@@ -967,6 +1002,18 @@ namespace FootballManager.Admin.ViewModel
             }
         }
 
-        #endregion IDataErrorInfo implemetation
+        private bool IsNotActivePlayer()
+        {
+            if (this.SelectedPlayer == null)
+            {
+                return true;
+            }
+            else
+            {
+                var nullIfNotActive = IsActivePlayer(this.SelectedPlayer);
+                return (nullIfNotActive == null);
+            }
+        }
+        #endregion
     }
 }

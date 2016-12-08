@@ -143,10 +143,9 @@ namespace Domain.Services
         {
             this.repository.RemoveTeam(teamId);
         }
-
-        public void Save()
+        internal void Save()
         {
-            this.repository.SaveData();
+            repository.SaveData();
         }
     }
 }

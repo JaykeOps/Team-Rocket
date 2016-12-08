@@ -130,6 +130,7 @@ namespace Domain.Repositories
         internal void RemoveMatch(Match match)
         {
             matches.Remove(match);
+            this.SaveData();
         }
 
         private static bool IsFileReady(string sFilename)

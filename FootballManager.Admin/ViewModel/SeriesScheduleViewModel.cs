@@ -167,7 +167,6 @@ namespace FootballManager.Admin.ViewModel
 
         private void OnSeriesObjReceived(Series serie)
         {
-            seriesService.Add(serie);
             seriesService.ScheduleGenerator(serie.Id);
             SeriesCollection = seriesService.GetAll().ToObservableCollection();
         }

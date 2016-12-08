@@ -3,6 +3,7 @@ using Domain.Services;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace Domain.Helper_Classes
@@ -12,8 +13,6 @@ namespace Domain.Helper_Classes
         private const string NAME_REGEX = "^[a-z A-ZÄäÀàÁáÂâÃãÅåǍǎĄąĂăÆæĀāÇçĆćĈĉČčĎđĐďð" +
             "ÈèÉéÊêËëĚěĘęĖėĒēĜĝĢģĞğĤĥÌìÍíÎîÏïıĪīĮįĴĵĶķĹĺĻļŁłĽľÑñŃńŇňŅņÖöÒòÓóÔôÕõŐőØø"
             + "ŒœŔŕŘřẞßŚśŜŝŞşŠšȘșŤťŢţÞþȚțÜüÙùÚúÛûŰűŨũŲųŮůŪūŴŵÝýŸÿŶŷŹźŽžŻż]{2,20}$";
-
-        private const string EMAIL_REGEX = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
         private const string CELL_PHONE_NUMBER = @"\b\d{3,6}-\b\d{6,9}$";
 
@@ -55,14 +54,14 @@ namespace Domain.Helper_Classes
 
         public static bool IsValidEmailAddress(this string value, bool ignoreCase)
         {
-            if (ignoreCase)
+            try
             {
-                return Regex.IsMatch(value, EMAIL_REGEX, RegexOptions.IgnoreCase)
-                    && value.Length < 30;
+                MailAddress m = new MailAddress(value);
+                return true;
             }
-            else
+            catch (FormatException)
             {
-                return Regex.IsMatch(value, EMAIL_REGEX);
+                return false;
             }
         }
 

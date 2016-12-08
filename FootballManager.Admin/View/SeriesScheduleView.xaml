@@ -13,7 +13,7 @@
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-            Height="700" Width="980"
+            d:DesignHeight="700" d:DesignWidth="980"
             DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=SeriesScheduleViewModel}">
 
     <Grid>
@@ -26,8 +26,7 @@
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
-            <!-- <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}" /> -->
+            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -39,7 +38,6 @@
 
         <StackPanel Grid.Row="0" Grid.Column="0"
                     Orientation="Horizontal"
-                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="10">
             <Label Content="Series:" />
@@ -57,19 +55,31 @@
         <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0"
                     ItemsSource="{Binding MatchesBySeriesCollection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedMatch}"
-                    materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                    materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                    materialDesign:DataGridAssist.CellPadding="10 0 10 0"
+                    materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
                     SelectionMode="Extended"
                     CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" />
-                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Mode=OneWay, Converter={StaticResource TeamIdToStringConverter}}" />
-                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Round" Binding="{Binding Round, Mode=OneWay}" CellStyle="{StaticResource CenterCell}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Mode=OneWay, 
+                    Converter={StaticResource TeamIdToStringConverter}}" CellStyle="{StaticResource LeftCell}" />
+                <DataGridTextColumn Header="Away team" Binding="{Binding AwayTeamId, Mode=OneWay, 
+                    Converter={StaticResource TeamIdToStringConverter}}" CellStyle="{StaticResource LeftCell}" />
+                <DataGridTextColumn Header="Arena" Binding="{Binding Location, Mode=OneWay, 
+                    UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource LeftCell}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding MatchDate.Value, StringFormat=yyyy-MM-dd, Mode=OneWay, 
+                    UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource LeftCell}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding MatchDate.Value, StringFormat={}{0:HH:mm}, Mode=OneWay, 
+                    UpdateSourceTrigger=PropertyChanged}" CellStyle="{StaticResource LeftCell}" />
 
-                <DataGridTemplateColumn Header="Edit">
+                <DataGridTemplateColumn Header="Edit" CellStyle="{StaticResource LeftCell}">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
@@ -80,7 +90,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Edit/Create Protocol">
+                <DataGridTemplateColumn Header="Edit/Create Protocol" CellStyle="{StaticResource CenterCell}">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
@@ -90,6 +103,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -21,7 +21,7 @@
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
         </Grid.Resources>
 
         <Grid.RowDefinitions>
@@ -43,29 +43,32 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for match:" />
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0"
-                              ItemsSource="{Binding Games}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
-                              SelectionMode="Extended"
-                              CanUserSortColumns="True">
+                            ItemsSource="{Binding Games}"
+                            materialDesign:DataGridAssist.CellPadding="10 0 10 0"
+                            materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                            SelectionMode="Single"
+                            CanUserSortColumns="True">
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                            <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                            <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Result" Binding="{Binding Protocol.GameResult, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" MinWidth="150"/>
+                            <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" MinWidth="150" />
+                            <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay, StringFormat=yyyy-MM-dd   HH:mm}" 
+                                             CellStyle="{StaticResource LeftCell}" MinWidth="100"/>
 
-                            <DataGridTemplateColumn Header="Match protocol">
+                            <DataGridTemplateColumn Header="Match protocol" CellStyle="{StaticResource CenterCell}" MinWidth="150">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource Header}" TargetType="{x:Type DataGridColumnHeader}" />
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
-                                                Command="{Binding Path=DataContext.OpenMatchProtocolCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MatchView}}}"
->
+                                                Command="{Binding Path=DataContext.OpenMatchProtocolCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MatchView}}}">
                                             <materialDesign:PackIcon Kind="FileDocument" />
                                         </Button>
                                     </DataTemplate>
@@ -82,11 +85,12 @@
                         <Style BasedOn="{StaticResource CustomLabelStyle}" TargetType="{x:Type Label}" />
                         <Style BasedOn="{StaticResource CustomTextBoxStyle}" TargetType="{x:Type TextBox}" />
                         <Style BasedOn="{StaticResource CustomComboBoxStyle}" TargetType="{x:Type ComboBox}" />
+                        
                         <Style BasedOn="{StaticResource DataGridButtonStyle}" TargetType="{x:Type Button}" />
                         <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
                         <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
                         <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-                        <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+                        <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
                     </Grid.Resources>
 
                     <Grid.RowDefinitions>
@@ -98,19 +102,28 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
                         <Label Content="Search for match:" />
                         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <DataGrid Grid.Row="1" Grid.Column="0"
                               ItemsSource="{Binding Matches}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5">
+                              materialDesign:DataGridAssist.CellPadding="10 0 10 0"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
+                              SelectionMode="Single"
+                              CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                            <DataGridTextColumn Header="Away team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                            <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" CellStyle="{StaticResource SeriesNamesDataGridCell}" />
-                            <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Home team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}" 
+                                                CellStyle="{StaticResource LeftCell}" MinWidth="150"/>
+                            
+                            <DataGridTextColumn Header="Away team" Binding="{Binding HomeTeamId, Converter={StaticResource TeamIdToStringConverter}, Mode=OneWay}"
+                                                CellStyle="{StaticResource LeftCell}" MinWidth="150" />
+                            
+                            <DataGridTextColumn Header="Arena" Binding="{Binding Location.Value, Mode=OneWay}" 
+                                                CellStyle="{StaticResource LeftCell}" MinWidth="150" />
+                            
+                            <DataGridTextColumn Header="Match date" Binding="{Binding MatchDate.Value, Mode=OneWay, StringFormat=yyyy-MM-dd   HH:mm}" 
+                                                CellStyle="{StaticResource LeftCell}" MinWidth="120" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

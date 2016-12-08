@@ -13,7 +13,6 @@ namespace FootballManager.App.ViewModel
         private ObservableCollection<IExposablePlayer> players;
         private ObservableCollection<PlayerStats> playerStats;
         private ObservableCollection<Series> allSeries;
-        private ObservableCollection<Series> allTeams;
         private SeriesService seriesService;
         private PlayerService playerService;
         private string playerViewSearchText;

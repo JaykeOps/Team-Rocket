@@ -24,7 +24,7 @@
             <Style BasedOn="{StaticResource DataGridStyle}" TargetType="{x:Type DataGrid}" />
             <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="{x:Type DataGridCell}" />
             <Style BasedOn="{StaticResource DataGridRowStyle}" TargetType="{x:Type DataGridRow}" />
-            <Style BasedOn="{StaticResource DataGridColumHeaderStyle}" TargetType="{x:Type DataGridColumnHeader}" />
+            <Style BasedOn="{StaticResource LeftHeader}" TargetType="{x:Type DataGridColumnHeader}" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -62,19 +62,26 @@
                     <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.Column="0"
                               ItemsSource="{Binding Players}"
                               SelectedItem="{Binding SelectedPlayer}"
-                              materialDesign:DataGridAssist.CellPadding="5 0 0 0"
-                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 2 5"
+                              materialDesign:DataGridAssist.CellPadding="10 0 10 0"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="10 5 10 5"
                               SelectionMode="Extended"
                               CanUserSortColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" />
-                            <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" />
+                            <DataGridTextColumn Header="First name" Binding="{Binding Name.FirstName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Last name" Binding="{Binding Name.LastName, Mode=OneWay}" CellStyle="{StaticResource LeftCell}"  />
+                            <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth.Value, Mode=OneWay, StringFormat=yyyy-MM-dd}" 
+                                                CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Position" Binding="{Binding Position, Mode=OneWay}" 
+                                                CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" 
+                                                CellStyle="{StaticResource LeftCell}" />
+                            <DataGridTextColumn Header="Team" Binding="{Binding AffiliatedTeamName, Mode=OneWay}" 
+                                                CellStyle="{StaticResource LeftCell}" />
 
-                            <DataGridTemplateColumn Header="Edit">
+                            <DataGridTemplateColumn Header="Edit" CellStyle="{StaticResource CenterCell}">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
@@ -85,7 +92,10 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="Delete">
+                            <DataGridTemplateColumn Header="Delete" CellStyle="{StaticResource CenterCell}">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style BasedOn="{StaticResource CenterHeader}" TargetType="{x:Type DataGridColumnHeader}" />
+                                </DataGridTemplateColumn.HeaderStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"

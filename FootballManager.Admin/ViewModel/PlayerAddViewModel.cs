@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -49,7 +50,7 @@ namespace FootballManager.Admin.ViewModel
             this.SelectedItemPlayerPosition = this.PlayerPosition.ElementAt(0);
             this.SelectedItemPlayerStatus = this.PlayerStatus.ElementAt(0);
             this.unAffiliatedTeam = new Team(new TeamName("Unaffiliated"),
-                new ArenaName("Unaffiliated"), new EmailAddress("unaffiliated@unaffiliated.com") );
+                new ArenaName("Unaffiliated"), new EmailAddress("unaffiliated@unaffiliated.com"));
             allTeams.Add(unAffiliatedTeam);
         }
 
@@ -102,7 +103,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         DateTime dateOfBirth;
-                        if (!DateTime.TryParse(this.DateOfBirth, out dateOfBirth))
+                        if (!DateTime.TryParseExact(this.DateOfBirth, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth))
                         {
                             this.validProperties[columnName] = false;
                             ValidateProperties();
@@ -137,7 +138,7 @@ namespace FootballManager.Admin.ViewModel
                     case "SelectedItemTeam":
                         if (this.SelectedItemTeam == null)
                         {
-                            this.validProperties[columnName] = true;
+                            this.validProperties[columnName] = false;
                             ValidateProperties();
                             return string.Empty;
                         }

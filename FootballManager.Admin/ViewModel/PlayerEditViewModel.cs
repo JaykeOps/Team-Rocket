@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace FootballManager.Admin.ViewModel
 {
@@ -82,7 +83,7 @@ namespace FootballManager.Admin.ViewModel
                             return string.Empty;
                         }
                         DateTime dateOfBirth;
-                        if (!DateTime.TryParse(this.DateOfBirth, out dateOfBirth))
+                        if (!DateTime.TryParseExact(this.DateOfBirth, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth))
                         {
                             this.validProperties[columnName] = false;
                             ValidateProperties();
