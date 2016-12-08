@@ -255,6 +255,7 @@ namespace Domain.Services
         public void RemovePlayer(Guid playerId)
         {
             this.repository.RemovePlayer(playerId);
+            
         }
 
         public void AssignPlayerToTeam(IExposablePlayer exposablePlayer, Guid teamId)

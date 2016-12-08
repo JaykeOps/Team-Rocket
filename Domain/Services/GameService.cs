@@ -253,6 +253,7 @@ namespace Domain.Services
             if (gameId != Guid.Empty)
             {
                 this.repository.RemoveGame(DomainService.FindGameById(gameId));
+                
             }
         }
 

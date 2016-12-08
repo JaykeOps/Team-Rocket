@@ -66,6 +66,7 @@ namespace Domain.Services
             if (matchId != Guid.Empty)
             {
                 this.repository.RemoveMatch(DomainService.FindMatchById(matchId));
+                
             }
         }
 

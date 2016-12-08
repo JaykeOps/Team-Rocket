@@ -97,26 +97,20 @@ namespace FootballManager.Admin.ViewModel
         private void DeleteTeam(object obj)
         {
             var allSeries = this.seriesService.GetAll();
+            var containsTeam = allSeries.Count() != 0
+                ? allSeries.Any(x => x.TeamIds.Contains(this.SelectedTeam.Id))
+                : false;
 
-            if (allSeries.Count() != 0)
+            if (containsTeam)
             {
-                foreach (var series in allSeries)
-                {
-                    if (series.TeamIds.Contains(this.selectedTeam.Id))
-                    {
-                        MessageBox.Show($"Cannot delete {this.selectedTeam}\n" +
-                        $"{this.selectedTeam} exists in series {series}");
-                    }
-                }
+                MessageBox.Show($"Cannot delete {this.selectedTeam}");
             }
             else
             {
-                this.teams.Remove(this.selectedTeam);
                 this.teamService.RemoveTeam(this.selectedTeam.Id);
-            }            
+                this.teams.Remove(this.selectedTeam);
+            }
         }
-    
-    
 
         private void OpenTeamAddView(object obj)
         {

@@ -125,6 +125,7 @@ namespace Domain.Repositories
         public void RemoveGame(Game game)
         {
             this.games.Remove(game);
+            this.SaveData();
         }
 
         public IEnumerable<Game> GetAll()
