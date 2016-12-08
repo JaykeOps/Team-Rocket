@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Domain">
+      <HintPath>..\..\..\..\..\Team-Rocket Football Manager v0.2\Domain.dll</HintPath>
+    </Reference>
     <Reference Include="Dragablz, Version=0.0.3.178, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.178\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
@@ -274,12 +277,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Messages\" />
     <Folder Include="Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{E2703442-6676-4D69-854C-F43FF21E7F01}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BarcelonaFC.png" />
